@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Academic Index · Signing Day Advisors</title>
+<meta name="description" content="How the Academic Index works for Ivy League and NESCAC recruiting, and how Signing Day Advisors calculates it correctly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================================
+     SHARED TOKENS + COMPONENTS
+     Kept identical to index.html so both pages read as one site.
+     (If you later extract these into a shared styles.css, link it from both
+     pages and delete this block — see the note in the handoff.)
+     ========================================================================== */
+  :root{
+    --navy:#0F2A4A;
+    --navy-deep:#0A1E38;
+    --navy-soft:#16395E;
+    --gold:#C9A13B;
+    --gold-soft:#D9B968;
+    --cream:#F7F5EF;
+    --cream-2:#EFEBE0;
+    --ink:#22303F;
+    --muted:#6C6A63;
+    --line:#DED9CC;
+    --white-warm:#F3F1EA;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.1;letter-spacing:-0.5px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,42,74,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,161,59,0.25);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--white-warm)}
+  .brand-mark{width:28px;height:34px;flex:none}
+  .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:500;letter-spacing:0.3px}
+  .nav-links{display:flex;gap:34px;align-items:center}
+  .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
+  .nav-links a:hover{color:var(--gold-soft)}
+  .nav-links a.active{color:var(--gold-soft)}
+  .nav-cta{
+    border:1px solid var(--gold);
+    color:var(--gold-soft);
+    padding:9px 18px;border-radius:2px;font-size:13px;
+    transition:all .2s;
+  }
+  .nav-cta:hover{background:var(--gold);color:var(--navy)}
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:96px 0}
+  .section-head{max-width:640px;margin-bottom:56px}
+  .section-head .eyebrow{color:var(--gold);margin-bottom:18px;display:block}
+  .section-head h2{font-size:clamp(30px,4vw,42px);color:var(--navy);margin-bottom:18px}
+  .section-head p{font-size:17px;color:var(--muted)}
+
+  /* ---------- BUTTONS ---------- */
+  .btn-gold{
+    background:var(--gold);color:var(--navy);
+    padding:15px 30px;border-radius:2px;font-size:15px;font-weight:600;
+    display:inline-block;transition:all .2s;
+  }
+  .btn-gold:hover{background:var(--gold-soft);transform:translateY(-1px)}
+
+  /* ---------- CLOSING ---------- */
+  .closing{background:var(--cream-2);text-align:center}
+  .closing h2{font-size:clamp(30px,4vw,46px);color:var(--navy);max-width:640px;margin:0 auto 22px}
+  .closing p{font-size:17px;color:var(--muted);max-width:500px;margin:0 auto 34px}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-deep);color:#8FA0B3;padding:64px 0 40px}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:32px;margin-bottom:28px}
+  .foot-brand{display:flex;align-items:center;gap:12px;color:#fff}
+  .foot-links{display:flex;gap:40px;flex-wrap:wrap}
+  .foot-col h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:500}
+  .foot-col a{display:block;font-size:14px;color:#A9B7C6;margin-bottom:9px;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .disclaimer{font-size:12px;color:#5E6E80;line-height:1.6;max-width:820px}
+  .placeholder-note{
+    background:rgba(201,161,59,0.12);border:1px solid rgba(201,161,59,0.4);
+    color:var(--gold-soft);font-family:'IBM Plex Mono',monospace;font-size:11px;
+    padding:4px 10px;border-radius:2px;display:inline-block;margin-top:10px;
+  }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+
+  @media(max-width:760px){
+    .nav-links{display:none}
+    .wrap{padding:0 22px}
+    section{padding:72px 0}
+  }
+
+  /* ==========================================================================
+     ACADEMIC INDEX PAGE — page-specific styles
+     ========================================================================== */
+
+  /* page header / hero */
+  .page-hero{background:var(--navy);color:var(--white-warm);position:relative;overflow:hidden}
+  .page-hero-inner{padding:56px 0 68px;position:relative;z-index:2;max-width:760px}
+  .breadcrumb{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;
+    color:#A9B7C6;margin-bottom:30px;display:inline-flex;align-items:center;gap:8px;transition:color .2s;
+  }
+  .breadcrumb:hover{color:var(--gold-soft)}
+  .breadcrumb .arw{color:var(--gold);transition:transform .2s}
+  .breadcrumb:hover .arw{transform:translateX(-3px)}
+  .page-hero .eyebrow{margin-bottom:18px;display:block}
+  .page-hero h1{font-size:clamp(34px,5.5vw,58px);color:#fff;margin-bottom:22px}
+  .page-hero h1 em{font-style:italic;color:var(--gold-soft)}
+  .page-hero p.lead{font-size:18px;color:#C7D2DE;max-width:620px}
+
+  /* in-page jump nav */
+  .jump{border-top:1px solid rgba(201,161,59,0.28);margin-top:44px;padding-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .jump a{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.5px;
+    color:#C7D2DE;border:1px solid rgba(255,255,255,0.14);border-radius:2px;
+    padding:7px 13px;transition:all .2s;
+  }
+  .jump a:hover{border-color:var(--gold);color:var(--gold-soft)}
+
+  /* content blocks */
+  .block{padding:88px 0}
+  .block.tint{background:var(--white-warm)}
+  .block.navy{background:var(--navy);color:var(--white-warm)}
+  .block.navy .section-head h2{color:#fff}
+  .block.navy .section-head p{color:#C7D2DE}
+  .prose{max-width:680px}
+  .prose p{font-size:16px;color:var(--ink);margin-bottom:16px}
+  .block.navy .prose p{color:#C7D2DE}
+
+  /* calculation component cards */
+  .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:760px){.comp-grid{grid-template-columns:1fr}}
+  .comp{border:1px solid var(--line);border-radius:6px;padding:28px 24px;background:#fff}
+  .comp .c-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--gold);margin-bottom:16px}
+  .comp h3{font-size:19px;color:var(--navy);margin-bottom:10px}
+  .comp p{font-size:14.5px;color:var(--muted)}
+
+  /* bands table */
+  .band-table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .band-table th,.band-table td{text-align:left;padding:14px 20px;border-bottom:1px solid var(--line);font-size:14.5px}
+  .band-table th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:var(--cream)}
+  .band-table td.v{font-family:'IBM Plex Mono',monospace;color:var(--navy)}
+  .band-table tr:last-child td{border-bottom:none}
+
+  /* callout that ties back to the assessment */
+  .tie-in{
+    display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;
+    background:var(--navy);border-radius:8px;padding:40px 44px;color:var(--white-warm);
+  }
+  .tie-in h3{font-size:clamp(22px,2.6vw,28px);color:#fff;margin-bottom:10px}
+  .tie-in p{font-size:15px;color:#A9B7C6;max-width:520px}
+</style>
+</head>
+<body>
+
+<!-- NAV — links point back up one level to the homepage -->
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="../">
+      <svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6" fill="none"/>
+        <path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/>
+        <line x1="20" y1="17" x2="20" y2="33" stroke="#0F2A4A" stroke-width="1"/>
+      </svg>
+      <span class="brand-name">Signing Day Advisors</span>
+    </a>
+    <div class="nav-links">
+      <a href="../#approach">Our Approach</a>
+      <a href="../#assessment">Assessment</a>
+      <a href="../#programs">Programs</a>
+      <a class="active" href="./">Academic Index</a>
+      <a class="nav-cta" href="../#contact">Book a consultation</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<header class="page-hero" id="top">
+  <div class="wrap">
+    <div class="page-hero-inner">
+      <a class="breadcrumb" href="../"><span class="arw">←</span> Back to Signing Day Advisors</a>
+      <span class="eyebrow">The metric</span>
+      <h1>The Academic Index, <em>explained.</em></h1>
+      <p class="lead">Every Ivy League and NESCAC coach uses the Academic Index to decide who they can recruit. This page breaks down what it is, how it's built, and how your athlete's number compares.</p>
+
+      <!-- On-this-page jump links -->
+      <nav class="jump" aria-label="On this page">
+        <a href="#what">What it is</a>
+        <a href="#how">How it's calculated</a>
+        <a href="#bands">Bands &amp; ranges</a>
+        <a href="#coaches">How coaches use it</a>
+        <a href="#your-number">Your athlete's number</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT IT IS -->
+<section class="block" id="what">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">01 · Definition</span>
+      <h2>What is the Academic Index?</h2>
+      <p>A single number that summarizes an applicant's academic profile, used by highly selective programs to keep recruited athletes within an academic range.</p>
+    </div>
+    <div class="prose reveal">
+      <p>Placeholder overview. Explain, in plain terms, what the Academic Index (AI) is, who created it, and which schools rely on it. Keep it to two or three short paragraphs so a parent skimming the page gets the gist immediately.</p>
+      <p>Second placeholder paragraph. This is a good spot to make the core promise concrete — that most families never see this number, and that seeing it early changes every decision that follows.</p>
+      <span class="placeholder-note">Draft real definition copy here</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT'S CALCULATED -->
+<section class="block tint" id="how">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">02 · Calculation</span>
+      <h2>How it's calculated.</h2>
+      <p>The Academic Index is built from a small set of academic inputs, each converted onto a common scale and combined into one figure.</p>
+    </div>
+    <div class="comp-grid reveal">
+      <div class="comp">
+        <div class="c-num">Input 01</div>
+        <h3>Component one</h3>
+        <p>Placeholder. Describe the first input and how it's converted onto the scale.</p>
+      </div>
+      <div class="comp">
+        <div class="c-num">Input 02</div>
+        <h3>Component two</h3>
+        <p>Placeholder. Describe the second input and its weighting.</p>
+      </div>
+      <div class="comp">
+        <div class="c-num">Input 03</div>
+        <h3>Component three</h3>
+        <p>Placeholder. Describe the third input and how the pieces combine into one number.</p>
+      </div>
+    </div>
+    <div class="reveal" style="margin-top:24px">
+      <span class="placeholder-note">Confirm the exact components, weights, and formula before publishing</span>
+    </div>
+  </div>
+</section>
+
+<!-- BANDS & RANGES -->
+<section class="block" id="bands">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">03 · Ranges</span>
+      <h2>Bands and ranges.</h2>
+      <p>Programs group recruits into academic bands. Where an athlete lands determines how much athletic strength is needed to earn support.</p>
+    </div>
+    <div class="reveal">
+      <table class="band-table">
+        <thead>
+          <tr><th>Band</th><th>Academic Index range</th><th>What it typically means</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="v">A</td><td class="v">XXX–XXX</td><td>Placeholder description of this band.</td></tr>
+          <tr><td class="v">B</td><td class="v">XXX–XXX</td><td>Placeholder description of this band.</td></tr>
+          <tr><td class="v">C</td><td class="v">XXX–XXX</td><td>Placeholder description of this band.</td></tr>
+          <tr><td class="v">D</td><td class="v">XXX–XXX</td><td>Placeholder description of this band.</td></tr>
+        </tbody>
+      </table>
+      <span class="placeholder-note">Replace band letters, ranges, and notes with verified figures</span>
+    </div>
+  </div>
+</section>
+
+<!-- HOW COACHES USE IT -->
+<section class="block navy" id="coaches">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">04 · In practice</span>
+      <h2>How coaches actually use it.</h2>
+      <p>The number is only half the story. What matters is how it meets the athletic side when a coach builds a recruiting class.</p>
+    </div>
+    <div class="prose reveal">
+      <p>Placeholder. Explain how a coach weighs the Academic Index against athletic performance, how team-wide averages constrain who they can take, and where a strong athlete with a modest index — or the reverse — actually stands.</p>
+      <p>Second placeholder paragraph. This is where the "both sides of the desk" positioning pays off, so write it in the voice a coach would recognize as true.</p>
+      <span class="placeholder-note">Draft the coach's-eye-view copy here</span>
+    </div>
+  </div>
+</section>
+
+<!-- YOUR ATHLETE'S NUMBER (tie back to the assessment) -->
+<section class="block tint" id="your-number">
+  <div class="wrap">
+    <div class="reveal tie-in">
+      <div>
+        <h3>See your athlete's number.</h3>
+        <p>The Recruiting Assessment calculates your athlete's Academic Index correctly and shows exactly where it lands against target rosters.</p>
+      </div>
+      <a class="btn-gold" href="../#assessment">Start the assessment</a>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing" id="contact">
+  <div class="wrap reveal">
+    <h2>Start with an honest conversation.</h2>
+    <p>A free, fifteen-minute consultation to talk through where your athlete stands and whether we're the right fit.</p>
+    <a class="btn-gold" href="../#contact">Book a free consultation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6" fill="none"/>
+            <path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/>
+          </svg>
+          <span class="brand-name" style="font-size:17px">Signing Day Advisors</span>
+        </div>
+        <div class="placeholder-note">Working name — swap once trademark &amp; domain clear</div>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Explore</h4>
+          <a href="../#approach">Our Approach</a>
+          <a href="../#assessment">Assessment</a>
+          <a href="../#programs">Programs</a>
+          <a href="./">Academic Index</a>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <a href="../#team">The Team</a>
+          <a href="../#">Resources</a>
+          <a href="../#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer">
+      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee admission, athletic offers, roster spots, or scholarships, and we are not affiliated with any college, university, the Ivy League, or the NCAA. Academic Index and banding figures are estimates based on information provided by the family.
+    </p>
+  </div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>

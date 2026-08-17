@@ -53,7 +53,6 @@
   .brand{display:flex;align-items:center;gap:12px;color:var(--white-warm)}
   .brand-mark{width:28px;height:34px;flex:none}
   .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:500;letter-spacing:0.3px}
-  .brand-logo{height:42px;width:auto;display:block}
   .nav-links{display:flex;gap:34px;align-items:center}
   .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
   .nav-links a:hover{color:var(--gold-soft)}
@@ -189,6 +188,30 @@
     .wrap{padding:0 22px}
     section{padding:72px 0}
   }
+
+  /* ---------- ACADEMIC INDEX TEASER (NEW) ---------- */
+  .ai-teaser{
+    display:flex;align-items:center;justify-content:space-between;gap:48px;
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:44px 48px;transition:all .25s;
+  }
+  .ai-teaser:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(15,42,74,0.35);border-color:var(--gold)}
+  .ai-teaser-text{max-width:600px}
+  .ai-teaser-text h2{font-size:clamp(26px,3vw,34px);color:var(--navy);margin:14px 0 16px}
+  .ai-teaser-text p{font-size:16px;color:var(--muted);margin-bottom:20px}
+  .ai-teaser-link{font-size:15px;color:var(--navy);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .ai-teaser-link span{color:var(--gold);transition:transform .2s}
+  .ai-teaser:hover .ai-teaser-link span{transform:translateX(4px)}
+  .ai-teaser-badge{
+    flex:none;background:var(--navy);border-radius:6px;padding:28px 36px;text-align:center;min-width:170px;
+  }
+  .ai-badge-label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .ai-badge-value{display:block;font-family:'IBM Plex Mono',monospace;font-size:44px;color:#fff;font-weight:500;line-height:1}
+  .ai-badge-note{display:block;font-size:11px;color:#7E8C9B;margin-top:10px}
+  @media(max-width:760px){
+    .ai-teaser{flex-direction:column;align-items:flex-start;padding:32px 24px;gap:28px}
+    .ai-teaser-badge{align-self:stretch}
+  }
 </style>
 </head>
 <body>
@@ -197,7 +220,12 @@
 <nav>
   <div class="wrap nav-inner">
     <a class="brand" href="#top">
-      <img src="logo.png" alt="Signing Day Advisors" class="brand-logo">
+      <svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6" fill="none"/>
+        <path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/>
+        <line x1="20" y1="17" x2="20" y2="33" stroke="#0F2A4A" stroke-width="1"/>
+      </svg>
+      <span class="brand-name">Signing Day Advisors</span>
     </a>
     <div class="nav-links">
       <a href="#approach">Our Approach</a>
@@ -212,9 +240,7 @@
 <!-- HERO -->
 <header class="hero" id="top">
   <svg class="benchmark" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- vertical standard axis -->
     <line x1="150" y1="40" x2="150" y2="400" stroke="#C9A13B" stroke-width="1" opacity="0.5"/>
-    <!-- tick marks (standards) -->
     <g stroke="#C9A13B" stroke-width="1" opacity="0.55">
       <line x1="140" y1="90" x2="290" y2="90"/>
       <line x1="140" y1="150" x2="330" y2="150"/>
@@ -222,14 +248,12 @@
       <line x1="140" y1="270" x2="350" y2="270"/>
       <line x1="140" y1="330" x2="280" y2="330"/>
     </g>
-    <!-- tiny labels -->
     <g fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">
       <text x="300" y="93">Ivy</text>
       <text x="340" y="153">NESCAC</text>
       <text x="310" y="213">D1</text>
       <text x="360" y="273">D3</text>
     </g>
-    <!-- the plotted athlete mark -->
     <circle cx="150" cy="188" r="8" fill="#C9A13B"/>
     <circle cx="150" cy="188" r="14" stroke="#D9B968" stroke-width="1" fill="none" opacity="0.6"/>
     <text x="168" y="184" fill="#fff" font-family="IBM Plex Mono, monospace" font-size="11">where you stand</text>
@@ -321,6 +345,25 @@
   </div>
 </section>
 
+<!-- ACADEMIC INDEX TEASER (NEW) -->
+<section id="academic-index-teaser" style="background:var(--white-warm)">
+  <div class="wrap">
+    <a class="ai-teaser reveal" href="academic-index/">
+      <div class="ai-teaser-text">
+        <span class="eyebrow">The metric</span>
+        <h2>The Academic Index, calculated correctly.</h2>
+        <p>Every Ivy League and NESCAC coach uses the Academic Index to evaluate recruits. We show you exactly how it's built, how your athlete's number compares, and what it takes to move it.</p>
+        <span class="ai-teaser-link">Learn how the Academic Index works <span>→</span></span>
+      </div>
+      <div class="ai-teaser-badge">
+        <span class="ai-badge-label">Academic Index</span>
+        <span class="ai-badge-value">211</span>
+        <span class="ai-badge-note">Illustrative</span>
+      </div>
+    </a>
+  </div>
+</section>
+
 <!-- PROGRAMS -->
 <section id="programs" style="background:var(--white-warm)">
   <div class="wrap">
@@ -371,7 +414,11 @@
     <div class="foot-top">
       <div>
         <div class="foot-brand">
-          <img src="logo.png" alt="Signing Day Advisors" class="brand-logo" style="height:52px">
+          <svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6" fill="none"/>
+            <path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/>
+          </svg>
+          <span class="brand-name" style="font-size:17px">Signing Day Advisors</span>
         </div>
         <div class="placeholder-note">Working name — swap once trademark & domain clear</div>
       </div>
@@ -397,7 +444,6 @@
 </footer>
 
 <script>
-  // scroll reveal
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
   },{threshold:0.15});
