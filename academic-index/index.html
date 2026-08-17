@@ -3,17 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Academic Index · Signing Day Advisors</title>
-<meta name="description" content="How the Academic Index works for Ivy League and NESCAC recruiting, and how Signing Day Advisors calculates it correctly.">
+<title>SDA Compass · Signing Day Advisors</title>
+<meta name="description" content="SDA Compass is Signing Day Advisors' recruiting fit index. It combines the recruiting Academic Index, athletic strength, and student profile into one school-by-school read on where an athlete fits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   /* ==========================================================================
-     SHARED TOKENS + COMPONENTS
-     Kept identical to index.html so both pages read as one site.
-     (If you later extract these into a shared styles.css, link it from both
-     pages and delete this block — see the note in the handoff.)
+     SHARED TOKENS + COMPONENTS  (kept identical to the homepage)
      ========================================================================== */
   :root{
     --navy:#0F2A4A;
@@ -74,7 +71,7 @@
 
   /* ---------- SECTIONS ---------- */
   section{padding:96px 0}
-  .section-head{max-width:640px;margin-bottom:56px}
+  .section-head{max-width:660px;margin-bottom:56px}
   .section-head .eyebrow{color:var(--gold);margin-bottom:18px;display:block}
   .section-head h2{font-size:clamp(30px,4vw,42px);color:var(--navy);margin-bottom:18px}
   .section-head p{font-size:17px;color:var(--muted)}
@@ -122,12 +119,12 @@
   }
 
   /* ==========================================================================
-     ACADEMIC INDEX PAGE — page-specific styles
+     SDA COMPASS PAGE — page-specific styles
      ========================================================================== */
 
   /* page header / hero */
   .page-hero{background:var(--navy);color:var(--white-warm);position:relative;overflow:hidden}
-  .page-hero-inner{padding:56px 0 68px;position:relative;z-index:2;max-width:760px}
+  .page-hero-inner{padding:56px 0 68px;position:relative;z-index:2;max-width:780px}
   .breadcrumb{
     font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;
     color:#A9B7C6;margin-bottom:30px;display:inline-flex;align-items:center;gap:8px;transition:color .2s;
@@ -135,13 +132,18 @@
   .breadcrumb:hover{color:var(--gold-soft)}
   .breadcrumb .arw{color:var(--gold);transition:transform .2s}
   .breadcrumb:hover .arw{transform:translateX(-3px)}
-  .page-hero .eyebrow{margin-bottom:18px;display:block}
-  .page-hero h1{font-size:clamp(34px,5.5vw,58px);color:#fff;margin-bottom:22px}
+  .page-hero .eyebrow{margin-bottom:18px;display:flex;align-items:center}
+  .page-hero h1{font-size:clamp(38px,6vw,64px);color:#fff;margin-bottom:22px}
   .page-hero h1 em{font-style:italic;color:var(--gold-soft)}
-  .page-hero p.lead{font-size:18px;color:#C7D2DE;max-width:620px}
+  .page-hero p.lead{font-size:18px;color:#C7D2DE;max-width:640px}
+  .compass-mark{width:20px;height:20px;margin-right:10px;flex:none}
+
+  /* faint compass motif, large screens only */
+  .compass-motif{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:360px;height:360px;opacity:0.5;z-index:1}
+  @media(max-width:960px){.compass-motif{display:none}}
 
   /* in-page jump nav */
-  .jump{border-top:1px solid rgba(201,161,59,0.28);margin-top:44px;padding-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .jump{border-top:1px solid rgba(201,161,59,0.28);margin-top:44px;padding-top:22px;display:flex;flex-wrap:wrap;gap:10px;position:relative;z-index:2}
   .jump a{
     font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.5px;
     color:#C7D2DE;border:1px solid rgba(255,255,255,0.14);border-radius:2px;
@@ -155,17 +157,21 @@
   .block.navy{background:var(--navy);color:var(--white-warm)}
   .block.navy .section-head h2{color:#fff}
   .block.navy .section-head p{color:#C7D2DE}
-  .prose{max-width:680px}
+  .prose{max-width:700px}
   .prose p{font-size:16px;color:var(--ink);margin-bottom:16px}
+  .prose h3{font-size:20px;color:var(--navy);margin-bottom:10px}
   .block.navy .prose p{color:#C7D2DE}
+  .block.navy .prose h3{color:#fff}
 
-  /* calculation component cards */
-  .comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  @media(max-width:760px){.comp-grid{grid-template-columns:1fr}}
-  .comp{border:1px solid var(--line);border-radius:6px;padding:28px 24px;background:#fff}
-  .comp .c-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--gold);margin-bottom:16px}
-  .comp h3{font-size:19px;color:var(--navy);margin-bottom:10px}
-  .comp p{font-size:14.5px;color:var(--muted)}
+  /* input / component cards */
+  .comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:900px){.comp-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:520px){.comp-grid{grid-template-columns:1fr}}
+  .comp{border:1px solid var(--line);border-radius:6px;padding:26px 22px;background:#fff;display:flex;flex-direction:column}
+  .comp .c-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--gold);margin-bottom:14px}
+  .comp h3{font-size:18px;color:var(--navy);margin-bottom:10px}
+  .comp p{font-size:14px;color:var(--muted)}
+  .comp .c-tag{margin-top:auto;align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--navy);background:rgba(201,161,59,0.16);border:1px solid rgba(201,161,59,0.45);border-radius:2px;padding:3px 9px;margin-top:16px}
 
   /* bands table */
   .band-table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
@@ -173,6 +179,41 @@
   .band-table th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:var(--cream)}
   .band-table td.v{font-family:'IBM Plex Mono',monospace;color:var(--navy)}
   .band-table tr:last-child td{border-bottom:none}
+
+  /* ---- sample readout ---- */
+  .chip{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;padding:2px 9px;border-radius:2px;letter-spacing:.5px;white-space:nowrap}
+  .chip.b-a{background:#E7F6EC;color:#1E7A43;border:1px solid #BFE4CC}
+  .chip.b-b{background:#FBF3DC;color:#8A6D16;border:1px solid #EAD9A6}
+  .chip.b-c{background:#FBE7DD;color:#A5502B;border:1px solid #F0CDBB}
+
+  .glance{list-style:none;margin:0 0 40px;padding:0;max-width:760px}
+  .glance li{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px}
+  .glance li:last-child{border-bottom:none}
+  .glance .g-school{font-weight:600;color:var(--navy);min-width:158px}
+  .glance .g-verdict{color:var(--muted)}
+
+  .fit-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff;-webkit-overflow-scrolling:touch}
+  .fit-table{width:100%;border-collapse:collapse;min-width:940px}
+  .fit-table th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-soft);background:var(--navy);padding:13px 14px;text-align:left;font-weight:500;white-space:nowrap}
+  .fit-table td{padding:15px 14px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top;color:var(--ink)}
+  .fit-table tr:last-child td{border-bottom:none}
+  .fit-table .num{font-family:'IBM Plex Mono',monospace;color:var(--navy);white-space:nowrap}
+  .fit-table .school{font-weight:600;color:var(--navy);white-space:nowrap}
+  .fit-table .lead-cell{font-weight:600;color:var(--navy)}
+  .fit-table .sub{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:4px;max-width:240px;line-height:1.45}
+  .fit-table .dir{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:.5px}
+
+  .ctx-note{font-size:13.5px;color:#A9B7C6;max-width:660px;margin:2px 0 18px}
+  .ctx-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:6px;overflow:hidden}
+  .ctx-table th,.ctx-table td{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.1);font-size:13px;text-align:center}
+  .ctx-table th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:rgba(255,255,255,0.03)}
+  .ctx-table td{color:#C7D2DE}
+  .ctx-table td:first-child,.ctx-table th:first-child{text-align:left;font-weight:600;color:#fff}
+  .ctx-table .num{font-family:'IBM Plex Mono',monospace;color:var(--gold-soft)}
+  .ctx-table tr:last-child td{border-bottom:none}
+
+  .mini-caveat{font-size:12.5px;color:var(--muted);max-width:760px;margin-top:20px;line-height:1.6}
+  .block.navy .mini-caveat{color:#7E8C9B}
 
   /* callout that ties back to the assessment */
   .tie-in{
@@ -185,7 +226,7 @@
 </head>
 <body>
 
-<!-- NAV — links point back up one level to the homepage -->
+<!-- NAV -->
 <nav>
   <div class="wrap nav-inner">
     <a class="brand" href="../">
@@ -200,7 +241,7 @@
       <a href="../#approach">Our Approach</a>
       <a href="../#assessment">Assessment</a>
       <a href="../#programs">Programs</a>
-      <a class="active" href="./">Academic Index</a>
+      <a class="active" href="./">SDA Compass</a>
       <a class="nav-cta" href="../#contact">Book a consultation</a>
     </div>
   </div>
@@ -208,20 +249,46 @@
 
 <!-- PAGE HERO -->
 <header class="page-hero" id="top">
+  <svg class="compass-motif" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="86" stroke="#C9A13B" stroke-width="1" opacity="0.5"/>
+    <circle cx="100" cy="100" r="66" stroke="#C9A13B" stroke-width="1" opacity="0.35"/>
+    <g stroke="#C9A13B" stroke-width="1" opacity="0.5">
+      <line x1="100" y1="14" x2="100" y2="30"/>
+      <line x1="100" y1="170" x2="100" y2="186"/>
+      <line x1="14" y1="100" x2="30" y2="100"/>
+      <line x1="170" y1="100" x2="186" y2="100"/>
+    </g>
+    <path d="M100 40 L112 100 L100 160 L88 100 Z" fill="#C9A13B" opacity="0.9"/>
+    <path d="M100 40 L112 100 L100 100 Z" fill="#D9B968"/>
+    <circle cx="100" cy="100" r="4" fill="#0F2A4A" stroke="#C9A13B" stroke-width="1.4"/>
+    <g fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">
+      <text x="100" y="26">ACADEMICS</text>
+      <text x="100" y="182">FIT</text>
+    </g>
+    <text x="150" y="103" fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">ATHLETICS</text>
+    <text x="20" y="103" fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">PROFILE</text>
+  </svg>
+
   <div class="wrap">
     <div class="page-hero-inner">
       <a class="breadcrumb" href="../"><span class="arw">←</span> Back to Signing Day Advisors</a>
-      <span class="eyebrow">The metric</span>
-      <h1>The Academic Index, <em>explained.</em></h1>
-      <p class="lead">Every Ivy League and NESCAC coach uses the Academic Index to decide who they can recruit. This page breaks down what it is, how it's built, and how your athlete's number compares.</p>
+      <span class="eyebrow">
+        <svg class="compass-mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke="#C9A13B" stroke-width="1.4"/>
+          <path d="M12 5 L14.2 12 L12 19 L9.8 12 Z" fill="#C9A13B"/>
+          <circle cx="12" cy="12" r="1.4" fill="#F3F1EA"/>
+        </svg>
+        Our index
+      </span>
+      <h1>SDA Compass</h1>
+      <p class="lead">One read on fit, across every axis. SDA Compass brings together the recruiting Academic Index, athletic strength, and student profile, then measures your athlete against each target school so you see exactly where they stand and what it would take.</p>
 
-      <!-- On-this-page jump links -->
       <nav class="jump" aria-label="On this page">
         <a href="#what">What it is</a>
-        <a href="#how">How it's calculated</a>
-        <a href="#bands">Bands &amp; ranges</a>
-        <a href="#coaches">How coaches use it</a>
-        <a href="#your-number">Your athlete's number</a>
+        <a href="#inputs">The inputs</a>
+        <a href="#academic">Academic Index &amp; bands</a>
+        <a href="#axes">How the axes meet</a>
+        <a href="#readout">A sample readout</a>
       </nav>
     </div>
   </div>
@@ -231,62 +298,72 @@
 <section class="block" id="what">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">01 · Definition</span>
-      <h2>What is the Academic Index?</h2>
-      <p>A single number that summarizes an applicant's academic profile, used by highly selective programs to keep recruited athletes within an academic range.</p>
+      <span class="eyebrow">01 · The idea</span>
+      <h2>One index, built from every axis of recruiting.</h2>
+      <p>Recruiting is not decided by grades alone. SDA Compass reads the two axes coaches actually weigh, and layers the student profile on top, then reports the result school by school.</p>
     </div>
     <div class="prose reveal">
-      <p>Placeholder overview. Explain, in plain terms, what the Academic Index (AI) is, who created it, and which schools rely on it. Keep it to two or three short paragraphs so a parent skimming the page gets the gist immediately.</p>
-      <p>Second placeholder paragraph. This is a good spot to make the core promise concrete — that most families never see this number, and that seeing it early changes every decision that follows.</p>
-      <span class="placeholder-note">Draft real definition copy here</span>
+      <p>Most tools stop at academics. SDA Compass treats a recruit as a whole picture. Academics set the bar a coach has to clear to bring an athlete in. Athletic strength determines how far a coach is willing to reach to do it. The student profile of leadership, research, and activities rounds out the case.</p>
+      <p>The important part is that none of this is judged in the abstract. Every number is measured against a specific school, because a profile that is a clear yes at one program can be a genuine reach at a more selective one. SDA Compass gives you that read for each school on your list, in plain language.</p>
     </div>
   </div>
 </section>
 
-<!-- HOW IT'S CALCULATED -->
-<section class="block tint" id="how">
+<!-- THE INPUTS -->
+<section class="block tint" id="inputs">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">02 · Calculation</span>
-      <h2>How it's calculated.</h2>
-      <p>The Ivy League Academic Index runs on a 60 to 240 scale, built from just two academic inputs. Course rigor, essays, and activities matter to admissions, but they sit outside this number.</p>
+      <span class="eyebrow">02 · The inputs</span>
+      <h2>Four inputs, one read.</h2>
+      <p>SDA Compass is assembled from four measured inputs. Each is scored on its own, then combined into the school-by-school result.</p>
     </div>
     <div class="comp-grid reveal">
       <div class="comp">
         <div class="c-num">Input 01</div>
-        <h3>Converted GPA</h3>
-        <p>An unweighted GPA is mapped onto a 20 to 80 band. Where a school still ranks its students, class rank can stand in for GPA the same way.</p>
+        <h3>Academic Index</h3>
+        <p>The real Ivy and NESCAC recruiting metric, built from GPA and test score on the 60 to 240 scale, calculated correctly. It produces the academic band.</p>
+        <span class="c-tag">The gate</span>
       </div>
       <div class="comp">
         <div class="c-num">Input 02</div>
-        <h3>Test score</h3>
-        <p>An SAT total contributes on a 40 to 160 scale, roughly twice the pull of the GPA piece. An ACT is converted to its SAT equivalent first.</p>
+        <h3>Athletic strength</h3>
+        <p>Where an athlete's times rank against real rosters, expressed as a recruiting tier. This is how far a coach will reach to bring them in.</p>
+        <span class="c-tag">The lever</span>
       </div>
       <div class="comp">
-        <div class="c-num">Result</div>
-        <h3>A 60 to 240 index</h3>
-        <p>The two pieces sum to one number. Competitive Ivy recruits generally land in the 210s and 220s, with the most selective programs reading higher.</p>
+        <div class="c-num">Input 03</div>
+        <h3>Student profile</h3>
+        <p>Leadership, research, employment, activities, and legacy. The supporting case that rounds out a recruit beyond the numbers.</p>
+        <span class="c-tag">The support</span>
       </div>
-    </div>
-    <div class="prose reveal" style="margin-top:28px">
-      <p>Because the Ivies are test optional, we calculate the index two ways, once with the test score and once without, and lead with whichever is higher. A strong GPA paired with a modest test score sometimes scores better without the test, and knowing that is the difference between applying with the score and applying without it.</p>
-      <p>The exact weighting has never been published, so every version of this number is a reconstruction. Ours follows the standard convention, and we stay honest about what it can and cannot tell you.</p>
+      <div class="comp">
+        <div class="c-num">Input 04</div>
+        <h3>School context</h3>
+        <p>Each target school's own admitted-student profile. Everything above is measured relative to this, so the read is specific to the school.</p>
+        <span class="c-tag">The benchmark</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- BANDS & RANGES -->
-<section class="block" id="bands">
+<!-- ACADEMIC INDEX & BANDS -->
+<section class="block" id="academic">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">03 · Ranges</span>
-      <h2>Bands and ranges.</h2>
-      <p>There are two systems, and they answer different questions. The Ivy League reads the Academic Index as a number. NESCAC sorts recruits into letter bands. We calculate both.</p>
+      <span class="eyebrow">03 · The academic axis</span>
+      <h2>The Academic Index, and its bands.</h2>
+      <p>The academic input to SDA Compass is the real recruiting Academic Index. Course rigor, essays, and activities matter to admissions, but they sit outside this particular number.</p>
     </div>
 
     <div class="prose reveal">
-      <h3 style="font-size:20px;color:var(--navy);margin-bottom:10px">The Ivy Academic Index, by range</h3>
-      <p>On the 60 to 240 scale, where an athlete lands sets the academic bar a coach has to clear to bring them in. These are approximate benchmarks, since the underlying formula is not officially published.</p>
+      <h3>How it's calculated</h3>
+      <p>The Academic Index runs on a 60 to 240 scale, built from two inputs. An unweighted GPA is mapped onto a 20 to 80 band, and an SAT total contributes on a 40 to 160 scale, roughly twice the pull of the GPA piece. An ACT is converted to its SAT equivalent first, and where a school still ranks its students, class rank can stand in for GPA.</p>
+      <p>Because the Ivies are test optional, we calculate the index two ways, once with the test score and once without, and lead with whichever is higher. A strong GPA paired with a modest test score sometimes scores better without the test, and knowing that is the difference between applying with the score and applying without it. The exact weighting has never been published, so every version of this number is a reconstruction. Ours follows the standard convention, and we stay honest about what it can and cannot tell you.</p>
+    </div>
+
+    <div class="prose reveal" style="margin-top:40px">
+      <h3>The Ivy Academic Index, by range</h3>
+      <p>On the 60 to 240 scale, where an athlete lands sets the academic bar a coach has to clear. These are approximate benchmarks, since the underlying formula is not officially published.</p>
     </div>
     <div class="reveal" style="margin-top:20px">
       <table class="band-table">
@@ -305,36 +382,116 @@
     </div>
 
     <div class="prose reveal" style="margin-top:44px">
-      <h3 style="font-size:20px;color:var(--navy);margin-bottom:10px">NESCAC A, B, and C bands</h3>
+      <h3>NESCAC A, B, and C bands</h3>
       <p>NESCAC schools do not use a single cutoff. They sort recruits into an A, B, or C band relative to that school's own admitted class, and each team gets a limited number of slots in each band. The consequence that matters most is that the same athlete can be an A band at one school and a B band at a more selective one, because the bar moves with the school.</p>
       <p>An A band athlete is on par with the school's typical admit and clears the bar largely on academics. A B band sits just below and needs a coach to spend a slot. A C band is meaningfully below and is reserved for the athletes a coach most wants, which is why those slots are scarce. As a rule of thumb, a recruit should generally sit within about one standard deviation of the school's academic profile to be supportable.</p>
     </div>
   </div>
 </section>
 
-<!-- HOW COACHES USE IT -->
-<section class="block navy" id="coaches">
+<!-- HOW THE AXES MEET -->
+<section class="block navy" id="axes">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="eyebrow">04 · In practice</span>
-      <h2>How coaches actually use it.</h2>
-      <p>The number is only half the story. What matters is how it meets the athletic side when a coach builds a recruiting class.</p>
+      <span class="eyebrow">04 · The two axes</span>
+      <h2>How academics and athletics meet.</h2>
+      <p>The band is the gate. Athletic strength is the lever. What decides a recruit is how those two meet, school by school.</p>
     </div>
     <div class="prose reveal">
-      <p>The band is the academic gate. The athletic strength is the lever. What decides a recruit is how those two meet, and the rule is simple. The lower the band, the stronger the athlete has to be for a coach to justify the slot.</p>
-      <p>That means the same swim result changes the odds differently depending on the band. An A band athlete clears the bar on academics alone, so athletics is a bonus, and a modest result does not drag them down. A B band athlete sits just below the class, and this is where athletics swings the outcome, with a strong result pulling them up and a weak one leaving them exposed. A C band athlete is far enough below that only a coach's top priority earns one of the few available slots.</p>
-      <p>This is the read most families never get. Two athletes with the same academics can have completely different odds at the same school depending on their athletic tier, and the same athlete can be a clear yes at one school and a reach at another. We show you exactly where you stand, school by school, on both axes at once.</p>
+      <p>The rule is simple. The lower the band, the stronger the athlete has to be for a coach to justify the slot. That single relationship is what SDA Compass makes visible.</p>
+      <p>It also means the same result changes the odds differently depending on the band. An A band athlete clears the bar on academics alone, so athletics is a bonus, and a modest result does not drag them down. A B band athlete sits just below the class, and this is where athletics swings the outcome, with a strong result pulling them up and a weak one leaving them exposed. A C band athlete is far enough below that only a coach's top priority earns one of the few available slots.</p>
+      <p>This is the read most families never get. Two athletes with identical academics can have completely different odds at the same school depending on their athletic tier, and the same athlete can be a clear yes at one school and a reach at another. SDA Compass shows both axes at once, for every school on the list.</p>
     </div>
   </div>
 </section>
 
-<!-- YOUR ATHLETE'S NUMBER (tie back to the assessment) -->
-<section class="block tint" id="your-number">
+<!-- A SAMPLE READOUT -->
+<section class="block tint" id="readout">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">05 · The output</span>
+      <h2>What the readout looks like.</h2>
+      <p>For every school on the list, SDA Compass returns a plain verdict, the academic band and the athletic tier behind it, and a direct read on how the swimming moves the odds. Below is an illustrative sample for one athlete.</p>
+    </div>
+
+    <div class="reveal">
+      <h3 style="font-family:'Fraunces',serif;font-size:20px;color:var(--navy);margin-bottom:14px">At a glance</h3>
+      <ul class="glance">
+        <li><span class="g-school">Emory University</span> <span class="chip b-a">A band</span> <span class="g-verdict">Strong swimmer, Realistic</span></li>
+        <li><span class="g-school">Bowdoin College</span> <span class="chip b-b">B band</span> <span class="g-verdict">Strong swimmer, Realistic with coach support</span></li>
+        <li><span class="g-school">Yale University</span> <span class="chip b-c">C band</span> <span class="g-verdict">Strong swimmer, Reach</span></li>
+      </ul>
+    </div>
+
+    <div class="fit-wrap reveal">
+      <table class="fit-table">
+        <thead>
+          <tr>
+            <th>School</th><th>Academic Index</th><th>Campus AI</th><th>Gap</th>
+            <th>Band</th><th>Within 1 SD</th><th>Athletic tier</th><th>Realistic?</th><th>Swimming impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="school">Emory University</td>
+            <td class="num">216</td><td class="num">205</td><td class="num">+11</td>
+            <td><span class="chip b-a">A</span></td><td class="num">Yes</td><td>Strong</td>
+            <td class="lead-cell">Realistic<span class="sub">Academically in range on your own; a coach's support adds lift on top.</span></td>
+            <td><span class="dir">Adds lift</span><span class="sub">You clear the academic bar on your own, and a strong swim is a real bonus a coach's backing can turn into an even safer admit.</span></td>
+          </tr>
+          <tr>
+            <td class="school">Bowdoin College</td>
+            <td class="num">216</td><td class="num">226</td><td class="num">-10</td>
+            <td><span class="chip b-b">B</span></td><td class="num">Yes</td><td>Strong</td>
+            <td class="lead-cell">Realistic with coach support<span class="sub">Just below the class; a coach spending a B slot closes the gap.</span></td>
+            <td><span class="dir">Boosts odds</span><span class="sub">You're just below the class, and a strong swim is the lever that can earn coach support and lift you over the line.</span></td>
+          </tr>
+          <tr>
+            <td class="school">Yale University</td>
+            <td class="num">216</td><td class="num">236</td><td class="num">-20</td>
+            <td><span class="chip b-c">C</span></td><td class="num">No</td><td>Strong</td>
+            <td class="lead-cell">Reach<span class="sub">Significantly below the class; C slots usually go to elite-impact recruits.</span></td>
+            <td><span class="dir">Needs to be elite</span><span class="sub">Strong is not quite the elite-impact level a scarce C slot usually demands, so the swim would need to be truly special to move this.</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mini-caveat" style="color:var(--muted)">Illustrative figures for one sample athlete. Every SDA Compass report is specific to the athlete and the schools on their list. The Academic Index and bands reconstruct an undisclosed formula and are a planning tool, not a decision. A coach pre-read is the only authoritative read.</p>
+  </div>
+</section>
+
+<!-- ACADEMIC PROFILE CONTEXT (secondary detail) -->
+<section class="block navy">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">05 · Supporting detail</span>
+      <h2>Academic profile context.</h2>
+      <p>Beneath the headline, SDA Compass also shows how the athlete's full profile stands statistically among each school's enrolled students, where fifty is the average admit.</p>
+    </div>
+    <div class="reveal">
+      <p class="ctx-note">Supporting context only. The band read above is what the recruiting decision turns on. These figures describe standing versus enrolled students, not a probability of admission.</p>
+      <table class="ctx-table">
+        <thead>
+          <tr><th>School</th><th>Academic only</th><th>+ Athletic</th><th>+ Profile</th><th>Adjusted final</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Emory University</td><td class="num">62</td><td class="num">68</td><td class="num">74</td><td class="num">74</td></tr>
+          <tr><td>Bowdoin College</td><td class="num">44</td><td class="num">51</td><td class="num">58</td><td class="num">58</td></tr>
+          <tr><td>Yale University</td><td class="num">30</td><td class="num">37</td><td class="num">43</td><td class="num">46</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TIE BACK TO THE ASSESSMENT -->
+<section class="block tint">
   <div class="wrap">
     <div class="reveal tie-in">
       <div>
-        <h3>See your athlete's number.</h3>
-        <p>The Recruiting Assessment calculates your athlete's Academic Index correctly and shows exactly where it lands against target rosters.</p>
+        <h3>See your athlete's SDA Compass.</h3>
+        <p>The Recruiting Assessment builds your athlete's full SDA Compass and shows exactly where they land at each target school, on both axes.</p>
       </div>
       <a class="btn-gold" href="../#assessment">Start the assessment</a>
     </div>
@@ -370,7 +527,7 @@
           <a href="../#approach">Our Approach</a>
           <a href="../#assessment">Assessment</a>
           <a href="../#programs">Programs</a>
-          <a href="./">Academic Index</a>
+          <a href="./">SDA Compass</a>
         </div>
         <div class="foot-col">
           <h4>Company</h4>
@@ -381,7 +538,7 @@
       </div>
     </div>
     <p class="disclaimer">
-      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee admission, athletic offers, roster spots, or scholarships, and we are not affiliated with any college, university, the Ivy League, or the NCAA. Academic Index and banding figures are estimates based on information provided by the family.
+      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee admission, athletic offers, roster spots, or scholarships, and we are not affiliated with any college, university, the Ivy League, or the NCAA. SDA Compass, Academic Index, and banding figures are estimates based on information provided by the family.
     </p>
   </div>
 </footer>
