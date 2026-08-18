@@ -4,55 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SDA Compass · Signing Day Advisors</title>
-<meta name="description" content="SDA Compass is Signing Day Advisors' recruiting fit index. It combines the recruiting Academic Index, athletic strength, and student profile into one school-by-school read on where an athlete fits.">
+<meta name="description" content="SDA Compass shows how well an athlete fits each school on their list, in one simple read.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  /* ==========================================================================
-     SHARED TOKENS + COMPONENTS  (kept identical to the homepage)
-     ========================================================================== */
   :root{
-    --navy:#0F2A4A;
-    --navy-deep:#0A1E38;
-    --navy-soft:#16395E;
-    --gold:#C9A13B;
-    --gold-soft:#D9B968;
-    --cream:#F7F5EF;
-    --cream-2:#EFEBE0;
-    --ink:#22303F;
-    --muted:#6C6A63;
-    --line:#DED9CC;
-    --white-warm:#F3F1EA;
+    --navy:#0F2A4A;--navy-deep:#0A1E38;--navy-soft:#16395E;
+    --gold:#C9A13B;--gold-soft:#D9B968;
+    --cream:#F7F5EF;--cream-2:#EFEBE0;--ink:#22303F;--muted:#6C6A63;
+    --line:#DED9CC;--white-warm:#F3F1EA;
+    --green:#2E7D4F;--green-bg:#E7F6EC;--green-line:#BFE4CC;
+    --amber:#8A6D16;--amber-bg:#FBF3DC;--amber-line:#EAD9A6;
+    --rust:#A5502B;--rust-bg:#FBE7DD;--rust-line:#F0CDBB;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    font-family:'Inter',sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
   .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:12px;
-    letter-spacing:2.5px;
-    text-transform:uppercase;
-    color:var(--gold);
-    font-weight:500;
-  }
-  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.1;letter-spacing:-0.5px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.12;letter-spacing:-0.5px}
   a{color:inherit;text-decoration:none}
 
-  /* ---------- NAV ---------- */
-  nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(15,42,74,0.96);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid rgba(201,161,59,0.25);
-  }
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,59,0.25)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
   .brand{display:flex;align-items:center;gap:12px;color:var(--white-warm)}
   .brand-mark{width:28px;height:34px;flex:none}
@@ -61,35 +36,95 @@
   .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
   .nav-links a:hover{color:var(--gold-soft)}
   .nav-links a.active{color:var(--gold-soft)}
-  .nav-cta{
-    border:1px solid var(--gold);
-    color:var(--gold-soft);
-    padding:9px 18px;border-radius:2px;font-size:13px;
-    transition:all .2s;
-  }
+  .nav-cta{border:1px solid var(--gold);color:var(--gold-soft);padding:9px 18px;border-radius:2px;font-size:13px;transition:all .2s}
   .nav-cta:hover{background:var(--gold);color:var(--navy)}
 
-  /* ---------- SECTIONS ---------- */
-  section{padding:96px 0}
-  .section-head{max-width:660px;margin-bottom:56px}
-  .section-head .eyebrow{color:var(--gold);margin-bottom:18px;display:block}
-  .section-head h2{font-size:clamp(30px,4vw,42px);color:var(--navy);margin-bottom:18px}
-  .section-head p{font-size:17px;color:var(--muted)}
+  /* HERO (centered) */
+  .hero{background:var(--navy);color:var(--white-warm);text-align:center;padding:44px 0 96px;position:relative;overflow:hidden}
+  .back{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:#A9B7C6;transition:color .2s}
+  .back:hover{color:var(--gold-soft)}
+  .back .arw{color:var(--gold)}
+  .hero-inner{max-width:640px;margin:0 auto}
+  .compass-hero{width:min(340px,80vw);height:auto;margin:26px auto 30px;display:block}
+  .hero .eyebrow{display:block;margin-bottom:16px}
+  .hero h1{font-size:clamp(42px,7vw,72px);color:#fff;margin-bottom:18px}
+  .hero p{font-size:clamp(17px,2.2vw,20px);color:#C7D2DE;max-width:520px;margin:0 auto}
 
-  /* ---------- BUTTONS ---------- */
-  .btn-gold{
-    background:var(--gold);color:var(--navy);
-    padding:15px 30px;border-radius:2px;font-size:15px;font-weight:600;
-    display:inline-block;transition:all .2s;
-  }
+  /* SECTIONS */
+  .s{padding:96px 0}
+  .s.navy{background:var(--navy);color:var(--white-warm)}
+  .s.tint{background:var(--white-warm)}
+  .s-head{max-width:640px;margin:0 auto 56px;text-align:center}
+  .s-head h2{font-size:clamp(28px,4vw,40px);color:var(--navy);margin-bottom:14px}
+  .s.navy .s-head h2{color:#fff}
+  .s-head p{font-size:17px;color:var(--muted)}
+  .s.navy .s-head p{color:#C7D2DE}
+
+  /* three inputs */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;max-width:900px;margin:0 auto;text-align:center}
+  .ic{width:76px;height:76px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+  .ic svg{width:36px;height:36px}
+  .three h3{font-size:21px;color:var(--navy);margin-bottom:8px}
+  .three p{font-size:15px;color:var(--muted);max-width:240px;margin:0 auto}
+  @media(max-width:720px){.three{grid-template-columns:1fr;gap:44px}}
+
+  /* how it works (door + push) */
+  .gate{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:760px;margin:0 auto}
+  .gate-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.14);border-radius:12px;padding:34px 28px;text-align:center}
+  .gate-ic{width:64px;height:64px;border-radius:50%;background:rgba(201,161,59,0.15);border:1px solid rgba(201,161,59,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .gate-ic svg{width:32px;height:32px}
+  .gate-card h3{font-size:19px;color:#fff;margin-bottom:8px}
+  .gate-card p{font-size:15px;color:#A9B7C6}
+  .gate-rule{max-width:600px;margin:34px auto 0;text-align:center;font-size:clamp(18px,2.4vw,22px);font-family:'Fraunces',serif;color:var(--gold-soft);line-height:1.35}
+  @media(max-width:560px){.gate{grid-template-columns:1fr;gap:18px}}
+
+  /* fit levels */
+  .fits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto}
+  .fit{background:#fff;border:1px solid var(--line);border-radius:12px;padding:32px 26px;text-align:center;border-top:4px solid var(--line)}
+  .fit.g{border-top-color:var(--green)}
+  .fit.a{border-top-color:var(--gold)}
+  .fit.r{border-top-color:var(--rust)}
+  .fit-ic{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .fit.g .fit-ic{background:var(--green-bg)}
+  .fit.a .fit-ic{background:var(--amber-bg)}
+  .fit.r .fit-ic{background:var(--rust-bg)}
+  .fit-ic svg{width:28px;height:28px}
+  .fit h3{font-size:20px;margin-bottom:8px}
+  .fit.g h3{color:var(--green)}
+  .fit.a h3{color:var(--amber)}
+  .fit.r h3{color:var(--rust)}
+  .fit p{font-size:15px;color:var(--muted)}
+  @media(max-width:720px){.fits{grid-template-columns:1fr;gap:16px}}
+  .note{text-align:center;max-width:520px;margin:40px auto 0;font-size:14px;color:var(--muted)}
+
+  /* how it works (steps) */
+  .steps{display:flex;align-items:flex-start;justify-content:center;gap:6px;max-width:920px;margin:0 auto;flex-wrap:wrap}
+  .step{flex:1 1 210px;max-width:250px;text-align:center}
+  .step-badge{position:relative;width:66px;height:66px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+  .step-badge svg{width:30px;height:30px}
+  .step-n{position:absolute;top:-7px;right:-7px;width:24px;height:24px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:18px;color:var(--navy);margin-bottom:6px}
+  .step p{font-size:14px;color:var(--muted);max-width:210px;margin:0 auto}
+  .step-arrow{align-self:flex-start;margin-top:24px;color:var(--gold);font-size:24px;line-height:1}
+  @media(max-width:720px){.steps{flex-direction:column;align-items:center;gap:28px}.step-arrow{transform:rotate(90deg);margin:0}}
+
+  /* clickable How it works card */
+  .how-link{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:16px;padding:46px 32px 40px;max-width:1000px;margin:0 auto;text-align:center;transition:all .25s}
+  .how-link:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(15,42,74,0.35);border-color:var(--gold)}
+  .how-link .s-head{margin-bottom:40px}
+  .how-cta{display:inline-flex;align-items:center;gap:8px;margin-top:36px;background:var(--gold);color:var(--navy);font-weight:600;font-size:15px;padding:14px 28px;border-radius:2px;transition:all .2s}
+  .how-link:hover .how-cta{background:var(--gold-soft)}
+  .how-cta .a{transition:transform .2s}
+  .how-link:hover .how-cta .a{transform:translateX(4px)}
+
+  /* CTA */
+  .cta{background:var(--cream-2);text-align:center}
+  .cta h2{font-size:clamp(30px,4vw,44px);color:var(--navy);margin-bottom:16px}
+  .cta p{font-size:17px;color:var(--muted);margin-bottom:32px}
+  .btn-gold{background:var(--gold);color:var(--navy);padding:15px 32px;border-radius:2px;font-size:15px;font-weight:600;display:inline-block;transition:all .2s}
   .btn-gold:hover{background:var(--gold-soft);transform:translateY(-1px)}
 
-  /* ---------- CLOSING ---------- */
-  .closing{background:var(--cream-2);text-align:center}
-  .closing h2{font-size:clamp(30px,4vw,46px);color:var(--navy);max-width:640px;margin:0 auto 22px}
-  .closing p{font-size:17px;color:var(--muted);max-width:500px;margin:0 auto 34px}
-
-  /* ---------- FOOTER ---------- */
+  /* FOOTER */
   footer{background:var(--navy-deep);color:#8FA0B3;padding:64px 0 40px}
   .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:32px;margin-bottom:28px}
   .foot-brand{display:flex;align-items:center;gap:12px;color:#fff}
@@ -98,130 +133,14 @@
   .foot-col a{display:block;font-size:14px;color:#A9B7C6;margin-bottom:9px;transition:color .2s}
   .foot-col a:hover{color:#fff}
   .disclaimer{font-size:12px;color:#5E6E80;line-height:1.6;max-width:820px}
-  .placeholder-note{
-    background:rgba(201,161,59,0.12);border:1px solid rgba(201,161,59,0.4);
-    color:var(--gold-soft);font-family:'IBM Plex Mono',monospace;font-size:11px;
-    padding:4px 10px;border-radius:2px;display:inline-block;margin-top:10px;
-  }
+  .placeholder-note{background:rgba(201,161,59,0.12);border:1px solid rgba(201,161,59,0.4);color:var(--gold-soft);font-family:'IBM Plex Mono',monospace;font-size:11px;padding:4px 10px;border-radius:2px;display:inline-block;margin-top:10px}
 
-  /* ---------- REVEAL ---------- */
+  /* reveal */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    .reveal{opacity:1;transform:none;transition:none}
-  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
 
-  @media(max-width:760px){
-    .nav-links{display:none}
-    .wrap{padding:0 22px}
-    section{padding:72px 0}
-  }
-
-  /* ==========================================================================
-     SDA COMPASS PAGE — page-specific styles
-     ========================================================================== */
-
-  /* page header / hero */
-  .page-hero{background:var(--navy);color:var(--white-warm);position:relative;overflow:hidden}
-  .page-hero-inner{padding:56px 0 68px;position:relative;z-index:2;max-width:780px}
-  .breadcrumb{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;
-    color:#A9B7C6;margin-bottom:30px;display:inline-flex;align-items:center;gap:8px;transition:color .2s;
-  }
-  .breadcrumb:hover{color:var(--gold-soft)}
-  .breadcrumb .arw{color:var(--gold);transition:transform .2s}
-  .breadcrumb:hover .arw{transform:translateX(-3px)}
-  .page-hero .eyebrow{margin-bottom:18px;display:flex;align-items:center}
-  .page-hero h1{font-size:clamp(38px,6vw,64px);color:#fff;margin-bottom:22px}
-  .page-hero h1 em{font-style:italic;color:var(--gold-soft)}
-  .page-hero p.lead{font-size:18px;color:#C7D2DE;max-width:640px}
-  .compass-mark{width:20px;height:20px;margin-right:10px;flex:none}
-
-  /* faint compass motif, large screens only */
-  .compass-motif{position:absolute;right:-30px;top:50%;transform:translateY(-50%);width:360px;height:360px;opacity:0.5;z-index:1}
-  @media(max-width:960px){.compass-motif{display:none}}
-
-  /* in-page jump nav */
-  .jump{border-top:1px solid rgba(201,161,59,0.28);margin-top:44px;padding-top:22px;display:flex;flex-wrap:wrap;gap:10px;position:relative;z-index:2}
-  .jump a{
-    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.5px;
-    color:#C7D2DE;border:1px solid rgba(255,255,255,0.14);border-radius:2px;
-    padding:7px 13px;transition:all .2s;
-  }
-  .jump a:hover{border-color:var(--gold);color:var(--gold-soft)}
-
-  /* content blocks */
-  .block{padding:88px 0}
-  .block.tint{background:var(--white-warm)}
-  .block.navy{background:var(--navy);color:var(--white-warm)}
-  .block.navy .section-head h2{color:#fff}
-  .block.navy .section-head p{color:#C7D2DE}
-  .prose{max-width:700px}
-  .prose p{font-size:16px;color:var(--ink);margin-bottom:16px}
-  .prose h3{font-size:20px;color:var(--navy);margin-bottom:10px}
-  .block.navy .prose p{color:#C7D2DE}
-  .block.navy .prose h3{color:#fff}
-
-  /* input / component cards */
-  .comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-  @media(max-width:900px){.comp-grid{grid-template-columns:repeat(2,1fr)}}
-  @media(max-width:520px){.comp-grid{grid-template-columns:1fr}}
-  .comp{border:1px solid var(--line);border-radius:6px;padding:26px 22px;background:#fff;display:flex;flex-direction:column}
-  .comp .c-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--gold);margin-bottom:14px}
-  .comp h3{font-size:18px;color:var(--navy);margin-bottom:10px}
-  .comp p{font-size:14px;color:var(--muted)}
-  .comp .c-tag{margin-top:auto;align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--navy);background:rgba(201,161,59,0.16);border:1px solid rgba(201,161,59,0.45);border-radius:2px;padding:3px 9px;margin-top:16px}
-
-  /* bands table */
-  .band-table{width:100%;border-collapse:collapse;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:6px;overflow:hidden}
-  .band-table th,.band-table td{text-align:left;padding:14px 20px;border-bottom:1px solid var(--line);font-size:14.5px}
-  .band-table th{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:var(--cream)}
-  .band-table td.v{font-family:'IBM Plex Mono',monospace;color:var(--navy)}
-  .band-table tr:last-child td{border-bottom:none}
-
-  /* ---- sample readout ---- */
-  .chip{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;padding:2px 9px;border-radius:2px;letter-spacing:.5px;white-space:nowrap}
-  .chip.b-a{background:#E7F6EC;color:#1E7A43;border:1px solid #BFE4CC}
-  .chip.b-b{background:#FBF3DC;color:#8A6D16;border:1px solid #EAD9A6}
-  .chip.b-c{background:#FBE7DD;color:#A5502B;border:1px solid #F0CDBB}
-
-  .glance{list-style:none;margin:0 0 40px;padding:0;max-width:760px}
-  .glance li{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 0;border-bottom:1px solid var(--line);font-size:15.5px}
-  .glance li:last-child{border-bottom:none}
-  .glance .g-school{font-weight:600;color:var(--navy);min-width:158px}
-  .glance .g-verdict{color:var(--muted)}
-
-  .fit-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#fff;-webkit-overflow-scrolling:touch}
-  .fit-table{width:100%;border-collapse:collapse;min-width:940px}
-  .fit-table th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-soft);background:var(--navy);padding:13px 14px;text-align:left;font-weight:500;white-space:nowrap}
-  .fit-table td{padding:15px 14px;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top;color:var(--ink)}
-  .fit-table tr:last-child td{border-bottom:none}
-  .fit-table .num{font-family:'IBM Plex Mono',monospace;color:var(--navy);white-space:nowrap}
-  .fit-table .school{font-weight:600;color:var(--navy);white-space:nowrap}
-  .fit-table .lead-cell{font-weight:600;color:var(--navy)}
-  .fit-table .sub{display:block;color:var(--muted);font-weight:400;font-size:12px;margin-top:4px;max-width:240px;line-height:1.45}
-  .fit-table .dir{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:.5px}
-
-  .ctx-note{font-size:13.5px;color:#A9B7C6;max-width:660px;margin:2px 0 18px}
-  .ctx-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:6px;overflow:hidden}
-  .ctx-table th,.ctx-table td{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,0.1);font-size:13px;text-align:center}
-  .ctx-table th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);background:rgba(255,255,255,0.03)}
-  .ctx-table td{color:#C7D2DE}
-  .ctx-table td:first-child,.ctx-table th:first-child{text-align:left;font-weight:600;color:#fff}
-  .ctx-table .num{font-family:'IBM Plex Mono',monospace;color:var(--gold-soft)}
-  .ctx-table tr:last-child td{border-bottom:none}
-
-  .mini-caveat{font-size:12.5px;color:var(--muted);max-width:760px;margin-top:20px;line-height:1.6}
-  .block.navy .mini-caveat{color:#7E8C9B}
-
-  /* callout that ties back to the assessment */
-  .tie-in{
-    display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;
-    background:var(--navy);border-radius:8px;padding:40px 44px;color:var(--white-warm);
-  }
-  .tie-in h3{font-size:clamp(22px,2.6vw,28px);color:#fff;margin-bottom:10px}
-  .tie-in p{font-size:15px;color:#A9B7C6;max-width:520px}
+  @media(max-width:760px){.nav-links{display:none}.wrap{padding:0 22px}.s{padding:72px 0}}
 </style>
 </head>
 <body>
@@ -247,263 +166,245 @@
   </div>
 </nav>
 
-<!-- PAGE HERO -->
-<header class="page-hero" id="top">
-  <svg class="compass-motif" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="100" cy="100" r="86" stroke="#C9A13B" stroke-width="1" opacity="0.5"/>
-    <circle cx="100" cy="100" r="66" stroke="#C9A13B" stroke-width="1" opacity="0.35"/>
-    <g stroke="#C9A13B" stroke-width="1" opacity="0.5">
-      <line x1="100" y1="14" x2="100" y2="30"/>
-      <line x1="100" y1="170" x2="100" y2="186"/>
-      <line x1="14" y1="100" x2="30" y2="100"/>
-      <line x1="170" y1="100" x2="186" y2="100"/>
-    </g>
-    <path d="M100 40 L112 100 L100 160 L88 100 Z" fill="#C9A13B" opacity="0.9"/>
-    <path d="M100 40 L112 100 L100 100 Z" fill="#D9B968"/>
-    <circle cx="100" cy="100" r="4" fill="#0F2A4A" stroke="#C9A13B" stroke-width="1.4"/>
-    <g fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">
-      <text x="100" y="26">ACADEMICS</text>
-      <text x="100" y="182">FIT</text>
-    </g>
-    <text x="150" y="103" fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">ATHLETICS</text>
-    <text x="20" y="103" fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">PROFILE</text>
-  </svg>
-
+<!-- HERO (centered compass) -->
+<header class="hero">
   <div class="wrap">
-    <div class="page-hero-inner">
-      <a class="breadcrumb" href="../"><span class="arw">←</span> Back to Signing Day Advisors</a>
-      <span class="eyebrow">
-        <svg class="compass-mark" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="10" stroke="#C9A13B" stroke-width="1.4"/>
-          <path d="M12 5 L14.2 12 L12 19 L9.8 12 Z" fill="#C9A13B"/>
-          <circle cx="12" cy="12" r="1.4" fill="#F3F1EA"/>
-        </svg>
-        Our index
-      </span>
-      <h1>SDA Compass</h1>
-      <p class="lead">One read on fit, across every axis. SDA Compass brings together the recruiting Academic Index, athletic strength, and student profile, then measures your athlete against each target school so you see exactly where they stand and what it would take.</p>
+    <a class="back" href="../"><span class="arw">←</span> Back to Signing Day Advisors</a>
+    <div class="hero-inner">
+      <!-- Compass rose: three bearings (Grades, Swimming, Activities) around a Fit center -->
+      <svg class="compass-hero" viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A compass with three bearings, Grades, Swimming and Activities, around a Fit center">
+        <!-- dial face + bezel -->
+        <circle cx="160" cy="160" r="122" fill="#0A1E38" stroke="#C9A13B" stroke-width="2"/>
+        <!-- graduated tick ring -->
+        <circle cx="160" cy="160" r="112" stroke="#C9A13B" stroke-width="6" stroke-dasharray="1.3 6.6" opacity="0.5"/>
+        <circle cx="160" cy="160" r="98" stroke="#C9A13B" stroke-width="1" opacity="0.35"/>
+        <!-- bold bearing ticks -->
+        <g stroke="#C9A13B" stroke-width="2.4" stroke-linecap="round">
+          <line x1="160" y1="62" x2="160" y2="40"/>
+          <line x1="244.9" y1="209" x2="263.9" y2="220"/>
+          <line x1="75.1" y1="209" x2="56.1" y2="220"/>
+        </g>
+        <!-- intermediate rose points (faint) -->
+        <g fill="#C9A13B" opacity="0.38">
+          <polygon points="160,160 203.3,135 158,156.5"/>
+          <polygon points="160,160 203.3,135 162,163.5"/>
+          <polygon points="160,160 160,210 156,160"/>
+          <polygon points="160,160 160,210 164,160"/>
+          <polygon points="160,160 116.7,135 158,163.5"/>
+          <polygon points="160,160 116.7,135 162,156.5"/>
+        </g>
+        <!-- main rose points (two-tone) -->
+        <polygon points="160,160 172,134 160,70" fill="#2C5688"/>
+        <polygon points="160,160 148,134 160,70" fill="#D9B968"/>
+        <polygon points="160,160 176.5,183.4 237.9,205" fill="#2C5688"/>
+        <polygon points="160,160 188.5,162.6 237.9,205" fill="#D9B968"/>
+        <polygon points="160,160 143.5,183.4 82.1,205" fill="#2C5688"/>
+        <polygon points="160,160 131.5,162.6 82.1,205" fill="#D9B968"/>
+        <!-- hub -->
+        <circle cx="160" cy="160" r="22" fill="#16395E" stroke="#C9A13B" stroke-width="1.5"/>
+        <text x="160" y="165" text-anchor="middle" fill="#D9B968" font-family="Fraunces, serif" font-size="14" letter-spacing="1">Fit</text>
+        <!-- bearing labels + component icons (emphasized) -->
+        <g>
+          <!-- Grades -->
+          <polygon points="150,15 160,10.5 170,15 160,19.5" fill="#D9B968"/>
+          <path d="M170 15 L170 21" stroke="#D9B968" stroke-width="1.4" stroke-linecap="round"/>
+          <text x="160" y="35" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">GRADES</text>
+          <!-- Swimming -->
+          <g stroke="#D9B968" stroke-width="1.8" fill="none" stroke-linecap="round">
+            <path d="M262 220 q4 -3.5 8 0 q4 3.5 8 0"/>
+            <path d="M262 225 q4 -3.5 8 0 q4 3.5 8 0"/>
+          </g>
+          <text x="270" y="246" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">SWIMMING</text>
+          <!-- Activities -->
+          <path d="M50 212 L53 219 L60 219.6 L55 224.4 L56.6 231 L50 227.4 L43.4 231 L45 224.4 L40 219.6 L47 219 Z" fill="#D9B968"/>
+          <text x="50" y="249" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACTIVITIES</text>
+        </g>
+      </svg>
 
-      <nav class="jump" aria-label="On this page">
-        <a href="#what">What it is</a>
-        <a href="#inputs">The inputs</a>
-        <a href="#academic">Academic Index &amp; bands</a>
-        <a href="#axes">How the axes meet</a>
-        <a href="#readout">A sample readout</a>
-      </nav>
+      <span class="eyebrow">SDA Compass</span>
+      <h1>See where you fit.</h1>
+      <p>One simple score that shows how ready your athlete is for each school on their list.</p>
     </div>
   </div>
 </header>
 
-<!-- WHAT IT IS -->
-<section class="block" id="what">
+<!-- THREE INPUTS -->
+<section class="s">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">01 · The idea</span>
-      <h2>One index, built from every axis of recruiting.</h2>
-      <p>Recruiting is not decided by grades alone. SDA Compass reads the two axes coaches actually weigh, and layers the student profile on top, then reports the result school by school.</p>
+    <div class="s-head reveal">
+      <h2>We look at three things.</h2>
     </div>
-    <div class="prose reveal">
-      <p>Most tools stop at academics. SDA Compass treats a recruit as a whole picture. Academics set the bar a coach has to clear to bring an athlete in. Athletic strength determines how far a coach is willing to reach to do it. The student profile of leadership, research, and activities rounds out the case.</p>
-      <p>The important part is that none of this is judged in the abstract. Every number is measured against a specific school, because a profile that is a clear yes at one program can be a genuine reach at a more selective one. SDA Compass gives you that read for each school on your list, in plain language.</p>
-    </div>
-  </div>
-</section>
-
-<!-- THE INPUTS -->
-<section class="block tint" id="inputs">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">02 · The inputs</span>
-      <h2>Four inputs, one read.</h2>
-      <p>SDA Compass is assembled from four measured inputs. Each is scored on its own, then combined into the school-by-school result.</p>
-    </div>
-    <div class="comp-grid reveal">
-      <div class="comp">
-        <div class="c-num">Input 01</div>
-        <h3>Academic Index</h3>
-        <p>The real Ivy and NESCAC recruiting metric, built from GPA and test score on the 60 to 240 scale, calculated correctly. It produces the academic band.</p>
-        <span class="c-tag">The gate</span>
-      </div>
-      <div class="comp">
-        <div class="c-num">Input 02</div>
-        <h3>Athletic strength</h3>
-        <p>Where an athlete's times rank against real rosters, expressed as a recruiting tier. This is how far a coach will reach to bring them in.</p>
-        <span class="c-tag">The lever</span>
-      </div>
-      <div class="comp">
-        <div class="c-num">Input 03</div>
-        <h3>Student profile</h3>
-        <p>Leadership, research, employment, activities, and legacy. The supporting case that rounds out a recruit beyond the numbers.</p>
-        <span class="c-tag">The support</span>
-      </div>
-      <div class="comp">
-        <div class="c-num">Input 04</div>
-        <h3>School context</h3>
-        <p>Each target school's own admitted-student profile. Everything above is measured relative to this, so the read is specific to the school.</p>
-        <span class="c-tag">The benchmark</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACADEMIC INDEX & BANDS -->
-<section class="block" id="academic">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">03 · The academic axis</span>
-      <h2>The Academic Index, and its bands.</h2>
-      <p>The academic input to SDA Compass is the real recruiting Academic Index. Course rigor, essays, and activities matter to admissions, but they sit outside this particular number.</p>
-    </div>
-
-    <div class="prose reveal">
-      <h3>How it's calculated</h3>
-      <p>The Academic Index runs on a 60 to 240 scale, built from two inputs. An unweighted GPA is mapped onto a 20 to 80 band, and an SAT total contributes on a 40 to 160 scale, roughly twice the pull of the GPA piece. An ACT is converted to its SAT equivalent first, and where a school still ranks its students, class rank can stand in for GPA.</p>
-      <p>Because the Ivies are test optional, we calculate the index two ways, once with the test score and once without, and lead with whichever is higher. A strong GPA paired with a modest test score sometimes scores better without the test, and knowing that is the difference between applying with the score and applying without it. The exact weighting has never been published, so every version of this number is a reconstruction. Ours follows the standard convention, and we stay honest about what it can and cannot tell you.</p>
-    </div>
-
-    <div class="prose reveal" style="margin-top:40px">
-      <h3>The Ivy Academic Index, by range</h3>
-      <p>On the 60 to 240 scale, where an athlete lands sets the academic bar a coach has to clear. These are approximate benchmarks, since the underlying formula is not officially published.</p>
-    </div>
-    <div class="reveal" style="margin-top:20px">
-      <table class="band-table">
-        <thead>
-          <tr><th>AI range</th><th>What it typically signals</th></tr>
-        </thead>
-        <tbody>
-          <tr><td class="v">230 to 240</td><td>Top of the scale. Competitive at the most selective Ivies.</td></tr>
-          <tr><td class="v">220 to 229</td><td>Very strong. Competitive across the Ivy League.</td></tr>
-          <tr><td class="v">210 to 219</td><td>Strong. Within the common admitted-student range.</td></tr>
-          <tr><td class="v">200 to 209</td><td>A solid recruit range at many programs.</td></tr>
-          <tr><td class="v">176 to 199</td><td>Around the recruiting floor. Varies by school and sport.</td></tr>
-          <tr><td class="v">Below 176</td><td>Below the typical floor for recruited athletes.</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="prose reveal" style="margin-top:44px">
-      <h3>NESCAC A, B, and C bands</h3>
-      <p>NESCAC schools do not use a single cutoff. They sort recruits into an A, B, or C band relative to that school's own admitted class, and each team gets a limited number of slots in each band. The consequence that matters most is that the same athlete can be an A band at one school and a B band at a more selective one, because the bar moves with the school.</p>
-      <p>An A band athlete is on par with the school's typical admit and clears the bar largely on academics. A B band sits just below and needs a coach to spend a slot. A C band is meaningfully below and is reserved for the athletes a coach most wants, which is why those slots are scarce. As a rule of thumb, a recruit should generally sit within about one standard deviation of the school's academic profile to be supportable.</p>
-    </div>
-  </div>
-</section>
-
-<!-- HOW THE AXES MEET -->
-<section class="block navy" id="axes">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">04 · The two axes</span>
-      <h2>How academics and athletics meet.</h2>
-      <p>The band is the gate. Athletic strength is the lever. What decides a recruit is how those two meet, school by school.</p>
-    </div>
-    <div class="prose reveal">
-      <p>The rule is simple. The lower the band, the stronger the athlete has to be for a coach to justify the slot. That single relationship is what SDA Compass makes visible.</p>
-      <p>It also means the same result changes the odds differently depending on the band. An A band athlete clears the bar on academics alone, so athletics is a bonus, and a modest result does not drag them down. A B band athlete sits just below the class, and this is where athletics swings the outcome, with a strong result pulling them up and a weak one leaving them exposed. A C band athlete is far enough below that only a coach's top priority earns one of the few available slots.</p>
-      <p>This is the read most families never get. Two athletes with identical academics can have completely different odds at the same school depending on their athletic tier, and the same athlete can be a clear yes at one school and a reach at another. SDA Compass shows both axes at once, for every school on the list.</p>
-    </div>
-  </div>
-</section>
-
-<!-- A SAMPLE READOUT -->
-<section class="block tint" id="readout">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">05 · The output</span>
-      <h2>What the readout looks like.</h2>
-      <p>For every school on the list, SDA Compass returns a plain verdict, the academic band and the athletic tier behind it, and a direct read on how the swimming moves the odds. Below is an illustrative sample for one athlete.</p>
-    </div>
-
-    <div class="reveal">
-      <h3 style="font-family:'Fraunces',serif;font-size:20px;color:var(--navy);margin-bottom:14px">At a glance</h3>
-      <ul class="glance">
-        <li><span class="g-school">Selective school</span> <span class="chip b-a">A band</span> <span class="g-verdict">Strong swimmer, Realistic</span></li>
-        <li><span class="g-school">Highly selective school</span> <span class="chip b-b">B band</span> <span class="g-verdict">Strong swimmer, Realistic with coach support</span></li>
-        <li><span class="g-school">Most selective school</span> <span class="chip b-c">C band</span> <span class="g-verdict">Strong swimmer, Reach</span></li>
-      </ul>
-    </div>
-
-    <div class="fit-wrap reveal">
-      <table class="fit-table">
-        <thead>
-          <tr>
-            <th>School</th><th>Academic Index</th><th>Campus AI</th><th>Gap</th>
-            <th>Band</th><th>Within 1 SD</th><th>Athletic tier</th><th>Realistic?</th><th>Swimming impact</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="school">Selective school</td>
-            <td class="num">216</td><td class="num">205</td><td class="num">+11</td>
-            <td><span class="chip b-a">A</span></td><td class="num">Yes</td><td>Strong</td>
-            <td class="lead-cell">Realistic<span class="sub">Academically in range on your own; a coach's support adds lift on top.</span></td>
-            <td><span class="dir">Adds lift</span><span class="sub">You clear the academic bar on your own, and a strong swim is a real bonus a coach's backing can turn into an even safer admit.</span></td>
-          </tr>
-          <tr>
-            <td class="school">Highly selective school</td>
-            <td class="num">216</td><td class="num">226</td><td class="num">-10</td>
-            <td><span class="chip b-b">B</span></td><td class="num">Yes</td><td>Strong</td>
-            <td class="lead-cell">Realistic with coach support<span class="sub">Just below the class; a coach spending a B slot closes the gap.</span></td>
-            <td><span class="dir">Boosts odds</span><span class="sub">You're just below the class, and a strong swim is the lever that can earn coach support and lift you over the line.</span></td>
-          </tr>
-          <tr>
-            <td class="school">Most selective school</td>
-            <td class="num">216</td><td class="num">236</td><td class="num">-20</td>
-            <td><span class="chip b-c">C</span></td><td class="num">No</td><td>Strong</td>
-            <td class="lead-cell">Reach<span class="sub">Significantly below the class; C slots usually go to elite-impact recruits.</span></td>
-            <td><span class="dir">Needs to be elite</span><span class="sub">Strong is not quite the elite-impact level a scarce C slot usually demands, so the swim would need to be truly special to move this.</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="mini-caveat" style="color:var(--muted)">Illustrative figures for one sample athlete. Every SDA Compass report is specific to the athlete and the schools on their list. The Academic Index and bands reconstruct an undisclosed formula and are a planning tool, not a decision. A coach pre-read is the only authoritative read.</p>
-  </div>
-</section>
-
-<!-- ACADEMIC PROFILE CONTEXT (secondary detail) -->
-<section class="block navy">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">05 · Supporting detail</span>
-      <h2>Academic profile context.</h2>
-      <p>Beneath the headline, SDA Compass also shows how the athlete's full profile stands statistically among each school's enrolled students, where fifty is the average admit.</p>
-    </div>
-    <div class="reveal">
-      <p class="ctx-note">Supporting context only. The band read above is what the recruiting decision turns on. These figures describe standing versus enrolled students, not a probability of admission.</p>
-      <table class="ctx-table">
-        <thead>
-          <tr><th>School</th><th>Academic only</th><th>+ Athletic</th><th>+ Profile</th><th>Adjusted final</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Selective school</td><td class="num">62</td><td class="num">68</td><td class="num">74</td><td class="num">74</td></tr>
-          <tr><td>Highly selective school</td><td class="num">44</td><td class="num">51</td><td class="num">58</td><td class="num">58</td></tr>
-          <tr><td>Most selective school</td><td class="num">30</td><td class="num">37</td><td class="num">43</td><td class="num">46</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- TIE BACK TO THE ASSESSMENT -->
-<section class="block tint">
-  <div class="wrap">
-    <div class="reveal tie-in">
+    <div class="three reveal">
       <div>
-        <h3>See your athlete's SDA Compass.</h3>
-        <p>The Recruiting Assessment builds your athlete's full SDA Compass and shows exactly where they land at each target school, on both axes.</p>
+        <div class="ic">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 9 L34 15 L20 21 L6 15 Z" fill="#C9A13B"/>
+            <path d="M11 18 L11 26 C11 28 15 30 20 30 C25 30 29 28 29 26 L29 18" stroke="#0F2A4A" stroke-width="1.6" fill="none"/>
+            <path d="M34 15 L34 24" stroke="#C9A13B" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <h3>Grades</h3>
+        <p>How strong your athlete is in the classroom.</p>
       </div>
-      <a class="btn-gold" href="../#assessment">Start the assessment</a>
+      <div>
+        <div class="ic">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="12" r="3.4" fill="#0F2A4A"/>
+            <path d="M8 22 L17 18 L23 22 L30 19" stroke="#0F2A4A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M6 28 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
+            <path d="M6 33 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
+          </svg>
+        </div>
+        <h3>Swimming</h3>
+        <p>How fast your athlete is in the pool.</p>
+      </div>
+      <div>
+        <div class="ic">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 7 L23.6 15.2 L32.5 16 L25.8 21.9 L27.8 30.6 L20 26 L12.2 30.6 L14.2 21.9 L7.5 16 L16.4 15.2 Z" fill="#C9A13B" stroke="#0F2A4A" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Activities</h3>
+        <p>Leadership, clubs, and everything else they do.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CLOSING -->
-<section class="closing" id="contact">
+<!-- HOW IT WORKS (clickable -> detailed page) -->
+<section class="s tint" id="how">
+  <div class="wrap">
+    <a class="how-link reveal" href="../how-it-works/">
+      <div class="s-head">
+        <h2>How it works.</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-badge">
+            <span class="step-n">1</span>
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="7" width="16" height="20" rx="2" stroke="#0F2A4A" stroke-width="1.8"/>
+              <rect x="12" y="4" width="8" height="5" rx="1.5" fill="#C9A13B"/>
+              <line x1="12" y1="16" x2="20" y2="16" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="12" y1="20" x2="20" y2="20" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="12" y1="24" x2="17" y2="24" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Score</h3>
+          <p>We score grades, swimming, and activities.</p>
+        </div>
+        <div class="step-arrow">&rarr;</div>
+        <div class="step">
+          <div class="step-badge">
+            <span class="step-n">2</span>
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 14 L16 8 L26 14" stroke="#0F2A4A" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
+              <line x1="10" y1="14" x2="10" y2="24" stroke="#C9A13B" stroke-width="1.8"/>
+              <line x1="16" y1="14" x2="16" y2="24" stroke="#C9A13B" stroke-width="1.8"/>
+              <line x1="22" y1="14" x2="22" y2="24" stroke="#C9A13B" stroke-width="1.8"/>
+              <line x1="6" y1="24" x2="26" y2="24" stroke="#0F2A4A" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Compare</h3>
+          <p>We match your athlete to each school.</p>
+        </div>
+        <div class="step-arrow">&rarr;</div>
+        <div class="step">
+          <div class="step-badge">
+            <span class="step-n">3</span>
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="16" cy="16" r="10" stroke="#0F2A4A" stroke-width="1.8"/>
+              <circle cx="16" cy="16" r="4.5" stroke="#C9A13B" stroke-width="1.8"/>
+              <circle cx="16" cy="16" r="1.6" fill="#C9A13B"/>
+            </svg>
+          </div>
+          <h3>See your fit</h3>
+          <p>You get a clear read for every school.</p>
+        </div>
+      </div>
+      <span class="how-cta">Click here to learn more <span class="a">&rarr;</span></span>
+    </a>
+  </div>
+</section>
+
+<!-- THE RULE -->
+<section class="s navy">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <h2>Grades open the door. Speed gets you through.</h2>
+    </div>
+    <div class="gate reveal">
+      <div class="gate-card">
+        <div class="gate-ic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="5" width="14" height="22" rx="1.5" stroke="#C9A13B" stroke-width="1.8"/>
+            <circle cx="19" cy="16" r="1.6" fill="#C9A13B"/>
+          </svg>
+        </div>
+        <h3>Good grades</h3>
+        <p>Open the door on their own.</p>
+      </div>
+      <div class="gate-card">
+        <div class="gate-ic">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 25 L16 9" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M9 15 L16 8 L23 15" stroke="#C9A13B" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Fast swimming</h3>
+        <p>Gets a coach to open it for them.</p>
+      </div>
+    </div>
+    <p class="gate-rule reveal">Both matter, so we look at them together.</p>
+  </div>
+</section>
+
+<!-- FIT LEVELS -->
+<section class="s tint">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <h2>Every school is different.</h2>
+      <p>The same athlete can fit three different ways.</p>
+    </div>
+    <div class="fits reveal">
+      <div class="fit g">
+        <div class="fit-ic">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 14.5 L12 20 L22 8" stroke="#2E7D4F" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Strong fit</h3>
+        <p>Ready for this school.</p>
+      </div>
+      <div class="fit a">
+        <div class="fit-ic">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 7 L14 21 M7 14 L21 14" stroke="#8A6D16" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Fits with a push</h3>
+        <p>A coach can help them in.</p>
+      </div>
+      <div class="fit r">
+        <div class="fit-ic">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 24 L8 5 L21 8.5 L8 12" stroke="#A5502B" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Long shot</h3>
+        <p>They'd need to be a top swimmer.</p>
+      </div>
+    </div>
+    <p class="note">This is a guide to plan with. A coach's review makes the real call.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="s cta" id="contact">
   <div class="wrap reveal">
-    <h2>Start with an honest conversation.</h2>
-    <p>A free, fifteen-minute consultation to talk through where your athlete stands and whether we're the right fit.</p>
-    <a class="btn-gold" href="../#contact">Book a free consultation</a>
+    <h2>See your athlete's Compass.</h2>
+    <p>Start with a free, fifteen-minute chat.</p>
+    <a class="btn-gold" href="../#assessment">Get started</a>
   </div>
 </section>
 
@@ -519,7 +420,7 @@
           </svg>
           <span class="brand-name" style="font-size:17px">Signing Day Advisors</span>
         </div>
-        <div class="placeholder-note">Working name — swap once trademark &amp; domain clear</div>
+        <div class="placeholder-note">Working name, swap once trademark and domain clear</div>
       </div>
       <div class="foot-links">
         <div class="foot-col">
@@ -538,7 +439,7 @@
       </div>
     </div>
     <p class="disclaimer">
-      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee admission, athletic offers, roster spots, or scholarships, and we are not affiliated with any college, university, the Ivy League, or the NCAA. SDA Compass, Academic Index, and banding figures are estimates based on information provided by the family.
+      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee admission, athletic offers, roster spots, or scholarships, and we are not affiliated with any college, university, the Ivy League, or the NCAA. SDA Compass figures are estimates based on information provided by the family.
     </p>
   </div>
 </footer>
