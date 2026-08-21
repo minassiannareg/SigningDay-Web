@@ -108,7 +108,6 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
       <a href="../team/">About Us</a>
       <a href="../faq/">FAQ</a>
       <a class="active" href="./">Contact</a>
-      <a class="nav-cta" href="../#contact">Book a consultation</a>
     </div>
   </div>
 </nav>
@@ -180,7 +179,13 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
 
       <div class="form-group">
         <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" required>
+        <select id="subject" name="subject" required>
+          <option value="" disabled selected>Select a subject</option>
+          <option>Free Consultation</option>
+          <option>Question</option>
+          <option>Partnership Inquiry</option>
+          <option>Other</option>
+        </select>
       </div>
 
       <div class="form-group">
