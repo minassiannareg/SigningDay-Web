@@ -108,15 +108,24 @@
   .step-arrow{align-self:flex-start;margin-top:24px;color:var(--gold);font-size:24px;line-height:1}
   @media(max-width:720px){.steps{flex-direction:column;align-items:center;gap:28px}.step-arrow{transform:rotate(90deg);margin:0}}
 
-  /* clickable How it works card */
-  .how-link{display:block;text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:16px;padding:46px 32px 40px;max-width:1000px;margin:0 auto;text-align:center;transition:all .25s}
-  .how-link:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(15,42,74,0.35);border-color:var(--gold)}
-  .how-link .s-head{margin-bottom:40px}
-  .how-cta{display:inline-flex;align-items:center;gap:8px;margin-top:36px;background:var(--gold);color:var(--navy);font-weight:600;font-size:15px;padding:14px 28px;border-radius:2px;transition:all .2s}
-  .how-link:hover .how-cta{background:var(--gold-soft)}
+  /* How it works banner (clickable) */
+  .how-banner{display:flex;align-items:center;justify-content:space-between;gap:40px;background:var(--navy);border-radius:16px;padding:44px 48px;color:var(--white-warm);position:relative;overflow:hidden;transition:all .25s;text-decoration:none}
+  .how-banner:hover{transform:translateY(-3px);box-shadow:0 30px 55px -28px rgba(10,30,56,0.6)}
+  .how-watermark{position:absolute;right:-26px;top:50%;transform:translateY(-50%);width:230px;height:230px;opacity:0.10;pointer-events:none}
+  .how-banner-left{position:relative;z-index:2;max-width:640px}
+  .how-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px}
+  .how-eyebrow svg{width:16px;height:16px}
+  .how-banner-left h2{font-size:clamp(24px,3vw,32px);color:#fff;margin-bottom:10px}
+  .how-banner-left p{font-size:16px;color:#C7D2DE;margin-bottom:22px}
+  .how-mini{display:flex;align-items:center;gap:11px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A9B7C6}
+  .how-mini b{color:var(--gold);font-weight:600}
+  .how-mini i{color:var(--gold);font-style:normal}
+  .how-banner-right{position:relative;z-index:2;flex:none}
+  .how-cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:600;font-size:15px;padding:15px 28px;border-radius:2px;transition:all .2s;white-space:nowrap}
+  .how-banner:hover .how-cta{background:var(--gold-soft)}
   .how-cta .a{transition:transform .2s}
-  .how-link:hover .how-cta .a{transform:translateX(4px)}
-
+  .how-banner:hover .how-cta .a{transform:translateX(4px)}
+  @media(max-width:820px){.how-banner{flex-direction:column;align-items:flex-start;padding:34px 28px;gap:24px}.how-watermark{display:none}}
   /* CTA */
   .cta{background:var(--cream-2);text-align:center}
   .cta h2{font-size:clamp(30px,4vw,44px);color:var(--navy);margin-bottom:16px}
@@ -171,53 +180,55 @@
   <div class="wrap">
     <a class="back" href="../"><span class="arw">←</span> Back to Signing Day Advisors</a>
     <div class="hero-inner">
-      <!-- Compass rose: three bearings (Grades, Swimming, Activities) around a Fit center -->
-      <svg class="compass-hero" viewBox="0 0 320 300" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A compass with three bearings, Grades, Swimming and Activities, around a Fit center">
-        <!-- dial face + bezel -->
-        <circle cx="160" cy="160" r="122" fill="#0A1E38" stroke="#C9A13B" stroke-width="2"/>
-        <!-- graduated tick ring -->
-        <circle cx="160" cy="160" r="112" stroke="#C9A13B" stroke-width="6" stroke-dasharray="1.3 6.6" opacity="0.5"/>
-        <circle cx="160" cy="160" r="98" stroke="#C9A13B" stroke-width="1" opacity="0.35"/>
-        <!-- bold bearing ticks -->
-        <g stroke="#C9A13B" stroke-width="2.4" stroke-linecap="round">
-          <line x1="160" y1="62" x2="160" y2="40"/>
-          <line x1="244.9" y1="209" x2="263.9" y2="220"/>
-          <line x1="75.1" y1="209" x2="56.1" y2="220"/>
-        </g>
-        <!-- intermediate rose points (faint) -->
-        <g fill="#C9A13B" opacity="0.38">
-          <polygon points="160,160 203.3,135 158,156.5"/>
-          <polygon points="160,160 203.3,135 162,163.5"/>
-          <polygon points="160,160 160,210 156,160"/>
-          <polygon points="160,160 160,210 164,160"/>
-          <polygon points="160,160 116.7,135 158,163.5"/>
-          <polygon points="160,160 116.7,135 162,156.5"/>
-        </g>
-        <!-- main rose points (two-tone) -->
-        <polygon points="160,160 172,134 160,70" fill="#2C5688"/>
-        <polygon points="160,160 148,134 160,70" fill="#D9B968"/>
-        <polygon points="160,160 176.5,183.4 237.9,205" fill="#2C5688"/>
-        <polygon points="160,160 188.5,162.6 237.9,205" fill="#D9B968"/>
-        <polygon points="160,160 143.5,183.4 82.1,205" fill="#2C5688"/>
-        <polygon points="160,160 131.5,162.6 82.1,205" fill="#D9B968"/>
-        <!-- hub -->
-        <circle cx="160" cy="160" r="22" fill="#16395E" stroke="#C9A13B" stroke-width="1.5"/>
-        <text x="160" y="165" text-anchor="middle" fill="#D9B968" font-family="Fraunces, serif" font-size="14" letter-spacing="1">Fit</text>
-        <!-- bearing labels + component icons (emphasized) -->
-        <g>
-          <!-- Grades -->
-          <polygon points="150,15 160,10.5 170,15 160,19.5" fill="#D9B968"/>
-          <path d="M170 15 L170 21" stroke="#D9B968" stroke-width="1.4" stroke-linecap="round"/>
-          <text x="160" y="35" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">GRADES</text>
-          <!-- Swimming -->
-          <g stroke="#D9B968" stroke-width="1.8" fill="none" stroke-linecap="round">
-            <path d="M262 220 q4 -3.5 8 0 q4 3.5 8 0"/>
-            <path d="M262 225 q4 -3.5 8 0 q4 3.5 8 0"/>
+      <!-- Compass rose: three bearings (Academics, Athletics, Activities) around a Fit center -->
+      <svg class="compass-hero" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A compass with three bearings, Academics, Athletics and Activities, around a Fit center">
+        <g transform="translate(10,10)">
+          <!-- dial face + bezel -->
+          <circle cx="160" cy="160" r="122" fill="#0A1E38" stroke="#C9A13B" stroke-width="2"/>
+          <!-- graduated tick ring -->
+          <circle cx="160" cy="160" r="112" stroke="#C9A13B" stroke-width="6" stroke-dasharray="1.3 6.6" opacity="0.5"/>
+          <circle cx="160" cy="160" r="98" stroke="#C9A13B" stroke-width="1" opacity="0.35"/>
+          <!-- bold bearing ticks -->
+          <g stroke="#C9A13B" stroke-width="2.4" stroke-linecap="round">
+            <line x1="160" y1="62" x2="160" y2="40"/>
+            <line x1="244.9" y1="209" x2="263.9" y2="220"/>
+            <line x1="75.1" y1="209" x2="56.1" y2="220"/>
           </g>
-          <text x="270" y="246" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">SWIMMING</text>
-          <!-- Activities -->
-          <path d="M50 212 L53 219 L60 219.6 L55 224.4 L56.6 231 L50 227.4 L43.4 231 L45 224.4 L40 219.6 L47 219 Z" fill="#D9B968"/>
-          <text x="50" y="249" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACTIVITIES</text>
+          <!-- intermediate rose points (faint) -->
+          <g fill="#C9A13B" opacity="0.38">
+            <polygon points="160,160 203.3,135 158,156.5"/>
+            <polygon points="160,160 203.3,135 162,163.5"/>
+            <polygon points="160,160 160,210 156,160"/>
+            <polygon points="160,160 160,210 164,160"/>
+            <polygon points="160,160 116.7,135 158,163.5"/>
+            <polygon points="160,160 116.7,135 162,156.5"/>
+          </g>
+          <!-- main rose points (two-tone) -->
+          <polygon points="160,160 172,134 160,70" fill="#2C5688"/>
+          <polygon points="160,160 148,134 160,70" fill="#D9B968"/>
+          <polygon points="160,160 176.5,183.4 237.9,205" fill="#2C5688"/>
+          <polygon points="160,160 188.5,162.6 237.9,205" fill="#D9B968"/>
+          <polygon points="160,160 143.5,183.4 82.1,205" fill="#2C5688"/>
+          <polygon points="160,160 131.5,162.6 82.1,205" fill="#D9B968"/>
+          <!-- hub -->
+          <circle cx="160" cy="160" r="22" fill="#16395E" stroke="#C9A13B" stroke-width="1.5"/>
+          <text x="160" y="165" text-anchor="middle" fill="#D9B968" font-family="Fraunces, serif" font-size="14" letter-spacing="1">Fit</text>
+        </g>
+        <!-- bearing labels + component icons, spaced away from the dial -->
+        <g>
+          <!-- Grades (top) -->
+          <polygon points="160,12 170,7.5 180,12 170,16.5" fill="#D9B968"/>
+          <path d="M180 12 L180 18" stroke="#D9B968" stroke-width="1.4" stroke-linecap="round"/>
+          <text x="170" y="34" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACADEMICS</text>
+          <!-- Swimming (bottom-right) -->
+          <g stroke="#D9B968" stroke-width="1.8" fill="none" stroke-linecap="round">
+            <path d="M277 250 q4 -3.5 8 0 q4 3.5 8 0"/>
+            <path d="M277 255 q4 -3.5 8 0 q4 3.5 8 0"/>
+          </g>
+          <text x="285" y="281" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ATHLETICS</text>
+          <!-- Activities (bottom-left) -->
+          <path d="M55 242 L58.2 249 L65 252 L58.2 255 L55 262 L51.8 255 L45 252 L51.8 249 Z" fill="#D9B968"/>
+          <text x="55" y="281" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACTIVITIES</text>
         </g>
       </svg>
 
@@ -243,8 +254,8 @@
             <path d="M34 15 L34 24" stroke="#C9A13B" stroke-width="1.6"/>
           </svg>
         </div>
-        <h3>Grades</h3>
-        <p>How strong your athlete is in the classroom.</p>
+        <h3>Academics</h3>
+        <p>Grades and test scores.</p>
       </div>
       <div>
         <div class="ic">
@@ -255,8 +266,8 @@
             <path d="M6 33 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
           </svg>
         </div>
-        <h3>Swimming</h3>
-        <p>How fast your athlete is in the pool.</p>
+        <h3>Athletics</h3>
+        <p>How fast your athlete swims.</p>
       </div>
       <div>
         <div class="ic">
@@ -271,61 +282,6 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS (clickable -> detailed page) -->
-<section class="s tint" id="how">
-  <div class="wrap">
-    <a class="how-link reveal" href="../how-it-works/">
-      <div class="s-head">
-        <h2>How it works.</h2>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-badge">
-            <span class="step-n">1</span>
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="8" y="7" width="16" height="20" rx="2" stroke="#0F2A4A" stroke-width="1.8"/>
-              <rect x="12" y="4" width="8" height="5" rx="1.5" fill="#C9A13B"/>
-              <line x1="12" y1="16" x2="20" y2="16" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
-              <line x1="12" y1="20" x2="20" y2="20" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
-              <line x1="12" y1="24" x2="17" y2="24" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Score</h3>
-          <p>We score grades, swimming, and activities.</p>
-        </div>
-        <div class="step-arrow">&rarr;</div>
-        <div class="step">
-          <div class="step-badge">
-            <span class="step-n">2</span>
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 14 L16 8 L26 14" stroke="#0F2A4A" stroke-width="1.8" fill="none" stroke-linejoin="round"/>
-              <line x1="10" y1="14" x2="10" y2="24" stroke="#C9A13B" stroke-width="1.8"/>
-              <line x1="16" y1="14" x2="16" y2="24" stroke="#C9A13B" stroke-width="1.8"/>
-              <line x1="22" y1="14" x2="22" y2="24" stroke="#C9A13B" stroke-width="1.8"/>
-              <line x1="6" y1="24" x2="26" y2="24" stroke="#0F2A4A" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <h3>Compare</h3>
-          <p>We match your athlete to each school.</p>
-        </div>
-        <div class="step-arrow">&rarr;</div>
-        <div class="step">
-          <div class="step-badge">
-            <span class="step-n">3</span>
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="16" cy="16" r="10" stroke="#0F2A4A" stroke-width="1.8"/>
-              <circle cx="16" cy="16" r="4.5" stroke="#C9A13B" stroke-width="1.8"/>
-              <circle cx="16" cy="16" r="1.6" fill="#C9A13B"/>
-            </svg>
-          </div>
-          <h3>See your fit</h3>
-          <p>You get a clear read for every school.</p>
-        </div>
-      </div>
-      <span class="how-cta">Click here to learn more <span class="a">&rarr;</span></span>
-    </a>
-  </div>
-</section>
 
 <!-- THE RULE -->
 <section class="s navy">
@@ -396,6 +352,33 @@
       </div>
     </div>
     <p class="note">This is a guide to plan with. A coach's review makes the real call.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (clickable -> detailed page) -->
+<section class="s" id="how">
+  <div class="wrap">
+    <a class="how-banner reveal" href="../how-it-works/">
+      <svg class="how-watermark" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" stroke="#C9A13B" stroke-width="2"/>
+        <polygon points="100,100 108,84 100,28 92,84" fill="#C9A13B"/>
+        <polygon points="100,100 150,150 116,108" fill="#C9A13B"/>
+        <polygon points="100,100 50,150 84,108" fill="#C9A13B"/>
+        <circle cx="100" cy="100" r="11" fill="#C9A13B"/>
+      </svg>
+      <div class="how-banner-left">
+        <span class="how-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#C9A13B" stroke-width="1.4"/><path d="M12 5 L14.2 12 L12 19 L9.8 12 Z" fill="#C9A13B"/><circle cx="12" cy="12" r="1.4" fill="#0F2A4A"/></svg>
+          Learn more
+        </span>
+        <h2>See exactly how SDA Compass works.</h2>
+        <p>The three scores, how we compare to each school, and what your fit means, with real examples.</p>
+        <div class="how-mini"><b>1</b> Score <i>&rarr;</i> <b>2</b> Compare <i>&rarr;</i> <b>3</b> See your fit</div>
+      </div>
+      <div class="how-banner-right">
+        <span class="how-cta">Click here to learn more <span class="a">&rarr;</span></span>
+      </div>
+    </a>
   </div>
 </section>
 
