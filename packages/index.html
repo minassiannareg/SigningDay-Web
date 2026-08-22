@@ -27,8 +27,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 .nav-links{display:flex;gap:24px;align-items:center}
 .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
 .nav-links a:hover{color:var(--gold-soft)}
-.nav-cta{border:1px solid var(--gold);color:var(--gold-soft);padding:9px 18px;border-radius:2px;font-size:13px}
-.nav-cta:hover{background:var(--gold);color:var(--navy)}
+.nav-links a.active{color:var(--gold-soft)}
 
 /* hero */
 .hero{background:var(--navy);color:#fff;padding:100px 0 90px;text-align:center}
@@ -116,7 +115,8 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:52px 0 38px}
 .foot-col a:hover{color:#fff}
 .disclaimer{font-size:12px;color:#5E6E80;line-height:1.6;max-width:820px}
 
-@media(max-width:800px){.nav-links{display:none}.wrap{padding:0 22px}.package-grid{grid-template-columns:1fr}.advisory-card{grid-template-columns:1fr;gap:28px}.advisory-side{border-left:none;border-top:1px solid rgba(255,255,255,.12);padding-left:0;padding-top:28px}.extras-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.nav-links{display:none}}
+@media(max-width:800px){.wrap{padding:0 22px}.package-grid{grid-template-columns:1fr}.advisory-card{grid-template-columns:1fr;gap:28px}.advisory-side{border-left:none;border-top:1px solid rgba(255,255,255,.12);padding-left:0;padding-top:28px}.extras-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:500px){.extras-grid{grid-template-columns:1fr}.hero{padding:75px 0 70px}}
 </style>
 </head>
@@ -136,7 +136,7 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:52px 0 38px}
 <div class="nav-links">
 <a href="../#approach">Our Approach</a>
 <a href="../academic-index/">SDA Compass</a>
-<a href="./">Packages</a>
+<a class="active" href="./">Packages</a>
 <a href="../team/">About Us</a>
 <a href="../faq/">FAQ</a>
 <a href="../contact/">Contact</a>

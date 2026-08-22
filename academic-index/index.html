@@ -37,7 +37,7 @@
   .brand-mark{width:28px;height:34px;flex:none;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
   .brand:hover .brand-mark{transform:rotate(-8deg) scale(1.06)}
   .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:500;letter-spacing:0.3px}
-  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links{display:flex;gap:24px;align-items:center}
   .nav-links a{color:#C7D2DE;font-size:14px;position:relative;transition:color .2s}
   .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--gold-soft);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
   .nav-links a:hover{color:var(--gold-soft)}
@@ -51,12 +51,8 @@
   .hero-bg .glow{position:absolute;top:8%;left:50%;transform:translateX(-50%);width:760px;height:760px;background:radial-gradient(circle,rgba(201,161,59,0.16),rgba(201,161,59,0.04) 42%,transparent 66%)}
   .hero-bg .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,161,59,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,161,59,0.05) 1px,transparent 1px);background-size:62px 62px;mask-image:radial-gradient(circle at 50% 42%,black,transparent 74%);-webkit-mask-image:radial-gradient(circle at 50% 42%,black,transparent 74%)}
   .hero .wrap{position:relative;z-index:2}
-  .back{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:#A9B7C6;transition:color .2s}
-  .back:hover{color:var(--gold-soft)}
-  .back .arw{color:var(--gold);transition:transform .2s}
-  .back:hover .arw{transform:translateX(-3px)}
-  .hero-inner{max-width:660px;margin:0 auto}
-  .compass-wrap{position:relative;display:inline-block;margin:30px auto 34px}
+  .hero-inner{max-width:660px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+  .compass-wrap{position:relative;margin:30px 0 34px}
   .compass-wrap::before{content:"";position:absolute;inset:-9%;background:radial-gradient(circle,rgba(201,161,59,0.24),transparent 62%);filter:blur(5px);z-index:0}
   .compass-hero{position:relative;z-index:1;width:min(360px,80vw);height:auto;display:block;filter:drop-shadow(0 26px 48px rgba(0,0,0,.42));animation:float 7s ease-in-out infinite}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -215,7 +211,7 @@
     <div class="nav-links">
       <a href="../#approach">Our Approach</a>
       <a class="active" href="./">SDA Compass</a>
-      <a href="../#programs">Packages</a>
+      <a href="../packages/">Packages</a>
       <a href="../team/">About Us</a>
       <a href="../faq/">FAQ</a>
       <a href="../contact/">Contact</a>
@@ -227,7 +223,6 @@
 <header class="hero">
   <div class="hero-bg"><div class="glow"></div><div class="grid"></div></div>
   <div class="wrap">
-    <a class="back fx d1" href="../"><span class="arw">←</span> Back to Signing Day Advisors</a>
     <div class="hero-inner">
       <div class="compass-wrap fx">
         <!-- Compass rose: three bearings (Academics, Athletics, Activities) around a Fit center -->
@@ -464,7 +459,7 @@
           <h4>Explore</h4>
           <a href="../#approach">Our Approach</a>
           <a href="./">SDA Compass</a>
-          <a href="../#programs">Packages</a>
+          <a href="../packages/">Packages</a>
         </div>
         <div class="foot-col">
           <h4>Company</h4>

@@ -24,8 +24,10 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 .brand{display:flex;align-items:center;gap:12px;color:#fff}
 .brand-mark{width:28px;height:34px}
 .brand-name{font-family:'Fraunces',serif;font-size:19px}
-.back-link{font-size:14px;color:#C7D2DE}
-.back-link:hover{color:var(--gold-soft)}
+.nav-links{display:flex;gap:24px;align-items:center}
+.nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
+.nav-links a:hover{color:var(--gold-soft)}
+.nav-links a.active{color:var(--gold-soft)}
 
 /* hero */
 .hero{background:var(--navy);color:#fff;padding:90px 0 76px}
@@ -84,7 +86,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 footer{background:var(--navy-deep);padding:40px 0;color:#718296}
 footer p{font-size:12px}
 
-@media(max-width:760px){.wrap{padding:0 22px}.progress-grid{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}.form-card{padding:28px 24px}.intro-card{padding:28px 24px}.back-link{display:none}}
+@media(max-width:760px){.wrap{padding:0 22px}.nav-links{display:none}.progress-grid{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}.form-card{padding:28px 24px}.intro-card{padding:28px 24px}}
 </style>
 </head>
 
@@ -99,7 +101,14 @@ footer p{font-size:12px}
 </svg>
 <span class="brand-name">Signing Day Advisors</span>
 </a>
-<a class="back-link" href="../">← Back to SDA</a>
+<div class="nav-links">
+<a href="../#approach">Our Approach</a>
+<a href="../academic-index/">SDA Compass</a>
+<a href="../packages/">Packages</a>
+<a href="../team/">About Us</a>
+<a href="../faq/">FAQ</a>
+<a href="../contact/">Contact</a>
+</div>
 </div>
 </nav>
 
