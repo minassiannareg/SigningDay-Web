@@ -6,7 +6,7 @@
 <title>Signing Day Advisors</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --navy:#0F2A4A;
@@ -24,10 +24,10 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Inter',sans-serif;
+    font-family:'Newsreader',serif;
     background:var(--cream);
     color:var(--ink);
-    line-height:1.6;
+    line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
@@ -83,12 +83,36 @@
   .btn-ghost:hover{color:#fff}
   .btn-ghost span{color:var(--gold);margin-left:6px}
 
-  /* signature benchmark motif */
-  .benchmark{
-    position:absolute;right:80px;top:50%;transform:translateY(-50%);
-    width:440px;height:440px;opacity:0.9;z-index:1;
+  /* ---------- HERO RADAR — "The Complete Profile" ---------- */
+  .hero-radar-wrap{position:absolute;top:50%;right:180px;transform:translateY(-50%);width:420px;z-index:1;pointer-events:none}
+  .hero-radar{width:100%;height:auto;display:block;overflow:visible}
+  .hero-radar .ring{fill:none;stroke:#C7D2DE;stroke-width:1;opacity:.14}
+  .hero-radar .spoke{stroke:#C7D2DE;stroke-width:1;opacity:.16}
+  .hero-radar .tick-label{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:#8FA0B3}
+  .hero-radar #radarBand{fill:rgba(201,161,59,.16);stroke:rgba(201,161,59,.6);stroke-width:1;stroke-dasharray:3 3}
+  .hero-radar #radarAthletePoly{fill:rgba(201,161,59,.32);stroke:var(--gold);stroke-width:2;stroke-linejoin:round}
+  .hero-radar .athlete-dot{fill:var(--gold)}
+  .hero-radar .axis-label{font-family:'IBM Plex Mono',monospace;font-size:13px;fill:#C7D2DE;letter-spacing:.4px}
+  .hero-radar .axis-label-short{display:none}
+
+  .hero-radar .r-rings{opacity:0;transition:opacity .4s ease}
+  .hero-radar .r-band{opacity:0;transform:scale(.94);transform-box:fill-box;transform-origin:50% 50%;transition:opacity .45s ease .28s,transform .45s ease .28s}
+  .hero-radar .r-athlete{opacity:0;transform:scale(.7);transform-box:fill-box;transform-origin:50% 50%;transition:opacity .4s cubic-bezier(.2,.8,.2,1) .55s,transform .5s cubic-bezier(.2,.8,.2,1) .55s}
+  .hero-radar .r-labels{opacity:0;transition:opacity .4s ease .82s}
+  .radar-reveal.in .r-rings{opacity:1}
+  .radar-reveal.in .r-band{opacity:1;transform:scale(1)}
+  .radar-reveal.in .r-athlete{opacity:1;transform:scale(1)}
+  .radar-reveal.in .r-labels{opacity:1}
+
+  @media(prefers-reduced-motion:reduce){
+    .hero-radar .r-rings,.hero-radar .r-band,.hero-radar .r-athlete,.hero-radar .r-labels{opacity:1!important;transform:none!important;transition:none!important}
   }
-  @media(max-width:900px){.benchmark{display:none}}
+
+  @media(max-width:900px){
+    .hero-radar-wrap{position:static;transform:none;width:min(320px,86vw);margin:44px auto 0;pointer-events:auto}
+    .hero-radar .axis-label-full{display:none}
+    .hero-radar .axis-label-short{display:inline}
+  }
 
   /* ---------- SECTIONS ---------- */
   section{padding:96px 0}
@@ -274,26 +298,6 @@
 
 <!-- HERO -->
 <header class="hero" id="top">
-  <svg class="benchmark" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="150" y1="40" x2="150" y2="350" stroke="#C9A13B" stroke-width="1" opacity="0.5"/>
-    <g stroke="#C9A13B" stroke-width="1" opacity="0.55">
-      <line x1="140" y1="90" x2="290" y2="90"/>
-      <line x1="140" y1="150" x2="330" y2="150"/>
-      <line x1="140" y1="210" x2="300" y2="210"/>
-      <line x1="140" y1="270" x2="285" y2="270"/>
-   
-    </g>
-    <g fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">
-      <text x="300" y="93"> 5% Admission Rate</text>
-      <text x="340" y="153">Top 20 University</text>
-      <text x="310" y="213"> Top Liberal Arts Colleges</text>
-      <text x="295" y="273">Top Public University</text>
-    </g>
-    <circle cx="150" cy="188" r="8" fill="#C9A13B"/>
-    <circle cx="150" cy="188" r="14" stroke="#D9B968" stroke-width="1" fill="none" opacity="0.6"/>
-    <text x="168" y="184" fill="#fff" font-family="IBM Plex Mono, monospace" font-size="11">Your Recruiting Position</text>
-  </svg>
-
   <div class="wrap">
     <div class="hero-inner">
       <span class="eyebrow">Student-Athlete Recruiting Advisory </span>
@@ -303,6 +307,20 @@
         <a class="btn-gold" href="contact/">Book a free consultation</a>
         <a class="btn-ghost" href="#sda-compass-teaser">See the SDA Compass <span>→</span></a>
       </div>
+    </div>
+
+    <div class="hero-radar-wrap radar-reveal">
+      <svg class="hero-radar" id="heroRadar" viewBox="0 0 480 480" role="img" aria-labelledby="radarTitle radarDesc" xmlns="http://www.w3.org/2000/svg">
+        <title id="radarTitle">The Complete Profile — a seven-axis view of a recruiting profile</title>
+        <desc id="radarDesc">An illustrative radar chart plotting a sample student-athlete's recruiting profile across seven dimensions: academic index, test scores, event performance, national ranking, character and essays, coach and program fit, and recruiting timeline. A shaded band on each axis marks the range competitive target-tier programs typically expect. The athlete's profile, drawn in gold, meets or exceeds that band on most dimensions, sits right at its edge on national ranking, and falls below it on recruiting timeline — showing at a glance where the profile is strong and where it still has ground to close.</desc>
+        <g class="r-rings" id="radarRings"></g>
+        <g class="r-band" id="radarBandGroup"><path id="radarBand" fill-rule="evenodd"></path></g>
+        <g class="r-athlete" id="radarAthleteGroup">
+          <polygon id="radarAthletePoly"></polygon>
+          <g id="radarAthleteDots"></g>
+        </g>
+        <g class="r-labels" id="radarLabels"></g>
+      </svg>
     </div>
   </div>
 </header>
@@ -507,13 +525,105 @@
     });
   },{threshold:0.15});
 
-  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  document.querySelectorAll('.reveal, .radar-reveal').forEach(el=>io.observe(el));
 
   document.querySelectorAll('.step').forEach(step=>{
     step.addEventListener('click',()=>{
       step.classList.toggle('active');
     });
   });
+
+  // ---------- HERO RADAR — "The Complete Profile" ----------
+  (function(){
+    const axes = [
+      { label:'Academic Index', short:'Academic', value:82, bandMin:65, bandMax:90 },
+      { label:'Test Scores',    short:'Tests',    value:78, bandMin:60, bandMax:88 },
+      { label:'Event Performance', short:'Events', value:85, bandMin:70, bandMax:95 },
+      { label:'National Rank',  short:'Ranking',  value:60, bandMin:55, bandMax:85 },
+      { label:'Character',      short:'Essays',   value:88, bandMin:60, bandMax:90 },
+      { label:'Program Fit',    short:'Fit',      value:74, bandMin:65, bandMax:92 },
+      { label:'Timeline',       short:'Timeline', value:55, bandMin:60, bandMax:90 }
+    ];
+
+    const svg = document.getElementById('heroRadar');
+    if(!svg) return;
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const CX = 240, CY = 240, MAX_R = 155, LABEL_R = MAX_R + 32;
+    const N = axes.length;
+
+    function angleFor(i){ return -90 + i * (360 / N); }
+    function pointAt(r, i){
+      const a = angleFor(i) * Math.PI / 180;
+      return { x: CX + r * Math.cos(a), y: CY + r * Math.sin(a), cos: Math.cos(a), sin: Math.sin(a) };
+    }
+    function polyPoints(radiusForIndex){
+      return axes.map((_, i) => {
+        const p = pointAt(radiusForIndex(i), i);
+        return p.x.toFixed(1) + ',' + p.y.toFixed(1);
+      }).join(' ');
+    }
+    function pathFor(radiusForIndex){
+      return axes.map((_, i) => {
+        const p = pointAt(radiusForIndex(i), i);
+        return (i === 0 ? 'M' : 'L') + p.x.toFixed(1) + ',' + p.y.toFixed(1);
+      }).join(' ') + ' Z';
+    }
+    function makeEl(name, attrs){
+      const e = document.createElementNS(NS, name);
+      for(const k in attrs) e.setAttribute(k, attrs[k]);
+      return e;
+    }
+
+    // Layer 1 — guide rings, spokes, percentile tick labels
+    const ringsG = document.getElementById('radarRings');
+    [0.25, 0.5, 0.75, 1].forEach(frac=>{
+      ringsG.appendChild(makeEl('polygon', { class:'ring', points: polyPoints(()=>MAX_R*frac) }));
+    });
+    axes.forEach((_, i)=>{
+      const p = pointAt(MAX_R, i);
+      ringsG.appendChild(makeEl('line', { class:'spoke', x1:CX, y1:CY, x2:p.x.toFixed(1), y2:p.y.toFixed(1) }));
+    });
+    [25, 50, 75, 100].forEach(v=>{
+      const r = MAX_R * (v/100);
+      const t = makeEl('text', { class:'tick-label', x:CX+7, y:(CY-r+3).toFixed(1) });
+      t.textContent = v;
+      ringsG.appendChild(t);
+    });
+
+    // Layer 2 — admissible band (per-axis donut, evenodd fill between bandMin/bandMax)
+    const outerPath = pathFor((i)=>MAX_R*(axes[i].bandMax/100));
+    const innerPath = pathFor((i)=>MAX_R*(axes[i].bandMin/100));
+    document.getElementById('radarBand').setAttribute('d', outerPath + ' ' + innerPath);
+
+    // Layer 3 — athlete profile polygon + vertex markers
+    document.getElementById('radarAthletePoly').setAttribute('points', polyPoints((i)=>MAX_R*(axes[i].value/100)));
+    const dotsG = document.getElementById('radarAthleteDots');
+    axes.forEach((a,i)=>{
+      const p = pointAt(MAX_R*(a.value/100), i);
+      dotsG.appendChild(makeEl('circle', { class:'athlete-dot', cx:p.x.toFixed(1), cy:p.y.toFixed(1), r:3.5 }));
+    });
+
+    // Axis endpoint labels (full + short variants, CSS-toggled by breakpoint)
+    const labelsG = document.getElementById('radarLabels');
+    axes.forEach((a,i)=>{
+      const p = pointAt(LABEL_R, i);
+      let anchor = 'middle';
+      if(p.cos > 0.3) anchor = 'start';
+      else if(p.cos < -0.3) anchor = 'end';
+      let dy = 4;
+      if(p.sin < -0.7) dy = -2;
+      else if(p.sin > 0.7) dy = 10;
+
+      const full = makeEl('text', { class:'axis-label axis-label-full', 'text-anchor':anchor, x:p.x.toFixed(1), y:(p.y+dy).toFixed(1) });
+      full.textContent = a.label.toUpperCase();
+      labelsG.appendChild(full);
+
+      const short = makeEl('text', { class:'axis-label axis-label-short', 'text-anchor':anchor, x:p.x.toFixed(1), y:(p.y+dy).toFixed(1) });
+      short.textContent = a.short.toUpperCase();
+      labelsG.appendChild(short);
+    });
+  })();
 </script>
 
 </body>
