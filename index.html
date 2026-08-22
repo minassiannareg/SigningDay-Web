@@ -109,6 +109,7 @@
   .diff-link span {color:var(--gold); transition:transform .2s;}
   .diff-link:hover {color:var(--gold)}
   .diff-link:hover span{transform:translateX(4px)}
+  #why h2 em{font-style:normal;color:var(--gold-soft)}
   @media(max-width:760px){
     .diff-grid{grid-template-columns:1fr}
     .diff{border-right:none;border-bottom:1px solid var(--line);padding:32px 0}
@@ -156,30 +157,26 @@
   .ac-row .v{font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--gold-soft);font-weight:500}
   .ac-foot{font-size:12px;color:#7E8C9B;margin-top:20px}
 
-  /* programs */
-  .base-programs{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:24px}
-  .base-prog{padding:34px 30px}
-  .prog-type{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:14px}
-  .prog-list{list-style:none;margin:22px 0 24px}
-  .prog-list li{font-size:14px;color:var(--ink);padding:9px 0;border-bottom:1px solid var(--line)}
-  .prog-list li::before{content:"—";color:var(--gold);margin-right:10px}
-  .subscription-card{display:flex;justify-content:space-between;align-items:center;gap:40px;background:var(--navy);border-radius:6px;padding:30px 34px;color:#fff}
-  .subscription-copy{max-width:650px}
-  .subscription-copy .eyebrow{display:block;margin-bottom:9px}
-  .subscription-copy h3{font-size:23px;color:#fff;margin-bottom:8px}
-  .subscription-copy p{font-size:14px;color:#A9B7C6}
-  .subscription-details{display:flex;align-items:center;gap:24px;flex:none}
-  .subscription-price{font-family:'IBM Plex Mono',monospace;font-size:20px;color:var(--gold-soft);white-space:nowrap}
-  .subscription-price small{font-size:11px;color:#A9B7C6}
-  @media(max-width:760px){.base-programs{grid-template-columns:1fr}.subscription-card{flex-direction:column;align-items:flex-start}.subscription-details{width:100%;justify-content:space-between}}
-  .prog{border:1px solid var(--line);border-radius:6px;padding:28px 24px;background:#fff;transition:all .25s;position:relative}
-  .prog:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(15,42,74,0.35)}
-  .prog.flag{border:1.5px solid var(--gold);background:#FffdF8}
-  .prog .flag-tag{position:absolute;top:-10px;left:24px;background:var(--gold);color:var(--navy);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 10px;border-radius:2px;text-transform:uppercase;font-weight:500}
-  .prog h3{font-size:18px;color:var(--navy);margin-bottom:6px}
-  .prog .p-sub{font-size:12.5px;color:var(--muted);margin-bottom:18px;min-height:32px}
-  .prog .p-price{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--gold);border-top:1px solid var(--line);padding-top:16px}
-  .prog .p-price span{color:var(--muted);font-size:12px}
+ /* programs */
+  .programs-card{display:flex;align-items:stretch;justify-content:space-between;gap:48px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:44px 48px 44px 52px;position:relative;overflow:hidden;transition:all .25s}
+  .programs-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-soft))}
+  .programs-card:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(15,42,74,.35);border-color:var(--gold)}
+  .programs-text{max-width:590px;align-self:center}
+  .programs-text .eyebrow{display:block;margin-bottom:14px}
+  .programs-text h2{font-size:clamp(26px,3vw,36px);color:var(--navy);margin-bottom:14px}
+  .programs-text p{font-size:16px;color:var(--muted);margin-bottom:22px}
+  .programs-link{font-size:15px;color:var(--navy);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+  .programs-link span{color:var(--gold);transition:transform .2s}
+  .programs-card:hover .programs-link span{transform:translateX(4px)}
+  .programs-graphic{flex:none;width:270px;background:var(--navy);border-radius:8px;padding:22px 22px 18px;display:flex;flex-direction:column;justify-content:center}
+  .pg-top{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  .pg-top span{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-soft);text-align:center}
+  .pg-mini-chart{display:grid;grid-template-columns:repeat(3,1fr);gap:10px 10px}
+  .pg-mini-chart span{height:34px;border:1px solid rgba(255,255,255,.12);border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03)}
+  .pg-check::before{content:"✓";font-size:16px;font-weight:600;color:var(--gold-soft)}
+  .pg-dash::before{content:"—";font-size:18px;color:#7E8C9B}
+  .pg-caption{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;color:#7E8C9B;text-align:right;margin-top:14px}
+  @media(max-width:760px){.programs-card{flex-direction:column;padding:32px 24px 32px 28px;gap:26px}.programs-graphic{width:100%}}
 
   /* closing CTA */
   .closing{background:var(--cream-2);text-align:center}
@@ -231,8 +228,7 @@
   .compass-link{font-size:15px;color:var(--navy);font-weight:600;display:inline-flex;align-items:center;gap:6px}
   .compass-link span{color:var(--gold);transition:transform .2s}
   .compass-card:hover .compass-link span{transform:translateX(4px)}
-  .compass-purcahse{text-align:center;margin-top:52px;position:relative;z-index:3}
-  .compass-purchase .btn-gold{display:inline-block;padding:16px 34px}
+  
   /* readout */
   .compass-readout{flex:none;width:252px;background:var(--navy);border-radius:8px;padding:24px 26px;display:flex;flex-direction:column;box-shadow:0 20px 40px -26px rgba(10,30,56,0.6)}
   .cr-head{display:flex;align-items:center;gap:10px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:15px}
@@ -290,19 +286,19 @@
     <g fill="#7E8C9B" font-family="IBM Plex Mono, monospace" font-size="9">
       <text x="300" y="93"> 5% Admission Rate</text>
       <text x="340" y="153">Top 20 University</text>
-      <text x="310" y="213">Top Liberal Arts College</text>
+      <text x="310" y="213"> Top Liberal Arts Colleges</text>
       <text x="295" y="273">Top Public University</text>
     </g>
     <circle cx="150" cy="188" r="8" fill="#C9A13B"/>
     <circle cx="150" cy="188" r="14" stroke="#D9B968" stroke-width="1" fill="none" opacity="0.6"/>
-    <text x="168" y="184" fill="#fff" font-family="IBM Plex Mono, monospace" font-size="11">where you stand</text>
+    <text x="168" y="184" fill="#fff" font-family="IBM Plex Mono, monospace" font-size="11">Your Recruiting Position</text>
   </svg>
 
   <div class="wrap">
     <div class="hero-inner">
-      <span class="eyebrow">High-academic · Elite Universities </span>
-      <h1>Know exactly where your athlete <em>stands.</em></h1>
-      <p class="lead">Honest, precise recruiting guidance for student-athletes — from a team who competed at the highest level and did this themselves.</p>
+      <span class="eyebrow">Student-Athlete Recruiting Advisory </span>
+      <h1>College recruiting<br><em>made clearer.</em></h1>
+      <p class="lead">Signing Day Advisors offers personalized guidance for high-achieving student-athletes navigating academically competitve universities.</p>
       <div class="hero-ctas">
         <a class="btn-gold" href="contact/">Book a free consultation</a>
         <a class="btn-ghost" href="#sda-compass-teaser">See the SDA Compass <span>→</span></a>
@@ -316,7 +312,7 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Why us</span>
-      <h2>Recruiting shouldn't feel like a guessing game.</h2>
+      <h2>Recruiting shouldn't feel like a guessing game. <em>Know exactly where your athlete stands.</em></h2> 
       <p>Get help from a small, committed team that uses real acadmic and athletic data to turn goals into measurable recruiting targets.</p>
     </div>
     <div class="diff-grid reveal">
@@ -331,13 +327,13 @@
         <div class="num">02</div>
         <h3>Honest assessment</h3>
         <p>We benchmark your real metrics against real rosters. No promises, no inflated odds. Recieve a clear read on where you are and where you could be.</p>
-        <a href="#sda-compass-teaser" class="diff-link">Explore SDA Compass <span>→</span></a>
+        <a href="#academic-index/" class="diff-link">Explore SDA Compass <span>→</span></a>
       </div>
       <div class="diff">
         <div class="num">03</div>
         <h3>A strategy that evolves with you</h3>
         <p>Your academic and athletic profile is always evolving. SDA tracks your progress and adjusts your recruiting strategy to keep you aligned with your goals and the right opportunities.</p>
-        <a href="#programs" class="diff-link"> Explore Packages <span>→</span></a>
+        <a href="#packages/" class="diff-link"> Explore Packages <span>→</span></a>
       </div>
     </div>
   </div>
@@ -414,57 +410,46 @@
         <span class="cr-note">Illustrative</span>
       </div>
     </a>
-    <div class="compass-purchase reveal">
-    <a class="btn-gold" href="#contact">Purchase SDA Compass</a></div>
   </div>
 </section>
 
 <!-- PROGRAMS -->
 <section id="programs" style="background:var(--white-warm)">
-<div class="wrap">
-<div class="section-head reveal">
-<span class="eyebrow">Packages</span>
-<h2>Choose your level of support.</h2>
-<p>Start with Base or Premium, then add ongoing advisory support if you want continued guidance throughout the recruiting process.</p>
-</div>
-<div class="base-programs reveal">
-<div class="prog base-prog">
-<span class="prog-type">Base</span>
-<h3>Base Package</h3>
-<div class="p-sub">A clear assessment of where your athlete stands today and the most important next steps in the recruiting process.</div>
-<ul class="prog-list">
-<li>Academic and athletic assessment</li>
-<li>SDA Compass evaluation</li>
-<li>Target-school positioning</li>
-<li>Priority recommendations and next steps</li>
-</ul>
-<div class="p-price">$X<span> one-time</span></div>
-</div>
-<div class="prog base-prog">
-<span class="prog-type">Premium</span>
-<h3>Premium Package</h3>
-<div class="p-sub">A more comprehensive recruiting strategy with deeper planning, positioning, and personalized guidance.</div>
-<ul class="prog-list">
-<li>Everything included in Base</li>
-<li>Personalized recruiting roadmap</li>
-<li>School and coach outreach strategy</li>
-<li>Timeline and communication planning</li>
-</ul>
-<div class="p-price">$XX<span> one-time</span></div>
-</div>
-</div>
-<div class="subscription-card reveal">
-<div class="subscription-copy">
-<span class="eyebrow">Optional Subscription Add-On</span>
-<h3>Ongoing Advisory</h3>
-<p>Continue working with SDA throughout the recruiting process for ongoing strategy, communication support, decision-making, and guidance as opportunities evolve.</p>
-</div>
-<div class="subscription-details">
-<span class="subscription-price">$XX <small>/ month</small></span>
-<a class="btn-gold" href="#contact">Learn more</a>
-</div>
-</div>
-</div>
+  <div class="wrap">
+    <a class="programs-card reveal" href="packages/">
+  <div class="programs-text">
+  <span class="eyebrow">Packages</span>
+    <h2>Choose the level of support that fits your goals.</h2>
+  <span class="programs-link">Explore Packages <span>→</span></span>
+  </div>
+
+  <div class="programs-graphic">
+  <div class="pg-top">
+  <span>Base</span>
+  <span>Premium</span>
+  <span>Monthly</span>
+  </div>
+  <div class="pg-mini-chart">
+  <span class="pg-check"></span>
+  <span class="pg-check"></span>
+  <span class="pg-check"></span>
+
+  <span class="pg-check"></span>
+  <span class="pg-check"></span>
+  <span class="pg-dash"></span>
+
+  <span class="pg-dash"></span>
+  <span class="pg-check"></span>
+  <span class="pg-check"></span>
+
+  <span class="pg-dash"></span>
+  <span class="pg-check"></span>
+  <span class="pg-check"></span>
+  </div>
+  <span class="pg-caption">SERVICE SNAPSHOT</span>
+  </div>
+  </a>
+  </div>
 </section>
 
 <!-- CLOSING -->
