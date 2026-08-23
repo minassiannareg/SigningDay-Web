@@ -59,16 +59,19 @@
 
   /* ---------- PAGE HERO ---------- */
   .page-hero{background:var(--navy);color:var(--white-warm)}
-  .page-hero-inner{padding:88px 0 76px;max-width:720px}
+  .page-hero-inner{padding:88px 0 76px;max-width:980px}
   .page-hero .eyebrow{margin-bottom:22px;display:block}
   .page-hero h1{font-size:clamp(36px,5.2vw,58px);color:#fff;margin-bottom:22px}
   .page-hero h1 em{font-style:italic;color:var(--gold-soft)}
-  .page-hero p{font-size:18px;color:#C7D2DE;max-width:600px}
+  .page-hero p{font-size:18px;color:#C7D2DE;max-width:940px}
 
   /* ---------- TEAM GRID ---------- */
   section{padding:88px 0}
   .team-section{padding-top:96px}
-  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px}
+  .team-heading{text-align:center;margin-botton:0}
+  .team-heading .eyebrow{display:block;margin-bottom:12px}
+  .team-heading h2{font-size:clamp(38px,5vw,54px);color:var(--navy)}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px;margin-top:72px}
   @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:600px){.team-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}}
 
@@ -158,9 +161,11 @@
 <header class="page-hero">
   <div class="wrap">
     <div class="page-hero-inner">
-      <span class="eyebrow">The team</span>
-      <h1>Athletes who <em>did this</em> themselves.</h1>
-      <p>Every advisor at SDA competed at the collegiate level and navigated the recruiting process firsthand — now we bring that same rigor to your athlete's timeline.</p>
+      <span class="eyebrow">Our mission </span>
+      <h1> With purpose.</h1>
+      <p>SDA was founded by recent graduates of academically rigorous universities who have experienced the college recruiting process firsthand.
+          We created SDA because we believe high school athletes deserve honest, transparent, and personalized guidance as they navigate one of the most important decisions of their lives. Our mission is to give athletes and their families a clear understanding of where they stand, where they can realistically go, and what it takes to get there—while helping each athlete identify the college and program that is truly the best fit for who they are, both academically and athletically..
+          We are committed to making recruiting more transparent and less overwhelming, empowering every athlete to approach the process with confidence, clarity, and a strategy built around who they are and where they want to go.</p>
     </div>
   </div>
 </header>
@@ -168,6 +173,11 @@
 <!-- TEAM GRID -->
 <section class="team-section" id="team">
   <div class="wrap">
+
+    <div class="team-heading reveal">
+      <h2>Meet the Founders</h2>
+
+  </div>
     <div class="team-grid reveal">
 
       <div class="member">
@@ -216,7 +226,6 @@
     <h2>Talk to an advisor who's been through it.</h2>
     <p>A free, fifteen-minute consultation to talk through where your athlete stands and whether we're the right fit.</p>
     <a class="btn-gold" href="../contact/">Book a free consultation</a>
-    <div><span class="placeholder-note">Wire this button to your Calendly / booking form</span></div>
   </div>
 </section>
 
