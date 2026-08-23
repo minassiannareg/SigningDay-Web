@@ -30,8 +30,7 @@
   .scroll-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-soft));z-index:100;transition:width .1s linear}
 
   /* NAV */
-  nav{position:sticky;top:0;z-index:60;background:rgba(15,42,74,0.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(201,161,59,0.16);transition:background .3s,border-color .3s,box-shadow .3s}
-  nav.scrolled{background:rgba(12,32,56,0.97);border-bottom-color:rgba(201,161,59,0.32);box-shadow:0 10px 30px -18px rgba(0,0,0,0.6)}
+  nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,59,0.25)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
   .brand{display:flex;align-items:center;gap:12px;color:var(--white-warm)}
   .brand-mark{width:28px;height:34px;flex:none;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
@@ -483,13 +482,12 @@
 
   requestAnimationFrame(()=>{requestAnimationFrame(()=>{document.querySelector('.hero').classList.add('lit')})});
 
-  const sbar=document.getElementById('sbar'), nav=document.querySelector('nav');
+  const sbar=document.getElementById('sbar');
   let ticking=false;
   function onScroll(){
     const st=window.scrollY||document.documentElement.scrollTop;
     const h=document.documentElement.scrollHeight-window.innerHeight;
     sbar.style.width=(h>0?(st/h*100):0)+'%';
-    nav.classList.toggle('scrolled', st>8);
     ticking=false;
   }
   window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(onScroll);ticking=true}},{passive:true});
