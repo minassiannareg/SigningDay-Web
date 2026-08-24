@@ -56,6 +56,8 @@
   .nav-links{display:flex;gap:24px;align-items:center}
   .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
   .nav-links a:hover{color:var(--gold-soft)}
+  .nav-toggle{display:none;background:none;border:none;color:var(--white-warm);padding:6px;cursor:pointer;align-items:center;justify-content:center}
+  .nav-toggle svg{width:22px;height:22px}
 
   /* ---------- PAGE HERO ---------- */
   .page-hero{background:var(--navy);color:var(--white-warm)}
@@ -68,7 +70,7 @@
   /* ---------- TEAM GRID ---------- */
   section{padding:88px 0}
   .team-section{padding-top:96px}
-  .team-heading{text-align:center;margin-botton:0}
+  .team-heading{text-align:center;margin-bottom:0}
   .team-heading .eyebrow{display:block;margin-bottom:12px}
   .team-heading h2{font-size:clamp(38px,5vw,54px);color:var(--navy)}
   .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px;margin-top:72px}
@@ -126,10 +128,14 @@
   }
 
   @media(max-width:760px){
-    .nav-links{display:none}
     .wrap{padding:0 22px}
     section{padding:64px 0}
     .page-hero-inner{padding:64px 0 52px}
+    .nav-toggle{display:flex}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,42,74,0.98);flex-direction:column;align-items:stretch;gap:0;padding:8px 22px 22px;border-bottom:1px solid rgba(201,161,59,0.25)}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+    .nav-links a:last-child{border-bottom:none}
   }
 </style>
 </head>
@@ -146,7 +152,10 @@
       </svg>
       <span class="brand-name">Signing Day Advisors</span>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="../#approach">Our Approach</a>
       <a href="../academic-index/">SDA Compass</a>
       <a href="../packages/">Packages</a>
@@ -164,7 +173,7 @@
       <span class="eyebrow">Our mission </span>
       <h1> With purpose.</h1>
       <p>SDA was founded by recent graduates of academically rigorous universities who have experienced the college recruiting process firsthand.
-          We created SDA because we believe high school athletes deserve honest, transparent, and personalized guidance as they navigate one of the most important decisions of their lives. Our mission is to give athletes and their families a clear understanding of where they stand, where they can realistically go, and what it takes to get there—while helping each athlete identify the college and program that is truly the best fit for who they are, both academically and athletically..
+          We created SDA because we believe high school athletes deserve honest, transparent, and personalized guidance as they navigate one of the most important decisions of their lives. Our mission is to give athletes and their families a clear understanding of where they stand, where they can realistically go, and what it takes to get there—while helping each athlete identify the college and program that is truly the best fit for who they are, both academically and athletically.
           We are committed to making recruiting more transparent and less overwhelming, empowering every athlete to approach the process with confidence, clarity, and a strategy built around who they are and where they want to go.</p>
     </div>
   </div>
@@ -266,6 +275,20 @@
 </footer>
 
 <script>
+  (function(){
+    const navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks');
+    if(navToggle && navLinks){
+      navToggle.addEventListener('click',()=>{
+        const open=navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }));
+    }
+  })();
+
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
   },{threshold:0.15});

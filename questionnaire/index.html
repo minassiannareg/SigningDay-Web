@@ -28,6 +28,8 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
 .nav-links a:hover{color:var(--gold-soft)}
 .nav-links a.active{color:var(--gold-soft)}
+.nav-toggle{display:none;background:none;border:none;color:var(--white-warm);padding:6px;cursor:pointer;align-items:center;justify-content:center}
+.nav-toggle svg{width:22px;height:22px}
 
 /* hero */
 .hero{background:var(--navy);color:#fff;padding:90px 0 76px}
@@ -86,7 +88,18 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 footer{background:var(--navy-deep);padding:40px 0;color:#718296}
 footer p{font-size:12px}
 
-@media(max-width:760px){.wrap{padding:0 22px}.nav-links{display:none}.progress-grid{grid-template-columns:repeat(2,1fr)}.form-row{grid-template-columns:1fr}.form-card{padding:28px 24px}.intro-card{padding:28px 24px}}
+@media(max-width:760px){
+  .wrap{padding:0 22px}
+  .progress-grid{grid-template-columns:repeat(2,1fr)}
+  .form-row{grid-template-columns:1fr}
+  .form-card{padding:28px 24px}
+  .intro-card{padding:28px 24px}
+  .nav-toggle{display:flex}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,42,74,0.98);flex-direction:column;align-items:stretch;gap:0;padding:8px 22px 22px;border-bottom:1px solid rgba(201,161,59,0.25)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .nav-links a:last-child{border-bottom:none}
+}
 </style>
 </head>
 
@@ -101,7 +114,10 @@ footer p{font-size:12px}
 </svg>
 <span class="brand-name">Signing Day Advisors</span>
 </a>
-<div class="nav-links">
+<button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+<div class="nav-links" id="navLinks">
 <a href="../#approach">Our Approach</a>
 <a href="../academic-index/">SDA Compass</a>
 <a href="../packages/">Packages</a>
@@ -480,6 +496,20 @@ footer p{font-size:12px}
 </footer>
 
 <script>
+(function(){
+  const navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks');
+  if(navToggle && navLinks){
+    navToggle.addEventListener('click',()=>{
+      const open=navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+    }));
+  }
+})();
+
 const form=document.getElementById('questionnaire-form');
 const status=document.getElementById('form-status');
 

@@ -35,6 +35,8 @@
   .nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
   .nav-links a:hover{color:var(--gold-soft)}
   .nav-links a.active{color:var(--gold-soft)}
+  .nav-toggle{display:none;background:none;border:none;color:var(--white-warm);padding:6px;cursor:pointer;align-items:center;justify-content:center}
+  .nav-toggle svg{width:22px;height:22px}
 
   .hero{background:var(--navy);color:var(--white-warm);text-align:center;padding:44px 0 84px}
   .back{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:#A9B7C6;transition:color .2s}
@@ -240,7 +242,15 @@
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
-  @media(max-width:760px){.nav-links{display:none}.wrap{padding:0 22px}.s{padding:68px 0}}
+  @media(max-width:760px){
+    .wrap{padding:0 22px}
+    .s{padding:68px 0}
+    .nav-toggle{display:flex}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,42,74,0.98);flex-direction:column;align-items:stretch;gap:0;padding:8px 22px 22px;border-bottom:1px solid rgba(201,161,59,0.25)}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+    .nav-links a:last-child{border-bottom:none}
+  }
 </style>
 </head>
 <body>
@@ -256,7 +266,10 @@
       </svg>
       <span class="brand-name">Signing Day Advisors</span>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
       <a href="../#approach">Our Approach</a>
       <a href="../academic-index/">SDA Compass</a>
       <a href="../packages/">Packages</a>
@@ -735,6 +748,20 @@
 </footer>
 
 <script>
+  (function(){
+    const navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks');
+    if(navToggle && navLinks){
+      navToggle.addEventListener('click',()=>{
+        const open=navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }));
+    }
+  })();
+
   const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});},{threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
