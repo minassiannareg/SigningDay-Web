@@ -140,26 +140,30 @@
   }
 
   /* process */
-  .process{background:var(--navy);color:var(--white-warm);padding:72px 0}
-  .process .section-head{margin-bottom:42px}
-  .process .section-head{max-width:760px;margin-bottom:42px}
-  .process .section-head h2{color:#fff}
-  .process .section-head p{color:#C7D2DE}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;max-width:900px;margin:0 auto}
-  .steps::before{content:"";position:absolute;top:77px;left:12.5%;right:12.5%;height:1px;background:rgba(201,161,59,0.45);z-index:0}
-  .step{text-align:center;position:relative;padding:0 14px;min-height:205px}
-  .step-circle{width:120px;height:120px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;background:var(--navy);transition:all .25s ease;cursor:default}
-  .step-circle span{font-family:'Fraunces',serif;font-size:19px;color:#fff}
-  .step:hover .step-circle{background:var(--gold);transform:translateY(-4px)}
+  .process{background:var(--navy);color:var(--white-warm);padding:88px 0 80px}
+  .process .section-head{max-width:820px;margin-bottom:54px}
+  .process .section-head h2{color:#fff;font-size:clamp(34px,4.5vw,52px)}
+  .process .section-head p{color:#C7D2DE;max-width:680px}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;max-width:1050px;margin:0 auto}
+  .steps::before{content:"";position:absolute;top:91px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,rgba(201,161,59,.25),rgba(201,161,59,.9),rgba(201,161,59,.25));z-index:0}
+  .step{text-align:center;position:relative;padding:0 18px;min-height:330px;cursor:pointer}
+  .step-num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:10px}
+  .step-circle{width:132px;height:132px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;background:var(--navy);transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
+  .step-circle span{font-family:'Fraunces',serif;font-size:21px;color:#fff}
+  .step:last-child .step-circle{border-width:2px;box-shadow:0 0 0 8px rgba(201,161,59,.08)}
+  .step-kicker{margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold-soft)}
+  .step-detail{margin:8px auto 0;max-width:210px;font-size:14px;line-height:1.55;color:#C7D2DE;opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
+  .step-deliverable{margin:10px auto 0;max-width:210px;font-size:12px;line-height:1.45;color:#8FA0B3;opacity:0;transform:translateY(8px);transition:opacity .25s ease .04s,transform .25s ease .04s}
+  .step:hover .step-circle{background:var(--gold);transform:translateY(-6px);box-shadow:0 16px 30px -18px rgba(0,0,0,.55)}
   .step:hover .step-circle span{color:var(--navy)}
-  .step-num{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--gold);margin-bottom:8px}
-  .step-detail{margin:18px auto 0;max-width:185px;font-size:13.5px;color:#C7D2DE;opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
-  .step:hover .step-detail{opacity:1;transform:translateY(0)}
-  .step.active .step-detail{opacity:1;transform:translateY(0)}
-  .step.active .step-circle{background:var(--gold);transform:translateY(-4px)}
+  .step:hover .step-detail,.step:hover .step-deliverable{opacity:1;transform:translateY(0)}
+  .step.active .step-circle{background:var(--gold);transform:translateY(-6px)}
   .step.active .step-circle span{color:var(--navy)}
-  @media(max-width:760px){.steps{grid-template-columns:repeat(2,1fr);gap:34px 18px}.steps::before{display:none}.step{min-height:auto}.step-circle{width:105px;height:105px}.step-detail{opacity:1;transform:none;margin-top:12px}.process{padding:64px 0}}
-  @media(max-width:480px){.steps{grid-template-columns:1fr}.step-circle{width:110px;height:110px}}
+  .step.active .step-detail,.step.active .step-deliverable{opacity:1;transform:translateY(0)}
+  .process-closing{margin:34px auto 0;text-align:center;font-family:'Fraunces',serif;font-size:19px;color:#fff}
+  .process-closing span{color:var(--gold-soft)}
+  @media(max-width:760px){.steps{grid-template-columns:repeat(2,1fr);gap:42px 20px}.steps::before{display:none}.step{min-height:auto}.step-circle{width:112px;height:112px}.step-detail,.step-deliverable{opacity:1;transform:none}.process{padding:64px 0}}
+  @media(max-width:480px){.steps{grid-template-columns:1fr}}
 
   /* assessment feature */
   .assess{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:center}
@@ -352,31 +356,40 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Our approach</span>
-      <h2>A recruiting strategy built around you.</h2>
-      <p>Four stages. One strategy built around your athlete.</p>
+      <h2>A recruiting strategy built around your athlete.</h2>
+      <p>From first assessment to final commitment, every stage is designed around your athlete's goals, profile, and recruiting timeline.</p>
     </div>
     <div class="steps reveal">
       <div class="step" tabindex="0">
-      <div class="step-num">01</div>
-      <div class="step-circle"><span>Assess</span></div>
-      <p class="step-detail">Benchmark where you stand against the programs you want to reach.</p>
-    </div>
+        <div class="step-num">01</div>
+        <div class="step-circle"><span>Assess</span></div>
+        <div class="step-kicker">Know where you stand</div>
+        <p class="step-detail">Benchmark academics, athletics, and recruiting readiness against the programs your athlete wants to reach.</p>
+        <p class="step-deliverable">Academic + athletic benchmark</p>
+      </div>
       <div class="step" tabindex="0">
-      <div class="step-num">02</div>
-      <div class="step-circle"><span>Strategize</span></div>
-      <p class="step-detail">Build a personalized recruiting roadmap around your goals and timeline.</p>
-    </div>
+        <div class="step-num">02</div>
+        <div class="step-circle"><span>Strategize</span></div>
+        <div class="step-kicker">Build the right roadmap</div>
+        <p class="step-detail">Create a personalized school strategy, recruiting timeline, and action plan around your athlete's goals.</p>
+        <p class="step-deliverable">School strategy + recruiting timeline</p>
+      </div>
       <div class="step" tabindex="0">
-      <div class="step-num">03</div>
-      <div class="step-circle"><span>Build</span></div>
-      <p class="step-detail">Strengthen the academic, athletic, and recruiting pieces that matter most.</p>
-    </div>
+        <div class="step-num">03</div>
+        <div class="step-circle"><span>Build</span></div>
+        <div class="step-kicker">Strengthen your profile</div>
+        <p class="step-detail">Develop the academic, athletic, communication, and recruiting pieces that move the process forward.</p>
+        <p class="step-deliverable">Profile + outreach + development</p>
+      </div>
       <div class="step" tabindex="0">
-      <div class="step-num">04</div>
-      <div class="step-circle"><span>Sign</span></div>
-      <p class="step-detail">Navigate visits, offers, and the final decision with confidence.</p>
+        <div class="step-num">04</div>
+        <div class="step-circle"><span>Sign</span></div>
+        <div class="step-kicker">Choose with confidence</div>
+        <p class="step-detail">Navigate visits, offers, financial considerations, and the final decision with a clear understanding of the options.</p>
+        <p class="step-deliverable">Offer comparison + decision support</p>
+      </div>
     </div>
-   </div>
+    <p class="process-closing reveal">One coordinated strategy. <span>From first assessment to signing day.</span></p>
   </div>
 </section>
 

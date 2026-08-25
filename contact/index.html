@@ -67,8 +67,9 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-fil
 .btn-gold{display:inline-block;background:var(--gold);color:var(--navy);padding:14px 28px;border:none;border-radius:2px;font-size:14px;font-weight:600;font-family:'Newsreader',serif;cursor:pointer;transition:all .2s}
 .btn-gold:hover{background:var(--gold-soft);transform:translateY(-1px)}
 .form-note{font-size:13px;color:var(--muted)}
-.form-status{font-size:13px;color:var(--navy);display:none}
-.form-status.show{display:block}
+.form-status{font-size:13px;color:var(--navy);display:none;margin-top:4px}
+.form-status:not(:empty){display:block}
+.form-error{color:#9B3A3A}
 
 /* FOOTER */
 footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
@@ -161,6 +162,7 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
     </div>
 
     <form class="contact-form" id="contact-form">
+      <input type="hidden" name="form_type" value="Website Contact Form">
       <div class="form-row">
         <div class="form-group">
           <label for="firstName">First Name</label>
@@ -210,12 +212,12 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
       </div>
 
       <div class="form-submit">
-        <button class="btn-gold" type="submit">Send Message</button>
-        <span class="form-note">Sends directly to info@signingdayadvisors.com via your email app.</span>
+        <button class="btn-gold" type="submit" data-fs-submit-btn>Send Message</button>
+        <span class="form-note">Our team will receive your message directly.</span>
       </div>
-      <span class="form-status" id="form-status">Opening your email app with your message ready to send&hellip;</span>
+    <div class="form-status" data-fs-success>Thank you. Your message has been sent successfully.</div>
+    <div class="form-status form-error" data-fs-error></div>
     </form>
-
   </div>
 </section>
 
@@ -272,30 +274,11 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
   }
 })();
 
-document.getElementById('contact-form').addEventListener('submit', function(e){
-  e.preventDefault();
-
-  const firstName = document.getElementById('firstName').value.trim();
-  const lastName = document.getElementById('lastName').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const gradYear = document.getElementById('gradYear').value;
-  const subject = document.getElementById('subject').value.trim();
-  const message = document.getElementById('message').value.trim();
-
-  const mailSubject = encodeURIComponent(subject);
-  const bodyLines = [
-    `Name: ${firstName} ${lastName}`,
-    `Email: ${email}`,
-    `Student's Year of Graduation: ${gradYear}`,
-    '',
-    message
-  ];
-  const mailBody = encodeURIComponent(bodyLines.join('\n'));
-
-  document.getElementById('form-status').classList.add('show');
-  window.location.href = `mailto:info@signingdayadvisors.com?subject=${mailSubject}&body=${mailBody}`;
-});
+window.formspree=window.formspree||function(){(formspree.q=formspree.q||[]).push(arguments);};
+formspree('initForm',{formElement:'#contact-form',formId:'xzeplgyb'});
 </script>
+
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>
