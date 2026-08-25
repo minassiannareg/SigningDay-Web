@@ -170,9 +170,10 @@ footer p{font-size:12px}
 <section class="form-section">
 <div class="wrap">
 
-<form class="questionnaire" id="questionnaire-form" action="YOUR_FORM_ENDPOINT" method="POST">
+<form class="questionnaire" id="questionnaire-form" action="https://formspree.io/f/mzeplgqb" method="POST">
 
 <input type="hidden" name="_subject" value="New SDA Recruiting Questionnaire">
+<input type="hidden" name="form_type" value="Athlete Questionnaire">
 
 <!-- SECTION 1 -->
 <div class="form-card">
@@ -405,6 +406,7 @@ footer p{font-size:12px}
 
 <div class="form-group">
 <label for="topSchools">Current Top-Choice Schools</label>
+<span class="helper">Please identify if athlete would be a legacy at a listed school</span>
 <textarea id="topSchools" name="top_choice_schools"></textarea>
 </div>
 
@@ -470,8 +472,8 @@ footer p{font-size:12px}
 <div class="form-group">
 <span class="question-label">Preference for Men's and Women's Teams Combined</span>
 <div class="options">
-<label class="option"><input type="radio" name="combined_team_preference" value="Yes combined">Yes, combined</label>
-<label class="option"><input type="radio" name="combined_team_preference" value="Yes not combined">Yes, not combined</label>
+<label class="option"><input type="radio" name="combined_team_preference" value="Yes combined">Combined</label>
+<label class="option"><input type="radio" name="combined_team_preference" value="Yes not combined">Not combined</label>
 <label class="option"><input type="radio" name="combined_team_preference" value="No preference">No preference / N/A</label>
 </div>
 </div>
