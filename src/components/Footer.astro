@@ -1,0 +1,53 @@
+---
+import BrandMark from './BrandMark.astro';
+
+interface Props {
+  /** Page-specific disclaimer sentences appended to the standard text. */
+  extraDisclaimer?: string;
+}
+const { extraDisclaimer } = Astro.props;
+
+const explore = [
+  { href: '/how-it-works',   label: 'How It Works' },
+  { href: '/academic-index', label: 'SDA Compass' },
+  { href: '/packages',       label: 'Packages' },
+];
+const company = [
+  { href: '/team',    label: 'About Us' },
+  { href: '/faq',     label: 'FAQ' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/terms',   label: 'Terms' },
+  { href: '/privacy', label: 'Privacy' },
+];
+---
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <BrandMark />
+          <span class="brand-name" style="font-size:17px">Signing Day Advisors</span>
+        </div>
+        <a class="foot-email" href="mailto:info@signingdayadvisors.com">info@signingdayadvisors.com</a>
+      </div>
+
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Explore</h4>
+          {explore.map((l) => <a href={l.href}>{l.label}</a>)}
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          {company.map((l) => <a href={l.href}>{l.label}</a>)}
+        </div>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee
+      admission, athletic offers, roster spots, or scholarships, and we are not affiliated with
+      any college, university, the Ivy League, or the NCAA. SDA Compass figures are estimates
+      based on information provided by the family.{extraDisclaimer ? ` ${extraDisclaimer}` : ''}
+    </p>
+  </div>
+</footer>

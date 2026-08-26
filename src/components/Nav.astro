@@ -1,0 +1,50 @@
+---
+import BrandMark from './BrandMark.astro';
+
+// Single source of truth for site navigation.
+const links = [
+  { href: '/academic-index', label: 'SDA Compass' },
+  { href: '/how-it-works',   label: 'How It Works' },
+  { href: '/packages',       label: 'Packages' },
+  { href: '/team',           label: 'About Us' },
+  { href: '/faq',            label: 'FAQ' },
+  { href: '/contact',        label: 'Contact' },
+];
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+---
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="/">
+      <BrandMark />
+      <span class="brand-name">Signing Day Advisors</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+
+    <div class="nav-links" id="navLinks">
+      {links.map((l) => (
+        <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach((a) =>
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      })
+    );
+  }
+</script>

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /questionnaire
+Disallow: /terms
+
+Sitemap: https://signingdayadvisors.com/sitemap-index.xml

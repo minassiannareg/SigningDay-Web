@@ -1,0 +1,123 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Omit the "| Signing Day Advisors" suffix (used on the homepage). */
+  rawTitle?: boolean;
+  noindex?: boolean;
+  extraDisclaimer?: string;
+  ogImage?: string;
+  /** Show the gold reading-progress bar (long-form pages). */
+  scrollBar?: boolean;
+}
+
+const {
+  title,
+  description,
+  rawTitle = false,
+  noindex = false,
+  extraDisclaimer,
+  ogImage = '/og-default.png',
+  scrollBar = false,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://signingdayadvisors.com');
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, '') || '/', site).href;
+const fullTitle = rawTitle ? title : `${title} | Signing Day Advisors`;
+const ogUrl = new URL(ogImage, site).href;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Signing Day Advisors',
+  description:
+    'College swimming recruiting advisory for academically high-achieving student-athletes.',
+  url: site.href,
+  email: 'info@signingdayadvisors.com',
+  areaServed: 'US',
+  serviceType: 'College athletic recruiting advisory',
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Signing Day Advisors" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogUrl} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogUrl} />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0F2A4A" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  <noscript>
+    <style>.reveal,.fx{opacity:1!important;transform:none!important}</style>
+  </noscript>
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {scrollBar && <div class="scroll-bar" id="sbar" aria-hidden="true"></div>}
+  <Nav />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer extraDisclaimer={extraDisclaimer} />
+
+  <script>
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    const sbar = document.getElementById('sbar');
+    if (sbar) {
+      let ticking = false;
+      const onScroll = () => {
+        const st = window.scrollY || document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        sbar.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
+        ticking = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+      }, { passive: true });
+      onScroll();
+    }
+  </script>
+</body>
+</html>

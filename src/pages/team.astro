@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="About Us"
+  description="Signing Day Advisors was founded by collegiate swimmers and student-athletes from Yale, Bowdoin, and Emory who went through high-academic recruiting themselves."
+>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="wrap">
+    <div class="page-hero-inner">
+      <span class="eyebrow">Our mission </span>
+      <h1> With purpose.</h1>
+      <p>SDA was founded by recent graduates of academically rigorous universities who have experienced the college recruiting process firsthand.
+          We created SDA because we believe high school athletes deserve honest, transparent, and personalized guidance as they navigate one of the most important decisions of their lives. Our mission is to give athletes and their families a clear understanding of where they stand, where they can realistically go, and what it takes to get there—while helping each athlete identify the college and program that is truly the best fit for who they are, both academically and athletically.
+          We are committed to making recruiting more transparent and less overwhelming, empowering every athlete to approach the process with confidence, clarity, and a strategy built around who they are and where they want to go.</p>
+    </div>
+  </div>
+</header>
+
+<!-- TEAM GRID -->
+<section class="team-section" id="team">
+  <div class="wrap">
+
+    <div class="team-heading reveal">
+      <h2>Meet the Founders</h2>
+
+  </div>
+    <div class="team-grid reveal">
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/james-rappaport.jpg" alt="James Dun Rappaport"></div>
+        <h3 class="member-name">James Dun Rappaport</h3>
+        <span class="member-school">Emory University</span>
+        <p class="member-bio">James graduated cum laude from Emory University in 2026 with a BBA in Finance and a minor in English. At Emory, he was an active peer tutor for both Statistics and English students and a founding member of the Goizueta Book Club. James has interned in biotechnology and impact investing, and is starting his career in M&amp;A Advisory at FTI Consulting in the fall.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/ethan-ecsedy.jpg" alt="Ethan Ecsedy"></div>
+        <h3 class="member-name">Ethan Ecsedy</h3>
+        <span class="member-school">Bowdoin College</span>
+        <p class="member-bio">Ethan graduated cum laude from Bowdoin College in 2026, where he was a three-year starter on the varsity football team. He received a BS in Molecular and Cellular Biology with a minor in Economics, and has worked across roles at Harvard T.H. Chan School of Public Health, Mass General Brigham, Kura Oncology, and Convergent Therapeutics. He plans to pursue his studies as he applies to cancer biology PhD programs.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/finn-henry.jpg" alt="Finn Henry"></div>
+        <h3 class="member-name">Finn Henry</h3>
+        <span class="member-school">Yale University</span>
+        <p class="member-bio">Finn graduated from Yale University in 2026, where he majored in Political Science. At Yale, Finn was a member of the men's varsity swim team, competing as a distance swimmer and actively managing their alumni network. He has extensive experience in the political sphere, having served as both a policy and congressional intern, and is currently working in consulting in Washington, D.C.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/nareg-minassian.jpg" alt="Nareg Minassian"></div>
+        <h3 class="member-name">Nareg Minassian</h3>
+        <span class="member-school">Yale University</span>
+        <p class="member-bio">Nareg graduated with distinction from Yale with a degree in Chemistry, while competing as a four-year NCAA Division I swimmer. He qualified for Olympic Trials, set multiple New England records, and ranks among Yale's all-time top ten in three events. He was recognized as a CSC Academic All-District and a CSCAA Scholar All-American Honoree, has held positions at AstraZeneca, Mass General Brigham, and the Harvard T.H. Chan School of Public Health, and is currently pursuing a PhD in Chemistry.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/izz.jpg" alt="Isabella Paoletti"></div>
+        <h3 class="member-name">Isabella Paoletti</h3>
+        <span class="member-school">Yale University</span>
+        <p class="member-bio">Isabella graduated with distinction from Yale University in 2026 with a BA in the History of Science and Medicine and an MS in Personalized Medicine and Applied Engineering, receiving Honors in every course throughout her master's program. At Yale, she competed on the women's varsity swimming team all four years, earning an Ivy League podium finish and competing at the Ivy League Championships across a wide range of events as a distance swimmer and IMer. As a high school athlete navigating the college recruiting process, she was a Pennsylvania state champion and a NISCA and Scholastic All-American. Isabella has conducted medical research at Yale and the University of Pennsylvania and has experience in medical 3D design and engineering through her current work at Northwell Health's 3D Design & Innovation Lab.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing" id="contact">
+  <div class="wrap reveal">
+    <span class="eyebrow" style="display:block;margin-bottom:18px">Work with us</span>
+    <h2>Talk to an advisor who's been through it.</h2>
+    <p>A free, fifteen-minute consultation to talk through where your athlete stands and whether we're the right fit.</p>
+    <a class="btn-gold" href="../contact/">Book a free consultation</a>
+  </div>
+</section>
+
+</Base>
+
+<style is:global>
+/* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,42,74,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,161,59,0.25);
+  }
+
+  /* ---------- PAGE HERO ---------- */
+  .page-hero{background:var(--navy);color:var(--white-warm)}
+  .page-hero-inner{padding:88px 0 76px;max-width:980px}
+  .page-hero .eyebrow{margin-bottom:22px;display:block}
+  .page-hero h1{font-size:clamp(36px,5.2vw,58px);color:#fff;margin-bottom:22px}
+  .page-hero h1 em{font-style:italic;color:var(--gold-soft)}
+  .page-hero p{font-size:18px;color:#C7D2DE;max-width:940px}
+
+  /* ---------- TEAM GRID ---------- */
+  section{padding:88px 0}
+  .team-section{padding-top:96px}
+  .team-heading{text-align:center;margin-bottom:0}
+  .team-heading .eyebrow{display:block;margin-bottom:12px}
+  .team-heading h2{font-size:clamp(38px,5vw,54px);color:var(--navy)}
+  .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px;margin-top:72px}
+  @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.team-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}}
+
+  .member{display:flex;flex-direction:column}
+  .member-photo{
+    width:100%;aspect-ratio:4/5;border-radius:6px;overflow:hidden;
+    background:var(--cream-2);margin-bottom:22px;position:relative;
+    box-shadow:0 24px 40px -28px rgba(15,42,74,0.35);
+  }
+  .member-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+  .member:hover .member-photo img{transform:scale(1.035)}
+  .member-name{font-size:21px;color:var(--navy);margin-bottom:4px}
+  .member-school{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:1.2px;
+    text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+  }
+  .member-bio{font-size:14.5px;color:var(--muted);line-height:1.65}
+
+  /* ---------- CLOSING ---------- */
+  .closing{background:var(--cream-2);text-align:center}
+  .closing h2{font-size:clamp(30px,4vw,46px);color:var(--navy);max-width:640px;margin:0 auto 22px}
+  .closing p{font-size:17px;color:var(--muted);max-width:500px;margin:0 auto 34px}
+  .btn-gold{
+    background:var(--gold);color:var(--navy);display:inline-block;
+    padding:15px 30px;border-radius:2px;font-size:15px;font-weight:600;
+    transition:all .2s;
+  }
+  .btn-gold:hover{background:var(--gold-soft);transform:translateY(-1px)}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy-deep);color:#8FA0B3;padding:64px 0 40px}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+  
+
+  @media(max-width:760px){
+    section{padding:64px 0}
+    .page-hero-inner{padding:64px 0 52px}
+  }
+</style>

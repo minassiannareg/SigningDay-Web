@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Page not found"
+  description="That page doesn't exist. Find your way back to Signing Day Advisors."
+  noindex
+>
+  <section class="nf">
+    <div class="wrap">
+      <span class="eyebrow">Error 404</span>
+      <h1>We couldn't find that page.</h1>
+      <p>The link may be out of date, or the page may have moved. Here's where to go next.</p>
+      <div class="nf-links">
+        <a class="btn-gold" href="/">Back to home</a>
+        <a class="nf-ghost" href="/contact">Book a free consultation <span>&rarr;</span></a>
+      </div>
+      <div class="nf-grid">
+        <a href="/academic-index"><strong>SDA Compass</strong><span>See where your athlete fits</span></a>
+        <a href="/how-it-works"><strong>How It Works</strong><span>The method behind the score</span></a>
+        <a href="/packages"><strong>Packages</strong><span>Levels of support and pricing</span></a>
+        <a href="/faq"><strong>FAQ</strong><span>Straight answers</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .nf{background:var(--navy);color:var(--white-warm);padding:120px 0 128px}
+  .nf .eyebrow{display:block;margin-bottom:20px}
+  .nf h1{font-size:clamp(36px,5.5vw,58px);color:#fff;margin-bottom:18px}
+  .nf p{font-size:18px;color:#C7D2DE;max-width:520px;margin-bottom:36px}
+  .nf-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:56px}
+  .nf-ghost{color:#C7D2DE;font-size:15px;transition:color .2s}
+  .nf-ghost:hover{color:#fff}
+  .nf-ghost span{color:var(--gold)}
+  .nf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);border-radius:4px;overflow:hidden}
+  .nf-grid a{background:var(--navy);padding:22px 20px;display:flex;flex-direction:column;gap:5px;transition:background .2s}
+  .nf-grid a:hover{background:var(--navy-soft)}
+  .nf-grid strong{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:#fff}
+  .nf-grid span{font-size:13px;color:#8FA0B3}
+  @media(max-width:760px){.nf-grid{grid-template-columns:1fr}.nf{padding:80px 0 88px}}
+</style>

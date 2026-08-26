@@ -1,76 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms & Conditions | Signing Day Advisors</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500&family=Newsreader:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root{--navy:#0F2A4A;--navy-deep:#0A1E38;--gold:#C9A13B;--gold-soft:#D9B968;--cream:#F7F5EF;--ink:#27313B;--muted:#6C6A63;--line:#D8D3C8;--white:#FFFFFF}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Newsreader',serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:900px;margin:0 auto;padding:0 30px}
-nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,59,.25)}
-.nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;height:72px;display:flex;align-items:center;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:12px;color:#fff}
-.brand-mark{width:28px;height:34px}
-.brand-name{font-family:'Fraunces',serif;font-size:19px}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-links a{color:#C7D2DE;font-size:14px;transition:color .2s}
-.nav-links a:hover{color:var(--gold-soft)}
-.nav-toggle{display:none;background:none;border:none;color:#fff;padding:6px;cursor:pointer}
-.nav-toggle svg{width:22px;height:22px}
-.page-header{background:#fff;border-bottom:1px solid var(--line);padding:52px 0 42px}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2.2px;text-transform:uppercase;color:var(--gold);font-weight:500}
-.page-header .eyebrow{display:block;margin-bottom:12px}
-.page-header h1{font-family:'Fraunces',serif;font-weight:500;color:var(--navy);font-size:clamp(36px,5vw,48px);line-height:1.1;margin-bottom:10px}
-.effective{font-size:12px;color:var(--muted)}
-.terms-section{padding:52px 0 80px}
-.terms-document{background:#fff;border:1px solid var(--line);border-radius:6px;padding:48px 52px}
-.terms-intro{font-size:13px;color:var(--ink);margin-bottom:30px}
-.terms-block{margin-bottom:30px}
-.terms-block:last-child{margin-bottom:0}
-.terms-block h2{font-family:'Newsreader',serif;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
-.terms-block p,.terms-block li{font-size:12.5px;line-height:1.65;color:#424A51}
-.terms-block p+p{margin-top:8px}
-.terms-block ul{margin:8px 0 0 20px}
-.terms-block li{margin-bottom:5px}
-.legal-note{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
-.acceptance{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
-.acceptance h2{font-family:'Fraunces',serif;color:var(--navy);font-size:24px;margin-bottom:8px}
-.acceptance p{font-size:12.5px;color:var(--muted);margin-bottom:24px}
-.actions{display:flex;gap:14px;flex-wrap:wrap}
-.btn-accept,.btn-decline{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 22px;border-radius:2px;font-family:'Newsreader',serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
-.btn-accept{background:var(--gold);color:var(--navy);border:1px solid var(--gold)}
-.btn-accept:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
-.btn-decline{background:#fff;color:var(--muted);border:1px solid var(--line)}
-.btn-decline:hover{border-color:#A8A39A;color:var(--ink)}
-footer{background:var(--navy-deep);color:#718296;padding:40px 0}
-footer p{font-size:12px}
-@media(max-width:760px){.wrap{padding:0 22px}.terms-document{padding:32px 24px}.nav-toggle{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,42,74,.99);flex-direction:column;align-items:stretch;gap:0;padding:8px 22px 22px}.nav-links.open{display:flex}.nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}.actions{flex-direction:column}.btn-accept,.btn-decline{width:100%}}
-</style>
-</head>
-<body>
-<nav>
-<div class="nav-inner">
-<a class="brand" href="../">
-<svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6"/><path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/></svg>
-<span class="brand-name">Signing Day Advisors</span>
-</a>
-<button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-<div class="nav-links" id="navLinks">
-<a href="../academic-index/">SDA Compass</a>
-<a href="../packages/">Packages</a>
-<a href="../team/">About Us</a>
-<a href="../faq/">FAQ</a>
-<a href="../contact/">Contact</a>
-</div>
-</div>
-</nav>
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Terms &amp; Conditions"
+  description="Terms and conditions for Signing Day Advisors services."
+  noindex
+>
+
 <header class="page-header">
 <div class="wrap">
 <span class="eyebrow">Client Agreement</span>
@@ -200,17 +137,47 @@ footer p{font-size:12px}
 </div>
 </div>
 </main>
-<footer>
-<div class="wrap">
-<p>© Signing Day Advisors. Recruiting guidance and assessment for student-athletes and their families.</p>
-</div>
-</footer>
-<script async src="https://js.stripe.com/v3/buy-button.js"></script>
-<script>
-(function(){const navToggle=document.getElementById('navToggle'),navLinks=document.getElementById('navLinks');if(navToggle&&navLinks){navToggle.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');navToggle.setAttribute('aria-expanded',open?'true':'false')});navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');navToggle.setAttribute('aria-expanded','false')}))}})();
-const agreeButton=document.getElementById('agreeButton');
-const stripePayment=document.getElementById('stripePayment');
-agreeButton.addEventListener('click',()=>{stripePayment.style.display='block';agreeButton.style.display='none';stripePayment.scrollIntoView({behavior:'smooth',block:'center'})});
+
+</Base>
+
+<style is:global>
+.page-header{background:#fff;border-bottom:1px solid var(--line);padding:52px 0 42px}
+.page-header .eyebrow{display:block;margin-bottom:12px}
+.page-header h1{font-family:'Fraunces',serif;font-weight:500;color:var(--navy);font-size:clamp(36px,5vw,48px);line-height:1.1;margin-bottom:10px}
+.effective{font-size:12px;color:var(--muted)}
+.terms-section{padding:52px 0 80px}
+.terms-document{background:#fff;border:1px solid var(--line);border-radius:6px;padding:48px 52px}
+.terms-intro{font-size:13px;color:var(--ink);margin-bottom:30px}
+.terms-block{margin-bottom:30px}
+.terms-block:last-child{margin-bottom:0}
+.terms-block h2{font-family:'Newsreader',serif;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.terms-block p,.terms-block li{font-size:12.5px;line-height:1.65;color:#424A51}
+.terms-block p+p{margin-top:8px}
+.terms-block ul{margin:8px 0 0 20px}
+.terms-block li{margin-bottom:5px}
+.legal-note{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted)}
+.acceptance{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
+.acceptance h2{font-family:'Fraunces',serif;color:var(--navy);font-size:24px;margin-bottom:8px}
+.acceptance p{font-size:12.5px;color:var(--muted);margin-bottom:24px}
+.actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn-accept,.btn-decline{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:13px 22px;border-radius:2px;font-family:'Newsreader',serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-accept{background:var(--gold);color:var(--navy);border:1px solid var(--gold)}
+.btn-accept:hover{background:var(--gold-soft);border-color:var(--gold-soft)}
+.btn-decline{background:#fff;color:var(--muted);border:1px solid var(--line)}
+.btn-decline:hover{border-color:#A8A39A;color:var(--ink)}
+footer p{font-size:12px}
+@media(max-width:760px){.terms-document{padding:32px 24px}.nav-toggle{display:block}.nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}.actions{flex-direction:column}.btn-accept,.btn-decline{width:100%}}
+</style>
+
+<script is:inline>
+  var agreeButton = document.getElementById('agreeButton');
+  var stripePayment = document.getElementById('stripePayment');
+  if (agreeButton && stripePayment) {
+    agreeButton.addEventListener('click', function () {
+      stripePayment.style.display = 'block';
+      agreeButton.style.display = 'none';
+      stripePayment.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
 </script>
-</body>
-</html>
+<script is:inline async src="https://js.stripe.com/v3/buy-button.js"></script>
