@@ -1,12 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import model from '../data/academic-model.json';
 ---
 
 <Base
   title="SDA Compass"
   scrollBar
-  description="SDA Compass scores a swimmer's academics, athletics, and activities, then measures each score against the students a specific school actually enrolls. One report, school by school."
-  extraDisclaimer="School examples are illustrative and do not refer to specific institutions. Descriptions of other services reflect the methodology those services publish themselves. The description of our own methodology is simplified for clarity and does not disclose our proprietary scoring formulas, weights, or thresholds."
+  description="Free Academic Index calculator: the 60-240 recruiting score, worked out with and without your test score. Plus the SDA Compass, which bands it against the class a specific school actually enrolls."
+  extraDisclaimer="School examples are illustrative and do not refer to specific institutions. Descriptions of other services reflect the methodology those services publish themselves. The Ivy League has never published the Academic Index formula; our calculator uses the standard public reconstruction, and the converted-GPA curve, the test-optional estimate and the band labels are our own judgment calls. It is a planning tool, not an admissions prediction, and a coach pre-read is the only authoritative read on a recruit's academic standing. The calculator excludes the athletic and activities axes and the school-specific banding the paid report is built on."
 >
 
 <!-- ==========================================================
@@ -75,6 +76,142 @@ import Base from '../layouts/Base.astro';
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9 L12 15 L18 9" stroke="#8FA0B3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>
 </header>
+
+<!-- ==========================================================
+     THE FREE CALCULATOR — the real 60-240 Academic Index, with our
+     holistic read as a secondary line. Constants come from
+     src/data/academic-model.json, generated out of
+     Recruiting_Academic_Index.py + Academic_Index.py by
+     export_web_model.py. Never hand-edit the numbers here.
+     ========================================================== -->
+<section class="s calc" id="try-it">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-num">Try it</span>
+      <h2>Your Academic Index, free.</h2>
+      <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use &mdash; worked out both ways, with your test score and without it, so you can see which one to lead with. It stays in your browser. Nothing is sent anywhere.</p>
+    </div>
+
+    <div class="calc-grid reveal">
+
+      <form class="calc-form" id="ai-form" novalidate>
+        <fieldset class="fset">
+          <legend>What the Academic Index counts</legend>
+
+          <div class="field">
+            <div class="field-top">
+              <label for="f-gpa">Unweighted GPA</label>
+              <output class="val" id="v-gpa" for="f-gpa">3.70</output>
+            </div>
+            <input type="range" id="f-gpa" min="2" max="4" step="0.01" value="3.7">
+            <div class="ends"><span>2.0</span><span>4.0</span></div>
+          </div>
+
+          <div class="field">
+            <div class="field-top">
+              <label for="f-test" id="l-test">SAT total</label>
+              <output class="val" id="v-test" for="f-test">1300</output>
+            </div>
+            <div class="seg" role="group" aria-label="Which test to use">
+              <button type="button" class="seg-b on" data-test="sat" aria-pressed="true">SAT</button>
+              <button type="button" class="seg-b" data-test="act" aria-pressed="false">ACT</button>
+              <button type="button" class="seg-b" data-test="none" aria-pressed="false">No score</button>
+            </div>
+            <input type="range" id="f-test" min="800" max="1600" step="10" value="1300">
+            <div class="ends" id="e-test"><span>800</span><span>1600</span></div>
+          </div>
+        </fieldset>
+
+        <fieldset class="fset">
+          <legend>What it ignores</legend>
+
+          <div class="field">
+            <div class="field-top">
+              <label for="f-ap">AP or IB courses taken</label>
+              <output class="val" id="v-ap" for="f-ap">5</output>
+            </div>
+            <input type="range" id="f-ap" min="0" max="12" step="1" value="5">
+            <div class="ends"><span>0</span><span>12+</span></div>
+          </div>
+
+          <div class="field">
+            <div class="field-top">
+              <label for="f-hon">Honors courses taken</label>
+              <output class="val" id="v-hon" for="f-hon">3</output>
+            </div>
+            <input type="range" id="f-hon" min="0" max="8" step="1" value="3">
+            <div class="ends"><span>0</span><span>8+</span></div>
+          </div>
+
+          <p class="fset-note">Course rigor is not in the Academic Index at all &mdash; a 4.0 earned in four AP courses and a 4.0 earned in none score identically. These two sliders move only our holistic read.</p>
+        </fieldset>
+      </form>
+
+      <div class="calc-out">
+        <div class="dial-wrap">
+          <svg class="dial" viewBox="0 0 220 132" role="img" aria-labelledby="g-title">
+            <title id="g-title">Academic Index dial, 60 to 240</title>
+            <path class="g-track" d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke-width="13" stroke-linecap="round"/>
+            <path class="g-fill" id="g-fill" d="M20 110 A90 90 0 0 1 200 110" fill="none" stroke-width="13" stroke-linecap="round"/>
+          </svg>
+          <div class="dial-mid">
+            <div class="g-num" id="g-num" aria-live="polite">205</div>
+            <div class="g-scale">Academic Index</div>
+          </div>
+          <div class="g-ends"><span>60</span><span>240</span></div>
+        </div>
+
+        <p class="g-read" id="g-read">Strong &mdash; within the common admitted-student range</p>
+
+        <div class="verdict">
+          <span class="v-chip" id="v-chip">Submit your score</span>
+          <div class="v-pair" id="v-pair">
+            <div class="vp"><span>With your score</span><b id="v-incl">205</b></div>
+            <div class="vp"><span>Without it</span><b id="v-excl">189</b></div>
+          </div>
+          <p class="v-why" id="v-why"></p>
+        </div>
+
+        <div class="bars" id="bars">
+          <div class="bar-row" data-k="gpa">
+            <span class="bar-l">GPA converted</span>
+            <div class="bar-t"><i></i></div>
+            <span class="bar-v">0</span>
+          </div>
+          <div class="bar-row" data-k="test">
+            <span class="bar-l" id="bl-test">Test points</span>
+            <div class="bar-t"><i></i></div>
+            <span class="bar-v">0</span>
+          </div>
+        </div>
+        <p class="bars-fine">The Academic Index is these two added together &mdash; nothing else goes in.</p>
+
+        <div class="second">
+          <span class="second-l">Our holistic read</span>
+          <span class="second-n"><b class="second-v" id="h-num">6.4</b> / 10</span>
+          <p class="second-d">A different question: how academically strong is this student overall. It counts course rigor, so it moves when the sliders above do.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="calc-after reveal">
+      <div class="ca-head">
+        <h3>Now the part a number can&rsquo;t do.</h3>
+        <p>You have the standardized score, worked out honestly. That is the same thing every Academic Index calculator gives you &mdash; and on its own it does not answer the only question that matters.</p>
+      </div>
+      <ul class="ca-list">
+        <li><b>It has no school attached.</b> The bands are school-relative, not fixed. A <span id="ca-score">205</span> can be an A band at one program and a C at a more selective one, and only the gap against that school&rsquo;s own campus average tells you which.</li>
+        <li><b>Nobody is admitted on it.</b> The Academic Index is a gate, not a decision. Clearing it makes you eligible for a coach&rsquo;s support; it does not tell you whether a coach will spend a slot on you.</li>
+        <li><b>Your swimming is not in it.</b> Athletics does not raise your academic standing &mdash; it lowers the band a coach is willing to accept. That trade is the whole recruiting calculation, and it needs both axes.</li>
+        <li><b>It cannot tell you what to change.</b> A score is a snapshot. The useful part is which lever moves you into the next band, and whether there is time left to pull it.</li>
+      </ul>
+      <div class="ca-cta">
+        <a class="btn-gold" href="#get-the-compass">Get the full read &mdash; $275</a>
+        <span class="ca-fine">Every school on your list, banded against its own class, on all three axes.</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ==========================================================
      THE THREE INPUTS
@@ -296,7 +433,7 @@ import Base from '../layouts/Base.astro';
     <div class="s-head reveal">
       <span class="s-num">What goes in</span>
       <h2>Not a GPA + SAT calculator.</h2>
-      <p>Six categories of information shape every assessment.</p>
+      <p>Six categories of information shape every assessment. The calculator above uses two of them.</p>
     </div>
     <div class="category-row reveal">
       <div class="category-chip">
@@ -943,13 +1080,195 @@ import Base from '../layouts/Base.astro';
     .buy-right{padding:38px 30px;border-left:none;border-top:1px solid rgba(255,255,255,0.12)}
   }
 
+  /* ---------------- FREE ACADEMIC CALCULATOR ---------------- */
+  .calc-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;
+    max-width:940px;margin:0 auto;
+    background:#fff;border:1px solid var(--line);border-radius:3px;
+    box-shadow:0 18px 44px rgba(15,42,74,0.09);overflow:hidden;
+  }
+
+  .calc-form{padding:38px 36px;display:flex;flex-direction:column;gap:26px}
+  .field{display:flex;flex-direction:column;gap:9px}
+  .field.off{opacity:.55}
+  .field-top{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+  .field-top label{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:1.6px;
+    text-transform:uppercase;color:var(--muted);font-weight:500;
+  }
+  .val{
+    font-family:'Fraunces',serif;font-size:23px;color:var(--navy);
+    font-variant-numeric:tabular-nums;line-height:1;
+  }
+  .ends{
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9A978E;letter-spacing:.5px;
+  }
+  .field-note{
+    font-size:13px;line-height:1.55;color:var(--muted);
+    border-left:2px solid var(--gold);padding-left:11px;margin-top:2px;
+  }
+  .field-note[hidden]{display:none}
+
+  .calc-form input[type=range]{
+    -webkit-appearance:none;appearance:none;width:100%;height:4px;
+    border-radius:2px;background:var(--cream-2);outline:none;cursor:pointer;
+  }
+  .calc-form input[type=range]:disabled{cursor:not-allowed}
+  .calc-form input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;
+    background:var(--navy);border:3px solid #fff;
+    box-shadow:0 1px 5px rgba(15,42,74,0.35);transition:transform .15s;
+  }
+  .calc-form input[type=range]::-webkit-slider-thumb:active{transform:scale(1.12)}
+  .calc-form input[type=range]::-moz-range-thumb{
+    width:14px;height:14px;border-radius:50%;
+    background:var(--navy);border:3px solid #fff;
+    box-shadow:0 1px 5px rgba(15,42,74,0.35);
+  }
+
+  .seg{
+    display:inline-flex;align-self:flex-start;
+    border:1px solid var(--line);border-radius:2px;overflow:hidden;margin-bottom:2px;
+  }
+  .seg-b{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.2px;
+    text-transform:uppercase;padding:7px 13px;background:transparent;
+    border:0;border-right:1px solid var(--line);color:var(--muted);
+    cursor:pointer;transition:background .2s,color .2s;
+  }
+  .seg-b:last-child{border-right:0}
+  .seg-b.on{background:var(--navy);color:var(--gold-soft)}
+
+  .calc-out{
+    background:var(--navy-deep);color:var(--white-warm);padding:38px 36px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+  }
+  .dial-wrap{position:relative;width:220px;max-width:100%}
+  .dial{display:block;width:100%;height:auto}
+  .g-track{stroke:rgba(255,255,255,0.12)}
+  .g-fill{stroke:var(--gold);transition:stroke-dashoffset .55s cubic-bezier(.2,.7,.2,1)}
+  .dial-mid{position:absolute;left:0;right:0;top:48px;text-align:center}
+  .g-num{
+    font-family:'Fraunces',serif;font-size:56px;line-height:1;color:#fff;
+    font-variant-numeric:tabular-nums;letter-spacing:-2px;
+  }
+  .g-scale{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.8px;
+    text-transform:uppercase;color:#8FA0B3;margin-top:7px;
+  }
+  .g-ends{
+    display:flex;justify-content:space-between;padding:0 4px;margin-top:-4px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7F8FA3;
+  }
+  .g-read{
+    font-size:15px;line-height:1.5;text-align:center;color:var(--gold-soft);
+    margin:18px 0 26px;max-width:270px;
+  }
+
+  .bars{width:100%;display:flex;flex-direction:column;gap:12px}
+  .bar-row{display:grid;grid-template-columns:104px 1fr 52px;align-items:center;gap:10px}
+  .bar-row[hidden]{display:none}
+  .bar-l{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.2px;
+    text-transform:uppercase;color:#8FA0B3;
+  }
+  .bar-t{height:5px;border-radius:3px;background:rgba(255,255,255,0.1);overflow:hidden}
+  .bar-t i{
+    display:block;height:100%;width:0;background:var(--gold);border-radius:3px;
+    transition:width .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .bar-v{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--white-warm);
+    text-align:right;font-variant-numeric:tabular-nums;
+  }
+  .bars-fine{font-size:11.5px;color:#7F8FA3;margin-top:18px;text-align:center;line-height:1.5}
+
+  .calc-after{max-width:940px;margin:58px auto 0}
+  .ca-head{max-width:660px;margin-bottom:30px}
+  .ca-head h3{font-size:clamp(22px,3vw,30px);color:var(--navy);margin-bottom:12px}
+  .ca-head p{font-size:16.5px;color:var(--muted);line-height:1.7}
+  .ca-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:18px 34px;margin-bottom:34px}
+  .ca-list li{font-size:15px;line-height:1.65;color:var(--ink);padding-left:18px;position:relative}
+  .ca-list li::before{
+    content:"";position:absolute;left:0;top:10px;
+    width:6px;height:6px;border-radius:50%;background:var(--gold);
+  }
+  .ca-list b{color:var(--navy);font-weight:600}
+  .ca-cta{
+    display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    padding-top:26px;border-top:1px solid var(--line);
+  }
+  .ca-fine{font-size:13.5px;color:var(--muted);max-width:340px;line-height:1.5}
+
+  .fset{border:0;display:flex;flex-direction:column;gap:24px}
+  .fset + .fset{margin-top:30px;padding-top:26px;border-top:1px solid var(--line)}
+  .fset legend{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.8px;
+    text-transform:uppercase;color:var(--gold);padding:0;margin-bottom:4px;
+  }
+  .fset-note{font-size:12.5px;line-height:1.6;color:var(--muted);margin-top:-4px}
+
+  .verdict{width:100%;margin:22px 0 24px;padding:18px 0 0;border-top:1px solid rgba(255,255,255,0.12)}
+  .v-chip{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:1.4px;text-transform:uppercase;padding:6px 12px;border-radius:2px;
+    background:rgba(201,161,59,0.16);color:var(--gold-soft);
+    border:1px solid rgba(201,161,59,0.4);
+  }
+  .v-chip.alt{background:rgba(255,255,255,0.08);color:var(--white-warm);border-color:rgba(255,255,255,0.28)}
+  .v-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0 12px}
+  .v-pair.no-test{grid-template-columns:1fr}
+  .v-pair.no-test .vp:first-child{display:none}
+  .vp{
+    background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);
+    border-radius:2px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;
+  }
+  .vp span{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.2px;
+    text-transform:uppercase;color:#8FA0B3;
+  }
+  .vp b{
+    font-family:'Fraunces',serif;font-size:24px;font-weight:500;color:#fff;
+    font-variant-numeric:tabular-nums;line-height:1.1;
+  }
+  .v-why{font-size:12.5px;line-height:1.6;color:#9FB0C3}
+
+  .second{
+    width:100%;margin-top:22px;padding-top:18px;
+    border-top:1px solid rgba(255,255,255,0.12);
+  }
+  .second-l{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.6px;
+    text-transform:uppercase;color:#8FA0B3;display:block;margin-bottom:5px;
+  }
+  .second-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8FA0B3}
+  .second-v{
+    font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:var(--gold-soft);
+    font-variant-numeric:tabular-nums;margin-right:4px;
+  }
+  .second-d{font-size:12.5px;line-height:1.6;color:#9FB0C3;margin-top:7px}
+
+  .bar-row.est .bar-t i{
+    background:repeating-linear-gradient(90deg,var(--gold-soft) 0 5px,transparent 5px 9px);
+  }
+  .bar-row.est .bar-l,.bar-row.est .bar-v{color:#8FA0B3}
+
+  @media(max-width:860px){
+    .calc-grid{grid-template-columns:1fr}
+    .ca-list{grid-template-columns:1fr}
+  }
+
   /* ---------------- MOTION / RESPONSIVE ---------------- */
   @media(prefers-reduced-motion:reduce){
     .reveal,.fx{opacity:1!important;transform:none!important;transition:none!important}
+    .g-fill,.bar-t i{transition:none!important}
     .hero.lit h1 em::after{transform:none!important}
   }
   @media(max-width:760px){
     .s{padding:78px 0}
+    .calc-form,.calc-out{padding:30px 22px}
+    .g-num{font-size:46px}
     .chapter{padding:64px 0}
     .scroll-cue{display:none}
     .hero-actions{flex-direction:column;width:100%;max-width:320px}
@@ -961,4 +1280,184 @@ import Base from '../layouts/Base.astro';
 requestAnimationFrame(function(){requestAnimationFrame(function(){
   var h=document.querySelector('.hero'); if(h) h.classList.add('lit');
 })});
+</script>
+
+<script define:vars={{ model }}>
+  // Two models, mirrored from the Python. Constants arrive in `model`,
+  // generated by export_web_model.py — change the Python, re-run the export.
+  //
+  //   headline  = the real 60-240 Academic Index (Recruiting_Academic_Index.py),
+  //               computed test-inclusive AND test-exclusive, recommending the
+  //               higher one only when it wins by more than the margin.
+  //   secondary = our holistic 1-10 read (Academic_Index.py), which sees course
+  //               rigor. The two disagreeing is the point of the section.
+  (function () {
+    var form = document.getElementById('ai-form');
+    if (!form) return;
+
+    var gpaEl  = document.getElementById('f-gpa');
+    var testEl = document.getElementById('f-test');
+    var apEl   = document.getElementById('f-ap');
+    var honEl  = document.getElementById('f-hon');
+    var mode   = 'sat';
+
+    var AI = model.ai, H = model.holistic;
+
+    function piecewise(v, anchors) {
+      if (v <= anchors[0][0]) return anchors[0][1];
+      if (v >= anchors[anchors.length - 1][0]) return anchors[anchors.length - 1][1];
+      for (var i = 0; i < anchors.length - 1; i++) {
+        var a = anchors[i], b = anchors[i + 1];
+        if (v >= a[0] && v <= b[0]) return a[1] + (v - a[0]) / (b[0] - a[0]) * (b[1] - a[1]);
+      }
+      return anchors[anchors.length - 1][1];
+    }
+
+    function normalize(v, lo, hi) {
+      if (hi === lo) return 50;
+      return Math.max(0, Math.min(100, (v - lo) / (hi - lo) * 100));
+    }
+
+    function clampAI(v) { return Math.max(AI.min, Math.min(AI.max, v)); }
+
+    function bandFor(score) {
+      for (var i = 0; i < AI.bands.length; i++) {
+        if (score >= AI.bands[i][0]) return AI.bands[i][1];
+      }
+      return AI.bands[AI.bands.length - 1][1];
+    }
+
+    var ARC = Math.PI * 90; // semicircle, r=90 — matches the dial path
+
+    function update() {
+      var gpa = parseFloat(gpaEl.value);
+      var ap  = parseInt(apEl.value, 10);
+      var hon = parseInt(honEl.value, 10);
+
+      var sat = null;
+      if (mode === 'sat') sat = parseInt(testEl.value, 10);
+      else if (mode === 'act') sat = model.actToSat[String(parseInt(testEl.value, 10))];
+
+      // ---- 1. the Academic Index (60-240) ----
+      var cgs = piecewise(gpa, AI.gpaToCgs);                       // 20-80
+      var testPoints = sat === null ? null : sat / 10;             // 40-160
+      var imputed = piecewise(gpa, AI.gpaToTypicalTestPoints) * AI.uncertaintyDiscount;
+
+      var aiExclusive = clampAI(cgs + imputed);
+      var aiInclusive = testPoints === null ? null : clampAI(testPoints + cgs);
+
+      var recommended, chip, why;
+      if (aiInclusive === null) {
+        recommended = aiExclusive;
+        chip = 'No score entered';
+        why  = 'This is your test-optional Academic Index. The test half is estimated from what ' +
+               'students at your GPA typically score, then discounted — an estimate should never ' +
+               'count as much as a real number.';
+      } else if (aiExclusive - aiInclusive > AI.recommendationMargin) {
+        recommended = aiExclusive;
+        chip = 'Applying without it may help';
+        why  = 'Your grades carry further than this score does, by enough to matter. Worth a real ' +
+               'conversation before you submit — omitting a score is a strategic call, not an ' +
+               'automatic one.';
+      } else {
+        recommended = aiInclusive;
+        chip = 'Submit your score';
+        why  = 'Submitting beats withholding here. A small edge either way is noise between two ' +
+               'reconstructions of an undisclosed formula, so the tie goes to sending the score.';
+      }
+
+      var shown = Math.round(recommended * 10) / 10;
+
+      // ---- 2. our holistic read (1-10) ----
+      var apScore  = normalize(Math.min(ap,  H.rigorCaps.apIb),   0, H.rigorCaps.apIb);
+      var honScore = normalize(Math.min(hon, H.rigorCaps.honors), 0, H.rigorCaps.honors);
+      var comps = {
+        gpa:        piecewise(gpa, H.gpaAnchors),
+        test_score: sat === null ? null : piecewise(sat, H.satAnchors),
+        rigor:      apScore * H.rigorSubweights.ap_ib + honScore * H.rigorSubweights.honors
+      };
+      var keys = Object.keys(comps).filter(function (k) { return comps[k] !== null; });
+      var total = keys.reduce(function (s, k) { return s + H.weights[k]; }, 0);
+      var blended = keys.reduce(function (s, k) { return s + comps[k] * (H.weights[k] / total); }, 0);
+      var holistic = Math.round((1 + (blended / 100) * 9) * 10) / 10;
+
+      // ---- paint ----
+      document.getElementById('v-gpa').textContent  = gpa.toFixed(2);
+      document.getElementById('v-test').textContent = mode === 'none' ? '—' : testEl.value;
+      document.getElementById('v-ap').textContent   = ap  === 12 ? '12+' : String(ap);
+      document.getElementById('v-hon').textContent  = hon === 8  ? '8+'  : String(hon);
+
+      document.getElementById('g-num').textContent  = shown.toFixed(0);
+      document.getElementById('g-read').textContent = bandFor(recommended);
+      var caScore = document.getElementById('ca-score');
+      if (caScore) caScore.textContent = shown.toFixed(0);
+
+      document.getElementById('v-chip').textContent = chip;
+      document.getElementById('v-why').textContent  = why;
+      document.getElementById('v-incl').textContent =
+        aiInclusive === null ? '—' : Math.round(aiInclusive);
+      document.getElementById('v-excl').textContent = Math.round(aiExclusive);
+      document.getElementById('v-pair').classList.toggle('no-test', aiInclusive === null);
+      document.getElementById('v-chip').classList.toggle('alt', recommended === aiExclusive);
+
+      var frac = (recommended - AI.min) / (AI.max - AI.min);
+      var fill = document.getElementById('g-fill');
+      fill.style.strokeDasharray  = ARC + ' ' + ARC;
+      fill.style.strokeDashoffset = String(ARC * (1 - frac));
+
+      // The two AI components, each as a share of its own ceiling.
+      var shownTest = testPoints === null ? imputed : testPoints;
+      document.getElementById('bl-test').textContent =
+        testPoints === null ? 'Test points (est.)' : 'Test points';
+      var barVals = { gpa: [cgs, 80], test: [shownTest, 160] };
+      Array.prototype.forEach.call(document.querySelectorAll('.bar-row'), function (row) {
+        var pair = barVals[row.getAttribute('data-k')];
+        row.querySelector('.bar-t i').style.width = (pair[0] / pair[1] * 100).toFixed(1) + '%';
+        row.querySelector('.bar-v').textContent = Math.round(pair[0]) + '/' + pair[1];
+        row.classList.toggle('est', row.getAttribute('data-k') === 'test' && testPoints === null);
+      });
+
+      document.getElementById('h-num').textContent = holistic.toFixed(1);
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.seg-b'), function (btn) {
+      btn.addEventListener('click', function () {
+        mode = btn.getAttribute('data-test');
+
+        Array.prototype.forEach.call(document.querySelectorAll('.seg-b'), function (b) {
+          var on = b === btn;
+          b.classList.toggle('on', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+
+        var label = document.getElementById('l-test');
+        var ends  = document.getElementById('e-test');
+        var wrap  = testEl.closest('.field');
+
+        if (mode === 'none') {
+          wrap.classList.add('off');
+          testEl.disabled = true;
+          label.textContent = 'Test score';
+        } else {
+          wrap.classList.remove('off');
+          testEl.disabled = false;
+          if (mode === 'sat') {
+            label.textContent = 'SAT total';
+            testEl.min = model.satRange[0]; testEl.max = model.satRange[1];
+            testEl.step = 10; testEl.value = 1300;
+            ends.innerHTML = '<span>' + model.satRange[0] + '</span><span>' + model.satRange[1] + '</span>';
+          } else {
+            label.textContent = 'ACT composite';
+            testEl.min = model.actRange[0]; testEl.max = model.actRange[1];
+            testEl.step = 1; testEl.value = 28;
+            ends.innerHTML = '<span>' + model.actRange[0] + '</span><span>' + model.actRange[1] + '</span>';
+          }
+        }
+        update();
+      });
+    });
+
+    form.addEventListener('input', update);
+    update();
+  })();
 </script>
