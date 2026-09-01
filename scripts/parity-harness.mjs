@@ -24,7 +24,7 @@ function el(extra = {}) {
 const nodes = {};
 ['f-gpa','f-test','f-ap','f-hon','v-gpa','v-test','v-ap','v-hon',
  'g-num','g-read','g-fill','ca-score','l-test','e-test',
- 'v-chip','v-why','v-incl','v-excl','v-pair','bl-test','h-num']
+ 'v-chip','v-why','v-pct','v-incl','v-excl','v-pair','bl-test','h-num']
   .forEach(id => nodes[id] = el());
 
 let onInput = null;
@@ -72,6 +72,7 @@ const out = cases.map(c => {
     ai:        parseFloat(nodes['g-num'].textContent),
     band:      nodes['g-read'].textContent,
     chip:      nodes['v-chip'].textContent,
+    percentile: nodes['v-pct'].innerHTML,
     inclusive: nodes['v-incl'].textContent,
     exclusive: nodes['v-excl'].textContent,
     holistic:  parseFloat(nodes['h-num'].textContent),

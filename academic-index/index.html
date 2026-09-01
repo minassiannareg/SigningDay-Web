@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDA Compass · Signing Day Advisors</title>
+<meta name="description" content="SDA Compass shows how well an athlete fits each school on their list, in one simple read.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F2A4A;--navy-deep:#0A1E38;--navy-soft:#16395E;
+    --gold:#C9A13B;--gold-soft:#D9B968;
+    --cream:#F7F5EF;--cream-2:#EFEBE0;--ink:#22303F;--muted:#6C6A63;
+    --line:#DED9CC;--white-warm:#F3F1EA;
+    --green:#2E7D4F;--green-bg:#E7F6EC;--green-line:#BFE4CC;
+    --amber:#8A6D16;--amber-bg:#FBF3DC;--amber-line:#EAD9A6;
+    --rust:#A5502B;--rust-bg:#FBE7DD;--rust-line:#F0CDBB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Newsreader',serif;background:var(--cream);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);font-weight:500}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.12;letter-spacing:-0.5px}
+  a{color:inherit;text-decoration:none}
+
+  /* scroll progress */
+  .scroll-bar{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-soft));z-index:100;transition:width .1s linear}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,59,0.25)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--white-warm)}
+  .brand-mark{width:28px;height:34px;flex:none;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .brand:hover .brand-mark{transform:rotate(-8deg) scale(1.06)}
+  .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:500;letter-spacing:0.3px}
+  .nav-links{display:flex;gap:24px;align-items:center}
+  .nav-links a{color:#C7D2DE;font-size:14px;position:relative;transition:color .2s}
+  .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--gold-soft);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+  .nav-links a:hover{color:var(--gold-soft)}
+  .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-links a.active{color:var(--gold-soft)}
+  .nav-links a.active::after{transform:scaleX(1)}
+  .nav-toggle{display:none;background:none;border:none;color:var(--white-warm);padding:6px;cursor:pointer;align-items:center;justify-content:center}
+  .nav-toggle svg{width:22px;height:22px}
+
+  /* HERO */
+  .hero{background:var(--navy);color:var(--white-warm);text-align:center;padding:40px 0 104px;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .hero-bg .glow{position:absolute;top:8%;left:50%;transform:translateX(-50%);width:760px;height:760px;background:radial-gradient(circle,rgba(201,161,59,0.16),rgba(201,161,59,0.04) 42%,transparent 66%)}
+  .hero-bg .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,161,59,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,161,59,0.05) 1px,transparent 1px);background-size:62px 62px;mask-image:radial-gradient(circle at 50% 42%,black,transparent 74%);-webkit-mask-image:radial-gradient(circle at 50% 42%,black,transparent 74%)}
+  .hero .wrap{position:relative;z-index:2}
+  .hero-inner{max-width:660px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+  .compass-wrap{position:relative;margin:30px 0 34px}
+  .compass-wrap::before{content:"";position:absolute;inset:-9%;background:radial-gradient(circle,rgba(201,161,59,0.24),transparent 62%);filter:blur(5px);z-index:0}
+  .compass-hero{position:relative;z-index:1;width:min(360px,80vw);height:auto;display:block;filter:drop-shadow(0 26px 48px rgba(0,0,0,.42));animation:float 7s ease-in-out infinite}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:16px}
+  .hero .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,161,59,.55)}70%{box-shadow:0 0 0 9px rgba(201,161,59,0)}100%{box-shadow:0 0 0 0 rgba(201,161,59,0)}}
+  .hero h1{font-size:clamp(44px,7vw,74px);color:#fff;margin-bottom:18px;letter-spacing:-1.5px}
+  .hero h1 em{font-style:italic;color:var(--gold-soft);position:relative;white-space:nowrap}
+  .hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:4px;height:9px;background:rgba(201,161,59,0.2);z-index:-1;transform:scaleX(0);transform-origin:left;transition:transform .9s ease .8s}
+  .hero.lit h1 em::after{transform:scaleX(1)}
+  .hero p{font-size:clamp(17px,2.2vw,20px);color:#C7D2DE;max-width:520px;margin:0 auto}
+
+  /* hero entrance */
+  .fx{opacity:0;transform:translateY(26px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .hero.lit .fx{opacity:1;transform:none}
+  .hero.lit .fx.d1{transition-delay:.06s}
+  .hero.lit .fx.d2{transition-delay:.18s}
+  .hero.lit .fx.d3{transition-delay:.3s}
+  .hero.lit .fx.d4{transition-delay:.42s}
+  .compass-wrap.fx{transform:translateY(26px) scale(.9)}
+  .hero.lit .compass-wrap.fx{transform:none}
+
+  /* scroll cue */
+  .scroll-cue{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:#8FA0B3;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px}
+  .scroll-cue svg{width:18px;height:18px;animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* SECTIONS */
+  .s{padding:104px 0}
+  .s.navy{background:var(--navy);color:var(--white-warm);position:relative;overflow:hidden}
+  .s.navy::before{content:"";position:absolute;top:-25%;left:50%;transform:translateX(-50%);width:640px;height:640px;background:radial-gradient(circle,rgba(201,161,59,0.10),transparent 62%);pointer-events:none}
+  .s.tint{background:var(--white-warm)}
+  .s .wrap{position:relative;z-index:2}
+  .s-head{max-width:660px;margin:0 auto 60px;text-align:center}
+  .s-head::before{content:"";display:block;width:38px;height:2px;background:var(--gold);border-radius:2px;margin:0 auto 24px;transform-origin:center}
+  .s-head h2{font-size:clamp(28px,4vw,42px);color:var(--navy);margin-bottom:14px;letter-spacing:-.8px}
+  .s.navy .s-head h2{color:#fff}
+  .s-head p{font-size:17px;color:var(--muted)}
+  .s.navy .s-head p{color:#C7D2DE}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.zoom{transform:scale(.95)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* three inputs -> cards */
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:940px;margin:0 auto}
+  .tcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:40px 28px;text-align:center;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .35s}
+  .tcard::before{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-soft));transform:scaleX(0);transform-origin:left;transition:transform .4s ease}
+  .tcard:hover{transform:translateY(-8px);box-shadow:0 34px 60px -34px rgba(15,42,74,.4);border-color:transparent}
+  .tcard:hover::before{transform:scaleX(1)}
+  .ic{width:80px;height:80px;border-radius:50%;background:var(--cream);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 22px;transition:transform .35s,border-color .35s,box-shadow .35s}
+  .tcard:hover .ic{transform:scale(1.06);border-color:var(--gold);box-shadow:0 0 0 6px rgba(201,161,59,.08)}
+  .ic svg{width:38px;height:38px}
+  .tcard h3{font-size:21px;color:var(--navy);margin-bottom:8px}
+  .tcard p{font-size:15px;color:var(--muted);max-width:240px;margin:0 auto}
+  @media(max-width:720px){.three{grid-template-columns:1fr;gap:18px}}
+
+  /* the rule (door + push) */
+  .gate{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:760px;margin:0 auto;position:relative}
+  .gate-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.14);border-radius:14px;padding:36px 28px;text-align:center;transition:transform .3s,background .3s,border-color .3s}
+  .gate-card:hover{transform:translateY(-5px);background:rgba(255,255,255,0.08);border-color:rgba(201,161,59,0.5)}
+  .gate-ic{width:64px;height:64px;border-radius:50%;background:rgba(201,161,59,0.15);border:1px solid rgba(201,161,59,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;transition:all .3s}
+  .gate-card:hover .gate-ic{background:rgba(201,161,59,0.28);transform:scale(1.08)}
+  .gate-ic svg{width:32px;height:32px}
+  .gate-card h3{font-size:19px;color:#fff;margin-bottom:8px}
+  .gate-card p{font-size:15px;color:#A9B7C6}
+  .gate-rule{max-width:600px;margin:36px auto 0;text-align:center;font-size:clamp(17px,2vw,20px);font-family:'Fraunces',serif;color:var(--gold-soft);line-height:1.5}
+  @media(max-width:560px){.gate{grid-template-columns:1fr;gap:18px}}
+
+  /* role badges (on white cards) */
+  .role{margin-top:14px;display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--navy);background:rgba(201,161,59,0.16);border:1px solid rgba(201,161,59,0.45);border-radius:2px;padding:3px 10px}
+  .role.role-soft{color:var(--muted);background:rgba(108,106,99,0.10);border:1px solid rgba(108,106,99,0.28)}
+
+  /* divider that scopes the door/speed mechanic to two of the three inputs */
+  .rule-divider{display:flex;align-items:center;gap:16px;max-width:480px;margin:56px auto 34px;color:var(--muted);font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+  .rule-divider::before,.rule-divider::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* inset dark panel that zooms into the academics x athletics mechanic */
+  .gate-panel{background:linear-gradient(150deg,var(--navy),var(--navy-deep));border-radius:20px;padding:54px 50px 50px;position:relative;overflow:hidden}
+  .gate-panel::before{content:"";position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:520px;height:520px;background:radial-gradient(circle,rgba(201,161,59,0.14),transparent 62%);pointer-events:none}
+  .gate-panel>*{position:relative;z-index:2}
+  .gate-headline{font-size:clamp(24px,3.2vw,32px);color:#fff;text-align:center;max-width:560px;margin:0 auto 36px;letter-spacing:-0.6px}
+  @media(max-width:640px){.gate-panel{padding:40px 26px 36px;border-radius:16px}}
+
+  /* fit levels */
+  .fits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:960px;margin:0 auto}
+  .fit{background:#fff;border:1px solid var(--line);border-radius:14px;padding:36px 26px;text-align:center;border-top:4px solid var(--line);transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+  .fit:hover{transform:translateY(-8px);box-shadow:0 34px 58px -34px rgba(15,42,74,.36)}
+  .fit.g{border-top-color:var(--green)}
+  .fit.a{border-top-color:var(--gold)}
+  .fit.r{border-top-color:var(--rust)}
+  .fit-ic{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;transition:transform .35s}
+  .fit:hover .fit-ic{transform:scale(1.1)}
+  .fit.g .fit-ic{background:var(--green-bg)}
+  .fit.a .fit-ic{background:var(--amber-bg)}
+  .fit.r .fit-ic{background:var(--rust-bg)}
+  .fit-ic svg{width:28px;height:28px}
+  .fit h3{font-size:20px;margin-bottom:8px}
+  .fit.g h3{color:var(--green)}
+  .fit.a h3{color:var(--amber)}
+  .fit.r h3{color:var(--rust)}
+  .fit p{font-size:15px;color:var(--muted)}
+  @media(max-width:720px){.fits{grid-template-columns:1fr;gap:16px}}
+  .note{text-align:center;max-width:520px;margin:44px auto 0;font-size:14px;color:var(--muted)}
+
+  /* band tag + mini fit-compare bars */
+  .band-tag{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+  .fit.g .band-tag{color:var(--green)}
+  .fit.a .band-tag{color:var(--amber)}
+  .fit.r .band-tag{color:var(--rust)}
+  .fit-compare{margin-top:18px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
+  .fit-compare .mini{display:flex;align-items:center;gap:8px}
+  .fit-compare .mk{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);width:46px;flex:none;text-align:right}
+  .fit-compare .mbar{flex:1;height:7px;background:var(--cream-2);border-radius:4px;overflow:hidden}
+  .fit-compare .mbar i{display:block;height:100%;border-radius:4px}
+  .fit-compare .mbar i.you{background:linear-gradient(90deg,var(--gold),var(--gold-soft))}
+  .fit-compare .mbar i.them{background:#B7BFC8}
+
+  /* How it works banner (clickable) */
+  .how-banner{display:flex;align-items:center;justify-content:space-between;gap:40px;background:linear-gradient(150deg,var(--navy),var(--navy-deep));border-radius:18px;padding:46px 50px;color:var(--white-warm);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;text-decoration:none}
+  .how-banner:hover{transform:translateY(-4px);box-shadow:0 40px 66px -30px rgba(10,30,56,0.7)}
+  .how-watermark{position:absolute;right:-26px;top:50%;transform-origin:center;width:240px;height:240px;opacity:0.12;pointer-events:none;animation:spin 90s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .how-banner-left{position:relative;z-index:2;max-width:640px}
+  .how-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-soft);margin-bottom:14px}
+  .how-eyebrow svg{width:16px;height:16px}
+  .how-banner-left h2{font-size:clamp(24px,3vw,32px);color:#fff;margin-bottom:10px}
+  .how-banner-left p{font-size:16px;color:#C7D2DE;margin-bottom:22px}
+  .how-mini{display:flex;align-items:center;gap:11px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#A9B7C6}
+  .how-mini b{color:var(--gold);font-weight:600}
+  .how-mini i{color:var(--gold);font-style:normal}
+  .how-banner-right{position:relative;z-index:2;flex:none}
+  .how-cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--navy);font-weight:600;font-size:15px;padding:15px 28px;border-radius:2px;transition:all .2s;white-space:nowrap;box-shadow:0 12px 28px -14px rgba(201,161,59,.7)}
+  .how-banner:hover .how-cta{background:var(--gold-soft)}
+  .how-cta .a{transition:transform .2s}
+  .how-banner:hover .how-cta .a{transform:translateX(4px)}
+  @media(max-width:820px){.how-banner{flex-direction:column;align-items:flex-start;padding:34px 28px;gap:24px}.how-watermark{display:none}}
+
+  /* CTA */
+  .cta{background:linear-gradient(160deg,var(--navy),var(--navy-deep));text-align:center;color:#fff;position:relative;overflow:hidden}
+  .cta::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(201,161,59,0.13),transparent 60%);pointer-events:none}
+  .cta .wrap{position:relative;z-index:2}
+  .cta h2{font-size:clamp(32px,4.6vw,52px);color:#fff;margin-bottom:16px;letter-spacing:-1px}
+  .cta p{font-size:18px;color:#C7D2DE;margin-bottom:34px}
+  .btn-gold{background:var(--gold);color:var(--navy);padding:16px 34px;border-radius:2px;font-size:15px;font-weight:600;display:inline-block;transition:all .25s;box-shadow:0 14px 32px -14px rgba(201,161,59,.7)}
+  .btn-gold:hover{background:var(--gold-soft);transform:translateY(-2px);box-shadow:0 20px 40px -14px rgba(201,161,59,.8)}
+
+  /* FOOTER */
+  footer{background:var(--navy-deep);color:#8FA0B3;padding:66px 0 40px}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:32px;margin-bottom:28px}
+  .foot-brand{display:flex;align-items:center;gap:12px;color:#fff}
+  .foot-links{display:flex;gap:52px;flex-wrap:wrap}
+  .foot-col h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:500}
+  .foot-col a{display:block;font-size:14px;color:#A9B7C6;margin-bottom:9px;transition:color .2s}
+  .foot-col a:hover{color:#fff}
+  .disclaimer{font-size:12px;color:#5E6E80;line-height:1.6;max-width:820px}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *{animation:none!important}
+    .reveal,.fx{opacity:1!important;transform:none!important;transition:none!important}
+    .hero.lit h1 em::after{transform:none!important}
+  }
+  @media(max-width:760px){
+    .wrap{padding:0 22px}
+    .s{padding:78px 0}
+    .scroll-cue{display:none}
+    .nav-toggle{display:flex}
+    .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,42,74,0.98);flex-direction:column;align-items:stretch;gap:0;padding:8px 22px 22px;border-bottom:1px solid rgba(201,161,59,0.25)}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+    .nav-links a:last-child{border-bottom:none}
+    .nav-links a::after{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-bar" id="sbar"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <a class="brand" href="../">
+      <svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6" fill="none"/>
+        <path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/>
+        <line x1="20" y1="17" x2="20" y2="33" stroke="#0F2A4A" stroke-width="1"/>
+      </svg>
+      <span class="brand-name">Signing Day Advisors</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a class="active" href="./">SDA Compass</a>
+      <a href="../packages/">Packages</a>
+      <a href="../team/">About Us</a>
+      <a href="../faq/">FAQ</a>
+      <a href="../contact/">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO (centered compass) -->
+<header class="hero">
+  <div class="hero-bg"><div class="glow"></div><div class="grid"></div></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="compass-wrap fx">
+        <!-- Compass rose: three bearings (Academics, Athletics, Activities) around a Fit center -->
+        <svg class="compass-hero" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A compass with three bearings, Academics, Athletics and Activities, around a Fit center">
+          <g transform="translate(10,10)">
+            <!-- dial face + bezel -->
+            <circle cx="160" cy="160" r="122" fill="#0A1E38" stroke="#C9A13B" stroke-width="2"/>
+            <!-- graduated tick ring -->
+            <circle cx="160" cy="160" r="112" stroke="#C9A13B" stroke-width="6" stroke-dasharray="1.3 6.6" opacity="0.5"/>
+            <circle cx="160" cy="160" r="98" stroke="#C9A13B" stroke-width="1" opacity="0.35"/>
+            <!-- bold bearing ticks -->
+            <g stroke="#C9A13B" stroke-width="2.4" stroke-linecap="round">
+              <line x1="160" y1="62" x2="160" y2="40"/>
+              <line x1="244.9" y1="209" x2="263.9" y2="220"/>
+              <line x1="75.1" y1="209" x2="56.1" y2="220"/>
+            </g>
+            <!-- intermediate rose points (faint) -->
+            <g fill="#C9A13B" opacity="0.38">
+              <polygon points="160,160 203.3,135 158,156.5"/>
+              <polygon points="160,160 203.3,135 162,163.5"/>
+              <polygon points="160,160 160,210 156,160"/>
+              <polygon points="160,160 160,210 164,160"/>
+              <polygon points="160,160 116.7,135 158,163.5"/>
+              <polygon points="160,160 116.7,135 162,156.5"/>
+            </g>
+            <!-- main rose points (two-tone) -->
+            <polygon points="160,160 172,134 160,70" fill="#2C5688"/>
+            <polygon points="160,160 148,134 160,70" fill="#D9B968"/>
+            <polygon points="160,160 176.5,183.4 237.9,205" fill="#2C5688"/>
+            <polygon points="160,160 188.5,162.6 237.9,205" fill="#D9B968"/>
+            <polygon points="160,160 143.5,183.4 82.1,205" fill="#2C5688"/>
+            <polygon points="160,160 131.5,162.6 82.1,205" fill="#D9B968"/>
+            <!-- hub -->
+            <circle cx="160" cy="160" r="22" fill="#16395E" stroke="#C9A13B" stroke-width="1.5"/>
+            <text x="160" y="165" text-anchor="middle" fill="#D9B968" font-family="Fraunces, serif" font-size="14" letter-spacing="1">Fit</text>
+          </g>
+          <!-- bearing labels + component icons, spaced away from the dial -->
+          <g>
+            <!-- Grades (top) -->
+            <polygon points="160,12 170,7.5 180,12 170,16.5" fill="#D9B968"/>
+            <path d="M180 12 L180 18" stroke="#D9B968" stroke-width="1.4" stroke-linecap="round"/>
+            <text x="170" y="34" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACADEMICS</text>
+            <!-- Swimming (bottom-right) -->
+            <g stroke="#D9B968" stroke-width="1.8" fill="none" stroke-linecap="round">
+              <path d="M277 250 q4 -3.5 8 0 q4 3.5 8 0"/>
+              <path d="M277 255 q4 -3.5 8 0 q4 3.5 8 0"/>
+            </g>
+            <text x="285" y="281" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ATHLETICS</text>
+            <!-- Activities (bottom-left) -->
+            <path d="M55 242 L58.2 249 L65 252 L58.2 255 L55 262 L51.8 255 L45 252 L51.8 249 Z" fill="#D9B968"/>
+            <text x="55" y="281" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACTIVITIES</text>
+          </g>
+        </svg>
+      </div>
+
+      <span class="eyebrow fx d2"><span class="dot"></span> SDA Compass</span>
+      <h1 class="fx d3">See where you <em>fit.</em></h1>
+      <p class="fx d4">One simple score that shows how ready your athlete is for each school on their list.</p>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>SCROLL</span>
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9 L12 15 L18 9" stroke="#8FA0B3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</header>
+
+<!-- THE THREE INPUTS, AND HOW THEY COMBINE -->
+<section class="s">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <h2>Three inputs. One score.</h2>
+      <p>Each one plays a different role in your fit.</p>
+    </div>
+    <div class="three">
+      <div class="tcard reveal">
+        <div class="ic">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 9 L34 15 L20 21 L6 15 Z" fill="#C9A13B"/>
+            <path d="M11 18 L11 26 C11 28 15 30 20 30 C25 30 29 28 29 26 L29 18" stroke="#0F2A4A" stroke-width="1.6" fill="none"/>
+            <path d="M34 15 L34 24" stroke="#C9A13B" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <h3>Academics</h3>
+        <p>Grades and test scores.</p>
+        <span class="role">Opens the door</span>
+      </div>
+      <div class="tcard reveal" style="transition-delay:.1s">
+        <div class="ic">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="26" cy="12" r="3.4" fill="#0F2A4A"/>
+            <path d="M8 22 L17 18 L23 22 L30 19" stroke="#0F2A4A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+            <path d="M6 28 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
+            <path d="M6 33 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
+          </svg>
+        </div>
+        <h3>Athletics</h3>
+        <p>How fast your athlete swims.</p>
+        <span class="role">Pushes you through</span>
+      </div>
+      <div class="tcard reveal" style="transition-delay:.2s">
+        <div class="ic">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 7 L23.6 15.2 L32.5 16 L25.8 21.9 L27.8 30.6 L20 26 L12.2 30.6 L14.2 21.9 L7.5 16 L16.4 15.2 Z" fill="#C9A13B" stroke="#0F2A4A" stroke-width="1" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Activities</h3>
+        <p>Leadership, clubs, and everything else they do.</p>
+        <span class="role role-soft">Adds support</span>
+      </div>
+    </div>
+
+    <div class="rule-divider reveal"><span>How academics &amp; athletics interact</span></div>
+
+    <div class="gate-panel reveal">
+      <h3 class="gate-headline">Grades open the door.<br>Speed gets you through.</h3>
+      <div class="gate">
+        <div class="gate-card">
+          <div class="gate-ic">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="9" y="5" width="14" height="22" rx="1.5" stroke="#C9A13B" stroke-width="1.8"/>
+              <circle cx="19" cy="16" r="1.6" fill="#C9A13B"/>
+            </svg>
+          </div>
+          <h3>Good grades</h3>
+          <p>Open the door on their own.</p>
+        </div>
+        <div class="gate-card">
+          <div class="gate-ic">
+            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 25 L16 9" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M9 15 L16 8 L23 15" stroke="#C9A13B" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3>Fast swimming</h3>
+          <p>Gets a coach to open it for them.</p>
+        </div>
+      </div>
+      <p class="gate-rule">Together, they decide whether the door opens.<br>Activities strengthens the case once it does.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FIT LEVELS -->
+<section class="s tint">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <h2>Every school reads differently.</h2>
+      <p>The same profile can land in three different bands, school to school.</p>
+    </div>
+    <div class="fits">
+      <div class="fit g reveal">
+        <span class="band-tag">Band A</span>
+        <div class="fit-ic">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 14.5 L12 20 L22 8" stroke="#2E7D4F" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Strong fit</h3>
+        <p>Ready for this school.</p>
+        <div class="fit-compare">
+          <div class="mini"><span class="mk">You</span><div class="mbar"><i class="you" style="width:80%"></i></div></div>
+          <div class="mini"><span class="mk">School</span><div class="mbar"><i class="them" style="width:60%"></i></div></div>
+        </div>
+      </div>
+      <div class="fit a reveal" style="transition-delay:.1s">
+        <span class="band-tag">Band B</span>
+        <div class="fit-ic">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14 7 L14 21 M7 14 L21 14" stroke="#8A6D16" stroke-width="2.4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Fits with a push</h3>
+        <p>A coach can help them in.</p>
+        <div class="fit-compare">
+          <div class="mini"><span class="mk">You</span><div class="mbar"><i class="you" style="width:76%"></i></div></div>
+          <div class="mini"><span class="mk">School</span><div class="mbar"><i class="them" style="width:84%"></i></div></div>
+        </div>
+      </div>
+      <div class="fit r reveal" style="transition-delay:.2s">
+        <span class="band-tag">Band C</span>
+        <div class="fit-ic">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 24 L8 5 L21 8.5 L8 12" stroke="#A5502B" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Long shot</h3>
+        <p>They'd need to be a top swimmer.</p>
+        <div class="fit-compare">
+          <div class="mini"><span class="mk">You</span><div class="mbar"><i class="you" style="width:74%"></i></div></div>
+          <div class="mini"><span class="mk">School</span><div class="mbar"><i class="them" style="width:95%"></i></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="note reveal">This is a guide to plan with. A coach's review makes the real call.</p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS (clickable -> detailed page) -->
+<section class="s" id="how">
+  <div class="wrap">
+    <a class="how-banner reveal" href="../how-it-works/">
+      <svg class="how-watermark" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="100" cy="100" r="86" stroke="#C9A13B" stroke-width="2"/>
+        <polygon points="100,100 108,84 100,28 92,84" fill="#C9A13B"/>
+        <polygon points="100,100 150,150 116,108" fill="#C9A13B"/>
+        <polygon points="100,100 50,150 84,108" fill="#C9A13B"/>
+        <circle cx="100" cy="100" r="11" fill="#C9A13B"/>
+      </svg>
+      <div class="how-banner-left">
+        <span class="how-eyebrow">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#C9A13B" stroke-width="1.4"/><path d="M12 5 L14.2 12 L12 19 L9.8 12 Z" fill="#C9A13B"/><circle cx="12" cy="12" r="1.4" fill="#0F2A4A"/></svg>
+          Learn more
+        </span>
+        <h2>See exactly how SDA Compass works.</h2>
+        <p>The three scores, how we compare to each school, and what your fit means, with real examples.</p>
+        <div class="how-mini"><b>1</b> Score <i>&rarr;</i> <b>2</b> Compare <i>&rarr;</i> <b>3</b> See your fit</div>
+      </div>
+      <div class="how-banner-right">
+        <span class="how-cta">Click here to learn more <span class="a">&rarr;</span></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="s cta" id="contact">
+  <div class="wrap reveal">
+    <h2>See your athlete's Compass.</h2>
+    <p>Start with a free 15-minute consultation, or jump ahead and fill out our questionnaire.</p>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+      <a class="btn-gold" href="../contact/">Free Consultation</a>
+
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;color:#8FA0B3">OR</div>
+
+      <a class="btn-gold" href="../questionnaire/">Questionnaire</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-brand">
+          <svg class="brand-mark" viewBox="0 0 40 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 2 L37 9 L37 26 C37 37 29 44 20 47 C11 44 3 37 3 26 L3 9 Z" stroke="#C9A13B" stroke-width="1.6" fill="none"/>
+            <path d="M20 13 L24 27 L20 37 L16 27 Z" fill="#C9A13B"/>
+          </svg>
+          <span class="brand-name" style="font-size:17px">Signing Day Advisors</span>
+        </div>
+        <a href="mailto:info@signingdayadvisors.com" style="display:inline-block;margin-top:8px;font-size:13px;color:#A9B7C6">info@signingdayadvisors.com</a>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Explore</h4>
+          <a href="./">SDA Compass</a>
+          <a href="../packages/">Packages</a>
+        </div>
+        <div class="foot-col">
+          <h4>Company</h4>
+          <a href="../team/">About Us</a>
+          <a href="../faq/">FAQ</a>
+          <a href="../contact/">Contact</a>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer">
+      Signing Day Advisors provides recruiting guidance and assessment. We do not guarantee admission, athletic offers, roster spots, or scholarships, and we are not affiliated with any college, university, the Ivy League, or the NCAA. SDA Compass figures are estimates based on information provided by the family.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const navToggle=document.getElementById('navToggle'), navLinks=document.getElementById('navLinks');
+    if(navToggle && navLinks){
+      navToggle.addEventListener('click',()=>{
+        const open=navLinks.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded','false');
+      }));
+    }
+  })();
+
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:0.14});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  requestAnimationFrame(()=>{requestAnimationFrame(()=>{document.querySelector('.hero').classList.add('lit')})});
+
+  const sbar=document.getElementById('sbar');
+  let ticking=false;
+  function onScroll(){
+    const st=window.scrollY||document.documentElement.scrollTop;
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    sbar.style.width=(h>0?(st/h*100):0)+'%';
+    ticking=false;
+  }
+  window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(onScroll);ticking=true}},{passive:true});
+  onScroll();
+</script>
+
+</body>
+</html>

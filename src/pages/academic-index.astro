@@ -164,11 +164,12 @@ import model from '../data/academic-model.json';
         <p class="g-read" id="g-read">Strong &mdash; within the common admitted-student range</p>
 
         <div class="verdict">
-          <span class="v-chip" id="v-chip">Submit your score</span>
+          <span class="v-chip" id="v-chip">This score raises your AI</span>
           <div class="v-pair" id="v-pair">
             <div class="vp"><span>With your score</span><b id="v-incl">205</b></div>
             <div class="vp"><span>Without it</span><b id="v-excl">189</b></div>
           </div>
+          <p class="v-pct" id="v-pct"></p>
           <p class="v-why" id="v-why"></p>
         </div>
 
@@ -1233,6 +1234,13 @@ import model from '../data/academic-model.json';
     font-variant-numeric:tabular-nums;line-height:1.1;
   }
   .v-why{font-size:12.5px;line-height:1.6;color:#9FB0C3}
+  .v-pct{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.6;
+    letter-spacing:0.2px;color:var(--gold);margin:0 0 10px;
+    font-variant-numeric:tabular-nums
+  }
+  .v-pct span{color:#9FB0C3;letter-spacing:0}
+  .v-pct:empty{display:none}
 
   .second{
     width:100%;margin-top:22px;padding-top:18px;
@@ -1327,6 +1335,35 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       return AI.bands[AI.bands.length - 1][1];
     }
 
+    // ---- official published percentiles (Test_Percentiles.py) ----
+    // A sourced fact about the score, shown next to the modelled numbers. It
+    // describes where the score sits among test takers; it does not feed any
+    // score on this page.
+    var TP = model.testPercentiles;
+
+    function pctLabel(p) {
+      if (p === null || p === undefined) return null;
+      if (p >= TP.top) return '99+';
+      if (p < 1) return 'below the 1st';
+      var n = Math.round(p), r100 = n % 100, r10 = n % 10;
+      var suf = (r100 >= 11 && r100 <= 13) ? 'th'
+              : r10 === 1 ? 'st' : r10 === 2 ? 'nd' : r10 === 3 ? 'rd' : 'th';
+      return n + suf;
+    }
+
+    function satPercentile(sat) {
+      if (sat === null || sat === undefined) return null;
+      var s = Math.max(400, Math.min(1600, Math.round(sat)));
+      s -= s % 10;
+      var v = TP.sat[String(s)];
+      return v === undefined ? null : v;
+    }
+
+    function actPercentile(act) {
+      var v = TP.act[String(Math.max(1, Math.min(36, Math.round(act))))];
+      return v === undefined ? null : v;
+    }
+
     var ARC = Math.PI * 90; // semicircle, r=90 — matches the dial path
 
     function update() {
@@ -1346,6 +1383,13 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       var aiExclusive = clampAI(cgs + imputed);
       var aiInclusive = testPoints === null ? null : clampAI(testPoints + cgs);
 
+      // Which AI is higher is arithmetic, and we report it as such. Whether to
+      // SEND the score is a different question with a different answer, and it
+      // cannot be answered on this page, because it depends entirely on the
+      // score profile of the school the score is going to. A 1300 is the 85th
+      // percentile nationally and below Bowdoin's 25th; both are true, and only
+      // the second one decides anything. Mirrors the 2026-09-01 revision in
+      // Recruiting_Academic_Index.py — keep the two in step.
       var recommended, chip, why;
       if (aiInclusive === null) {
         recommended = aiExclusive;
@@ -1355,15 +1399,18 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
                'count as much as a real number.';
       } else if (aiExclusive - aiInclusive > AI.recommendationMargin) {
         recommended = aiExclusive;
-        chip = 'Applying without it may help';
-        why  = 'Your grades carry further than this score does, by enough to matter. Worth a real ' +
-               'conversation before you submit — omitting a score is a strategic call, not an ' +
-               'automatic one.';
+        chip = 'Your grades outrun this score';
+        why  = 'Applying without the score produces the higher Academic Index here, by enough to ' +
+               'matter. That is worth knowing, but it is not the whole decision: whether to send a ' +
+               'score depends on where it sits in the range of the school you are sending it to. ' +
+               'A score can lift your AI and still sit below a school’s bottom quarter.';
       } else {
         recommended = aiInclusive;
-        chip = 'Submit your score';
-        why  = 'Submitting beats withholding here. A small edge either way is noise between two ' +
-               'reconstructions of an undisclosed formula, so the tie goes to sending the score.';
+        chip = 'This score raises your AI';
+        why  = 'Including the score produces the higher Academic Index. That is arithmetic, not ' +
+               'advice — it does not mean the score is a strength. Whether to send it is a ' +
+               'school-by-school call, decided against that school’s own middle 50%, not against ' +
+               'a national percentile and not against this number.';
       }
 
       var shown = Math.round(recommended * 10) / 10;
@@ -1394,6 +1441,26 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
 
       document.getElementById('v-chip').textContent = chip;
       document.getElementById('v-why').textContent  = why;
+
+      // The sourced line: what the test maker itself says about this score.
+      // ACT gets its own published rank as well, because that is the number
+      // printed on the student's score report and it sits a few points off the
+      // SAT-concordant one (different test-taking populations).
+      var pctEl = document.getElementById('v-pct');
+      if (sat === null) {
+        pctEl.innerHTML = '';   // clear the same property we set below
+      } else {
+        var line, who;
+        if (mode === 'act') {
+          var raw = parseInt(testEl.value, 10);
+          line = 'ACT ' + raw + ' · ' + pctLabel(actPercentile(raw)) + ' percentile';
+          who  = 'ACT-tested graduates, ACT’s published national ranks';
+        } else {
+          line = 'SAT ' + sat + ' · ' + pctLabel(satPercentile(sat)) + ' percentile';
+          who  = TP.populationLabel;
+        }
+        pctEl.innerHTML = line + ' <span>— ' + who + '</span>';
+      }
       document.getElementById('v-incl').textContent =
         aiInclusive === null ? '—' : Math.round(aiInclusive);
       document.getElementById('v-excl').textContent = Math.round(aiExclusive);
