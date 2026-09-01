@@ -31,15 +31,25 @@ import Base from '../layouts/Base.astro';
     <div class="team-grid reveal">
 
       <div class="member">
-        <div class="member-photo"><img src="/team-img/james-rappaport.jpg" alt="James Dun Rappaport"></div>
-        <h3 class="member-name">James Dun Rappaport</h3>
-        <span class="member-school">Emory University</span>
-        <p class="member-bio">James graduated cum laude from Emory University in 2026 with a BBA in Finance and a minor in English. At Emory, he was an active peer tutor for both Statistics and English students and a founding member of the Goizueta Book Club. James has interned in biotechnology and impact investing, and is starting his career in M&amp;A Advisory at FTI Consulting in the fall.</p>
+        <div class="member-photo"><img src="/team-img/nareg-minassian.jpg" alt="Nareg Minassian"></div>
+        <h3 class="member-name">Nareg Minassian</h3>
+        <span class="member-title">Managing Partner</span>
+        <span class="member-school">Yale University</span>
+        <p class="member-bio">Nareg graduated with distinction from Yale with a degree in Chemistry, while competing as a four-year NCAA Division I swimmer. He qualified for Olympic Trials, set multiple New England records, and ranks among Yale's all-time top ten in three events. He was recognized as a CSC Academic All-District and a CSCAA Scholar All-American Honoree, has held positions at AstraZeneca, Mass General Brigham, and the Harvard T.H. Chan School of Public Health, and is currently pursuing a PhD in Chemistry.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/izz.jpg" alt="Isabella Paoletti"></div>
+        <h3 class="member-name">Isabella Paoletti</h3>
+        <span class="member-title">Managing Partner</span>
+        <span class="member-school">Yale University</span>
+        <p class="member-bio">Isabella graduated with distinction from Yale University in 2026 with a BA in the History of Science and Medicine and an MS in Personalized Medicine and Applied Engineering, receiving Honors in every course throughout her master's program. At Yale, she competed on the women's varsity swimming team all four years, earning an Ivy League podium finish and competing at the Ivy League Championships across a wide range of events as a distance swimmer and IMer. As a high school athlete navigating the college recruiting process, she was a Pennsylvania state champion and a NISCA and Scholastic All-American. Isabella has conducted medical research at Yale and the University of Pennsylvania and has experience in medical 3D design and engineering through her current work at Northwell Health's 3D Design & Innovation Lab.</p>
       </div>
 
       <div class="member">
         <div class="member-photo"><img src="/team-img/ethan-ecsedy.jpg" alt="Ethan Ecsedy"></div>
         <h3 class="member-name">Ethan Ecsedy</h3>
+        <span class="member-title">Managing Partner</span>
         <span class="member-school">Bowdoin College</span>
         <p class="member-bio">Ethan graduated cum laude from Bowdoin College in 2026, where he was a three-year starter on the varsity football team. He received a BS in Molecular and Cellular Biology with a minor in Economics, and has worked across roles at Harvard T.H. Chan School of Public Health, Mass General Brigham, Kura Oncology, and Convergent Therapeutics. He plans to pursue his studies as he applies to cancer biology PhD programs.</p>
       </div>
@@ -52,17 +62,10 @@ import Base from '../layouts/Base.astro';
       </div>
 
       <div class="member">
-        <div class="member-photo"><img src="/team-img/nareg-minassian.jpg" alt="Nareg Minassian"></div>
-        <h3 class="member-name">Nareg Minassian</h3>
-        <span class="member-school">Yale University</span>
-        <p class="member-bio">Nareg graduated with distinction from Yale with a degree in Chemistry, while competing as a four-year NCAA Division I swimmer. He qualified for Olympic Trials, set multiple New England records, and ranks among Yale's all-time top ten in three events. He was recognized as a CSC Academic All-District and a CSCAA Scholar All-American Honoree, has held positions at AstraZeneca, Mass General Brigham, and the Harvard T.H. Chan School of Public Health, and is currently pursuing a PhD in Chemistry.</p>
-      </div>
-
-      <div class="member">
-        <div class="member-photo"><img src="/team-img/izz.jpg" alt="Isabella Paoletti"></div>
-        <h3 class="member-name">Isabella Paoletti</h3>
-        <span class="member-school">Yale University</span>
-        <p class="member-bio">Isabella graduated with distinction from Yale University in 2026 with a BA in the History of Science and Medicine and an MS in Personalized Medicine and Applied Engineering, receiving Honors in every course throughout her master's program. At Yale, she competed on the women's varsity swimming team all four years, earning an Ivy League podium finish and competing at the Ivy League Championships across a wide range of events as a distance swimmer and IMer. As a high school athlete navigating the college recruiting process, she was a Pennsylvania state champion and a NISCA and Scholastic All-American. Isabella has conducted medical research at Yale and the University of Pennsylvania and has experience in medical 3D design and engineering through her current work at Northwell Health's 3D Design & Innovation Lab.</p>
+        <div class="member-photo"><img src="/team-img/james-rappaport.jpg" alt="James Dun Rappaport"></div>
+        <h3 class="member-name">James Dun Rappaport</h3>
+        <span class="member-school">Emory University</span>
+        <p class="member-bio">James graduated cum laude from Emory University in 2026 with a BBA in Finance and a minor in English. At Emory, he was an active peer tutor for both Statistics and English students and a founding member of the Goizueta Book Club. James has interned in biotechnology and impact investing, and is starting his career in M&amp;A Advisory at FTI Consulting in the fall.</p>
       </div>
 
     </div>
@@ -117,6 +120,7 @@ import Base from '../layouts/Base.astro';
   .member-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
   .member:hover .member-photo img{transform:scale(1.035)}
   .member-name{font-size:21px;color:var(--navy);margin-bottom:4px}
+  .member-title{font-size:14px;color:var(--muted);margin-bottom:4px}
   .member-school{
     font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:1.2px;
     text-transform:uppercase;color:var(--gold);margin-bottom:14px;
