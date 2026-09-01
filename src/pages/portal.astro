@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="My Portal"
+  description="Secure client access to SDA assessments, package information, and resources."
+  noindex
+>
+
+<section class="portal-hero">
+  <div class="wrap">
+    <span class="eyebrow">Client Portal</span>
+    <h1>My Portal</h1>
+    <p>Access your SDA Compass, package information, and client materials.</p>
+  </div>
+</section>
+
+</Base>
+
+<style is:global>
+.portal-hero{background:var(--navy);color:#fff;padding:100px 0}
+.portal-hero .eyebrow{display:block;margin-bottom:18px}
+.portal-hero h1{font-size:clamp(40px,6vw,60px);margin-bottom:18px}
+.portal-hero p{font-size:18px;color:#C7D2DE}
+</style>
