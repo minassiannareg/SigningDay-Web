@@ -60,23 +60,23 @@
       ],
       [
         3.5,
-        106.0
+        108.0
       ],
       [
         3.7,
-        112.0
-      ],
-      [
-        3.8,
-        115.0
-      ],
-      [
-        3.9,
         118.0
       ],
       [
+        3.8,
+        124.0
+      ],
+      [
+        3.9,
+        131.0
+      ],
+      [
         4.0,
-        122.0
+        137.0
       ]
     ],
     "uncertaintyDiscount": 0.92,
@@ -417,8 +417,54 @@
   },
   "schoolRelative": {
     "submitPercentile": 50.0,
-    "withholdPercentile": 25.0
+    "withholdPercentile": 25.0,
+    "strongPercentile": 75.0,
+    "iqrToSd": 1.349,
+    "thinSubmissionSharePct": 60.0,
+    "effectivelyRequiredSharePct": 95.0
   },
+  "schools": [
+    {
+      "name": "Yale University",
+      "sat25": 1510.0,
+      "sat75": 1570.0,
+      "satAvg": 1540.0,
+      "gpaAvg": 3.95,
+      "actAvg": 35.0,
+      "pctSubmitting": 100.0,
+      "dataYear": "Class of 2030"
+    },
+    {
+      "name": "Bowdoin College",
+      "sat25": 1470.0,
+      "sat75": 1560.0,
+      "satAvg": 1520.0,
+      "gpaAvg": 3.9,
+      "actAvg": 34.0,
+      "pctSubmitting": 55.0,
+      "dataYear": "Class of 2030"
+    },
+    {
+      "name": "Emory University",
+      "sat25": 1480.0,
+      "sat75": 1540.0,
+      "satAvg": 1500.0,
+      "gpaAvg": 3.84,
+      "actAvg": 34.0,
+      "pctSubmitting": 68.0,
+      "dataYear": "Class of 2030"
+    },
+    {
+      "name": "Alabama",
+      "sat25": 1100.0,
+      "sat75": 1350.0,
+      "satAvg": 1220.0,
+      "gpaAvg": 3.8,
+      "actAvg": 27.4,
+      "pctSubmitting": 76.6,
+      "dataYear": "Class of 2030"
+    }
+  ],
   "actToSat": {
     "13": 760,
     "14": 800,

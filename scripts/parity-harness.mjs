@@ -24,10 +24,15 @@ function el(extra = {}) {
 const nodes = {};
 ['f-gpa','f-test','f-ap','f-hon','v-gpa','v-test','v-ap','v-hon',
  'g-num','g-read','g-fill','ca-score','l-test','e-test',
- 'v-chip','v-why','v-pct','v-incl','v-excl','v-pair','bl-test','h-num']
+ 'v-chip','v-why','v-pct','v-incl','v-excl','v-pair','bl-test','h-num',
+ 'ts-chip','ts-flag','ts-range','ts-why','ts-caveat']
   .forEach(id => nodes[id] = el());
 
 let onInput = null;
+// The school selector: the harness drives it by writing .value, exactly as a
+// visitor picking from the dropdown would.
+nodes['f-school'] = el({ value: '' });
+
 nodes['ai-form'] = el({ addEventListener: (evt, fn) => { if (evt === 'input') onInput = fn; } });
 
 // Each bar row needs its own <i> and .bar-v so widths/values don't collide.
@@ -63,6 +68,7 @@ const out = cases.map(c => {
   // Flip the SAT / ACT / no-score segment first: its handler resets the slider
   // bounds and value, so the case's own numbers have to be written after it.
   segClicks[c.mode]();
+  nodes['f-school'].value = c.school || '';
   nodes['f-gpa'].value  = c.gpa;
   nodes['f-test'].value = c.test == null ? 0 : c.test;
   nodes['f-ap'].value   = c.ap;
@@ -73,6 +79,9 @@ const out = cases.map(c => {
     band:      nodes['g-read'].textContent,
     chip:      nodes['v-chip'].textContent,
     percentile: nodes['v-pct'].innerHTML,
+    tsChip:     nodes['ts-chip'].textContent,
+    tsWhy:      nodes['ts-why'].textContent,
+    tsConflict: nodes['ts-flag'].hidden === false,
     inclusive: nodes['v-incl'].textContent,
     exclusive: nodes['v-excl'].textContent,
     holistic:  parseFloat(nodes['h-num'].textContent),

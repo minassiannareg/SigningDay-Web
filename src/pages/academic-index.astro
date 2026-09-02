@@ -7,7 +7,7 @@ import model from '../data/academic-model.json';
   title="SDA Compass"
   scrollBar
   description="Free Academic Index calculator: the 60-240 recruiting score, worked out with and without your test score. Plus the SDA Compass, which bands it against the class a specific school actually enrolls."
-  extraDisclaimer="School examples are illustrative and do not refer to specific institutions. Descriptions of other services reflect the methodology those services publish themselves. The Ivy League has never published the Academic Index formula; our calculator uses the standard public reconstruction, and the converted-GPA curve, the test-optional estimate and the band labels are our own judgment calls. It is a planning tool, not an admissions prediction, and a coach pre-read is the only authoritative read on a recruit's academic standing. The calculator excludes the athletic and activities axes and the school-specific banding the paid report is built on."
+  extraDisclaimer="Named schools use each school's own published Common Data Set figures for the year shown; percentiles within a school are reconstructed from its published 25th/75th and are approximate. Descriptions of other services reflect the methodology those services publish themselves. The Ivy League has never published the Academic Index formula; our calculator uses the standard public reconstruction, and the converted-GPA curve, the test-optional estimate and the band labels are our own judgment calls. It is a planning tool, not an admissions prediction, and a coach pre-read is the only authoritative read on a recruit's academic standing. The calculator excludes the athletic and activities axes and the school-specific banding the paid report is built on."
 >
 
 <!-- ==========================================================
@@ -145,6 +145,22 @@ import model from '../data/academic-model.json';
 
           <p class="fset-note">Course rigor is not in the Academic Index at all &mdash; a 4.0 earned in four AP courses and a 4.0 earned in none score identically. These two sliders move only our holistic read.</p>
         </fieldset>
+
+        <fieldset class="fset">
+          <legend>Where you are sending it</legend>
+
+          <div class="field">
+            <div class="field-top">
+              <label for="f-school">Target school</label>
+            </div>
+            <select id="f-school" class="sel">
+              <option value="">Choose a school</option>
+              {model.schools.map((sc) => <option value={sc.name}>{sc.name}</option>)}
+            </select>
+          </div>
+
+          <p class="fset-note">Your Academic Index is the same number everywhere. Whether to <em>send</em> your score is not &mdash; that is decided against one school&rsquo;s own middle 50%, which is why it needs a school and a national percentile cannot stand in for one.</p>
+        </fieldset>
       </form>
 
       <div class="calc-out">
@@ -171,6 +187,17 @@ import model from '../data/academic-model.json';
           </div>
           <p class="v-pct" id="v-pct"></p>
           <p class="v-why" id="v-why"></p>
+        </div>
+
+        <div class="ts" id="ts">
+          <span class="ts-label">Should you send it?</span>
+          <div class="ts-head">
+            <span class="ts-chip" id="ts-chip">Choose a school</span>
+            <span class="ts-flag" id="ts-flag" hidden>AI conflict</span>
+          </div>
+          <p class="ts-range" id="ts-range"></p>
+          <p class="ts-why" id="ts-why"></p>
+          <p class="ts-caveat" id="ts-caveat"></p>
         </div>
 
         <div class="bars" id="bars">
@@ -201,7 +228,7 @@ import model from '../data/academic-model.json';
         <p>You have the standardized score, computed honestly. That is the same thing every Academic Index calculator gives you &mdash; and on its own it does not answer the only question that matters.</p>
       </div>
       <ul class="ca-list">
-        <li><b>It has no school attached.</b> The bands are school-relative, not fixed. A <span id="ca-score">205</span> can be an A band at one program and a C at a more selective one, and only the gap against that school&rsquo;s own campus average tells you which.</li>
+        <li><b>Its band has no school attached.</b> The submit-or-withhold call above does &mdash; that is why it needs a school. The <em>band</em> still does not: a <span id="ca-score">205</span> can be an A at one program and a C at a more selective one, and only the gap against that school&rsquo;s own campus average tells you which. The full read bands you at every school on your list, not four.</li>
         <li><b>Nobody is admitted on it.</b> The Academic Index is a gate, not a decision. Clearing it makes you eligible for a coach&rsquo;s support; it does not tell you whether a coach will spend a slot on you.</li>
         <li><b>Your swimming is not in it.</b> Athletics does not raise your academic standing &mdash; it lowers the band a coach is willing to accept. That trade is the whole recruiting calculation, and it needs both axes.</li>
         <li><b>It cannot tell you what to change.</b> A score is a snapshot. The useful part is which lever moves you into the next band, and whether there is time left to pull it.</li>
@@ -1242,6 +1269,47 @@ import model from '../data/academic-model.json';
   .v-pct span{color:#9FB0C3;letter-spacing:0}
   .v-pct:empty{display:none}
 
+  /* The school-relative call. Deliberately styled as its own block rather
+     than folded into .verdict above: it answers a different question, from a
+     different reference population, and the two can honestly disagree. */
+  .sel{
+    width:100%;appearance:none;background:var(--white-warm);
+    border:1px solid var(--line);border-radius:2px;padding:12px 38px 12px 13px;
+    font-family:inherit;font-size:15px;color:var(--navy);cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7' viewBox='0 0 11 7'%3E%3Cpath d='M1 1l4.5 4.5L10 1' fill='none' stroke='%23C9A13B' stroke-width='1.6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 14px center;
+  }
+  .sel:focus{outline:none;border-color:var(--gold)}
+
+  .ts{width:100%;margin:0 0 24px;padding:18px 0 0;border-top:1px solid rgba(255,255,255,0.12)}
+  .ts-label{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.6px;
+    text-transform:uppercase;color:#8FA0B3;display:block;margin-bottom:10px;
+  }
+  .ts-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .ts-chip{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:1.4px;text-transform:uppercase;padding:6px 12px;border-radius:2px;
+    background:rgba(255,255,255,0.07);color:#9FB0C3;border:1px solid rgba(255,255,255,0.2);
+  }
+  .ts-chip.yes{background:rgba(201,161,59,0.16);color:var(--gold-soft);border-color:rgba(201,161,59,0.45)}
+  .ts-chip.maybe{background:rgba(255,255,255,0.09);color:var(--white-warm);border-color:rgba(255,255,255,0.32)}
+  .ts-chip.no{background:rgba(176,74,62,0.20);color:#E8A99F;border-color:rgba(200,102,88,0.5)}
+  .ts-flag{
+    font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.2px;
+    text-transform:uppercase;padding:5px 9px;border-radius:2px;color:#9FB0C3;
+    border:1px dashed rgba(255,255,255,0.28);
+  }
+  .ts-range{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.6;
+    color:var(--gold);margin:11px 0 0;font-variant-numeric:tabular-nums;
+  }
+  .ts-range span{color:#9FB0C3}
+  .ts-range:empty{display:none}
+  .ts-why{font-size:12.5px;line-height:1.6;color:#9FB0C3;margin-top:9px;white-space:pre-line}
+  .ts-caveat{font-size:11.5px;line-height:1.55;color:#7C8CA0;margin-top:9px}
+  .ts-caveat:empty{display:none}
+
   .second{
     width:100%;margin-top:22px;padding-top:18px;
     border-top:1px solid rgba(255,255,255,0.12);
@@ -1307,6 +1375,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
     var testEl = document.getElementById('f-test');
     var apEl   = document.getElementById('f-ap');
     var honEl  = document.getElementById('f-hon');
+    var schoolEl = document.getElementById('f-school');
     var mode   = 'sat';
 
     var AI = model.ai, H = model.holistic;
@@ -1362,6 +1431,145 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
     function actPercentile(act) {
       var v = TP.act[String(Math.max(1, Math.min(36, Math.round(act))))];
       return v === undefined ? null : v;
+    }
+
+    // ---- the school-relative submit/withhold rule ----
+    // A direct port of test_submission_recommendation() in
+    // Recruiting_Academic_Index.py. Same thresholds, same normal
+    // reconstruction from a school's published 25th/75th, same reference
+    // population — the school's own submitted scores. This is the ONLY thing
+    // on the page that answers "should I send it," because it is the only
+    // thing on the page that knows where "it" is going.
+    var SR = model.schoolRelative;
+    var SCHOOLS = {};
+    (model.schools || []).forEach(function (sc) { SCHOOLS[sc.name] = sc; });
+
+    // Abramowitz & Stegun 7.1.26 — stands in for Python's math.erf, which the
+    // browser has no equivalent of. Accurate to ~1.5e-7, far inside the
+    // precision of a percentile reconstructed from two published numbers.
+    function erf(x) {
+      var sign = x < 0 ? -1 : 1, ax = Math.abs(x);
+      var t = 1 / (1 + 0.3275911 * ax);
+      var y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t
+                    - 0.284496736) * t + 0.254829592) * t * Math.exp(-ax * ax);
+      return sign * y;
+    }
+
+    function schoolPercentile(sat, sc) {
+      if (sat === null || !sc || !(sc.sat75 > sc.sat25)) return null;
+      var sd   = (sc.sat75 - sc.sat25) / SR.iqrToSd;
+      var mean = (sc.satAvg === null || sc.satAvg === undefined)
+               ? (sc.sat25 + sc.sat75) / 2 : sc.satAvg;
+      return 0.5 * (1 + erf(((sat - mean) / sd) / Math.SQRT2)) * 100;
+    }
+
+    function pctPhrase(p) {
+      var o = pctLabel(p);
+      if (o === 'below the 1st') return 'below the 1st percentile';
+      if (o === '99+') return 'at the 99+ percentile';
+      return 'at roughly the ' + o + ' percentile';
+    }
+
+    // Returns {klass, chip, range, why, caveat, conflict}. Mirrors the four
+    // verdict branches in the Python, condensed for a panel rather than a
+    // report page.
+    function submissionCall(sat, natlPct, natlWho, aiIncl, aiExcl) {
+      var sc = SCHOOLS[schoolEl.value];
+      if (!sc) {
+        return {
+          klass: '', chip: 'Choose a school', range: '',
+          why: 'Two students with the same Academic Index get opposite answers here. ' +
+               'A 1300 is the 85th percentile in the country and below the bottom quarter ' +
+               'of what Bowdoin enrolls — both true, and only the second one decides ' +
+               'anything. Pick a school and this becomes a real answer.',
+          caveat: '', conflict: false
+        };
+      }
+      if (sat === null) {
+        return {
+          klass: '', chip: 'No score to decide about', range: '',
+          why: 'With no score on file there is nothing to submit, and ' + sc.name +
+               ' is being read on the rest of the application. Your Academic Index above ' +
+               'is the test-optional one, with the test half estimated from your GPA.',
+          caveat: '', conflict: false
+        };
+      }
+
+      var at = schoolPercentile(sat, sc);
+      var here = pctPhrase(at);
+      var natl = 'It sits ' + pctPhrase(natlPct) + ' nationally (' + natlWho + ')';
+      var range = sc.name + ' middle 50%: ' + sc.sat25 + '–' + sc.sat75 +
+                  ' <span>· your ' + sat + ' sits ' + here + ' of its submitted scores</span>';
+      var out = { range: range, conflict: false, caveat: '' };
+
+      if (at >= SR.strongPercentile) {
+        out.klass = 'yes'; out.chip = 'Submit — a clear strength';
+        out.why = sat + ' is in the top quarter of the scores ' + sc.name +
+                  ' actually enrolls. ' + natl + ', and it is strong where it counts: ' +
+                  'against this school\u2019s own range.';
+      } else if (at >= SR.submitPercentile) {
+        out.klass = 'yes'; out.chip = 'Submit';
+        out.why = sat + ' is at or above the median of ' + sc.name +
+                  '\u2019s submitted scores. ' + natl + '. Submitting confirms the academic ' +
+                  'profile rather than raising a question about it.';
+      } else if (at >= SR.withholdPercentile) {
+        out.klass = 'maybe'; out.chip = 'Judgment call';
+        out.why = sat + ' is inside ' + sc.name + '\u2019s published middle 50% but in its ' +
+                  'lower half. ' + natl + '. A score here neither carries the application nor ' +
+                  'sinks it — the call depends on how the rest of the file reads and on what ' +
+                  'the coach says a pre-read needs.';
+      } else if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
+                 sc.pctSubmitting >= SR.effectivelyRequiredSharePct) {
+        // Test-optional on paper, test-submitting in practice. A withhold here
+        // is advice the student cannot act on cleanly — leaving the field
+        // blank where everyone else has a number is itself conspicuous.
+        out.klass = 'maybe'; out.chip = 'Judgment call';
+        out.why = sat + ' is below ' + sc.name + '\u2019s published 25th percentile of ' +
+                  sc.sat25 + ', so on its own merits it does not help. ' + natl + '. What ' +
+                  'stops this being a clean withhold is that ' + Math.round(sc.pctSubmitting) +
+                  '% of ' + sc.name + '\u2019s class submitted a score: the policy is ' +
+                  'optional, the practice is not, and a blank there is conspicuous. The ' +
+                  'honest read is that this score is light for ' + sc.name + ' either way — ' +
+                  'which is a conversation about the school list, not about the score.';
+      } else {
+        out.klass = 'no'; out.chip = 'Do not submit';
+        out.why = sat + ' is below ' + sc.name + '\u2019s published 25th percentile of ' +
+                  sc.sat25 + '. Sending it puts a number in the file weaker than nearly every ' +
+                  'enrolled student\u2019s. ' + natl + ', and that is the trap: a good score in ' +
+                  'the country and a weak one at ' + sc.name + '. ' + sc.name + ' is ' +
+                  'test-optional; the point of that policy is that this score does not have ' +
+                  'to be part of the application.';
+
+        // Where the two channels disagree, say so rather than hiding one.
+        // Round to one decimal before comparing, exactly as the Python does:
+        // compute_academic_index() rounds both AIs into its result dict and
+        // test_submission_recommendation() subtracts the rounded pair. Without
+        // this the two sides disagree on scores that land on the margin.
+        var r1 = function (v) { return Math.round(v * 10) / 10; };
+        var delta = aiIncl === null ? 0 : r1(r1(aiIncl) - r1(aiExcl));
+        if (delta > AI.recommendationMargin) {
+          out.conflict = true;
+          out.why += '\n\nStated because a coach will raise it: submitting does lift your ' +
+                     'Academic Index from ' + Math.round(aiExcl) + ' to ' + Math.round(aiIncl) +
+                     ', because a test-optional AI has to estimate the test half from GPA and ' +
+                     'that estimate lands below this actual score. So the score is worth more ' +
+                     'to a pre-read than to an admissions reader. That is a real tension and ' +
+                     'it is the coach\u2019s call — but it is not a reason to call this score ' +
+                     'a strength.';
+        }
+      }
+
+      if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
+          sc.pctSubmitting < SR.thinSubmissionSharePct) {
+        out.caveat = 'Only ' + Math.round(sc.pctSubmitting) + '% of ' + sc.name +
+                     '\u2019s class submitted a score, so that published range describes a ' +
+                     'self-selected group — students who submitted largely because they ' +
+                     'scored well. ' + sc.dataYear + ' figures.';
+      } else {
+        out.caveat = sc.dataYear + ' figures. Percentiles within a school are reconstructed ' +
+                     'from its published 25th/75th and are approximate.';
+      }
+      return out;
     }
 
     var ARC = Math.PI * 90; // semicircle, r=90 — matches the dial path
@@ -1461,6 +1669,22 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
         }
         pctEl.innerHTML = line + ' <span>— ' + who + '</span>';
       }
+      // ---- the school-relative call ----
+      // Note which national percentile feeds it: always the SAT-equivalent
+      // one, even in ACT mode, because the school's published range is an SAT
+      // range and the two have to be on one scale. The gold line above still
+      // shows ACT's own published rank, which is what a student sees on their
+      // own score report. Same split as score_context() in Test_Percentiles.py.
+      var call = submissionCall(sat, satPercentile(sat), TP.populationLabel,
+                                aiInclusive, aiExclusive);
+      var tsChip = document.getElementById('ts-chip');
+      tsChip.textContent = call.chip;
+      tsChip.className = 'ts-chip' + (call.klass ? ' ' + call.klass : '');
+      document.getElementById('ts-flag').hidden = !call.conflict;
+      document.getElementById('ts-range').innerHTML = call.range;
+      document.getElementById('ts-why').textContent = call.why;
+      document.getElementById('ts-caveat').textContent = call.caveat;
+
       document.getElementById('v-incl').textContent =
         aiInclusive === null ? '—' : Math.round(aiInclusive);
       document.getElementById('v-excl').textContent = Math.round(aiExclusive);
