@@ -78,18 +78,17 @@ import model from '../data/academic-model.json';
 </header>
 
 <!-- ==========================================================
-     THE FREE CALCULATOR — the real 60-240 Academic Index, with our
-     holistic read as a secondary line. Constants come from
-     src/data/academic-model.json, generated out of
-     Recruiting_Academic_Index.py + Academic_Index.py by
-     export_web_model.py. Never hand-edit the numbers here.
+     THE FREE CALCULATOR — the real 60-240 Academic Index, and nothing
+     else. Constants come from src/data/academic-model.json, generated out
+     of Recruiting_Academic_Index.py by export_web_model.py. Never
+     hand-edit the numbers here.
      ========================================================== -->
 <section class="s calc" id="try-it">
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">Try it</span>
       <h2>Your Academic Index, free.</h2>
-      <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use, evaluated both with your test scores and without them, so you can see which one to lead with. This is given directly to you, nothing is sent anywhere.</p>
+      <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use. We work it out twice &mdash; once with your standardized test score, once without it &mdash; so you can see which number is higher.</p>
     </div>
 
     <div class="calc-grid reveal">
@@ -123,31 +122,7 @@ import model from '../data/academic-model.json';
         </fieldset>
 
         <fieldset class="fset">
-          <legend>What it ignores</legend>
-
-          <div class="field">
-            <div class="field-top">
-              <label for="f-ap">AP or IB courses taken</label>
-              <output class="val" id="v-ap" for="f-ap">5</output>
-            </div>
-            <input type="range" id="f-ap" min="0" max="12" step="1" value="5">
-            <div class="ends"><span>0</span><span>12+</span></div>
-          </div>
-
-          <div class="field">
-            <div class="field-top">
-              <label for="f-hon">Honors courses taken</label>
-              <output class="val" id="v-hon" for="f-hon">3</output>
-            </div>
-            <input type="range" id="f-hon" min="0" max="8" step="1" value="3">
-            <div class="ends"><span>0</span><span>8+</span></div>
-          </div>
-
-          <p class="fset-note">Course rigor is not in the Academic Index at all &mdash; a 4.0 earned in four AP courses and a 4.0 earned in none score identically. These two sliders move only our holistic read.</p>
-        </fieldset>
-
-        <fieldset class="fset">
-          <legend>Where you are sending it</legend>
+          <legend>Where you are sending your test score</legend>
 
           <div class="field">
             <div class="field-top">
@@ -159,8 +134,20 @@ import model from '../data/academic-model.json';
             </select>
           </div>
 
-          <p class="fset-note">Your Academic Index is the same number everywhere. Whether to <em>send</em> your score is not &mdash; that is decided against one school&rsquo;s own middle 50%, which is why it needs a school and a national percentile cannot stand in for one.</p>
+          <p class="fset-note">Your Academic Index is the same number at every school. Whether to <em>send</em> your test score is not. That answer comes from comparing your score to the middle 50% of the students one school actually enrolls &mdash; so we need to know which school. A national percentile cannot answer it.</p>
         </fieldset>
+
+        <div class="fset note-only">
+          <span class="note-l">What it leaves out</span>
+          <p>Course rigor is not in the Academic Index. A 4.0 earned in four AP courses and a 4.0 earned in none score exactly the same. Neither your activities, your essays, nor your swimming are in it either.</p>
+        </div>
+
+        <div class="fset note-only">
+          <span class="note-l">How the number is worked out</span>
+          <p>Your GPA becomes a score from 20 to 80. Your SAT is divided by 10, which gives 40 to 160. Add the two and you have your Academic Index, somewhere between 60 and 240.</p>
+          <p>With no test score, we estimate the test half from what students with your GPA usually score, then lower that estimate a little &mdash; a guess should never count as much as a real number.</p>
+          <p class="note-fine">Everything here runs in your browser. Nothing you type is saved or sent anywhere.</p>
+        </div>
       </form>
 
       <div class="calc-out">
@@ -180,20 +167,20 @@ import model from '../data/academic-model.json';
         <p class="g-read" id="g-read">Strong &mdash; within the common admitted-student range</p>
 
         <div class="verdict">
-          <span class="v-chip" id="v-chip">This score raises your AI</span>
+          <span class="v-chip" id="v-chip">Your test score raises your Academic Index</span>
           <div class="v-pair" id="v-pair">
-            <div class="vp"><span>With your score</span><b id="v-incl">205</b></div>
-            <div class="vp"><span>Without it</span><b id="v-excl">189</b></div>
+            <div class="vp"><span>With your test score</span><b id="v-incl">205</b></div>
+            <div class="vp"><span>Without your test score</span><b id="v-excl">189</b></div>
           </div>
           <p class="v-pct" id="v-pct"></p>
           <p class="v-why" id="v-why"></p>
         </div>
 
         <div class="ts" id="ts">
-          <span class="ts-label">Should you send it?</span>
+          <span class="ts-label">Should you send your test score?</span>
           <div class="ts-head">
             <span class="ts-chip" id="ts-chip">Choose a school</span>
-            <span class="ts-flag" id="ts-flag" hidden>AI conflict</span>
+            <span class="ts-flag" id="ts-flag" hidden>Academic Index disagrees</span>
           </div>
           <p class="ts-range" id="ts-range"></p>
           <p class="ts-why" id="ts-why"></p>
@@ -207,18 +194,12 @@ import model from '../data/academic-model.json';
             <span class="bar-v">0</span>
           </div>
           <div class="bar-row" data-k="test">
-            <span class="bar-l" id="bl-test">Test points</span>
+            <span class="bar-l" id="bl-test">Test score converted</span>
             <div class="bar-t"><i></i></div>
             <span class="bar-v">0</span>
           </div>
         </div>
-        <p class="bars-fine">The Academic Index is these two added together &mdash; nothing else goes in.</p>
-
-        <div class="second">
-          <span class="second-l">Our holistic read</span>
-          <span class="second-n"><b class="second-v" id="h-num">6.4</b> / 10</span>
-          <p class="second-d">A different question: how academically strong is this student overall. It counts course rigor, so it moves when the sliders above do.</p>
-        </div>
+        <p class="bars-fine">The Academic Index is your GPA and your test score, converted and added together. Nothing else goes in.</p>
       </div>
     </div>
 
@@ -1117,6 +1098,16 @@ import model from '../data/academic-model.json';
   }
 
   .calc-form{padding:38px 36px;display:flex;flex-direction:column;gap:26px}
+  /* Same divider treatment as a real fieldset (.fset + .fset supplies the
+     rule and the spacing) - these just carry text instead of inputs. */
+  .note-only{gap:0}
+  .note-l{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.6px;
+    text-transform:uppercase;color:var(--muted);display:block;margin-bottom:9px;
+  }
+  .note-only p{font-size:13px;line-height:1.62;color:var(--muted);margin:0 0 9px}
+  .note-only p:last-child{margin-bottom:0}
+  .note-fine{font-size:11.5px;color:#9A978E;padding-top:4px}
   .field{display:flex;flex-direction:column;gap:9px}
   .field.off{opacity:.55}
   .field-top{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
@@ -1310,21 +1301,6 @@ import model from '../data/academic-model.json';
   .ts-caveat{font-size:11.5px;line-height:1.55;color:#7C8CA0;margin-top:9px}
   .ts-caveat:empty{display:none}
 
-  .second{
-    width:100%;margin-top:22px;padding-top:18px;
-    border-top:1px solid rgba(255,255,255,0.12);
-  }
-  .second-l{
-    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.6px;
-    text-transform:uppercase;color:#8FA0B3;display:block;margin-bottom:5px;
-  }
-  .second-n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8FA0B3}
-  .second-v{
-    font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:var(--gold-soft);
-    font-variant-numeric:tabular-nums;margin-right:4px;
-  }
-  .second-d{font-size:12.5px;line-height:1.6;color:#9FB0C3;margin-top:7px}
-
   .bar-row.est .bar-t i{
     background:repeating-linear-gradient(90deg,var(--gold-soft) 0 5px,transparent 5px 9px);
   }
@@ -1359,26 +1335,25 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
 </script>
 
 <script define:vars={{ model }}>
-  // Two models, mirrored from the Python. Constants arrive in `model`,
+  // One model, mirrored from the Python. Constants arrive in `model`,
   // generated by export_web_model.py — change the Python, re-run the export.
   //
-  //   headline  = the real 60-240 Academic Index (Recruiting_Academic_Index.py),
-  //               computed test-inclusive AND test-exclusive, recommending the
-  //               higher one only when it wins by more than the margin.
-  //   secondary = our holistic 1-10 read (Academic_Index.py), which sees course
-  //               rigor. The two disagreeing is the point of the section.
+  // This page shows the real 60-240 Academic Index only
+  // (Recruiting_Academic_Index.py), computed with the test score and without
+  // it. Our holistic 1-10 read used to sit under it as a secondary line; it
+  // was removed from the public page on 2026-09-02 because a second, differently
+  // scaled score invited visitors to read it as a second verdict. It is still
+  // computed for real clients — see Academic_Index.py and Generate_Client_Report.py.
   (function () {
     var form = document.getElementById('ai-form');
     if (!form) return;
 
     var gpaEl  = document.getElementById('f-gpa');
     var testEl = document.getElementById('f-test');
-    var apEl   = document.getElementById('f-ap');
-    var honEl  = document.getElementById('f-hon');
     var schoolEl = document.getElementById('f-school');
     var mode   = 'sat';
 
-    var AI = model.ai, H = model.holistic;
+    var AI = model.ai;
 
     function piecewise(v, anchors) {
       if (v <= anchors[0][0]) return anchors[0][1];
@@ -1388,11 +1363,6 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
         if (v >= a[0] && v <= b[0]) return a[1] + (v - a[0]) / (b[0] - a[0]) * (b[1] - a[1]);
       }
       return anchors[anchors.length - 1][1];
-    }
-
-    function normalize(v, lo, hi) {
-      if (hi === lo) return 50;
-      return Math.max(0, Math.min(100, (v - lo) / (hi - lo) * 100));
     }
 
     function clampAI(v) { return Math.max(AI.min, Math.min(AI.max, v)); }
@@ -1478,67 +1448,68 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       if (!sc) {
         return {
           klass: '', chip: 'Choose a school', range: '',
-          why: 'Two students with the same Academic Index get opposite answers here. ' +
-               'A 1300 is the 85th percentile in the country and below the bottom quarter ' +
-               'of what Bowdoin enrolls — both true, and only the second one decides ' +
-               'anything. Pick a school and this becomes a real answer.',
+          why: 'The same test score can be a strength at one school and a weakness at ' +
+               'another. A 1300 SAT beats 85% of test takers in the country, and still ' +
+               'sits below the bottom quarter of what Bowdoin enrolls. Both are true, and ' +
+               'only the second one decides anything. Pick a school to get a real answer.',
           caveat: '', conflict: false
         };
       }
       if (sat === null) {
         return {
-          klass: '', chip: 'No score to decide about', range: '',
-          why: 'With no score on file there is nothing to submit, and ' + sc.name +
-               ' is being read on the rest of the application. Your Academic Index above ' +
-               'is the test-optional one, with the test half estimated from your GPA.',
+          klass: '', chip: 'No test score to send', range: '',
+          why: 'You have not entered a standardized test score, so there is nothing to ' +
+               'send, and ' + sc.name + ' would read the rest of your application instead. ' +
+               'The Academic Index above is the no-score version, with the test half ' +
+               'estimated from your GPA.',
           caveat: '', conflict: false
         };
       }
 
       var at = schoolPercentile(sat, sc);
       var here = pctPhrase(at);
-      var natl = 'It sits ' + pctPhrase(natlPct) + ' nationally (' + natlWho + ')';
+      var natl = 'Your score sits ' + pctPhrase(natlPct) + ' nationally (' + natlWho + ')';
       var range = sc.name + ' middle 50%: ' + sc.sat25 + '–' + sc.sat75 +
-                  ' <span>· your ' + sat + ' sits ' + here + ' of its submitted scores</span>';
+                  ' <span>· your ' + sat + ' sits ' + here + ' of the scores students send there</span>';
       var out = { range: range, conflict: false, caveat: '' };
 
       if (at >= SR.strongPercentile) {
         out.klass = 'yes'; out.chip = 'Submit — a clear strength';
-        out.why = sat + ' is in the top quarter of the scores ' + sc.name +
+        out.why = 'Your ' + sat + ' is in the top quarter of the test scores ' + sc.name +
                   ' actually enrolls. ' + natl + ', and it is strong where it counts: ' +
-                  'against this school\u2019s own range.';
+                  'against this one school\u2019s own range.';
       } else if (at >= SR.submitPercentile) {
         out.klass = 'yes'; out.chip = 'Submit';
-        out.why = sat + ' is at or above the median of ' + sc.name +
-                  '\u2019s submitted scores. ' + natl + '. Submitting confirms the academic ' +
-                  'profile rather than raising a question about it.';
+        out.why = 'Your ' + sat + ' is at or above the middle of the test scores sent to ' +
+                  sc.name + '. ' + natl + '. Sending it backs up the rest of your ' +
+                  'application instead of raising a question about it.';
       } else if (at >= SR.withholdPercentile) {
         out.klass = 'maybe'; out.chip = 'Judgment call';
-        out.why = sat + ' is inside ' + sc.name + '\u2019s published middle 50% but in its ' +
-                  'lower half. ' + natl + '. A score here neither carries the application nor ' +
-                  'sinks it — the call depends on how the rest of the file reads and on what ' +
-                  'the coach says a pre-read needs.';
+        out.why = 'Your ' + sat + ' is inside ' + sc.name + '\u2019s middle 50%, but in the ' +
+                  'lower half of it. ' + natl + '. A test score here will not carry your ' +
+                  'application and will not sink it. The call depends on how the rest of your ' +
+                  'application reads, and on what the coach says a pre-read needs.';
       } else if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
                  sc.pctSubmitting >= SR.effectivelyRequiredSharePct) {
         // Test-optional on paper, test-submitting in practice. A withhold here
         // is advice the student cannot act on cleanly — leaving the field
         // blank where everyone else has a number is itself conspicuous.
         out.klass = 'maybe'; out.chip = 'Judgment call';
-        out.why = sat + ' is below ' + sc.name + '\u2019s published 25th percentile of ' +
-                  sc.sat25 + ', so on its own merits it does not help. ' + natl + '. What ' +
-                  'stops this being a clean withhold is that ' + Math.round(sc.pctSubmitting) +
-                  '% of ' + sc.name + '\u2019s class submitted a score: the policy is ' +
-                  'optional, the practice is not, and a blank there is conspicuous. The ' +
-                  'honest read is that this score is light for ' + sc.name + ' either way — ' +
-                  'which is a conversation about the school list, not about the score.';
+        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s 25th percentile of ' +
+                  sc.sat25 + ', so on its own it does not help you. ' + natl + '. What stops ' +
+                  'this being a simple no is that ' + Math.round(sc.pctSubmitting) + '% of ' +
+                  sc.name + '\u2019s class sent a score. Sending one is optional on paper, but ' +
+                  'almost everyone does it, so leaving the space blank stands out. Either way, ' +
+                  'your test score is light for ' + sc.name + ' — which is a conversation about ' +
+                  'your school list, not about your score.';
       } else {
         out.klass = 'no'; out.chip = 'Do not submit';
-        out.why = sat + ' is below ' + sc.name + '\u2019s published 25th percentile of ' +
-                  sc.sat25 + '. Sending it puts a number in the file weaker than nearly every ' +
-                  'enrolled student\u2019s. ' + natl + ', and that is the trap: a good score in ' +
-                  'the country and a weak one at ' + sc.name + '. ' + sc.name + ' is ' +
-                  'test-optional; the point of that policy is that this score does not have ' +
-                  'to be part of the application.';
+        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s 25th percentile of ' +
+                  sc.sat25 + '. Sending it would put a number in your application weaker than ' +
+                  'almost every enrolled student\u2019s. ' + natl + ', and that is the trap: a ' +
+                  'good score for the country and a weak one for ' + sc.name + '. ' + sc.name +
+                  ' is test-optional, and the point of that policy is that your test score does ' +
+                  'not have to be part of your application at all.';
 
         // Where the two channels disagree, say so rather than hiding one.
         // Round to one decimal before comparing, exactly as the Python does:
@@ -1549,25 +1520,26 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
         var delta = aiIncl === null ? 0 : r1(r1(aiIncl) - r1(aiExcl));
         if (delta > AI.recommendationMargin) {
           out.conflict = true;
-          out.why += '\n\nStated because a coach will raise it: submitting does lift your ' +
-                     'Academic Index from ' + Math.round(aiExcl) + ' to ' + Math.round(aiIncl) +
-                     ', because a test-optional AI has to estimate the test half from GPA and ' +
-                     'that estimate lands below this actual score. So the score is worth more ' +
-                     'to a pre-read than to an admissions reader. That is a real tension and ' +
-                     'it is the coach\u2019s call — but it is not a reason to call this score ' +
-                     'a strength.';
+          out.why += '\n\nWorth saying, because a coach will bring it up: sending your ' +
+                     'test score does raise your Academic Index, from ' + Math.round(aiExcl) +
+                     ' to ' + Math.round(aiIncl) + '. That is because the no-score version has ' +
+                     'to estimate your test half from your GPA, and that estimate lands below ' +
+                     'your real score. So your score helps you more with a coach than with an ' +
+                     'admissions reader. That tension is real and the coach decides it — but ' +
+                     'it is not a reason to call your test score a strength.';
         }
       }
 
       if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
           sc.pctSubmitting < SR.thinSubmissionSharePct) {
         out.caveat = 'Only ' + Math.round(sc.pctSubmitting) + '% of ' + sc.name +
-                     '\u2019s class submitted a score, so that published range describes a ' +
-                     'self-selected group — students who submitted largely because they ' +
-                     'scored well. ' + sc.dataYear + ' figures.';
+                     '\u2019s class sent a test score, so the range above describes just the ' +
+                     'students who chose to send one — mostly the ones who scored well. ' +
+                     sc.dataYear + ' figures.';
       } else {
-        out.caveat = sc.dataYear + ' figures. Percentiles within a school are reconstructed ' +
-                     'from its published 25th/75th and are approximate.';
+        out.caveat = sc.dataYear + ' figures. Where your score lands inside a school is ' +
+                     'worked out from its published 25th and 75th percentiles, so it is close ' +
+                     'but not exact.';
       }
       return out;
     }
@@ -1576,8 +1548,6 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
 
     function update() {
       var gpa = parseFloat(gpaEl.value);
-      var ap  = parseInt(apEl.value, 10);
-      var hon = parseInt(honEl.value, 10);
 
       var sat = null;
       if (mode === 'sat') sat = parseInt(testEl.value, 10);
@@ -1593,54 +1563,59 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
 
       // Which AI is higher is arithmetic, and we report it as such. Whether to
       // SEND the score is a different question with a different answer, and it
-      // cannot be answered on this page, because it depends entirely on the
-      // score profile of the school the score is going to. A 1300 is the 85th
-      // percentile nationally and below Bowdoin's 25th; both are true, and only
-      // the second one decides anything. Mirrors the 2026-09-01 revision in
+      // is answered in its own block below, against one school's own range —
+      // never here. Mirrors the 2026-09-01 revision in
       // Recruiting_Academic_Index.py — keep the two in step.
+      //
+      // FOUR states, not three. The margin band — where the no-score Academic
+      // Index is higher but by less than the margin — is its own case. We still
+      // lead with the number built on the real score there (the margin exists
+      // because the no-score number is an ESTIMATE, and a sub-margin edge to an
+      // estimate is not evidence), but that means the headline is NOT the
+      // higher of the two, and a chip claiming it is, is false. Folding this
+      // case into the final `else` is what produced the 2026-09-02 bug: a
+      // 4.0/1220 read 202 beside "without it 206" under "this score raises
+      // your AI". Mirrors compute_academic_index() — keep the two in step.
+      var margin = Math.round(AI.recommendationMargin);
       var recommended, chip, why;
       if (aiInclusive === null) {
         recommended = aiExclusive;
-        chip = 'No score entered';
-        why  = 'This is your test-optional Academic Index. The test half is estimated from what ' +
-               'students at your GPA typically score, then discounted — an estimate should never ' +
-               'count as much as a real number.';
+        chip = 'No test score entered';
+        why  = 'This is your Academic Index with no standardized test score. We estimate the test ' +
+               'half from what students with your GPA usually score, then lower it a little, ' +
+               'because an estimate should never count as much as a real score.';
       } else if (aiExclusive - aiInclusive > AI.recommendationMargin) {
         recommended = aiExclusive;
-        chip = 'Your grades outrun this score';
-        why  = 'Applying without the score produces the higher Academic Index here, by enough to ' +
-               'matter. That is worth knowing, but it is not the whole decision: whether to send a ' +
-               'score depends on where it sits in the range of the school you are sending it to. ' +
-               'A score can lift your AI and still sit below a school’s bottom quarter.';
-      } else {
+        chip = 'Your grades alone score higher';
+        why  = 'Leaving your standardized test score out gives you a higher Academic Index, by ' +
+               'enough to matter. That is worth knowing, but it is not the whole decision. ' +
+               'Whether to send your test score depends on where it lands at the school you send ' +
+               'it to. A test score can raise your Academic Index and still sit below that ' +
+               'school’s bottom quarter.';
+      } else if (aiInclusive > aiExclusive) {
         recommended = aiInclusive;
-        chip = 'This score raises your AI';
-        why  = 'Including the score produces the higher Academic Index. That is arithmetic, not ' +
-               'advice — it does not mean the score is a strength. Whether to send it is a ' +
-               'school-by-school call, decided against that school’s own middle 50%, not against ' +
-               'a national percentile and not against this number.';
+        chip = 'Your test score raises your Academic Index';
+        why  = 'Including your standardized test score gives the higher Academic Index. That is ' +
+               'math, not advice — it does not mean your test score is strong. Whether to send it ' +
+               'is decided school by school, against that school’s own middle 50%, not against a ' +
+               'national percentile and not against this number.';
+      } else {
+        // Ties land here too, and belong here: with the two equal, neither is
+        // higher, and we still lead with the real score over the estimate.
+        recommended = aiInclusive;
+        chip = 'Almost no difference either way';
+        why  = 'Leaving your standardized test score out would give a slightly higher Academic ' +
+               'Index, but by less than ' + margin + ' points. That no-score number is an ' +
+               'estimate, so a gap that small does not tell you anything. We show you the number ' +
+               'built on your real test score. Whether to send that score is still decided school ' +
+               'by school, against that school’s own middle 50%.';
       }
 
       var shown = Math.round(recommended * 10) / 10;
 
-      // ---- 2. our holistic read (1-10) ----
-      var apScore  = normalize(Math.min(ap,  H.rigorCaps.apIb),   0, H.rigorCaps.apIb);
-      var honScore = normalize(Math.min(hon, H.rigorCaps.honors), 0, H.rigorCaps.honors);
-      var comps = {
-        gpa:        piecewise(gpa, H.gpaAnchors),
-        test_score: sat === null ? null : piecewise(sat, H.satAnchors),
-        rigor:      apScore * H.rigorSubweights.ap_ib + honScore * H.rigorSubweights.honors
-      };
-      var keys = Object.keys(comps).filter(function (k) { return comps[k] !== null; });
-      var total = keys.reduce(function (s, k) { return s + H.weights[k]; }, 0);
-      var blended = keys.reduce(function (s, k) { return s + comps[k] * (H.weights[k] / total); }, 0);
-      var holistic = Math.round((1 + (blended / 100) * 9) * 10) / 10;
-
       // ---- paint ----
       document.getElementById('v-gpa').textContent  = gpa.toFixed(2);
       document.getElementById('v-test').textContent = mode === 'none' ? '—' : testEl.value;
-      document.getElementById('v-ap').textContent   = ap  === 12 ? '12+' : String(ap);
-      document.getElementById('v-hon').textContent  = hon === 8  ? '8+'  : String(hon);
 
       document.getElementById('g-num').textContent  = shown.toFixed(0);
       document.getElementById('g-read').textContent = bandFor(recommended);
@@ -1699,7 +1674,7 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       // The two AI components, each as a share of its own ceiling.
       var shownTest = testPoints === null ? imputed : testPoints;
       document.getElementById('bl-test').textContent =
-        testPoints === null ? 'Test points (est.)' : 'Test points';
+        testPoints === null ? 'Test score (estimated)' : 'Test score converted';
       var barVals = { gpa: [cgs, 80], test: [shownTest, 160] };
       Array.prototype.forEach.call(document.querySelectorAll('.bar-row'), function (row) {
         var pair = barVals[row.getAttribute('data-k')];
@@ -1708,7 +1683,6 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
         row.classList.toggle('est', row.getAttribute('data-k') === 'test' && testPoints === null);
       });
 
-      document.getElementById('h-num').textContent = holistic.toFixed(1);
     }
 
     Array.prototype.forEach.call(document.querySelectorAll('.seg-b'), function (btn) {

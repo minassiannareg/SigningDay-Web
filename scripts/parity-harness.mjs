@@ -22,9 +22,9 @@ function el(extra = {}) {
 }
 
 const nodes = {};
-['f-gpa','f-test','f-ap','f-hon','v-gpa','v-test','v-ap','v-hon',
+['f-gpa','f-test','v-gpa','v-test',
  'g-num','g-read','g-fill','ca-score','l-test','e-test',
- 'v-chip','v-why','v-pct','v-incl','v-excl','v-pair','bl-test','h-num',
+ 'v-chip','v-why','v-pct','v-incl','v-excl','v-pair','bl-test',
  'ts-chip','ts-flag','ts-range','ts-why','ts-caveat']
   .forEach(id => nodes[id] = el());
 
@@ -71,8 +71,6 @@ const out = cases.map(c => {
   nodes['f-school'].value = c.school || '';
   nodes['f-gpa'].value  = c.gpa;
   nodes['f-test'].value = c.test == null ? 0 : c.test;
-  nodes['f-ap'].value   = c.ap;
-  nodes['f-hon'].value  = c.hon;
   onInput();
   return {
     ai:        parseFloat(nodes['g-num'].textContent),
@@ -84,7 +82,6 @@ const out = cases.map(c => {
     tsConflict: nodes['ts-flag'].hidden === false,
     inclusive: nodes['v-incl'].textContent,
     exclusive: nodes['v-excl'].textContent,
-    holistic:  parseFloat(nodes['h-num'].textContent),
   };
 });
 console.log(JSON.stringify(out));
