@@ -1,5 +1,61 @@
 ---
+export const prerender = false;
+
 import Base from '../layouts/Base.astro';
+import { createServerSupabaseClient } from '../lib/supabase';
+
+const supabase = createServerSupabaseClient({
+  request: Astro.request,
+  cookies: Astro.cookies,
+});
+
+const {
+  data: { user },
+} = await supabase.auth.getUser();
+
+if (!user) {
+  return Astro.redirect('/login');
+}
+
+const { data: profile, error: profileError } = await supabase
+  .from('profiles')
+  .select('athlete_name, graduation_year, package')
+  .eq('id', user.id)
+  .maybeSingle();
+
+if (profileError) {
+  console.error('PROFILE ERROR:', profileError);
+}
+
+const packageName = profile?.package?.toLowerCase() ?? '';
+
+const { data: documents, error: documentsError } = await supabase
+  .from('client_documents')
+  .select('id, title, category, storage_path, created_at')
+  .eq('user_id', user.id)
+  .order('created_at', { ascending: false });
+
+if (documentsError) {
+  console.error('DOCUMENT ERROR:', documentsError);
+}
+
+const compassDocument = documents?.find(
+  (doc) => doc.category?.toLowerCase() === 'compass'
+);
+
+let compassUrl: string | null = null;
+
+if (compassDocument) {
+  const { data: signedData, error: signedUrlError } = await supabase.storage
+    .from('client-files')
+    .createSignedUrl(compassDocument.storage_path, 60 * 10);
+
+  if (signedUrlError) {
+    console.error('SIGNED URL ERROR:', signedUrlError);
+  } else {
+    compassUrl = signedData.signedUrl;
+  }
+}
 ---
 
 <Base
@@ -11,16 +67,139 @@ import Base from '../layouts/Base.astro';
 <section class="portal-hero">
   <div class="wrap">
     <span class="eyebrow">Client Portal</span>
-    <h1>My Portal</h1>
-    <p>Access your SDA Compass, package information, and client materials.</p>
+
+    <h1>
+      {profile?.athlete_name
+        ? `Welcome, ${profile.athlete_name}`
+        : 'My Portal'}
+    </h1>
+
+    <p>
+      Access your SDA Compass, package information, and client materials.
+    </p>
+
+    <p class="portal-user">
+      Signed in as {user.email}
+    </p>
+  </div>
+</section>
+
+<section class="portal-content">
+  <div class="wrap">
+
+    <div class="portal-grid">
+
+      <div class="portal-card package-card">
+        <span class="card-label">Your Package</span>
+        <h2>{profile?.package ?? 'Not assigned'}</h2>
+
+        {packageName === 'sda compass' && (
+          <ul class="package-services">
+            <li>SDA Compass assessment</li>
+            <li>Academic and athletic benchmarking</li>
+            <li>School-by-school positioning</li>
+            <li>Recruiting recommendations</li>
+          </ul>
+        )}
+
+        {packageName === 'base' && (
+          <ul class="package-services">
+            <li>SDA Compass</li>
+            <li>Recruiting timeline & strategy session</li>
+            <li>Mock coach recruiting session & official visit preparedness</li>
+            <li>Parent strategy session</li>
+          </ul>
+        )}
+
+        {packageName === 'premium' && (
+          <ul class="package-services">
+            <li>Everything included in Base</li>
+            <li>Academic strategy session</li>
+            <li>Improving athletic performance session</li>
+            <li>Essay coaching for Common App & supplements with tracker</li>
+            <li>Access to the SDA Network</li>
+            <li>Pre-hab, dryland, warm-up & meet-day catalog</li>
+            <li>Personalized training toward identified gaps</li>
+            <li>Nutrition & fueling educational resources</li>
+          </ul>
+        )}
+
+        {packageName === 'monthly' && (
+          <p>Your ongoing Monthly Advisory support is active.</p>
+        )}
+
+        {!['sda compass','base','premium','monthly'].includes(packageName) && (
+          <p>Your current Signing Day Advisors service package.</p>
+        )}
+      </div>
+
+      <div class="portal-card">
+        <span class="card-label">Graduation Year</span>
+        <h2>{profile?.graduation_year ?? '—'}</h2>
+        <p>Your expected high school graduation year.</p>
+      </div>
+
+      <div class="portal-card">
+        <span class="card-label">SDA Compass</span>
+
+        {compassDocument && compassUrl ? (
+          <>
+            <h2>{compassDocument.title}</h2>
+            <p>Your completed SDA Compass is available to view.</p>
+
+            <a
+              class="portal-button"
+              href={compassUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View SDA Compass
+            </a>
+          </>
+        ) : (
+          <>
+            <h2>Not Available Yet</h2>
+            <p>Your completed SDA Compass will appear here once it has been uploaded.</p>
+          </>
+        )}
+      </div>
+
+      <div class="portal-card">
+        <span class="card-label">Client Materials</span>
+        <h2>Coming Soon</h2>
+        <p>Documents and resources shared with you will appear here.</p>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
 </Base>
 
 <style is:global>
-.portal-hero{background:var(--navy);color:#fff;padding:100px 0}
+.portal-hero{background:var(--navy);color:#fff;padding:90px 0}
 .portal-hero .eyebrow{display:block;margin-bottom:18px}
 .portal-hero h1{font-size:clamp(40px,6vw,60px);margin-bottom:18px}
-.portal-hero p{font-size:18px;color:#C7D2DE}
+.portal-hero>div>p{font-size:18px;color:#C7D2DE}
+.portal-user{margin-top:18px!important;font-size:14px!important;color:var(--gold-soft)!important}
+
+.portal-content{background:var(--cream);padding:70px 0 100px}
+.portal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.portal-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:32px;min-height:190px}
+.package-card{grid-column:span 2}
+.card-label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:15px}
+.portal-card h2{font-size:30px;color:var(--navy);margin-bottom:12px}
+.portal-card p{color:var(--muted);font-size:15px;line-height:1.6}
+.package-services{margin:18px 0 0;padding-left:20px;color:var(--muted)}
+.package-services li{margin-bottom:10px;line-height:1.5}
+
+.portal-button{display:inline-block;margin-top:18px;background:var(--gold);color:var(--navy);padding:12px 20px;border-radius:3px;text-decoration:none;font-weight:600}
+.portal-button:hover{background:var(--gold-soft)}
+
+@media(max-width:700px){
+  .portal-grid{grid-template-columns:1fr}
+  .package-card{grid-column:span 1}
+  .portal-hero{padding:70px 0}
+}
 </style>
