@@ -131,7 +131,7 @@ import Base from '../layouts/Base.astro';
 <a class="btn-decline" href="../">I Do Not Agree</a>
 </div>
 <div id="stripePayment" style="display:none;margin-top:28px;text-align:center">
-<stripe-buy-button buy-button-id="buy_btn_1U8X702WeAB0zToJgZ2ets9d" publishable-key="pk_test_51U8WWt2WeAB0zToJ9Pme20DwkYXmdxcGMIeaPGkVkCGCGWYQ6wPNYyUcmLvoP6tK4DsYt4AveKaovvmtlD7Os0Xx00IJU9g2Vq"></stripe-buy-button>
+<a class="btn-accept" id="stripeLink" href="https://buy.stripe.com/7sY28r2DA5ov4e0c91dfG02">Continue to Secure Payment</a>
 </div>
 </div>
 </div>
@@ -180,4 +180,3 @@ footer p{font-size:12px}
     });
   }
 </script>
-<script is:inline async src="https://js.stripe.com/v3/buy-button.js"></script>

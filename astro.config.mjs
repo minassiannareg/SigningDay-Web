@@ -1,16 +1,23 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 
 export default defineConfig({
   site: 'https://signingdayadvisors.com',
-  // Emits /packages/index.html etc. so every existing URL keeps working.
+
   build: { format: 'directory' },
+
   trailingSlash: 'ignore',
+
+  adapter: cloudflare(),
+
   integrations: [
     sitemap({
-      // The questionnaire is handed out after a consultation, not indexed.
-      filter: (page) => !page.includes('/questionnaire') && !page.includes('/terms'),
+      filter: (page) =>
+        !page.includes('/questionnaire') &&
+        !page.includes('/terms') &&
+        !page.includes('/portal'),
     }),
   ],
 });

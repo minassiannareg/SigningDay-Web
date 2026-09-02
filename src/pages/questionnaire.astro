@@ -89,17 +89,17 @@ import Base from '../layouts/Base.astro';
 <div class="form-row">
 <div class="form-group">
 <label for="clubTeam">Club / Travel Team</label>
-<input type="text" id="clubTeam" name="club_team">
+<input type="text" id="clubTeam" name="club_team" required>
 </div>
 <div class="form-group">
 <label for="coach">Primary Club Coach</label>
-<input type="text" id="coach" name="primary_coach" placeholder="Name and contact information">
+<input type="text" id="coach" name="primary_coach" placeholder="Name and contact information" required>
 </div>
 </div>
 
 <div class="form-group">
 <label for="yearsSwimming">Year-Round Swimming Experience</label>
-<input type="text" id="yearsSwimming" name="years_swimming" placeholder="How long has the athlete competed year-round?">
+<input type="text" id="yearsSwimming" name="years_swimming" placeholder="How long has the athlete competed year-round?" required>
 </div>
 </div>
 
@@ -123,8 +123,8 @@ import Base from '../layouts/Base.astro';
 
 <div class="form-group">
 <span class="question-label">Who Should Receive SDA Communications?</span>
-<div class="options">
-<label class="option"><input type="checkbox" name="communications[]" value="Student-athlete">Student-athlete</label>
+<div class="options checkbox-group" data-group="communications">
+<label class="option"><input type="checkbox" name="communications[]" value="Student-athlete" required>Student-athlete</label>
 <label class="option"><input type="checkbox" name="communications[]" value="Parent/guardian">Parent / guardian</label>
 <label class="option"><input type="checkbox" name="communications[]" value="Additional parent/guardian">Additional parent / guardian</label>
 </div>
@@ -145,24 +145,24 @@ import Base from '../layouts/Base.astro';
 
 <div class="form-group">
 <label for="swimcloud">SwimCloud Profile</label>
-<input type="url" id="swimcloud" name="swimcloud_profile" placeholder="https://">
+<input type="url" id="swimcloud" name="swimcloud_profile" placeholder="https://" required>
 </div>
 
 <div class="form-row">
 <div class="form-group">
 <label for="practices">Practices Per Week</label>
-<input type="number" id="practices" name="practices_per_week" min="0">
+<input type="number" id="practices" name="practices_per_week" min="0" required>
 </div>
 <div class="form-group">
 <label for="trainingHours">Training Hours Per Week</label>
-<input type="number" id="trainingHours" name="training_hours_per_week" min="0" step=".5">
+<input type="number" id="trainingHours" name="training_hours_per_week" min="0" step=".5" required>
 </div>
 </div>
 
 <div class="form-group">
 <span class="question-label">Does the Athlete Currently Participate in Dryland?</span>
 <div class="options">
-<label class="option"><input type="radio" name="dryland" value="Yes consistently">Yes, consistently</label>
+<label class="option"><input type="radio" name="dryland" value="Yes consistently" required>Yes, consistently</label>
 <label class="option"><input type="radio" name="dryland" value="Yes occasionally">Yes, occasionally</label>
 <label class="option"><input type="radio" name="dryland" value="No">No</label>
 </div>
@@ -171,7 +171,7 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <span class="question-label">Does the Athlete Currently Participate in Strength Training / Lifting?</span>
 <div class="options">
-<label class="option"><input type="radio" name="strength_training" value="Yes consistently">Yes, consistently</label>
+<label class="option"><input type="radio" name="strength_training" value="Yes consistently" required>Yes, consistently</label>
 <label class="option"><input type="radio" name="strength_training" value="Yes occasionally">Yes, occasionally</label>
 <label class="option"><input type="radio" name="strength_training" value="No">No</label>
 </div>
@@ -180,24 +180,24 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <label for="strengths">Greatest Athletic Strengths</label>
 <span class="helper">Consider endurance, speed, relays, technique, underwaters, coachability, and versatility.</span>
-<textarea id="strengths" name="athletic_strengths"></textarea>
+<textarea id="strengths" name="athletic_strengths" required></textarea>
 </div>
 
 <div class="form-group">
 <label for="coachRelationship">Relationship With Coaches</label>
-<textarea id="coachRelationship" name="coach_relationship"></textarea>
+<textarea id="coachRelationship" name="coach_relationship" required></textarea>
 </div>
 
 <div class="form-group">
 <label for="injuries">Injury History</label>
 <span class="helper">If applicable, describe previous injuries.</span>
-<textarea id="injuries" name="injury_history"></textarea>
+<textarea id="injuries" name="injury_history" required></textarea>
 </div>
 
 <div class="form-group">
 <label for="meets">Major Upcoming Meets</label>
 <span class="helper">List significant meets during the next 6–12 months.</span>
-<textarea id="meets" name="upcoming_meets"></textarea>
+<textarea id="meets" name="upcoming_meets" required></textarea>
 </div>
 </div>
 
@@ -211,39 +211,39 @@ import Base from '../layouts/Base.astro';
 <div class="form-row">
 <div class="form-group">
 <label for="apClasses">AP Classes</label>
-<input type="text" id="apClasses" name="ap_classes" placeholder="Taken / planning to take">
+<input type="text" id="apClasses" name="ap_classes" placeholder="Taken / planning to take" required>
 </div>
 <div class="form-group">
 <label for="honorsClasses">Honors Classes</label>
-<input type="text" id="honorsClasses" name="honors_classes" placeholder="Taken / planning to take">
+<input type="text" id="honorsClasses" name="honors_classes" placeholder="Taken / planning to take" required>
 </div>
 </div>
 
 <div class="form-group">
 <label for="tests">PSAT / ACT / SAT Score</label>
-<input type="text" id="tests" name="test_scores" placeholder="Specify test, score, and number of attempts">
+<input type="text" id="tests" name="test_scores" placeholder="Specify test, score, and number of attempts" required>
 </div>
 
 <div class="form-row">
 <div class="form-group">
 <label for="gpa">GPA</label>
-<input type="text" id="gpa" name="gpa" placeholder="Weighted and/or unweighted, including scale">
+<input type="text" id="gpa" name="gpa" placeholder="Weighted and/or unweighted, including scale" required>
 </div>
 <div class="form-group">
 <label for="rank">Class Rank</label>
-<input type="text" id="rank" name="class_rank" placeholder="If available">
+<input type="text" id="rank" name="class_rank" placeholder="If available" required>
 </div>
 </div>
 
 <div class="form-group">
 <label for="classSize">Class Size</label>
-<input type="text" id="classSize" name="class_size" placeholder="If available">
+<input type="text" id="classSize" name="class_size" placeholder="If available" required>
 </div>
 
 <div class="form-group">
 <label for="extracurriculars">Extracurricular Activities</label>
 <span class="helper">Consider leadership, clubs, research, volunteering, and employment.</span>
-<textarea id="extracurriculars" name="extracurriculars"></textarea>
+<textarea id="extracurriculars" name="extracurriculars" required></textarea>
 </div>
 </div>
 
@@ -257,7 +257,7 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <span class="question-label">Current Recruiting Stage</span>
 <div class="options">
-<label class="option"><input type="radio" name="recruiting_stage" value="Have not started">Have not started</label>
+<label class="option"><input type="radio" name="recruiting_stage" value="Have not started" required>Have not started</label>
 <label class="option"><input type="radio" name="recruiting_stage" value="Started researching schools">Started researching schools</label>
 <label class="option"><input type="radio" name="recruiting_stage" value="Created initial school list">Created initial school list</label>
 <label class="option"><input type="radio" name="recruiting_stage" value="Contacting coaches">Athlete has begun contacting coaches</label>
@@ -267,12 +267,12 @@ import Base from '../layouts/Base.astro';
 
 <div class="form-group">
 <label for="schoolsContacted">Schools Contacted / Interest Received</label>
-<textarea id="schoolsContacted" name="schools_contacted"></textarea>
+<textarea id="schoolsContacted" name="schools_contacted" required></textarea>
 </div>
 
 <div class="form-group">
 <label for="visits">College Visits</label>
-<textarea id="visits" name="college_visits" placeholder="Official or unofficial visits, if applicable"></textarea>
+<textarea id="visits" name="college_visits" placeholder="Official or unofficial visits, if applicable" required></textarea>
 </div>
 </div>
 
@@ -286,19 +286,19 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <label for="topSchools">Current Top-Choice Schools</label>
 <span class="helper">Please identify if athlete would be a legacy at a listed school</span>
-<textarea id="topSchools" name="top_choice_schools"></textarea>
+<textarea id="topSchools" name="top_choice_schools" required></textarea>
 </div>
 
 <div class="form-group">
 <label for="schoolPreferences">What Is the Athlete Looking for in a School?</label>
 <span class="helper">Consider academics vs. athletics, social life, school size, campus setting, and other priorities.</span>
-<textarea id="schoolPreferences" name="school_preferences"></textarea>
+<textarea id="schoolPreferences" name="school_preferences" required></textarea>
 </div>
 
 <div class="form-group">
 <span class="question-label">Athletic Divisions the Athlete Would Consider</span>
-<div class="options">
-<label class="option"><input type="checkbox" name="divisions[]" value="Division I">Division I</label>
+<div class="options checkbox-group" data-group="divisions">
+<label class="option"><input type="checkbox" name="divisions[]" value="Division I" required>Division I</label>
 <label class="option"><input type="checkbox" name="divisions[]" value="Division II">Division II</label>
 <label class="option"><input type="checkbox" name="divisions[]" value="Division III">Division III</label>
 </div>
@@ -306,8 +306,8 @@ import Base from '../layouts/Base.astro';
 
 <div class="form-group">
 <span class="question-label">Conferences / Program Types of Interest</span>
-<div class="options">
-<label class="option"><input type="checkbox" name="conferences[]" value="Ivy League">Ivy League</label>
+<div class="options checkbox-group" data-group="conferences">
+<label class="option"><input type="checkbox" name="conferences[]" value="Ivy League" required>Ivy League</label>
 <label class="option"><input type="checkbox" name="conferences[]" value="NESCAC">NESCAC</label>
 <label class="option"><input type="checkbox" name="conferences[]" value="Patriot League">Patriot League</label>
 <label class="option"><input type="checkbox" name="conferences[]" value="UAA">UAA</label>
@@ -326,8 +326,8 @@ import Base from '../layouts/Base.astro';
 
 <div class="form-group">
 <span class="question-label">Regions the Athlete Would Consider</span>
-<div class="options">
-<label class="option"><input type="checkbox" name="regions[]" value="New England">New England</label>
+<div class="options checkbox-group" data-group="regions">
+<label class="option"><input type="checkbox" name="regions[]" value="New England" required>New England</label>
 <label class="option"><input type="checkbox" name="regions[]" value="Mid-Atlantic">Mid-Atlantic</label>
 <label class="option"><input type="checkbox" name="regions[]" value="Southeast">Southeast</label>
 <label class="option"><input type="checkbox" name="regions[]" value="Midwest">Midwest</label>
@@ -340,7 +340,7 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <span class="question-label">How Important Is Athletic Scholarship Funding?</span>
 <div class="options">
-<label class="option"><input type="radio" name="scholarship_importance" value="Essential">Essential</label>
+<label class="option"><input type="radio" name="scholarship_importance" value="Essential" required>Essential</label>
 <label class="option"><input type="radio" name="scholarship_importance" value="Very important">Very important</label>
 <label class="option"><input type="radio" name="scholarship_importance" value="Helpful but not required">Helpful but not required</label>
 <label class="option"><input type="radio" name="scholarship_importance" value="Not important">Not important</label>
@@ -351,7 +351,7 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <span class="question-label">Preference for Men's and Women's Teams Combined</span>
 <div class="options">
-<label class="option"><input type="radio" name="combined_team_preference" value="Yes combined">Combined</label>
+<label class="option"><input type="radio" name="combined_team_preference" value="Yes combined" required>Combined</label>
 <label class="option"><input type="radio" name="combined_team_preference" value="Yes not combined">Not combined</label>
 <label class="option"><input type="radio" name="combined_team_preference" value="No preference">No preference / N/A</label>
 </div>
@@ -361,8 +361,8 @@ import Base from '../layouts/Base.astro';
 <!-- SUBMIT -->
 <div class="submit-card">
 <h2>Ready to submit?</h2>
-<p>Once submitted, your questionnaire will be sent securely to Signing Day Advisors. You will then be taken to the next step, where you can select your SDA service.</p>
-<button class="btn-gold" type="submit">Submit Questionnaire</button>
+<p>Every question above must be answered before you can continue. Once submitted, your questionnaire will be sent securely to Signing Day Advisors and you will be taken to the Terms and Conditions.</p>
+<button class="btn-gold" type="submit">Proceed to Terms and Conditions</button>
 <div class="form-status" id="form-status">Thank you. Your questionnaire has been submitted.</div>
 </div>
 
@@ -445,6 +445,16 @@ footer p{font-size:12px}
 const form=document.getElementById('questionnaire-form');
 const status=document.getElementById('form-status');
 
+document.querySelectorAll('.checkbox-group').forEach(function(group){
+  const boxes=group.querySelectorAll('input[type="checkbox"]');
+  function sync(){
+    const anyChecked=Array.from(boxes).some(function(b){return b.checked});
+    boxes.forEach(function(b){b.required=!anyChecked});
+  }
+  boxes.forEach(function(b){b.addEventListener('change',sync)});
+  sync();
+});
+
 form.addEventListener('submit',async function(e){
   e.preventDefault();
 
@@ -461,7 +471,7 @@ form.addEventListener('submit',async function(e){
 
     if(response.ok){
       button.textContent='Submitted';
-      status.textContent='Thank you. Your questionnaire has been submitted. Redirecting you to payment options...';
+      status.textContent='Thank you. Your questionnaire has been submitted. Redirecting you to the Terms and Conditions...';
       status.classList.add('show');
 
       setTimeout(()=>{
@@ -470,7 +480,7 @@ form.addEventListener('submit',async function(e){
 
     }else{
       button.disabled=false;
-      button.textContent='Submit Questionnaire';
+      button.textContent='Proceed to Terms and Conditions';
       alert('There was a problem submitting the questionnaire. Please try again.');
     }
 

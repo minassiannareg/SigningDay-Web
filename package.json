@@ -10,7 +10,10 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.2.1",
     "@astrojs/sitemap": "^3.7.3",
+    "@supabase/ssr": "^0.12.5",
+    "@supabase/supabase-js": "^2.112.4",
     "astro": "^5.18.2"
   }
 }

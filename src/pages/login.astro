@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Client Login"
+  description="Sign in to your Signing Day Advisors client portal."
+  noindex
+>
+
+<section class="login-page">
+  <div class="wrap">
+    <div class="login-card">
+      <span class="eyebrow">Client Portal</span>
+      <h1>Sign in</h1>
+      <p>Access your SDA Compass, package information, and client materials.</p>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+
+        <button class="btn-gold" type="submit">Sign In</button>
+
+        <p class="form-status" id="login-status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</Base>
+
+<style is:global>
+.login-page{min-height:calc(100vh - 72px);background:var(--cream);padding:96px 0}
+.login-card{max-width:520px;margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:42px}
+.login-card .eyebrow{display:block;margin-bottom:12px}
+.login-card h1{font-size:42px;color:var(--navy);margin-bottom:12px}
+.login-card>p{color:var(--muted);margin-bottom:30px}
+#login-form{display:flex;flex-direction:column;gap:20px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-group label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
+.form-group input{font-family:'Newsreader',serif;font-size:16px;padding:13px 14px;border:1px solid var(--line);background:var(--cream);border-radius:2px}
+.form-group input:focus{outline:none;border-color:var(--gold);background:#fff}
+.btn-gold{background:var(--gold);color:var(--navy);border:0;border-radius:2px;padding:15px 28px;font-family:'Newsreader',serif;font-size:15px;font-weight:600;cursor:pointer}
+.btn-gold:hover{background:var(--gold-soft)}
+.form-status{min-height:22px;font-size:14px;color:var(--muted)}
+</style>
+
+<script>
+import { actions } from 'astro:actions';
+
+const form = document.querySelector<HTMLFormElement>('#login-form');
+const status = document.getElementById('login-status');
+const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+if (form && status && button) {
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    button.disabled = true;
+    button.textContent = 'Signing in...';
+    status.textContent = '';
+
+    const formData = new FormData(form);
+    const result = await actions.signIn(formData);
+
+    if (result.error) {
+      console.error('SIGN IN ERROR:', result.error);
+      status.textContent = result.error.message || 'Sign in failed';
+      button.disabled = false;
+      button.textContent = 'Sign In';
+      return;
+    }
+
+    if (!result.data?.success) {
+      status.textContent = result.data?.message || 'Sign in failed';
+      button.disabled = false;
+      button.textContent = 'Sign In';
+      return;
+    }
+
+    window.location.href = '/portal';
+  });
+}
+</script>
