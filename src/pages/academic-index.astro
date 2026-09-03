@@ -62,7 +62,7 @@ import model from '../data/academic-model.json';
 
       <span class="eyebrow fx d2"><span class="dot"></span> SDA Compass</span>
       <h1 class="fx d3">See where you <em>fit.</em></h1>
-      <p class="lede fx d4">The Compass is a written report on one swimmer and one list of schools. It scores their academics, swimming, and extracurriculars, before measuring each score against real students enrolled at prospective schools. Every school on the list comes back with one of the following &mdash; strong fit, fits with a push, or long shot &mdash; and what would have to change to move up.</p>
+      <p class="lede fx d4">The Compass is a written report on one swimmer and one list of schools. It scores their academics, swimming, and extracurriculars, before measuring each score against actual students enrolled at prospective schools. Every school on the list returns one of the following &mdash; strong fit, fits with a push, or long shot &mdash; and what would have to change to move up.</p>
 
       <div class="hero-actions fx d5">
         <a class="btn-gold" href="#get-the-compass">Get the Compass &mdash; $275</a>
@@ -87,8 +87,8 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">Try it</span>
-      <h2>Your Academic Index, free.</h2>
-      <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use. We work it out twice &mdash; once with your standardized test score, once without it &mdash; so you can see which number is higher.</p>
+      <h2>See Your Academic Index </h2>
+      <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use. We compute it twice, both with and without your standardized test score, so you can see which number is higher.</p>
     </div>
 
     <div class="calc-grid reveal">
@@ -134,18 +134,18 @@ import model from '../data/academic-model.json';
             </select>
           </div>
 
-          <p class="fset-note">Your Academic Index is the same number at every school. Whether to <em>send</em> your test score is not. That answer comes from comparing your score to the middle 50% of the students one school actually enrolls &mdash; so we need to know which school. A national percentile cannot answer it.</p>
+          <p class="fset-note">Your Academic Index is the same at every school. However, whether it makes sense to actually send your test score varies. To answer this, we compare your scores to the middle 50% of the students that a school actually enrolls.</p>
         </fieldset>
 
         <div class="fset note-only">
           <span class="note-l">What it leaves out</span>
-          <p>Course rigor is not in the Academic Index. A 4.0 earned in four AP courses and a 4.0 earned in none score exactly the same. Neither your activities, your essays, nor your swimming are in it either.</p>
+          <p>Course rigor is not in the Academic Index. A 4.0 earned in four AP courses and a 4.0 earned in none score exactly the same. We also exclude your activities, essays, and swimming from this metric.</p>
         </div>
 
         <div class="fset note-only">
           <span class="note-l">How the number is worked out</span>
-          <p>Your GPA becomes a score from 20 to 80. Your SAT is divided by 10, which gives 40 to 160. Add the two and you have your Academic Index, somewhere between 60 and 240.</p>
-          <p>With no test score, we estimate the test half from what students with your GPA usually score, then lower that estimate a little &mdash; a guess should never count as much as a real number.</p>
+          <p>Your GPA becomes a score from 20 to 80. Your SAT is divided by 10, which gives 40 to 160. We then add them which yields your Academic Index, somewhere between 60 and 240.</p>
+          <p>When test scores are not provided, we estimate them by slightly scaling down test scores from students who have your GPA.</p>
           <p class="note-fine">Everything here runs in your browser. Nothing you type is saved or sent anywhere.</p>
         </div>
       </form>
@@ -206,12 +206,12 @@ import model from '../data/academic-model.json';
     <div class="calc-after reveal">
       <div class="ca-head">
         <h3>Beyond the numbers</h3>
-        <p>You have the standardized score, computed honestly. That is the same thing every Academic Index calculator gives you &mdash; and on its own it does not answer the only question that matters.</p>
+        <p>The standardized score from our Academic Index on its own it does not answer the only question that matters.</p>
       </div>
       <ul class="ca-list">
-        <li><b>Its band has no school attached.</b> The submit-or-withhold call above does &mdash; that is why it needs a school. The <em>band</em> still does not: a <span id="ca-score">205</span> can be an A at one program and a C at a more selective one, and only the gap against that school&rsquo;s own campus average tells you which. The full read bands you at every school on your list, not four.</li>
-        <li><b>Nobody is admitted on it.</b> The Academic Index is a gate, not a decision. Clearing it makes you eligible for a coach&rsquo;s support; it does not tell you whether a coach will spend a slot on you.</li>
-        <li><b>Your swimming is not in it.</b> Athletics does not raise your academic standing &mdash; it lowers the band a coach is willing to accept. That trade is the whole recruiting calculation, and it needs both axes.</li>
+        <li><b>Bands vary by school.</b> This means your index score could be an A at one school and a C at a more selective one. The submit-or-withhold call above does &mdash; that is why it needs a school. The <em>band</em> still does not: a <span id="ca-score">205</span> can be an A at one program and a C at a more selective one. Our full read gives full you bands for each every school on your list.</li>
+        <li><b>Nobody is admitted on it.</b> The Academic Index is a gate, not a decision. Clearing it makes you eligible for a coach&rsquo;s support; it does not tell you whether a coach will give you a slot.</li>
+        <li><b>Your swimming is not in it.</b> Athletics do not raise your academic standing, they can lower the band a coach is willing to accept. That trade is the whole recruiting calculation, and it needs both axes.</li>
         <li><b>It cannot tell you what to change.</b> A score is a snapshot. The useful part is which lever moves you into the next band, and whether there is time left to pull it.</li>
       </ul>
       <div class="ca-cta">
@@ -228,7 +228,7 @@ import model from '../data/academic-model.json';
 <section class="s">
   <div class="wrap">
     <div class="s-head reveal">
-      <h2>Three inputs. One score.</h2>
+      <h2>Three inputs, one score.</h2>
       <p>Each one plays a different role in your fit.</p>
     </div>
     <div class="three">
@@ -295,7 +295,7 @@ import model from '../data/academic-model.json';
           <p>Gets a coach to open it for them.</p>
         </div>
       </div>
-      <p class="gate-rule">Together, they decide whether the door opens.<br>Activities strengthens the case once it does.</p>
+      <p class="gate-rule">Together, they decide whether the door opens.<br>Activities strengthen the case once it does.</p>
     </div>
   </div>
 </section>
@@ -557,7 +557,7 @@ import model from '../data/academic-model.json';
         <div class="chip-row">
           <span class="tag">Competitive times</span><span class="tag">Multi-year trend</span><span class="tag">Stroke range</span>
         </div>
-        <p class="card-note">Versatility is measured across strokes, not event count &mdash; four freestyle times is one stroke.</p>
+        <p class="card-note">Versatility is measured across strokes, not event count &mdash; four freestyle times counts as one stroke.</p>
       </div>
       <div class="card">
         <div class="ic">
@@ -573,7 +573,7 @@ import model from '../data/academic-model.json';
         <div class="chip-row">
           <span class="tag">Leadership</span><span class="tag">Selectivity</span><span class="tag">Impact</span><span class="tag">Initiative</span><span class="tag">Years in</span>
         </div>
-        <p class="card-note">Fifteen shallow clubs score below one four-year commitment. Titles without time behind them are discounted.</p>
+        <p class="card-note">Fifteen shallow clubs score lower than one four-year commitment. Titles without time behind them are discounted.</p>
       </div>
     </div>
 
