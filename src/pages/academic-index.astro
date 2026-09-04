@@ -164,6 +164,7 @@ import model from '../data/academic-model.json';
           <div class="g-ends"><span>60</span><span>240</span></div>
         </div>
 
+        <p class="g-plain" id="g-plain">Right in the range these schools usually admit.</p>
         <p class="g-read" id="g-read">Strong &mdash; within the common admitted-student range</p>
 
         <div class="verdict">
@@ -179,6 +180,7 @@ import model from '../data/academic-model.json';
         <div class="ts" id="ts">
           <span class="ts-label">Should you send your test score?</span>
           <div class="ts-head">
+            <span class="ts-ico" id="ts-ico" aria-hidden="true"></span>
             <span class="ts-chip" id="ts-chip">Choose a school</span>
             <span class="ts-flag" id="ts-flag" hidden>Academic Index disagrees</span>
           </div>
@@ -206,12 +208,12 @@ import model from '../data/academic-model.json';
     <div class="calc-after reveal">
       <div class="ca-head">
         <h3>Beyond the numbers</h3>
-        <p>The standardized score from our Academic Index on its own it does not answer the only question that matters.</p>
+        <p>Your Academic Index is one number on one scale. Here is what it cannot tell you.</p>
       </div>
       <ul class="ca-list">
-        <li><b>Bands vary by school.</b> This means your index score could be an A at one school and a C at a more selective one. The submit-or-withhold call above does &mdash; that is why it needs a school. The <em>band</em> still does not: a <span id="ca-score">205</span> can be an A at one program and a C at a more selective one. Our full read gives full you bands for each every school on your list.</li>
+        <li><b>The same score bands differently.</b> A <span id="ca-score">205</span> can be an A at one school and a C at a more selective one. The dial above shows one national scale. Our full read bands you at every school on your list.</li>
         <li><b>Nobody is admitted on it.</b> The Academic Index is a gate, not a decision. Clearing it makes you eligible for a coach&rsquo;s support; it does not tell you whether a coach will give you a slot.</li>
-        <li><b>Your swimming is not in it.</b> Athletics do not raise your academic standing, they can lower the band a coach is willing to accept. That trade is the whole recruiting calculation, and it needs both axes.</li>
+        <li><b>Your swimming is not in it.</b> Being fast does not raise this score. It lowers the band a coach is willing to accept. That trade is the whole recruiting decision, and it needs both halves.</li>
         <li><b>It cannot tell you what to change.</b> A score is a snapshot. The useful part is which lever moves you into the next band, and whether there is time left to pull it.</li>
       </ul>
       <div class="ca-cta">
@@ -1180,9 +1182,18 @@ import model from '../data/academic-model.json';
     display:flex;justify-content:space-between;padding:0 4px;margin-top:-4px;
     font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7F8FA3;
   }
+  /* Two lines, plain one first: the sentence a ninth grader reads, then the
+     exact band label the report uses. The technical line is kept verbatim -
+     it comes from IVY_AI_BANDS via academic-model.json and the parity test
+     compares it character for character. */
+  .g-plain{
+    font-family:'Fraunces',serif;font-size:18px;line-height:1.4;text-align:center;
+    color:#fff;margin:18px 0 6px;max-width:300px;text-wrap:balance;
+  }
   .g-read{
-    font-size:15px;line-height:1.5;text-align:center;color:var(--gold-soft);
-    margin:18px 0 26px;max-width:270px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.2px;
+    text-transform:uppercase;line-height:1.5;text-align:center;color:var(--gold-soft);
+    margin:0 0 26px;max-width:290px;
   }
 
   .bars{width:100%;display:flex;flex-direction:column;gap:12px}
@@ -1301,6 +1312,54 @@ import model from '../data/academic-model.json';
   .ts-caveat{font-size:11.5px;line-height:1.55;color:#7C8CA0;margin-top:9px}
   .ts-caveat:empty{display:none}
 
+  /* Verdict icon beside the chip. Its own element, never inside .ts-chip -
+     the parity harness reads that chip's textContent and must keep seeing the
+     label and nothing else. */
+  .ts-ico{display:inline-flex;align-items:center;margin-right:-3px;color:#9FB0C3}
+  .ts-ico svg{display:block}
+  .ts-ico.yes{color:var(--gold-soft)}
+  .ts-ico.maybe{color:var(--white-warm)}
+  .ts-ico.no{color:#E8A99F}
+  .ts-ico:empty{display:none}
+
+  /* Where your score lands at this school. Replaces the sentence that used to
+     say "at roughly the 12th percentile" - the same fact, read at a glance.
+     Domain is 800-1600, the SAT slider's own range, so the two line up. */
+  .rb-h{
+    display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;
+    letter-spacing:1.4px;text-transform:uppercase;color:#8FA0B3;margin-bottom:27px;
+  }
+  .rb{
+    display:block;position:relative;height:6px;border-radius:3px;
+    background:rgba(255,255,255,0.10);margin-bottom:9px;
+  }
+  .rb-band{
+    position:absolute;top:0;height:6px;border-radius:3px;
+    background:rgba(201,161,59,0.5);border:0;
+  }
+  .rb-you{
+    position:absolute;top:3px;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;
+    border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--navy-deep);
+    transition:left .35s cubic-bezier(.2,.7,.2,1);
+  }
+  .rb-tag{
+    position:absolute;bottom:13px;transform:translateX(-50%);white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:400;
+    letter-spacing:1.1px;text-transform:uppercase;color:#fff;
+  }
+  /* At the extremes the tag would hang off the bar, so it anchors to the
+     nearer end instead of centring on the dot. */
+  .rb-tag.lo{transform:translateX(-4px)}
+  .rb-tag.hi{transform:translateX(-100%);margin-left:4px}
+  .rb-ends{
+    display:flex;justify-content:space-between;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7F8FA3;
+  }
+  .rb-f{
+    display:block;font-family:'Inter',system-ui,sans-serif;font-size:12.5px;
+    line-height:1.6;letter-spacing:0;color:var(--white-warm);margin-top:11px;
+  }
+
   .bar-row.est .bar-t i{
     background:repeating-linear-gradient(90deg,var(--gold-soft) 0 5px,transparent 5px 9px);
   }
@@ -1374,6 +1433,27 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       return AI.bands[AI.bands.length - 1][1];
     }
 
+    // The same six bands said plainly, keyed on each band's own cutoff rather
+    // than its wording, so it stays pinned to academic-model.json. The exact
+    // label from the report still shows underneath - this only adds a sentence
+    // a ninth grader can read without a glossary. A cutoff with no entry here
+    // simply shows no plain line, which is why the lookup can miss safely.
+    var BAND_PLAIN = {
+      230: 'Top of the scale. Strong enough for the most selective Ivies.',
+      220: 'Very strong anywhere in the Ivy League.',
+      210: 'Right in the range these schools usually admit.',
+      200: 'Solid. Coaches can work with this.',
+      176: 'At the low end coaches can support. It depends on the school and sport.',
+      0:   'Below the usual recruiting range for these schools.'
+    };
+
+    function bandPlainFor(score) {
+      for (var i = 0; i < AI.bands.length; i++) {
+        if (score >= AI.bands[i][0]) return BAND_PLAIN[AI.bands[i][0]] || '';
+      }
+      return '';
+    }
+
     // ---- official published percentiles (Test_Percentiles.py) ----
     // A sourced fact about the score, shown next to the modelled numbers. It
     // describes where the score sits among test takers; it does not feed any
@@ -1433,83 +1513,109 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       return 0.5 * (1 + erf(((sat - mean) / sd) / Math.SQRT2)) * 100;
     }
 
-    function pctPhrase(p) {
-      var o = pctLabel(p);
-      if (o === 'below the 1st') return 'below the 1st percentile';
-      if (o === '99+') return 'at the 99+ percentile';
-      return 'at roughly the ' + o + ' percentile';
+    // The three verdict marks. Their own element, never inside .ts-chip: the
+    // parity harness reads that chip's textContent and must keep seeing the
+    // label and nothing else.
+    var ICONS = {
+      yes:   '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" '
+           + 'stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">'
+           + '<path d="M3 8.4 L6.4 11.8 L13 4.4"/></svg>',
+      maybe: '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" '
+           + 'stroke-width="1.7" stroke-linecap="round">'
+           + '<circle cx="8" cy="8" r="5.7"/><path d="M5.4 8 H10.6"/></svg>',
+      no:    '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" '
+           + 'stroke-width="1.9" stroke-linecap="round">'
+           + '<path d="M4.4 4.4 L11.6 11.6 M11.6 4.4 L4.4 11.6"/></svg>',
+      '':    ''
+    };
+
+    // A picture of one fact: the school's published middle 50%, and where this
+    // score sits inside it. Domain is 800-1600, the SAT slider's own range, so
+    // the bar and the slider above it read on the same scale.
+    function rangeBar(sat, sc, at) {
+      var lo = 800, hi = 1600;
+      var pos = function (v) { return Math.max(0, Math.min(100, (v - lo) / (hi - lo) * 100)); };
+      var a = pos(sc.sat25), b = pos(sc.sat75), y = pos(sat);
+      var side = y < 12 ? ' lo' : y > 88 ? ' hi' : '';
+      var n = Math.round(at);
+      var f = n < 1  ? 'Lower than almost every score sent to ' + sc.name + '.'
+            : n > 99 ? 'Higher than almost every score sent to ' + sc.name + '.'
+            : 'Higher than ' + n + '% of the scores sent to ' + sc.name + '.';
+      return '<span class="rb-h">' + sc.name + ' &middot; middle 50% ' +
+               sc.sat25 + '&ndash;' + sc.sat75 + '</span>' +
+             '<span class="rb">' +
+               '<i class="rb-band" style="left:' + a.toFixed(1) + '%;width:' +
+                 Math.max(1, b - a).toFixed(1) + '%"></i>' +
+               '<b class="rb-tag' + side + '" style="left:' + y.toFixed(1) + '%">you ' +
+                 sat + '</b>' +
+               '<i class="rb-you" style="left:' + y.toFixed(1) + '%"></i>' +
+             '</span>' +
+             '<span class="rb-ends"><span>800</span><span>1600</span></span>' +
+             '<span class="rb-f">' + f + '</span>';
     }
 
     // Returns {klass, chip, range, why, caveat, conflict}. Mirrors the four
     // verdict branches in the Python, condensed for a panel rather than a
     // report page.
-    function submissionCall(sat, natlPct, natlWho, aiIncl, aiExcl) {
+    function submissionCall(sat, aiIncl, aiExcl) {
       var sc = SCHOOLS[schoolEl.value];
       if (!sc) {
         return {
           klass: '', chip: 'Choose a school', range: '',
-          why: 'The same test score can be a strength at one school and a weakness at ' +
-               'another. A 1300 SAT beats 85% of test takers in the country, and still ' +
-               'sits below the bottom quarter of what Bowdoin enrolls. Both are true, and ' +
-               'only the second one decides anything. Pick a school to get a real answer.',
+          why: 'The same score can be a strength at one school and a weakness at another. ' +
+               'A 1300 beats 85% of test takers nationally, and still sits below what ' +
+               'Bowdoin enrolls. Pick a school for a real answer.',
           caveat: '', conflict: false
         };
       }
       if (sat === null) {
         return {
           klass: '', chip: 'No test score to send', range: '',
-          why: 'You have not entered a standardized test score, so there is nothing to ' +
-               'send, and ' + sc.name + ' would read the rest of your application instead. ' +
-               'The Academic Index above is the no-score version, with the test half ' +
-               'estimated from your GPA.',
+          why: 'You have not entered a test score, so there is nothing to send. ' +
+               sc.name + ' would read the rest of your application instead. The number ' +
+               'above is the no-score version.',
           caveat: '', conflict: false
         };
       }
 
       var at = schoolPercentile(sat, sc);
-      var here = pctPhrase(at);
-      var natl = 'Your score sits ' + pctPhrase(natlPct) + ' nationally (' + natlWho + ')';
-      var range = sc.name + ' middle 50%: ' + sc.sat25 + '–' + sc.sat75 +
-                  ' <span>· your ' + sat + ' sits ' + here + ' of the scores students send there</span>';
-      var out = { range: range, conflict: false, caveat: '' };
+      // Same two published numbers and the same computed position as before,
+      // drawn instead of described. The national percentile is deliberately
+      // not repeated in this block - it is already on the page in #v-pct, in
+      // the College Board's own words, and saying it twice was most of the
+      // length here.
+      var out = { range: rangeBar(sat, sc, at), conflict: false, caveat: '' };
 
       if (at >= SR.strongPercentile) {
         out.klass = 'yes'; out.chip = 'Submit — a clear strength';
-        out.why = 'Your ' + sat + ' is in the top quarter of the test scores ' + sc.name +
-                  ' actually enrolls. ' + natl + ', and it is strong where it counts: ' +
-                  'against this one school\u2019s own range.';
+        out.why = 'Your ' + sat + ' is in the top quarter of the scores ' + sc.name +
+                  ' enrolls. It is strong where it counts — against this one ' +
+                  'school\u2019s own range, not against the country.';
       } else if (at >= SR.submitPercentile) {
         out.klass = 'yes'; out.chip = 'Submit';
-        out.why = 'Your ' + sat + ' is at or above the middle of the test scores sent to ' +
-                  sc.name + '. ' + natl + '. Sending it backs up the rest of your ' +
-                  'application instead of raising a question about it.';
+        out.why = 'Your ' + sat + ' is at or above the middle of the scores ' + sc.name +
+                  ' enrolls. Sending it backs up the rest of your application instead of ' +
+                  'raising a question.';
       } else if (at >= SR.withholdPercentile) {
         out.klass = 'maybe'; out.chip = 'Judgment call';
         out.why = 'Your ' + sat + ' is inside ' + sc.name + '\u2019s middle 50%, but in the ' +
-                  'lower half of it. ' + natl + '. A test score here will not carry your ' +
-                  'application and will not sink it. The call depends on how the rest of your ' +
-                  'application reads, and on what the coach says a pre-read needs.';
+                  'lower half of it. A score here will not carry your application and will ' +
+                  'not sink it. Ask the coach what a pre-read needs.';
       } else if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
                  sc.pctSubmitting >= SR.effectivelyRequiredSharePct) {
         // Test-optional on paper, test-submitting in practice. A withhold here
         // is advice the student cannot act on cleanly — leaving the field
         // blank where everyone else has a number is itself conspicuous.
         out.klass = 'maybe'; out.chip = 'Judgment call';
-        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s 25th percentile of ' +
-                  sc.sat25 + ', so on its own it does not help you. ' + natl + '. What stops ' +
-                  'this being a simple no is that ' + Math.round(sc.pctSubmitting) + '% of ' +
-                  sc.name + '\u2019s class sent a score. Sending one is optional on paper, but ' +
-                  'almost everyone does it, so leaving the space blank stands out. Either way, ' +
-                  'your test score is light for ' + sc.name + ' — which is a conversation about ' +
-                  'your school list, not about your score.';
+        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s bottom quarter, so on its ' +
+                  'own it does not help. But ' + Math.round(sc.pctSubmitting) + '% of students ' +
+                  'there send a score, so a blank space stands out. Either way, your score is ' +
+                  'light for this school.';
       } else {
         out.klass = 'no'; out.chip = 'Do not submit';
-        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s 25th percentile of ' +
-                  sc.sat25 + '. Sending it would put a number in your application weaker than ' +
-                  'almost every enrolled student\u2019s. ' + natl + ', and that is the trap: a ' +
-                  'good score for the country and a weak one for ' + sc.name + '. ' + sc.name +
-                  ' is test-optional, and the point of that policy is that your test score does ' +
-                  'not have to be part of your application at all.';
+        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s bottom quarter of ' +
+                  sc.sat25 + '. It may be a good score nationally, but it is a weak one here. ' +
+                  sc.name + ' is test-optional, so you do not have to send it.';
 
         // Where the two channels disagree, say so rather than hiding one.
         // Round to one decimal before comparing, exactly as the Python does:
@@ -1520,26 +1626,22 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
         var delta = aiIncl === null ? 0 : r1(r1(aiIncl) - r1(aiExcl));
         if (delta > AI.recommendationMargin) {
           out.conflict = true;
-          out.why += '\n\nWorth saying, because a coach will bring it up: sending your ' +
-                     'test score does raise your Academic Index, from ' + Math.round(aiExcl) +
-                     ' to ' + Math.round(aiIncl) + '. That is because the no-score version has ' +
-                     'to estimate your test half from your GPA, and that estimate lands below ' +
-                     'your real score. So your score helps you more with a coach than with an ' +
-                     'admissions reader. That tension is real and the coach decides it — but ' +
-                     'it is not a reason to call your test score a strength.';
+          out.why += '\n\nOne thing a coach may bring up: sending your score does raise ' +
+                     'your Academic Index, from ' + Math.round(aiExcl) + ' to ' +
+                     Math.round(aiIncl) + '. It helps you more with a coach than with an ' +
+                     'admissions reader. The coach decides that one.';
         }
       }
 
       if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
           sc.pctSubmitting < SR.thinSubmissionSharePct) {
         out.caveat = 'Only ' + Math.round(sc.pctSubmitting) + '% of ' + sc.name +
-                     '\u2019s class sent a test score, so the range above describes just the ' +
-                     'students who chose to send one — mostly the ones who scored well. ' +
-                     sc.dataYear + ' figures.';
+                     '\u2019s class sent a score, so the bar above covers only students who ' +
+                     'chose to send one — mostly high scorers. ' + sc.dataYear + ' figures.';
       } else {
-        out.caveat = sc.dataYear + ' figures. Where your score lands inside a school is ' +
-                     'worked out from its published 25th and 75th percentiles, so it is close ' +
-                     'but not exact.';
+        out.caveat = sc.dataYear + ' figures. Your spot on the bar is worked out from the ' +
+                     'school\u2019s published 25th and 75th percentiles, so it is close but ' +
+                     'not exact.';
       }
       return out;
     }
@@ -1581,34 +1683,29 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       if (aiInclusive === null) {
         recommended = aiExclusive;
         chip = 'No test score entered';
-        why  = 'This is your Academic Index with no standardized test score. We estimate the test ' +
-               'half from what students with your GPA usually score, then lower it a little, ' +
-               'because an estimate should never count as much as a real score.';
+        why  = 'You have not entered a test score, so we estimated one from your GPA. We then ' +
+               'lower that estimate a little, because a guess should never count as much as a ' +
+               'real score.';
       } else if (aiExclusive - aiInclusive > AI.recommendationMargin) {
         recommended = aiExclusive;
         chip = 'Your grades alone score higher';
-        why  = 'Leaving your standardized test score out gives you a higher Academic Index, by ' +
-               'enough to matter. That is worth knowing, but it is not the whole decision. ' +
-               'Whether to send your test score depends on where it lands at the school you send ' +
-               'it to. A test score can raise your Academic Index and still sit below that ' +
-               'school’s bottom quarter.';
+        why  = 'Leaving your test score out gives you a higher Academic Index. That is worth ' +
+               'knowing, but it does not mean you should hide the score. Whether to send it ' +
+               'depends on the school, which we answer below.';
       } else if (aiInclusive > aiExclusive) {
         recommended = aiInclusive;
         chip = 'Your test score raises your Academic Index';
-        why  = 'Including your standardized test score gives the higher Academic Index. That is ' +
-               'math, not advice — it does not mean your test score is strong. Whether to send it ' +
-               'is decided school by school, against that school’s own middle 50%, not against a ' +
-               'national percentile and not against this number.';
+        why  = 'Adding your test score gives the higher number. That is only math. It does not ' +
+               'mean your score is strong. Whether to send it is decided school by school, and ' +
+               'we answer that below.';
       } else {
         // Ties land here too, and belong here: with the two equal, neither is
         // higher, and we still lead with the real score over the estimate.
         recommended = aiInclusive;
         chip = 'Almost no difference either way';
-        why  = 'Leaving your standardized test score out would give a slightly higher Academic ' +
-               'Index, but by less than ' + margin + ' points. That no-score number is an ' +
-               'estimate, so a gap that small does not tell you anything. We show you the number ' +
-               'built on your real test score. Whether to send that score is still decided school ' +
-               'by school, against that school’s own middle 50%.';
+        why  = 'The two numbers are within ' + margin + ' points of each other. The no-score ' +
+               'version is only an estimate, so a gap that small tells you nothing. We show the ' +
+               'number built on your real score.';
       }
 
       var shown = Math.round(recommended * 10) / 10;
@@ -1619,6 +1716,8 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
 
       document.getElementById('g-num').textContent  = shown.toFixed(0);
       document.getElementById('g-read').textContent = bandFor(recommended);
+      var gPlain = document.getElementById('g-plain');
+      if (gPlain) gPlain.textContent = bandPlainFor(recommended);
       var caScore = document.getElementById('ca-score');
       if (caScore) caScore.textContent = shown.toFixed(0);
 
@@ -1650,11 +1749,15 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       // range and the two have to be on one scale. The gold line above still
       // shows ACT's own published rank, which is what a student sees on their
       // own score report. Same split as score_context() in Test_Percentiles.py.
-      var call = submissionCall(sat, satPercentile(sat), TP.populationLabel,
-                                aiInclusive, aiExclusive);
+      var call = submissionCall(sat, aiInclusive, aiExclusive);
       var tsChip = document.getElementById('ts-chip');
       tsChip.textContent = call.chip;
       tsChip.className = 'ts-chip' + (call.klass ? ' ' + call.klass : '');
+      var tsIco = document.getElementById('ts-ico');
+      if (tsIco) {
+        tsIco.innerHTML = ICONS[call.klass] || '';
+        tsIco.className = 'ts-ico' + (call.klass ? ' ' + call.klass : '');
+      }
       document.getElementById('ts-flag').hidden = !call.conflict;
       document.getElementById('ts-range').innerHTML = call.range;
       document.getElementById('ts-why').textContent = call.why;
