@@ -87,8 +87,9 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">Try it</span>
-      <h2>See Your Academic Index </h2>
+      <h2>The Score From Your Preread. The Score Your Coach Sees.</h2>
       <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use. We compute it twice, both with and without your standardized test score, so you can see which number is higher.</p>
+      <p class="s-note">The Ivy League and NESCAC have never published their formula. This is our own model, built from the variables they do use &mdash; your unweighted GPA and your SAT or ACT. The test half runs on the College Board&rsquo;s and ACT&rsquo;s own published score scales, concordance tables, and national percentiles. Each school&rsquo;s range comes from the 25th and 75th percentiles that school publishes itself. The GPA conversion is our reconstruction, and we say so rather than pretend otherwise.</p>
     </div>
 
     <div class="calc-grid reveal">
@@ -836,10 +837,17 @@ import model from '../data/academic-model.json';
   .s-head::before{content:"";display:block;width:38px;height:2px;background:var(--gold);border-radius:2px;margin:0 auto 24px}
   .s-head:has(.s-num)::before{display:none}
   .s-num{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;color:var(--gold);display:block;margin-bottom:14px;text-transform:uppercase}
-  .s-head h2{font-size:clamp(28px,4vw,42px);color:var(--navy);margin-bottom:14px;letter-spacing:-.8px}
+  .s-head h2{font-size:clamp(28px,4vw,42px);color:var(--navy);margin-bottom:14px;letter-spacing:-.8px;text-wrap:balance}
   .s.navy .s-head h2{color:#fff}
   .s-head p{font-size:17px;color:var(--muted)}
   .s.navy .s-head p{color:#C7D2DE}
+  /* Provenance, set a step down from the lede: what this model is built from,
+     and which parts are sourced rather than reconstructed. */
+  .s-head .s-note{
+    font-size:14px;line-height:1.65;color:var(--muted);opacity:.9;
+    max-width:660px;margin:16px auto 0;
+  }
+  .s.navy .s-head .s-note{color:#9FB0C3}
 
   /* ---------------- CHAPTER BREAK ---------------- */
   .chapter{background:linear-gradient(160deg,var(--navy),var(--navy-deep));color:var(--white-warm);padding:86px 0;position:relative;overflow:hidden;scroll-margin-top:72px}
