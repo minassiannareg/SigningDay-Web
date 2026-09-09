@@ -135,7 +135,7 @@ import model from '../data/academic-model.json';
             </select>
           </div>
 
-          <p class="fset-note">Your Academic Index is the same at every school. However, whether it makes sense to actually send your test score varies. To answer this, we compare your scores to the middle 50% of the students that a school actually enrolls.</p>
+          <p class="fset-note">Your Academic Index is the same at every school. However, whether it makes sense to actually send your test score varies. To answer this, we compare your scores to the middle 50% of the students that a school actually enrolls. Pick <b>National average</b> instead to see where your score sits among everyone who took the test.</p>
         </fieldset>
 
         <div class="fset note-only">
@@ -174,7 +174,7 @@ import model from '../data/academic-model.json';
         </div>
 
         <div class="ts" id="ts">
-          <span class="ts-label">Should you send your test score?</span>
+          <span class="ts-label" id="ts-label">Should you send your test score?</span>
           <div class="ts-head">
             <span class="ts-ico" id="ts-ico" aria-hidden="true"></span>
             <span class="ts-chip" id="ts-chip">Choose a school</span>
@@ -1536,15 +1536,24 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
     // A picture of one fact: the school's published middle 50%, and where this
     // score sits inside it. Domain is 800-1600, the SAT slider's own range, so
     // the bar and the slider above it read on the same scale.
+    //
+    // The national benchmark draws on exactly the same bar. Its band is the
+    // 25th-to-75th of the College Board's published table instead of one
+    // school's Common Data Set, and its sentence counts test takers instead of
+    // applicants, because nobody sends a score to the country.
     function rangeBar(sat, sc, at) {
       var lo = 800, hi = 1600;
       var pos = function (v) { return Math.max(0, Math.min(100, (v - lo) / (hi - lo) * 100)); };
       var a = pos(sc.sat25), b = pos(sc.sat75), y = pos(sat);
       var side = y < 12 ? ' lo' : y > 88 ? ' hi' : '';
       var n = Math.round(at);
-      var f = n < 1  ? 'Lower than almost every score sent to ' + sc.name + '.'
-            : n > 99 ? 'Higher than almost every score sent to ' + sc.name + '.'
-            : 'Higher than ' + n + '% of the scores sent to ' + sc.name + '.';
+      var f = sc.national
+            ? (n < 1  ? 'Lower than almost every score in the country.'
+             : n > 99 ? 'Higher than almost every score in the country.'
+             : 'Higher than ' + n + '% of test takers nationally.')
+            : (n < 1  ? 'Lower than almost every score sent to ' + sc.name + '.'
+             : n > 99 ? 'Higher than almost every score sent to ' + sc.name + '.'
+             : 'Higher than ' + n + '% of the scores sent to ' + sc.name + '.');
       return '<span class="rb-h">' + sc.name + ' &middot; middle 50% ' +
                sc.sat25 + '&ndash;' + sc.sat75 + '</span>' +
              '<span class="rb">' +
@@ -1568,21 +1577,47 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
           klass: '', chip: 'Choose a school', range: '',
           why: 'The same score can be a strength at one school and a weakness at another. ' +
                'A 1300 beats 85% of test takers nationally, and still sits below what ' +
-               'Bowdoin enrolls. Pick a school for a real answer.',
+               'Bowdoin enrolls. Pick a school for a real answer, or the national ' +
+               'average to see where the score sits overall.',
           caveat: '', conflict: false
         };
       }
       if (sat === null) {
         return {
-          klass: '', chip: 'No test score to send', range: '',
-          why: 'You have not entered a test score, so there is nothing to send. ' +
+          klass: '', chip: sc.national ? 'No test score to place' : 'No test score to send',
+          range: '',
+          why: sc.national
+             ? 'You have not entered a test score, so there is nothing to put on the ' +
+               'national scale. The number above is the no-score version.'
+             : 'You have not entered a test score, so there is nothing to send. ' +
                sc.name + ' would read the rest of your application instead. The number ' +
                'above is the no-score version.',
           caveat: '', conflict: false
         };
       }
 
-      var at = schoolPercentile(sat, sc);
+      // One ladder, two vocabularies. The thresholds, the branch order and the
+      // three verdict classes are identical for a school and for the national
+      // benchmark - only the words change, because "submit" is a question you
+      // can only ask of a school.
+      //
+      // The benchmark reads its percentile straight off the published table
+      // rather than off the normal reconstruction. That is the number the gold
+      // line above already shows, in the College Board's own words, and two
+      // different national percentiles an inch apart would be a visible
+      // contradiction. Reconstruction is what you do when the distribution is
+      // unpublished; here it is published.
+      var at = sc.national ? satPercentile(sat) : schoolPercentile(sat, sc);
+      if (at === null) at = schoolPercentile(sat, sc);
+
+      // A school branch quotes the SAT-equivalent, because a school's
+      // published range is an SAT range and the two have to be on one scale.
+      // Against the national tables the student's own ACT is the number they
+      // recognise from their score report, so name both rather than showing
+      // them a score they never sat.
+      var you = (sc.national && mode === 'act')
+              ? 'ACT ' + parseInt(testEl.value, 10) + ' (about ' + sat + ' on the SAT scale)'
+              : sat;
       // Same two published numbers and the same computed position as before,
       // drawn instead of described. The national percentile is deliberately
       // not repeated in this block - it is already on the page in #v-pct, in
@@ -1591,18 +1626,33 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       var out = { range: rangeBar(sat, sc, at), conflict: false, caveat: '' };
 
       if (at >= SR.strongPercentile) {
-        out.klass = 'yes'; out.chip = 'Submit — a clear strength';
-        out.why = 'Your ' + sat + ' is in the top quarter of the scores ' + sc.name +
+        out.klass = 'yes';
+        out.chip = sc.national ? 'Top quarter nationally' : 'Submit — a clear strength';
+        out.why = sc.national
+                ? 'Your ' + you + ' is in the top quarter of test takers nationally. ' +
+                  'That is a strong score. Pick a school above to see whether it is a ' +
+                  'strong one there too.'
+                : 'Your ' + sat + ' is in the top quarter of the scores ' + sc.name +
                   ' enrolls. It is strong where it counts — against this one ' +
                   'school\u2019s own range, not against the country.';
       } else if (at >= SR.submitPercentile) {
-        out.klass = 'yes'; out.chip = 'Submit';
-        out.why = 'Your ' + sat + ' is at or above the middle of the scores ' + sc.name +
+        out.klass = 'yes';
+        out.chip = sc.national ? 'Above the national middle' : 'Submit';
+        out.why = sc.national
+                ? 'Your ' + you + ' is above the middle of test takers nationally. ' +
+                  'A solid score. The schools on this page draw from a much smaller, ' +
+                  'higher-scoring group, so check one of those too.'
+                : 'Your ' + sat + ' is at or above the middle of the scores ' + sc.name +
                   ' enrolls. Sending it backs up the rest of your application instead of ' +
                   'raising a question.';
       } else if (at >= SR.withholdPercentile) {
-        out.klass = 'maybe'; out.chip = 'Judgment call';
-        out.why = 'Your ' + sat + ' is inside ' + sc.name + '\u2019s middle 50%, but in the ' +
+        out.klass = 'maybe';
+        out.chip = sc.national ? 'In the national middle' : 'Judgment call';
+        out.why = sc.national
+                ? 'Your ' + you + ' is inside the national middle 50%, in the lower half ' +
+                  'of it. That is an ordinary score nationally, and a light one for the ' +
+                  'schools on this page.'
+                : 'Your ' + sat + ' is inside ' + sc.name + '\u2019s middle 50%, but in the ' +
                   'lower half of it. A score here will not carry your application and will ' +
                   'not sink it. Ask the coach what a pre-read needs.';
       } else if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
@@ -1616,8 +1666,13 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
                   'there send a score, so a blank space stands out. Either way, your score is ' +
                   'light for this school.';
       } else {
-        out.klass = 'no'; out.chip = 'Do not submit';
-        out.why = 'Your ' + sat + ' is below ' + sc.name + '\u2019s bottom quarter of ' +
+        out.klass = 'no';
+        out.chip = sc.national ? 'Below the national middle' : 'Do not submit';
+        out.why = sc.national
+                ? 'Your ' + you + ' is below the national middle 50%, which starts at ' +
+                  sc.sat25 + '. Three quarters of test takers scored higher. There is room ' +
+                  'to move here, and a retake usually moves it.'
+                : 'Your ' + sat + ' is below ' + sc.name + '\u2019s bottom quarter of ' +
                   sc.sat25 + '. It may be a good score nationally, but it is a weak one here. ' +
                   sc.name + ' is test-optional, so you do not have to send it.';
 
@@ -1637,7 +1692,20 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
         }
       }
 
-      if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
+      if (sc.national) {
+        // The bar is on the SAT scale, so the ACT band gets its own sentence
+        // rather than a second number on the same axis: ACT ranks a broader
+        // population than the SAT user group, and the two 25th-to-75th bands
+        // are not conversions of each other.
+        out.caveat = 'On ACT\u2019s own table the middle 50% is ' + sc.act25 + '\u2013' +
+                     sc.act75 + '. SAT percentiles are the College Board\u2019s own ' +
+                     'published table for ' + sc.population + '.' +
+                     (mode === 'act'
+                      ? ' Your ACT is converted to the SAT scale first, so this can sit a ' +
+                        'few points off the ACT rank above: the two tests are ranked ' +
+                        'against different groups of students.'
+                      : '');
+      } else if (sc.pctSubmitting !== null && sc.pctSubmitting !== undefined &&
           sc.pctSubmitting < SR.thinSubmissionSharePct) {
         out.caveat = 'Only ' + Math.round(sc.pctSubmitting) + '% of ' + sc.name +
                      '\u2019s class sent a score, so the bar above covers only students who ' +
@@ -1754,6 +1822,15 @@ requestAnimationFrame(function(){requestAnimationFrame(function(){
       // shows ACT's own published rank, which is what a student sees on their
       // own score report. Same split as score_context() in Test_Percentiles.py.
       var call = submissionCall(sat, aiInclusive, aiExclusive);
+      // The benchmark is not a school, so the panel is not answering the
+      // send-or-withhold question there. Say which question it IS answering.
+      var tsLabel = document.getElementById('ts-label');
+      if (tsLabel) {
+        var picked = SCHOOLS[schoolEl.value];
+        tsLabel.textContent = (picked && picked.national)
+          ? 'Where does your score stand?'
+          : 'Should you send your test score?';
+      }
       var tsChip = document.getElementById('ts-chip');
       tsChip.textContent = call.chip;
       tsChip.className = 'ts-chip' + (call.klass ? ' ' + call.klass : '');

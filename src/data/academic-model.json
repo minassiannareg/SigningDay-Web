@@ -320,14 +320,18 @@
       "dataYear": "Class of 2030"
     },
     {
-      "name": "Alabama",
-      "sat25": 1100.0,
-      "sat75": 1350.0,
-      "satAvg": 1220.0,
-      "gpaAvg": 3.8,
-      "actAvg": 27.4,
-      "pctSubmitting": 76.6,
-      "dataYear": "Class of 2030"
+      "name": "National average",
+      "national": true,
+      "sat25": 860,
+      "sat75": 1200,
+      "satAvg": 1020,
+      "act25": 14,
+      "act75": 23,
+      "actAvg": 18,
+      "gpaAvg": null,
+      "pctSubmitting": null,
+      "dataYear": "digital SAT; user group = graduates of the past three school years",
+      "population": "SAT takers, past three graduating classes"
     }
   ],
   "actToSat": {
