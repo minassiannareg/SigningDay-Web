@@ -50,30 +50,26 @@ import model from '../data/academic-model.json';
             <path d="M180 12 L180 18" stroke="#D9B968" stroke-width="1.4" stroke-linecap="round"/>
             <text x="170" y="34" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACADEMICS</text>
             <g stroke="#D9B968" stroke-width="1.8" fill="none" stroke-linecap="round">
-              <path d="M277 250 q4 -3.5 8 0 q4 3.5 8 0"/>
-              <path d="M277 255 q4 -3.5 8 0 q4 3.5 8 0"/>
+              <path d="M272 262 q4 -3.5 8 0 q4 3.5 8 0"/>
+              <path d="M272 267 q4 -3.5 8 0 q4 3.5 8 0"/>
             </g>
-            <text x="285" y="281" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ATHLETICS</text>
-            <path d="M55 242 L58.2 249 L65 252 L58.2 255 L55 262 L51.8 255 L45 252 L51.8 249 Z" fill="#D9B968"/>
-            <text x="55" y="281" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACTIVITIES</text>
+            <text x="280" y="294" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ATHLETICS</text>
+            <path d="M55 242 L58.2 249 L65 252 L58.2 255 L55 262 L51.8 255 L45 252 L51.8 249 Z"
+      fill="#D9B968"
+      transform="translate(5 12)"/>
+            <text x="60" y="294" text-anchor="middle" fill="#FFFFFF" font-family="IBM Plex Mono, monospace" font-size="13.5" font-weight="500" letter-spacing="1.5">ACTIVITIES</text>
           </g>
         </svg>
       </div>
 
-      <span class="eyebrow fx d2"><span class="dot"></span> SDA Compass</span>
-      <h1 class="fx d3">See where you <em>fit.</em></h1>
-      <p class="lede fx d4">The Compass is a written report on one swimmer and one list of schools. It scores their academics, swimming, and extracurriculars, before measuring each score against actual students enrolled at prospective schools. Every school on the list returns one of the following &mdash; strong fit, fits with a push, or long shot &mdash; and what would have to change to move up.</p>
 
-      <div class="hero-actions fx d5">
-        <a class="btn-gold" href="#get-the-compass">Get the Compass &mdash; $275</a>
-        <a class="btn-ghost" href="#how-it-works">How it works <span class="dn">&darr;</span></a>
-      </div>
-      <p class="hero-fine fx d5">One-time, per athlete. Includes every school on your list.</p>
-    </div>
-  </div>
-  <div class="scroll-cue">
-    <span>SCROLL</span>
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9 L12 15 L18 9" stroke="#8FA0B3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h1 class="fx d3">See where you <em>fit.</em></h1>
+<p class="lede fx d4">The SDA Compass is a personalized recruiting report that evaluates your academics, swimming, and overall profile against the schools on your list. It shows where you are a strong fit, where you need a push, and what could improve your position.</p>
+
+<div class="hero-actions fx d5">
+  <a class="btn-gold" href="#try-it">Try the calculator</a>
+  <a class="btn-ghost" href="#full-compass">See the full Compass <span class="dn">&darr;</span></a>
+</div>
   </div>
 </header>
 
@@ -87,9 +83,9 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">Try it</span>
-      <h2>The Score From Your Preread. The Score Your Coach Sees.</h2>
-      <p>The standardized 60&ndash;240 score Ivy and NESCAC coaches actually use. We compute it twice, both with and without your standardized test score, so you can see which number is higher.</p>
-      <p class="s-note">The Ivy League and NESCAC have never published their formula. This is our own model, built from the variables they do use &mdash; your unweighted GPA and your SAT or ACT. The test half runs on the College Board&rsquo;s and ACT&rsquo;s own published score scales, concordance tables, and national percentiles. Each school&rsquo;s range comes from the 25th and 75th percentiles that school publishes itself. The GPA conversion is our reconstruction, and we say so rather than pretend otherwise.</p>
+    <h2>Try your Academic Index.</h2>
+    <p>Enter your GPA and test score for a quick academic recruiting read.</p>
+    <p class="s-note">This calculator looks at academics only. The full SDA Compass goes further by evaluating athletics, your broader profile, and school-specific recruiting fit.</p>
     </div>
 
     <div class="calc-grid reveal">
@@ -200,555 +196,274 @@ import model from '../data/academic-model.json';
         <p class="bars-fine">The Academic Index is your GPA and your test score, converted and added together. Nothing else goes in.</p>
       </div>
     </div>
+<p class="calc-safety">
+  The Ivy League and NESCAC have never published their formula. This is our own model, built from the variables they do use: unweighted GPA and SAT or ACT. Test-score inputs use published College Board and ACT scales, concordance tables, and national percentiles, while school ranges use each institution&rsquo;s published 25th and 75th percentiles. The GPA conversion is our own reconstruction.
+</p>
 
-    <div class="calc-after reveal">
-      <div class="ca-head">
-        <h3>Beyond the numbers</h3>
-        <p>Your Academic Index is one number on one scale. Here is what it cannot tell you.</p>
-      </div>
-      <ul class="ca-list">
-        <li><b>The same score bands differently.</b> A <span id="ca-score">205</span> can be an A at one school and a C at a more selective one. The dial above shows one national scale. Our full read bands you at every school on your list.</li>
-        <li><b>Nobody is admitted on it.</b> The Academic Index is a gate, not a decision. Clearing it makes you eligible for a coach&rsquo;s support; it does not tell you whether a coach will give you a slot.</li>
-        <li><b>Your swimming is not in it.</b> Being fast does not raise this score. It lowers the band a coach is willing to accept. That trade is the whole recruiting decision, and it needs both halves.</li>
-        <li><b>Course rigor is not in it.</b> A 4.0 with four AP courses and a 4.0 with none score the same here. Our separate in-house academic read does count rigor and your activities. It is part of the full Compass.</li>
-        <li><b>It cannot tell you what to change.</b> A score is a snapshot. The useful part is which lever moves you into the next band, and whether there is time left to pull it.</li>
+<div class="full-compare reveal" id="full-compass">
+  <div class="fc-head">
+    <span class="s-num">The full SDA Compass</span>
+    <h3>Your Academic Index is only part of the picture.</h3>
+    <p>The paid Compass combines a much wider set of metrics to show your overall recruiting position.</p>
+  </div>
+
+  <div class="fc-grid">
+    <div class="fc-card free">
+      <span class="fc-label">Free calculator</span>
+      <h4>Academic snapshot</h4>
+      <ul>
+        <li>GPA</li>
+        <li>SAT / ACT</li>
+        <li>Academic Index</li>
+        <li>Test-score positioning</li>
       </ul>
-      <div class="ca-cta">
-        <a class="btn-gold" href="#get-the-compass">Get the full read &mdash; $275</a>
-        <span class="ca-fine">Every school on your list, banded against its own class, on all three axes.</span>
-      </div>
+    </div>
+
+    <div class="fc-card paid">
+      <span class="fc-label">Full SDA Compass</span>
+      <h4>Complete recruiting read</h4>
+      <ul>
+        <li>Full academic profile</li>
+        <li>Athletic performance &amp; progression</li>
+        <li>Event-by-event benchmarking</li>
+        <li>Overall student profile</li>
+        <li>School-specific recruiting fit</li>
+        <li>Areas with the most room to improve</li>
+      </ul>
     </div>
   </div>
-</section>
+</div>
+</div>
 
+    </div>
+  </section>
 <!-- ==========================================================
-     THE THREE INPUTS
+     FIRST PURCHASE CTA
      ========================================================== -->
-<section class="s">
+<section class="s quick-buy">
   <div class="wrap">
-    <div class="s-head reveal">
-      <h2>Three inputs, one score.</h2>
-      <p>Each one plays a different role in your fit.</p>
-    </div>
-    <div class="three">
-      <div class="tcard reveal">
-        <div class="ic">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 9 L34 15 L20 21 L6 15 Z" fill="#C9A13B"/>
-            <path d="M11 18 L11 26 C11 28 15 30 20 30 C25 30 29 28 29 26 L29 18" stroke="#0F2A4A" stroke-width="1.6" fill="none"/>
-            <path d="M34 15 L34 24" stroke="#C9A13B" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h3>Academics</h3>
-        <p>Grades, test scores, and how hard the classes were.</p>
-        <span class="role">Opens the door</span>
+    <div class="quick-buy-card reveal">
+      <div>
+        <span class="s-num">SDA Compass</span>
+        <h2>Get the full recruiting picture.</h2>
+        <p>A personalized assessment built from your athlete&rsquo;s complete profile and target-school list.</p>
       </div>
-      <div class="tcard reveal" style="transition-delay:.1s">
-        <div class="ic">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="12" r="3.4" fill="#0F2A4A"/>
-            <path d="M8 22 L17 18 L23 22 L30 19" stroke="#0F2A4A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-            <path d="M6 28 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
-            <path d="M6 33 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
-          </svg>
-        </div>
-        <h3>Athletics</h3>
-        <p>How fast they swim, how fast they are getting, and across how many strokes.</p>
-        <span class="role">Pushes you through</span>
+      <div class="qb-action">
+        <strong>$275</strong>
+        <span>one-time · per athlete</span>
+        <a class="btn-gold" href="../questionnaire/">Get your Compass</a>
       </div>
-      <div class="tcard reveal" style="transition-delay:.2s">
-        <div class="ic">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 7 L23.6 15.2 L32.5 16 L25.8 21.9 L27.8 30.6 L20 26 L12.2 30.6 L14.2 21.9 L7.5 16 L16.4 15.2 Z" fill="#C9A13B" stroke="#0F2A4A" stroke-width="1" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>Activities</h3>
-        <p>Leadership, work, service, and everything else they do.</p>
-        <span class="role role-soft">Adds support</span>
-      </div>
-    </div>
-
-    <div class="rule-divider reveal"><span>How academics &amp; athletics interact</span></div>
-
-    <div class="gate-panel reveal">
-      <h3 class="gate-headline">Grades open the door.<br>Speed gets you through.</h3>
-      <div class="gate">
-        <div class="gate-card">
-          <div class="gate-ic">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect x="9" y="5" width="14" height="22" rx="1.5" stroke="#C9A13B" stroke-width="1.8"/>
-              <circle cx="19" cy="16" r="1.6" fill="#C9A13B"/>
-            </svg>
-          </div>
-          <h3>Good grades</h3>
-          <p>Open the door on their own.</p>
-        </div>
-        <div class="gate-card">
-          <div class="gate-ic">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 25 L16 9" stroke="#C9A13B" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M9 15 L16 8 L23 15" stroke="#C9A13B" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <h3>Fast swimming</h3>
-          <p>Gets a coach to open it for them.</p>
-        </div>
-      </div>
-      <p class="gate-rule">Together, they decide whether the door opens.<br>Activities strengthen the case once it does.</p>
     </div>
   </div>
 </section>
 
 <!-- ==========================================================
-     THE READ — what comes back per school
+     WHAT YOU WILL LEARN FROM SDA
      ========================================================== -->
 <section class="s tint">
   <div class="wrap">
     <div class="s-head reveal">
-      <h2>Every school reads differently.</h2>
-      <p>The same swimmer can land in three different bands across one list.</p>
+      <span class="s-num">What you&rsquo;ll learn</span>
+      <h2>Know where you stand.</h2>
+      <p>A complete recruiting picture, showing how each part of your profile contributes to your overall fit.</p>
     </div>
-    <div class="fits">
-      <div class="fit g reveal">
-        <span class="band-tag">Band A</span>
-        <div class="fit-ic">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 14.5 L12 20 L22 8" stroke="#2E7D4F" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>Strong fit</h3>
-        <p>In range on academics alone. Swimming is a bonus.</p>
-        <div class="fit-compare">
-          <div class="mini"><span class="mk">You</span><div class="mbar"><i class="you" style="width:80%"></i></div></div>
-          <div class="mini"><span class="mk">School</span><div class="mbar"><i class="them" style="width:60%"></i></div></div>
-        </div>
+
+<div class="learn-grid">
+  <!-- Academic position -->
+  <div class="learn-card reveal">
+    <div class="learn-visual compare-visual" aria-hidden="true">
+      <div class="compare-row">
+        <label>You</label>
+        <div class="compare-track"><i class="gold" style="width:78%"></i></div>
       </div>
-      <div class="fit a reveal" style="transition-delay:.1s">
-        <span class="band-tag">Band B</span>
-        <div class="fit-ic">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 7 L14 21 M7 14 L21 14" stroke="#8A6D16" stroke-width="2.4" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Fits with a push</h3>
-        <p>A little below. A coach spending a spot can close the gap.</p>
-        <div class="fit-compare">
-          <div class="mini"><span class="mk">You</span><div class="mbar"><i class="you" style="width:76%"></i></div></div>
-          <div class="mini"><span class="mk">School</span><div class="mbar"><i class="them" style="width:84%"></i></div></div>
-        </div>
-      </div>
-      <div class="fit r reveal" style="transition-delay:.2s">
-        <span class="band-tag">Band C</span>
-        <div class="fit-ic">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 24 L8 5 L21 8.5 L8 12" stroke="#A5502B" stroke-width="2.2" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Long shot</h3>
-        <p>Well below. Only a standout swimmer earns one of the few spots.</p>
-        <div class="fit-compare">
-          <div class="mini"><span class="mk">You</span><div class="mbar"><i class="you" style="width:74%"></i></div></div>
-          <div class="mini"><span class="mk">School</span><div class="mbar"><i class="them" style="width:95%"></i></div></div>
-        </div>
+      <div class="compare-row">
+        <label>School</label>
+        <div class="compare-track"><i class="blue" style="width:86%"></i></div>
       </div>
     </div>
-    <p class="note reveal">A guide to plan with. A coach&rsquo;s preread makes the real call.</p>
+    <h3>Academic position</h3>
+    <p>How your academics compare with the level of schools you&rsquo;re targeting.</p>
   </div>
-</section>
 
-<!-- ==========================================================
-     CHAPTER BREAK — the methodology half begins
-     ========================================================== -->
-<section class="chapter" id="how-it-works">
-  <div class="wrap">
-    <div class="chapter-inner reveal">
-      <span class="chapter-num">Part Two</span>
-      <h2>How it works.</h2>
-      <p>What goes in, how it is benchmarked, what comes out, and what it does not mean. Keep scrolling &mdash; the whole method is below.</p>
+  <!-- Athletic position -->
+  <div class="learn-card reveal">
+    <div class="learn-visual compare-visual" aria-hidden="true">
+      <div class="compare-row">
+        <label>You</label>
+        <div class="compare-track"><i class="gold" style="width:72%"></i></div>
+      </div>
+      <div class="compare-row">
+        <label>School</label>
+        <div class="compare-track"><i class="blue" style="width:88%"></i></div>
+      </div>
     </div>
+    <h3>Athletic position</h3>
+    <p>Your current level compared with the programs and conferences you&rsquo;re targeting.</p>
   </div>
-</section>
 
-<!-- ==========================================================
-     THE LANDSCAPE — what other tools measure
-     ========================================================== -->
-<section class="s tint">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">The landscape</span>
-      <h2>What the other tools measure &mdash; and what they leave out.</h2>
-      <p>Most families arrive having already tried two or three of these. Each answers a real question. None of them answer the whole one.</p>
-    </div>
-
-    <div class="land-grid">
-      <div class="land-card reveal">
-        <span class="land-kind">Swim recruiting indexes</span>
-        <h3>A score built from your times</h3>
-        <p class="land-eg">SwimCloud&rsquo;s Power Index and similar</p>
-        <p class="land-method"><b>Method, as published:</b> your four fastest events are scored against the times needed to qualify for the NCAA Division I championships, then weighted &mdash; the top two events count fully, the third about a quarter, the fourth barely at all.</p>
-        <div class="land-split">
-          <div class="ls yes"><span>Measures</span><p>Speed, on a national scale. Genuinely useful, and openly documented.</p></div>
-          <div class="ls no"><span>Cannot see</span><p>A transcript. Two swimmers with the same index read identically whether one has a 4.0 or a 2.9.</p></div>
-        </div>
-      </div>
-
-      <div class="land-card reveal" style="transition-delay:.08s">
-        <span class="land-kind">Academic Index calculators</span>
-        <h3>The Ivy 60&ndash;240 number</h3>
-        <p class="land-eg">Top Tier Admissions, Oriel, and others</p>
-        <p class="land-method"><b>Method, as published:</b> reconstruct the Ivy League&rsquo;s Academic Index &mdash; an unweighted GPA converted to points, plus a converted SAT or ACT score, on a 60 to 240 scale.</p>
-        <div class="land-split">
-          <div class="ls yes"><span>Measures</span><p>The academic gate. This one is real &mdash; it is the first number a coach&rsquo;s preread runs.</p></div>
-          <div class="ls no"><span>Cannot see</span><p>Athletics at all &mdash; which is the reason the Academic Index was invented in the first place.</p></div>
-        </div>
-      </div>
-
-      <div class="land-card reveal" style="transition-delay:.16s">
-        <span class="land-kind">Chancing engines</span>
-        <h3>A percentage chance of admission</h3>
-        <p class="land-eg">CollegeVine and similar</p>
-        <p class="land-method"><b>Method, as published:</b> roughly 75 factors run through a machine-learning model trained on self-reported acceptance results, covering 1,500-plus schools and returning a single percentage.</p>
-        <div class="land-split">
-          <div class="ls yes"><span>Measures</span><p>How a general applicant compares to a general applicant pool. Large sample, fast answer.</p></div>
-          <div class="ls no"><span>Cannot see</span><p>Recruiting. A coach&rsquo;s support is the single largest factor in a recruited athlete&rsquo;s file, and it is not in the model.</p></div>
-        </div>
-      </div>
-
-      <div class="land-card reveal" style="transition-delay:.24s">
-        <span class="land-kind">Swim fit finders</span>
-        <h3>A ranked list of programs</h3>
-        <p class="land-eg">University Swim Fit, RecruitAI, On The Board, and similar</p>
-        <p class="land-method"><b>Method, as published:</b> schools are ranked or bucketed using times, academics, cost, and location. The inputs are listed; the weights, benchmarks, and thresholds generally are not.</p>
-        <div class="land-split">
-          <div class="ls yes"><span>Measures</span><p>Closest in intent to the Compass &mdash; both axes, one list.</p></div>
-          <div class="ls no"><span>Cannot see</span><p>Nothing structurally. But if a method is not published, a family cannot judge whether to trust the ranking.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="land-us reveal">
-      <span class="land-us-label">Where the Compass sits</span>
-      <p>We run both axes &mdash; the academic gate and the athletic tier &mdash; against <em>one specific school&rsquo;s own enrolled class</em>, not a national bar. Then we say how confident we are. The method below is the part most of these services do not publish.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================
-     WHAT GOES IN
-     ========================================================== -->
-<section class="s">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">What goes in</span>
-      <h2>Not a GPA + SAT calculator.</h2>
-      <p>Six categories of information shape every assessment. The calculator above uses two of them.</p>
-    </div>
-    <div class="category-row reveal">
-      <div class="category-chip">
-        <div class="ic-sm"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 8 L27 12 L16 16 L5 12 Z" fill="#C9A13B"/><path d="M9 14.4 L9 19.5 C9 21 12 22.5 16 22.5 C20 22.5 23 21 23 19.5 L23 14.4" stroke="#0F2A4A" stroke-width="1.4" fill="none"/></svg></div>
-        <span>Academic profile</span>
-      </div>
-      <div class="category-chip">
-        <div class="ic-sm"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 24 L7 13 L16 7 L25 13 L25 24 Z" stroke="#0F2A4A" stroke-width="1.4" fill="none" stroke-linejoin="round"/><line x1="13" y1="24" x2="13" y2="18" stroke="#C9A13B" stroke-width="1.4"/><line x1="19" y1="24" x2="19" y2="18" stroke="#C9A13B" stroke-width="1.4"/></svg></div>
-        <span>High-school context</span>
-      </div>
-      <div class="category-chip">
-        <div class="ic-sm"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="9" r="2.6" fill="#0F2A4A"/><path d="M6 18 L13 15 L18 18 L24 15.5" stroke="#0F2A4A" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M5 22 q3 -3 6 0 q3 3 6 0 q3 -3 6 0 q3 3 6 0" stroke="#C9A13B" stroke-width="1.4" fill="none"/></svg></div>
-        <span>Athletics</span>
-      </div>
-      <div class="category-chip">
-        <div class="ic-sm"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 6 L18.9 12.6 L26 13.3 L20.6 17.9 L22.2 24.8 L16 21 L9.8 24.8 L11.4 17.9 L6 13.3 L13.1 12.6 Z" fill="#C9A13B" stroke="#0F2A4A" stroke-width="0.8" stroke-linejoin="round"/></svg></div>
-        <span>Extracurricular profile</span>
-      </div>
-      <div class="category-chip">
-        <div class="ic-sm"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="6" x2="10" y2="26" stroke="#0F2A4A" stroke-width="1.5" stroke-linecap="round"/><path d="M10 7 L23 10.5 L10 14 Z" fill="#C9A13B"/></svg></div>
-        <span>University-specific data</span>
-      </div>
-      <div class="category-chip">
-        <div class="ic-sm"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="9" cy="16" r="2" fill="#C9A13B"/><circle cx="16" cy="16" r="2" fill="#C9A13B"/><circle cx="23" cy="16" r="2" fill="#C9A13B"/></svg></div>
-        <span>Other characteristics</span>
-      </div>
-    </div>
-
-    <div class="pipeline reveal">
-      <div class="pipeline-stage">
-        <div class="pipeline-num"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="11" r="4.2" stroke="#0F2A4A" stroke-width="1.6"/><path d="M7 26 C7 20 11 17 16 17 C21 17 25 20 25 26" stroke="#C9A13B" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg></div>
-        <h4>Inputs</h4>
-        <p>Grades, times, activities</p>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-stage">
-        <div class="pipeline-num"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="7" y="7" width="18" height="4.5" rx="1.2" fill="#C9A13B"/><rect x="7" y="13.8" width="18" height="4.5" rx="1.2" stroke="#0F2A4A" stroke-width="1.4"/><rect x="7" y="20.6" width="18" height="4.5" rx="1.2" stroke="#0F2A4A" stroke-width="1.4"/></svg></div>
-        <h4>Indices</h4>
-        <p>Three independent scores</p>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-stage">
-        <div class="pipeline-num"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="13" width="22" height="6" rx="1.3" stroke="#0F2A4A" stroke-width="1.6"/><line x1="10" y1="13" x2="10" y2="19" stroke="#C9A13B" stroke-width="1.4"/><line x1="16" y1="13" x2="16" y2="19" stroke="#C9A13B" stroke-width="1.4"/><line x1="22" y1="13" x2="22" y2="19" stroke="#C9A13B" stroke-width="1.4"/></svg></div>
-        <h4>Standardize</h4>
-        <p>One common scale</p>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-stage">
-        <div class="pipeline-num"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="10" y1="6" x2="10" y2="27" stroke="#0F2A4A" stroke-width="1.6" stroke-linecap="round"/><path d="M10 7 L23 10.5 L10 14 Z" fill="#C9A13B"/></svg></div>
-        <h4>Benchmark</h4>
-        <p>Each school&rsquo;s own data</p>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-stage">
-        <div class="pipeline-num"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="18" width="4.5" height="9" rx="1" fill="#C9A13B"/><rect x="13.8" y="10" width="4.5" height="17" rx="1" stroke="#0F2A4A" stroke-width="1.4"/><rect x="21.5" y="14.5" width="4.5" height="12.5" rx="1" fill="#C9A13B"/></svg></div>
-        <h4>Compare</h4>
-        <p>Statistical comparison</p>
-      </div>
-      <div class="pipeline-arrow">&rarr;</div>
-      <div class="pipeline-stage">
-        <div class="pipeline-num"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="16" y1="6" x2="16" y2="15" stroke="#0F2A4A" stroke-width="1.6" stroke-linecap="round"/><line x1="16" y1="15" x2="9" y2="26" stroke="#0F2A4A" stroke-width="1.6" stroke-linecap="round"/><line x1="16" y1="15" x2="23" y2="26" stroke="#0F2A4A" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="26" r="2.4" fill="#C9A13B"/><circle cx="23" cy="26" r="2.4" fill="#C9A13B"/></svg></div>
-        <h4>Two outputs</h4>
-        <p>Two distinct results</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================
-     THE THREE INDICES
-     ========================================================== -->
-<section class="s tint">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">Indices</span>
-      <h2>Three independent indices, not one blended guess.</h2>
-      <p>Academics, athletics, and profile are scored separately &mdash; then combined.</p>
-    </div>
-    <div class="three-idx reveal">
-      <div class="card">
-        <div class="ic">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 9 L34 15 L20 21 L6 15 Z" fill="#C9A13B"/>
-            <path d="M11 18 L11 26 C11 28 15 30 20 30 C25 30 29 28 29 26 L29 18" stroke="#0F2A4A" stroke-width="1.6" fill="none"/>
-            <path d="M34 15 L34 24" stroke="#C9A13B" stroke-width="1.6"/>
-          </svg>
-        </div>
-        <h3>Academics</h3>
-        <p>Grades and test scores, turned into the number a coach&rsquo;s preread actually runs.</p>
-        <div class="gauge"><span style="width:82%"></span></div>
-        <div class="gauge-cap">8.2 / 10</div>
-        <span class="role">Opens the door</span>
-        <div class="chip-row">
-          <span class="tag">GPA</span><span class="tag">Test scores</span><span class="tag">Course rigor</span><span class="tag">Class rank</span><span class="tag">School context</span>
-        </div>
-        <p class="card-note">A weak input redistributes weight rather than punishing the student for it.</p>
-      </div>
-      <div class="card">
-        <div class="ic">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="26" cy="12" r="3.4" fill="#0F2A4A"/>
-            <path d="M8 22 L17 18 L23 22 L30 19" stroke="#0F2A4A" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-            <path d="M6 28 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
-            <path d="M6 33 q4 -4 8 0 q4 4 8 0 q4 -4 8 0 q4 4 8 0" stroke="#C9A13B" stroke-width="1.8" fill="none"/>
-          </svg>
-        </div>
-        <h3>Athletics</h3>
-        <p>Their times against real college swimmers &mdash; plus the direction they are trending.</p>
-        <div class="gauge"><span style="width:74%"></span></div>
-        <div class="gauge-cap">7.4 / 10</div>
-        <span class="role">Pushes you through</span>
-        <div class="chip-row">
-          <span class="tag">Competitive times</span><span class="tag">Multi-year trend</span><span class="tag">Stroke range</span>
-        </div>
-        <p class="card-note">Versatility is measured across strokes, not event count &mdash; four freestyle times counts as one stroke.</p>
-      </div>
-      <div class="card">
-        <div class="ic">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 7 L23.6 15.2 L32.5 16 L25.8 21.9 L27.8 30.6 L20 26 L12.2 30.6 L14.2 21.9 L7.5 16 L16.4 15.2 Z" fill="#C9A13B" stroke="#0F2A4A" stroke-width="1" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>Activities</h3>
-        <p>Rated on what an activity actually took, not which category it falls into.</p>
-        <div class="gauge"><span style="width:66%"></span></div>
-        <div class="gauge-cap">6.6 / 10</div>
-        <span class="role role-soft">Adds support</span>
-        <div class="chip-row">
-          <span class="tag">Leadership</span><span class="tag">Selectivity</span><span class="tag">Impact</span><span class="tag">Initiative</span><span class="tag">Years in</span>
-        </div>
-        <p class="card-note">Fifteen shallow clubs score lower than one four-year commitment. Titles without time behind them are discounted.</p>
-      </div>
-    </div>
-
-    <div class="combine reveal">
-      <span class="combine-label">How they combine</span>
-      <div class="equation-row">
-        <span class="eq-chip">Academic Index</span>
-        <span class="eq-op">+</span>
-        <span class="eq-chip">Athletic Index</span>
-        <span class="eq-op">=</span>
-        <span class="eq-chip core">Core Score</span>
-      </div>
-      <div class="equation-row" style="margin-top:12px">
-        <span class="eq-chip core">Core Score</span>
-        <span class="eq-op">+</span>
-        <span class="eq-chip adjust">Profile Index <i>(bounded adjustment)</i></span>
-        <span class="eq-op">=</span>
-        <span class="eq-chip final">Student-Athlete Score</span>
-      </div>
-      <p class="equation-caption">Profile strengthens a strong record. It can&rsquo;t sink it &mdash; and it can&rsquo;t replace it.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================
-     STANDARDIZE + BENCHMARK
-     ========================================================== -->
-<section class="s">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">Standardize &rarr; Benchmark</span>
-      <h2>Every number on the same scale. Measured against the right target.</h2>
-      <p>Raw stats aren&rsquo;t comparable on their own &mdash; so we convert, then compare against each school&rsquo;s real data.</p>
-    </div>
-    <div class="method-grid reveal">
-      <div class="method-card">
-        <div class="ic"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="16" width="28" height="8" rx="1.5" stroke="#0F2A4A" stroke-width="1.6"/><line x1="13" y1="16" x2="13" y2="24" stroke="#C9A13B" stroke-width="1.5"/><line x1="20" y1="16" x2="20" y2="24" stroke="#C9A13B" stroke-width="1.5"/><line x1="27" y1="16" x2="27" y2="24" stroke="#C9A13B" stroke-width="1.5"/></svg></div>
-        <h3>Standardization</h3>
-        <p>A GPA, a test score, and a swim time don&rsquo;t compare directly. Every input is converted onto one common scale before anything is combined.</p>
-        <div class="method-example">3.95 GPA &nbsp;&middot;&nbsp; 1480 SAT &nbsp;&middot;&nbsp; 52.10 free &nbsp;&rarr;&nbsp; one scale</div>
-      </div>
-      <div class="method-card">
-        <div class="ic"><svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="13" y1="7" x2="13" y2="33" stroke="#0F2A4A" stroke-width="1.6" stroke-linecap="round"/><path d="M13 8 L29 13 L13 18 Z" fill="#C9A13B"/></svg></div>
-        <h3>University benchmark</h3>
-        <p>A school&rsquo;s target isn&rsquo;t one cutoff. We rebuild that school&rsquo;s own enrolled class as a distribution from its published data, and compare against that &mdash; not a universal bar.</p>
-        <div class="method-example">Public admissions data &nbsp;&middot;&nbsp; most recent class &nbsp;&middot;&nbsp; updated annually</div>
-      </div>
-    </div>
-    <div class="distribution-panel reveal">
-      <div class="dist-label">A school&rsquo;s enrolled-class range</div>
-      <svg viewBox="0 0 600 170" width="100%" height="170" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A bell curve showing a school's enrolled-class range, with a sample profile plotted on the upper half">
-        <defs>
-          <clipPath id="rangeClip"><rect x="180" y="0" width="240" height="170"/></clipPath>
-        </defs>
-        <path d="M20,150 C120,150 165,18 300,18 C435,18 480,150 580,150 L20,150 Z" fill="#C9A13B" opacity="0.16" clip-path="url(#rangeClip)"/>
-        <path d="M20,150 C120,150 165,18 300,18 C435,18 480,150 580,150" fill="none" stroke="#0F2A4A" stroke-width="1.6"/>
-        <line x1="20" y1="150" x2="580" y2="150" stroke="#DED9CC" stroke-width="1"/>
-        <line x1="375" y1="150" x2="375" y2="52" stroke="#C9A13B" stroke-width="1.6" stroke-dasharray="3 3"/>
-        <circle cx="375" cy="52" r="5.5" fill="#C9A13B" stroke="#0F2A4A" stroke-width="1.2"/>
+  <!-- Event benchmarks -->
+  <div class="learn-card reveal">
+    <div class="learn-visual trend-visual" aria-hidden="true">
+      <svg viewBox="0 0 260 92" class="mini-svg">
+        <path d="M18 70 C44 67, 63 53, 93 49 S145 42, 173 30 S220 18, 242 11"
+              fill="none"
+              stroke="#C9A13B"
+              stroke-width="4"
+              stroke-linecap="round"/>
+        <circle cx="18" cy="70" r="5.5" fill="#2C5688"/>
+        <circle cx="78" cy="50" r="5.5" fill="#2C5688"/>
+        <circle cx="152" cy="36" r="5.5" fill="#2C5688"/>
+        <circle cx="242" cy="11" r="6.5" fill="#C9A13B"/>
       </svg>
-      <div class="dist-caps">
-        <span>Less competitive</span>
-        <span class="dist-legend"><i></i> Sample profile</span>
-        <span>More competitive</span>
-      </div>
     </div>
-    <p class="pull-quote reveal">A profile isn&rsquo;t good or bad. Its competitiveness depends on the university it&rsquo;s measured against.</p>
+    <h3>Event benchmarks</h3>
+    <p>Where your key events sit now &mdash; and where realistic progression could take them.</p>
+  </div>
+
+  <!-- Target schools -->
+  <div class="learn-card reveal">
+    <div class="learn-visual dist-visual" aria-hidden="true">
+      <svg viewBox="0 0 300 110" class="mini-svg">
+        <rect x="96" y="16" width="118" height="72" fill="rgba(201,161,59,.14)"/>
+        <path d="M14 88
+                 C 56 88, 84 18, 150 18
+                 C 216 18, 244 88, 286 88"
+              fill="none"
+              stroke="#0F2A4A"
+              stroke-width="2.5"
+              stroke-linecap="round"/>
+        <line x1="190" y1="34" x2="190" y2="88"
+              stroke="#C9A13B"
+              stroke-width="2"
+              stroke-dasharray="5 4"/>
+        <circle cx="190" cy="34" r="6.5" fill="#C9A13B" stroke="#0F2A4A" stroke-width="2"/>
+        <line x1="14" y1="88" x2="286" y2="88" stroke="#D9D3C6" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <h3>Target schools</h3>
+    <p>Which programs appear to offer the strongest overall recruiting opportunity.</p>
+  </div>
+</div>
   </div>
 </section>
 
 <!-- ==========================================================
-     OUTPUT 1 — STATISTICAL COMPARISON
+     HOW IT WORKS
+     ========================================================== -->
+<section class="s" id="how-it-works">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-num">How it works</span>
+      <h2>Three steps. One recruiting picture.</h2>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-num">1</span>
+        <h3>Build your profile</h3>
+        <p>Fill out our questionnaire and talk with a partner to help us better understand your broader student profile.</p>
+      </div>
+
+      <div class="step-arrow">&rarr;</div>
+
+      <div class="step reveal">
+        <span class="step-num">2</span>
+        <h3>Benchmark it</h3>
+        <p>Using our proprietary algorithm, we compare your profile with target programs and identify where you may be a strong fit.</p>
+      </div>
+
+      <div class="step-arrow">&rarr;</div>
+
+      <div class="step reveal">
+        <span class="step-num">3</span>
+        <h3>Find the opportunity</h3>
+        <p>See where you fit, what is holding you back, and where improvement matters most — then use SDA support to help close the gaps.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SCHOOL BY SCHOOL
      ========================================================== -->
 <section class="s tint">
   <div class="wrap">
     <div class="s-head reveal">
-      <span class="s-num">Output 1 &middot; Statistical comparison</span>
-      <h2>A statistical comparison, not a lookup table.</h2>
-      <p>The same swimmer, checked against three different university benchmarks.</p>
+      <span class="s-num">School-by-school read</span>
+      <h2>Every school tells a different story.</h2>
+      <p>The same athlete can look very different across one school list.</p>
     </div>
-    <div class="ex-athlete reveal">
-      <span class="ex-label">Sample athlete</span>
-      <div class="ex-stats">
-        <div class="ex-stat"><b>8.2</b><span>Academics</span></div>
-        <div class="ex-stat"><b>7.4</b><span>Athletics</span></div>
-        <div class="ex-stat"><b>6.6</b><span>Activities</span></div>
-      </div>
-    </div>
-    <div class="cmp-list reveal">
-      <div class="cmp">
-        <div class="cmp-school">Selective school</div>
-        <div class="cmp-bars">
-          <div class="mini"><span class="mk">Sample athlete</span><div class="mbar"><i class="you" style="width:76%"></i></div></div>
-          <div class="mini"><span class="mk">This school</span><div class="mbar"><i class="them" style="width:66%"></i></div></div>
-        </div>
-        <span class="chip s">Above range</span>
-      </div>
-      <div class="cmp">
-        <div class="cmp-school">Highly selective school</div>
-        <div class="cmp-bars">
-          <div class="mini"><span class="mk">Sample athlete</span><div class="mbar"><i class="you" style="width:76%"></i></div></div>
-          <div class="mini"><span class="mk">This school</span><div class="mbar"><i class="them" style="width:84%"></i></div></div>
-        </div>
-        <span class="chip s">Within range</span>
-      </div>
-      <div class="cmp">
-        <div class="cmp-school">Most selective school</div>
-        <div class="cmp-bars">
-          <div class="mini"><span class="mk">Sample athlete</span><div class="mbar"><i class="you" style="width:76%"></i></div></div>
-          <div class="mini"><span class="mk">This school</span><div class="mbar"><i class="them" style="width:93%"></i></div></div>
-        </div>
-        <span class="chip s">Below range</span>
-      </div>
-    </div>
-    <p class="cmp-caption reveal">Nothing about the athlete changed &mdash; only the benchmark did. That&rsquo;s why the read is school-specific, not universal.</p>
 
-    <div class="confidence-wrap reveal">
-      <div class="confidence-bar">
-        <div class="confidence-zone" style="left:40%;width:20%"></div>
-        <div class="confidence-marker" style="left:50%"></div>
+    <div class="school-reads">
+      <div class="school-read strong reveal">
+        <span class="read-tag">Strong fit</span>
+        <h3>Your profile aligns well.</h3>
+        <p>Competitive across the factors that matter most for this program.</p>
+        <div class="read-meta">Academic position · Athletic fit · Event strengths</div>
       </div>
-      <div class="confidence-cap"><span>Below range</span><span>Within range</span><span>Above range</span></div>
-      <p class="equation-caption">Reported as a range, not a percentage. A single number like &ldquo;87%&rdquo; hides how much the estimate could move; a range shows it.</p>
+
+      <div class="school-read potential reveal">
+        <span class="read-tag">Strong potential</span>
+        <h3>There is a realistic path.</h3>
+        <p>Several pieces fit, but one or more areas still need to move.</p>
+        <div class="read-meta">Current strengths · Main gap · Development potential</div>
+      </div>
+
+      <div class="school-read stretch reveal">
+        <span class="read-tag">Stretch</span>
+        <h3>A tougher target today.</h3>
+        <p>We show why — and what would need to change for the picture to improve.</p>
+        <div class="read-meta">Primary constraint · Required improvement · Opportunity</div>
+      </div>
     </div>
+
+<div class="requested-read reveal">
+  <div>
+    <span class="requested-label">Requested Schools</span>
+    <h3>Your school list is part of the analysis.</h3>
+    <p>Tell us which programs matter to you, and we&rsquo;ll include personalized reads for those schools in your Compass.</p>
   </div>
+  <div class="requested-chip">Included in your report</div>
+</div>
 </section>
 
 <!-- ==========================================================
-     OUTPUT 2 — THE PREREAD READ
+     WHAT CAN CHANGE
      ========================================================== -->
-<section class="s navy">
+<section class="s tint change-section">
   <div class="wrap">
     <div class="s-head reveal">
-      <span class="s-num">Output 2 &middot; Holistic Compass assessment</span>
-      <h2>Grades open the door. Speed gets you through.</h2>
-      <p>An academic gate and an athletic tier, read the way a selective coach&rsquo;s preread would &mdash; not a reproduction of any school&rsquo;s process.</p>
+      <span class="s-num">What can you change?</span>
+      <h2>Know where your effort matters.</h2>
+      <p>We identify the improvements most likely to strengthen your recruiting position.</p>
     </div>
-    <div class="ladder reveal">
-      <div class="rung g"><span class="rung-k">Strong grades</span><span class="rung-v">In range on their own. Swimming is a bonus.</span></div>
-      <div class="rung a"><span class="rung-k">Okay grades</span><span class="rung-v">Being fast helps a coach pick them.</span></div>
-      <div class="rung r"><span class="rung-k">Lower grades</span><span class="rung-v">They&rsquo;d need to be a top swimmer.</span></div>
-    </div>
-    <div class="band-wrap reveal">
-      <div class="band-scale"></div>
-      <div class="band-caps"><span>Long shot</span><span>Fits with a push</span><span>Strong fit</span></div>
-    </div>
-    <p class="gate-footnote reveal">Activities layers on top of this baseline. It doesn&rsquo;t replace it &mdash; and a thin activities record cannot pull a strong swimmer down more than a few points.</p>
-  </div>
-</section>
 
-<!-- ==========================================================
-     LIMITATIONS
-     ========================================================== -->
-<section class="s">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">Limitations</span>
-      <h2>What the Compass does not mean.</h2>
-      <p>Worth saying plainly, because most tools in this category don&rsquo;t.</p>
-    </div>
-    <div class="limit-grid reveal">
-      <div class="limit-card">
-        <div class="limit-ic"><svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="10" stroke="#A5502B" stroke-width="1.6"/><line x1="7.5" y1="20.5" x2="20.5" y2="7.5" stroke="#A5502B" stroke-width="1.6"/></svg></div>
-        <h3>Not a prediction</h3>
-        <p>Admissions are holistic and dynamic &mdash; no index can fully capture them.</p>
-      </div>
-      <div class="limit-card">
-        <div class="limit-ic"><svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="10" stroke="#A5502B" stroke-width="1.6"/><line x1="7.5" y1="20.5" x2="20.5" y2="7.5" stroke="#A5502B" stroke-width="1.6"/></svg></div>
-        <h3>Not a guarantee</h3>
-        <p>We don&rsquo;t guarantee admission, offers, roster spots, or scholarships.</p>
-      </div>
-      <div class="limit-card">
-        <div class="limit-ic"><svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="9" stroke="#C9A13B" stroke-width="1.4"/><path d="M14 7.5 L15.8 14 L14 20.5 L12.2 14 Z" fill="#C9A13B"/></svg></div>
-        <h3>A read on fit, not an outcome</h3>
-        <p>Built to show competitiveness and fit &mdash; not whether a student will be admitted.</p>
-      </div>
+<div class="change-grid">
+  <div class="change-card reveal">
+    <h3>Academics</h3>
+    <p>Testing, course rigor, grades and academic positioning.</p>
+  </div>
+
+  <div class="change-card reveal">
+    <h3>Athletics</h3>
+    <p>Target times, specific events, progression and versatility.</p>
+  </div>
+
+  <div class="change-card reveal">
+    <h3>School strategy</h3>
+    <p>Where to push, where to broaden and where your profile already works.</p>
+  </div>
+</div>
+
+<div class="change-cta reveal">
+  <div>
+    <span class="change-cta-label">Take the next step</span>
+    <h3>Want to make your profile stronger?</h3>
+    <p>Our advising packages give you personalized guidance to help close the gaps identified in your Compass.</p>
+  </div>
+
+  <a class="btn-gold" href="../packages/">Explore SDA Packages</a>
+
     </div>
   </div>
 </section>
@@ -762,13 +477,14 @@ import model from '../data/academic-model.json';
       <div class="buy-left">
         <span class="eyebrow">SDA Compass</span>
         <h2>Get your athlete&rsquo;s Compass.</h2>
-        <p>One report, built by hand from your athlete&rsquo;s real numbers and your real school list.</p>
-        <ul class="buy-list">
-          <li>All three indices scored &mdash; academics, athletics, activities</li>
-          <li>A statistical comparison against every school on your list</li>
-          <li>A preread-style band for each school, with reasoning</li>
-          <li>What would have to change to move up a band</li>
-        </ul>
+    <p>A personalized recruiting assessment built from your athlete&rsquo;s complete profile.</p>
+    <ul class="buy-list">
+        <li>Academic and athletic recruiting assessment</li>
+        <li>Event-by-event performance benchmarking</li>
+        <li>School-by-school recruiting fit</li>
+        <li>Strengths, gaps and improvement opportunities</li>
+        <li>Personalized review of your target schools</li>
+    </ul>
       </div>
       <div class="buy-right">
         <div class="buy-price">$275</div>
@@ -822,10 +538,6 @@ import model from '../data/academic-model.json';
   .hero.lit .fx.d5{transition-delay:.54s}
   .compass-wrap.fx{transform:translateY(26px) scale(.9)}
   .hero.lit .compass-wrap.fx{transform:none}
-
-  .scroll-cue{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px;color:#8FA0B3;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px}
-  .scroll-cue svg{width:18px;height:18px;animation:bob 1.8s ease-in-out infinite}
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
   /* ---------------- SECTION SHELL ---------------- */
   .s{padding:104px 0}
@@ -1385,10 +1097,134 @@ import model from '../data/academic-model.json';
     .calc-form,.calc-out{padding:30px 22px}
     .g-num{font-size:46px}
     .chapter{padding:64px 0}
-    .scroll-cue{display:none}
     .hero-actions{flex-direction:column;width:100%;max-width:320px}
     .hero-actions .btn-gold,.hero-actions .btn-ghost{width:100%;text-align:center;justify-content:center}
   }
+
+/* ---------------- FULL COMPASS COMPARISON ---------------- */
+.full-compare{max-width:940px;margin:64px auto 0;padding-top:52px;border-top:1px solid var(--line)}
+.fc-head{text-align:center;max-width:680px;margin:0 auto 32px}
+.fc-head h3{font-size:clamp(25px,3vw,34px);color:var(--navy);margin-bottom:10px}
+.fc-head p{font-size:16px;color:var(--muted)}
+.fc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:820px;margin:0 auto}
+.fc-card{border:1px solid var(--line);border-radius:14px;padding:30px;background:#fff}
+.fc-card.paid{background:var(--navy);border-color:var(--navy)}
+.fc-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:10px}
+.fc-card h4{font-family:'Fraunces',serif;font-size:21px;color:var(--navy);margin-bottom:18px}
+.fc-card.paid h4{color:#fff}
+.fc-card ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc-card li{font-size:14.5px;color:var(--muted);padding-left:18px;position:relative}
+.fc-card li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.fc-card.paid li{color:#C7D2DE}
+
+/* ---------------- QUICK BUY ---------------- */
+.quick-buy{padding:64px 0!important}
+.quick-buy-card{max-width:940px;margin:0 auto;background:linear-gradient(150deg,var(--navy),var(--navy-deep));border-radius:18px;padding:38px 42px;display:flex;align-items:center;justify-content:space-between;gap:36px}
+.quick-buy-card h2{color:#fff;font-size:clamp(26px,3vw,34px);margin-bottom:8px}
+.quick-buy-card p{color:#BFCBD7;max-width:560px}
+.qb-action{text-align:center;display:flex;flex-direction:column;align-items:center;min-width:210px}
+.qb-action strong{font-family:'Fraunces',serif;font-size:42px;color:var(--gold-soft);line-height:1}
+.qb-action>span{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.4px;color:#8FA0B3;margin:7px 0 16px}
+
+/* ---------------- WHAT YOU LEARN ---------------- */
+.learn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1040px;margin:0 auto}
+.learn-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px 24px}
+.learn-card>span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px}
+.learn-card h3{font-size:19px;color:var(--navy);margin:12px 0 8px}
+.learn-card p{font-size:14px;color:var(--muted);line-height:1.55}
+
+/* ---------------- STEPS ---------------- */
+.steps{display:flex;align-items:center;justify-content:center;max-width:960px;margin:0 auto}
+.step{width:260px;text-align:center}
+.step-num{width:42px;height:42px;border-radius:50%;background:var(--navy);color:var(--gold-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-family:'IBM Plex Mono',monospace}
+.step h3{font-size:19px;color:var(--navy);margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted)}
+.step-arrow{color:var(--gold);font-size:24px;margin:0 26px}
+
+/* ---------------- SCHOOL READ ---------------- */
+.school-reads{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto}
+.school-read{background:#fff;border:1px solid var(--line);border-top:4px solid var(--line);border-radius:14px;padding:30px 26px}
+.school-read.strong{border-top-color:var(--green)}
+.school-read.potential{border-top-color:var(--gold)}
+.school-read.stretch{border-top-color:var(--rust)}
+.read-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.school-read h3{font-size:20px;color:var(--navy);margin-bottom:8px}
+.school-read p{font-size:14px;color:var(--muted);line-height:1.55}
+.read-meta{border-top:1px solid var(--line);margin-top:18px;padding-top:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);line-height:1.6}
+.requested-read{max-width:980px;margin:24px auto 0;padding:26px 30px;background:#fff;border:1px solid var(--line);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.requested-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+.requested-read h3{font-size:21px;color:var(--navy);margin-bottom:5px}
+.requested-read p{font-size:14.5px;color:var(--muted);margin:0;max-width:650px}
+.requested-chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--navy);background:rgba(201,161,59,.16);border:1px solid rgba(201,161,59,.4);padding:9px 13px;border-radius:3px;white-space:nowrap}
+@media(max-width:700px){.requested-read{flex-direction:column;align-items:flex-start}}
+
+/* ---------------- CHANGE SECTION ---------------- */
+.change-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+.change-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:28px;text-align:center}
+.change-card h3{color:var(--gold-soft);font-size:20px;margin-bottom:8px}
+.change-card p{color:#A9B7C6;font-size:14px}
+.change-line{text-align:center;max-width:650px;margin:36px auto 0;color:#fff;font-family:'Fraunces',serif;font-size:20px}
+
+/* ---------------- NEW RESPONSIVE ---------------- */
+@media(max-width:850px){
+  .learn-grid{grid-template-columns:1fr 1fr}
+  .school-reads{grid-template-columns:1fr}
+  .change-grid{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .fc-grid{grid-template-columns:1fr}
+  .quick-buy-card{flex-direction:column;text-align:center;padding:34px 24px}
+  .steps{flex-direction:column;gap:18px}
+  .step-arrow{transform:rotate(90deg);margin:0}
+}
+@media(max-width:560px){
+  .learn-grid{grid-template-columns:1fr}
+}
+.navy{
+  margin-bottom:56px;
+}
+.learn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;max-width:1120px;margin:0 auto}
+.learn-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 28px 28px;min-height:260px;display:flex;flex-direction:column}
+.learn-card>span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:16px}
+.learn-card h3{font-size:20px;color:var(--navy);margin:18px 0 8px}
+.learn-card p{font-size:14.5px;color:var(--muted);line-height:1.6;margin:0}
+.learn-visual{height:96px;padding:0;display:flex;align-items:center;justify-content:center;margin:6px 0 12px}
+.mini-svg{width:100%;height:88px;display:block;overflow:visible}
+.compare-visual{display:flex;flex-direction:column;justify-content:center;gap:14px;width:100%}
+.compare-row{display:grid;grid-template-columns:54px 1fr;gap:12px;align-items:center;width:100%}
+.compare-row label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.compare-track{height:10px;border-radius:999px;background:#E8E3D8;overflow:hidden}
+.compare-track i{display:block;height:100%;border-radius:999px}
+.compare-track i.gold{background:#C9A13B}
+.compare-track i.blue{background:#AEB7C2}
+.trend-visual{width:100%;padding:0 10px}
+.dist-visual{width:100%;padding:0 6px}
+@media(max-width:850px){.learn-grid{grid-template-columns:1fr}}
+.s.navy.change-section{width:calc(100% - 48px);margin:0 24px 56px;border-radius:24px;overflow:hidden}
+.change-section{background:var(--white-warm);color:var(--navy)}
+.change-section .s-head h2{color:var(--navy)}
+.change-section .s-head p{color:var(--muted)}
+.change-section .change-card{background:#fff;border:1px solid var(--line)}
+.change-section .change-card h3{color:var(--gold)}
+.change-section .change-card p{color:var(--muted)}
+.change-section .change-cta{background:#fff;border:1px solid var(--line)}
+.change-section .change-cta h3{color:var(--navy)}
+.change-section .change-cta p{color:var(--muted)}
+.change-section .change-card h3{color:var(--navy)!important}
+.change-section .change-card p{color:var(--muted)!important}
+.change-section .change-cta h3{color:var(--navy)!important}
+.change-section .change-cta p{color:var(--muted)!important}
+.change-section .change-cta-label{color:var(--gold)!important}
+.change-section .change-card,.change-section .change-cta{background:#fff;border:1px solid var(--line);box-shadow:0 10px 28px rgba(15,42,74,.04)}
+@media(max-width:600px){.s.navy.change-section{width:calc(100% - 24px);margin:0 12px 40px;border-radius:18px}}
+.change-cta{max-width:900px;width:100%;margin:38px auto 0;padding:28px 32px;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;gap:40px;box-sizing:border-box}
+.change-cta-copy{flex:1;min-width:0}
+.change-cta-label{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px}
+.change-cta h3{font-size:22px;color:#fff;margin:0 0 6px}
+.change-cta p{font-size:14.5px;color:#A9B7C6;max-width:600px;margin:0;line-height:1.55}
+.change-cta .btn-gold{flex:none;white-space:nowrap}
+@media(max-width:700px){.change-cta{flex-direction:column;align-items:flex-start}.change-cta .btn-gold{width:100%;justify-content:center}}
+.calc-safety{max-width:820px;margin:18px auto 0;text-align:center;font-size:9.5px;line-height:1.55;color:#9A978E;opacity:.85}
 </style>
 
 <script is:inline>
