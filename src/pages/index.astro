@@ -43,25 +43,22 @@ import Base from '../layouts/Base.astro';
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Why us</span>
-      <h2>Recruiting should not feel like a blind guess. <em>Learn where your athlete stands.</em></h2> 
+      <h2>Recruiting should't feel like a guessing game. <em>Learn where your athlete stands.</em></h2> 
       <p>Leverage our diligent team to see your athlete's raw data translated into tangible recruiting targets.</p>
     </div>
     <div class="diff-grid reveal">
       <div class="diff">
-        <div class="num">01</div>
         <h3>Athletes with Experience</h3>
         <p>SDA was founded by college athletes who know both how to thrive as a student-athlete and how to get there in the first place. </p>
 
         <a href="team/" class="diff-link">Meet the Team <span>→</span></a>
       </div>
       <div class="diff">
-        <div class="num">02</div>
         <h3>Transparent Assessment</h3>
         <p>We compare your statistics to active college rosters. This lets you get an honest gauge of where you stand, and shows you what you can do to get to the next level.</p>
         <a href="academic-index/" class="diff-link">Explore SDA Compass <span>→</span></a>
       </div>
       <div class="diff">
-        <div class="num">03</div>
         <h3>Dynamic Strategy</h3>
         <p>SDA constantly tracks your progress, and adjusts your recruiting strategy to help you continue to achieve your goals.</p>
         <a href="packages/" class="diff-link"> Explore Packages <span>→</span></a>
@@ -125,30 +122,52 @@ import Base from '../layouts/Base.astro';
           </svg>
           SDA Compass
         </span>
-        <h2>See where your athlete fits in</h2>
-        <p>SDA Compass encapsulates our entire recruiting-fit analysis in one measure. It first integrates athletic strength and student profile with the actual academic indices that schools use. It then compares this metric to relevant schools, revealing how your athlete fits with each program that they are interested in.</p>
-        <span class="compass-link">Explore SDA Compass <span>→</span></span>
+        <h2>See where your athlete fits in.</h2>
+        <p>The SDA Compass combines academics, athletics, and overall profile data to identify strong-fit programs and evaluate how an athlete compares with the schools already on their list.</p>        <span class="compass-link">Explore SDA Compass <span>→</span></span>
       </div>
-      <div class="compass-readout">
-        <div class="cr-head">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="10" stroke="#C9A13B" stroke-width="1.4"/>
-            <path d="M12 5 L14.2 12 L12 19 L9.8 12 Z" fill="#C9A13B"/>
-            <circle cx="12" cy="12" r="1.4" fill="#F3F1EA"/>
-          </svg>
-          <span class="cr-title">SDA Compass</span>
-        </div>
-        <div class="cr-axes">
-          <div class="cr-axis"><span class="cr-k">Academics</span><span class="cr-v">Band A</span></div>
-          <div class="cr-axis"><span class="cr-k">Athletics</span><span class="cr-v">Strong</span></div>
-          <div class="cr-axis"><span class="cr-k">Profile</span><span class="cr-v">High</span></div>
-        </div>
-        <div class="cr-fit">
-          <span class="cr-fit-k">Fit</span>
-          <span class="cr-fit-v">Realistic</span>
-        </div>
-        <span class="cr-note">Illustrative</span>
-      </div>
+<div class="compass-readout">
+  <div class="cr-head">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="10" stroke="#C9A13B" stroke-width="1.4"/>
+      <path d="M12 5 L14.2 12 L12 19 L9.8 12 Z" fill="#C9A13B"/>
+      <circle cx="12" cy="12" r="1.4" fill="#F3F1EA"/>
+    </svg>
+    <span class="cr-title">SDA Compass</span>
+  </div>
+
+  <div class="cr-section">
+    <div class="cr-labelrow">
+      <span>Academic position</span>
+      <span>Competitive</span>
+    </div>
+    <div class="cr-track"><i class="gold" style="width:74%"></i></div>
+
+    <div class="cr-labelrow">
+      <span>Athletic position</span>
+      <span>Developing</span>
+    </div>
+    <div class="cr-track"><i class="blue" style="width:62%"></i></div>
+  </div>
+
+  <div class="cr-section cr-fit-preview">
+    <span class="cr-mini-label">School fit preview</span>
+    <svg viewBox="0 0 220 82" class="cr-fit-graphic" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="74" y="16" width="72" height="38" fill="rgba(201,161,59,.12)"/>
+      <path d="M10 58 C36 58, 56 12, 110 12 C164 12, 184 58, 210 58" fill="none" stroke="#F3F1EA" stroke-width="2.2" stroke-linecap="round"/>
+      <line x1="132" y1="24" x2="132" y2="58" stroke="#C9A13B" stroke-width="1.8" stroke-dasharray="4 4"/>
+      <circle cx="132" cy="24" r="5.2" fill="#C9A13B" stroke="#F3F1EA" stroke-width="1.8"/>
+      <line x1="10" y1="58" x2="210" y2="58" stroke="rgba(243,241,234,.25)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="cr-tags">
+    <span>Strong fit</span>
+    <span>With a push</span>
+    <span>Long shot</span>
+  </div>
+
+  <span class="cr-note">Illustrative preview</span>
+</div>
     </a>
   </div>
 </section>
@@ -366,11 +385,11 @@ import Base from '../layouts/Base.astro';
   footer{background:var(--navy-deep);color:#8FA0B3;padding:64px 0 40px}
 
   /* ---------- SDA COMPASS TEASER ---------- */
-  .compass-card{
-    display:flex;align-items:stretch;justify-content:space-between;gap:48px;
-    background:#fff;border:1px solid var(--line);border-radius:10px;
-    padding:44px 48px 44px 52px;transition:all .25s;position:relative;overflow:hidden;
-  }
+    .compass-card{
+      display:flex;align-items:center;justify-content:space-between;gap:42px;
+      background:#fff;border:1px solid var(--line);border-radius:16px;
+      padding:44px 48px 44px 52px;transition:all .25s;position:relative;overflow:hidden;
+    }
   .compass-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--gold),var(--gold-soft))}
   .compass-card:hover{transform:translateY(-3px);box-shadow:0 30px 50px -30px rgba(15,42,74,0.35);border-color:var(--gold)}
   .compass-text{max-width:560px;align-self:center}
@@ -382,23 +401,52 @@ import Base from '../layouts/Base.astro';
   .compass-link span{color:var(--gold);transition:transform .2s}
   .compass-card:hover .compass-link span{transform:translateX(4px)}
   
-  /* readout */
-  .compass-readout{flex:none;width:252px;background:var(--navy);border-radius:8px;padding:24px 26px;display:flex;flex-direction:column;box-shadow:0 20px 40px -26px rgba(10,30,56,0.6)}
-  .cr-head{display:flex;align-items:center;gap:10px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:15px}
-  .cr-head svg{width:22px;height:22px;flex:none}
-  .cr-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
-  .cr-axes{display:flex;flex-direction:column;gap:12px}
-  .cr-axis{display:flex;justify-content:space-between;align-items:baseline}
-  .cr-k{font-size:13px;color:#A9B7C6}
-  .cr-v{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#fff}
-  .cr-fit{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.12)}
-  .cr-fit-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
-  .cr-fit-v{font-family:'Fraunces',serif;font-size:21px;color:var(--gold-soft)}
-  .cr-note{font-size:10.5px;color:#7E8C9B;margin-top:12px;text-align:right;font-family:'IBM Plex Mono',monospace}
-  @media(max-width:760px){
-    .compass-card{flex-direction:column;align-items:stretch;padding:32px 24px 32px 28px;gap:26px}
-    .compass-readout{width:auto}
-  }
+/* readout */
+.compass-readout{flex:none;width:252px;background:var(--navy);border-radius:8px;padding:24px 26px;display:flex;flex-direction:column;box-shadow:0 20px 40px -26px rgba(10,30,56,0.6)}
+.cr-head{display:flex;align-items:center;gap:10px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.12);margin-bottom:15px}
+.cr-head svg{width:22px;height:22px;flex:none}
+.cr-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.cr-axes{display:flex;flex-direction:column;gap:12px}
+.cr-axis{display:flex;justify-content:space-between;align-items:baseline}
+.cr-k{font-size:13px;color:#A9B7C6}
+.cr-v{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#fff}
+.cr-fit{display:flex;justify-content:space-between;align-items:center;margin-top:16px;padding-top:15px;border-top:1px solid rgba(255,255,255,0.12)}
+.cr-fit-k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+.cr-fit-v{font-family:'Fraunces',serif;font-size:21px;color:var(--gold-soft)}
+.cr-note{font-size:10.5px;color:#7E8C9B;margin-top:12px;text-align:right;font-family:'IBM Plex Mono',monospace}
+@media(max-width:760px){
+  .compass-card{flex-direction:column;align-items:stretch;padding:32px 24px 32px 28px;gap:26px}
+  .compass-readout{width:auto}
+}
+/* ---------- SDA COMPASS PREVIEW ---------- */
+.compass-readout{flex:none;width:290px;background:var(--navy);border-radius:12px;padding:24px 24px 20px;display:flex;flex-direction:column;box-shadow:0 20px 40px -26px rgba(10,30,56,.6)}
+.cr-head{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:18px}
+.cr-head svg{width:22px;height:22px;flex:none}
+.cr-title{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+
+.cr-section{margin-bottom:18px}
+.cr-labelrow{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:6px}
+.cr-labelrow span:first-child{font-size:12.5px;color:#A9B7C6}
+.cr-labelrow span:last-child{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#fff;white-space:nowrap}
+
+.cr-track{height:7px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin-bottom:14px}
+.cr-track i{display:block;height:100%;border-radius:999px}
+.cr-track i.gold{background:var(--gold)}
+.cr-track i.blue{background:#8FA0B3}
+
+.cr-mini-label{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.cr-fit-graphic{width:100%;height:auto;display:block}
+
+.cr-tags{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.cr-tags span{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.4px;text-transform:uppercase;color:#C7D2DE;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:5px 7px;white-space:nowrap}
+.cr-tags span:first-child{border-color:rgba(201,161,59,.7);color:var(--gold-soft)}
+
+.cr-note{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.5px;color:#7E8C9B;text-align:right;margin-top:14px}
+
+@media(max-width:760px){
+  .compass-card{flex-direction:column;align-items:stretch;padding:32px 24px 32px 28px;gap:26px}
+  .compass-readout{width:auto}
+}
 </style>
 
 <script is:inline>
