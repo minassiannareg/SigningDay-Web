@@ -347,14 +347,14 @@ import Base from '../layouts/Base.astro';
   .process .section-head{max-width:820px;margin-bottom:54px}
   .process .section-head h2{color:#fff;font-size:clamp(34px,4.5vw,52px)}
   .process .section-head p{color:#C7D2DE;max-width:680px}
-  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;max-width:1050px;margin:0 auto}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative;max-width:1050px;margin:80 auto}
   .steps::before{content:"";position:absolute;top:91px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,rgba(201,161,59,.25),rgba(201,161,59,.9),rgba(201,161,59,.25));z-index:0}
   .step{text-align:center;position:relative;padding:0 18px;min-height:330px;cursor:pointer}
   .step-num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--gold);margin-bottom:10px}
   .step-circle{width:132px;height:132px;border:1.5px solid var(--gold);border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;position:relative;z-index:2;background:var(--navy);transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
   .step-circle span{font-family:'Fraunces',serif;font-size:21px;color:#fff}
   .step:last-child .step-circle{border-width:2px;box-shadow:0 0 0 8px rgba(201,161,59,.08)}
-  .step-kicker{margin-top:80px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold-soft)}
+  .step-kicker{margin-top:15px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold-soft)}
   .step-detail{margin:8px auto 0;max-width:210px;font-size:14px;line-height:1.55;color:#C7D2DE;opacity:0;transform:translateY(8px);transition:opacity .25s ease,transform .25s ease}
   .step-deliverable{margin:10px auto 0;max-width:210px;font-size:12px;line-height:1.45;color:#8FA0B3;opacity:0;transform:translateY(8px);transition:opacity .25s ease .04s,transform .25s ease .04s}
   .step:hover .step-circle{background:var(--gold);transform:translateY(-6px);box-shadow:0 16px 30px -18px rgba(0,0,0,.55)}
