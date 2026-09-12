@@ -523,6 +523,120 @@ import Base from '../layouts/Base.astro';
 
 
 
+why-layout{
+  display:grid;
+  grid-template-columns:minmax(300px,.8fr) minmax(420px,1.2fr);
+  gap:58px;
+  border-top:1px solid var(--line);
+  padding-top:42px;
+}
+
+.why-copy-stack{
+  display:grid;
+  gap:0;
+  border-bottom:1px solid var(--line);
+}
+
+.why-box{
+  padding:34px 0 38px;
+  border-top:1px solid var(--line);
+}
+
+.why-box:first-child{
+  border-top:none;
+  padding-top:0;
+}
+
+.why-box h2{
+  font-size:clamp(34px,4vw,48px);
+  line-height:1.05;
+  color:var(--navy);
+  margin:0 0 16px;
+}
+
+.why-box p{
+  font-size:16px;
+  line-height:1.65;
+  color:var(--muted);
+  max-width:520px;
+}
+
+.why-media-stack{
+  display:grid;
+  gap:48px;
+}
+
+.ig-carousel{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding:2px 2px 16px;
+  scroll-snap-type:x mandatory;
+}
+
+.ig-post{
+  flex:0 0 270px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  scroll-snap-align:start;
+  box-shadow:0 20px 40px -30px rgba(15,42,74,.45);
+}
+
+.ig-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:12px 14px;
+  border-bottom:1px solid var(--line);
+  font-size:12px;
+  color:var(--navy);
+}
+
+.ig-head span{
+  color:#4b5cff;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.ig-post img{
+  width:100%;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
+  display:block;
+}
+
+.ig-caption{
+  padding:14px;
+}
+
+.ig-caption strong{
+  display:block;
+  color:var(--navy);
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.ig-caption p{
+  font-size:12px;
+  line-height:1.45;
+  color:var(--muted);
+  margin:0;
+}
+
+.why-compass-mini{
+  display:flex;
+  justify-content:flex-start;
+}
+
+.why-compass-mini .compass-readout{
+  width:280px;
+  max-width:100%;
+}
+
+
 </style>
 
 <script is:inline>
