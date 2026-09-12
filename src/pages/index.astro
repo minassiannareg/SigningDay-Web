@@ -483,6 +483,67 @@ import Base from '../layouts/Base.astro';
   .compass-card{flex-direction:column;align-items:stretch;padding:32px 24px 32px 28px;gap:26px}
   .compass-readout{width:auto}
 }
+
+
+
+/* ---------- TRUST PANEL CARD STYLE ---------- */
+.trust-panel .wrap{
+  grid-template-columns:.75fr 1.25fr;
+  gap:74px;
+}
+
+.trust-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:16px;
+  border-top:none;
+}
+
+.trust-grid article{
+  display:grid;
+  grid-template-columns:58px 1fr;
+  gap:20px;
+  align-items:center;
+  padding:20px 22px;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:8px;
+  margin:0;
+}
+
+.trust-grid span{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--gold);
+  color:var(--navy);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:0;
+}
+
+.trust-grid article > div{
+  min-width:0;
+}
+
+.trust-grid h3{
+  font-size:21px;
+  line-height:1.18;
+  margin:0 0 6px;
+}
+
+.trust-grid p{
+  font-size:14px;
+  line-height:1.55;
+  margin:0;
+  max-width:560px;
+}
+
+
 </style>
 
 <script is:inline>
