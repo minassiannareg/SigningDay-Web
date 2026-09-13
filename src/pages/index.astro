@@ -670,6 +670,81 @@ why-layout{
   }
 }
 
+
+
+.why-feature-row{
+  display:grid;
+  grid-template-columns:360px minmax(0,1fr);
+  gap:48px;
+  align-items:start;
+  padding:46px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.why-feature-copy h2{
+  font-size:clamp(40px,4vw,56px);
+  line-height:1.04;
+  color:var(--navy);
+  margin:0 0 18px;
+}
+
+.why-feature-copy p{
+  font-size:17px;
+  line-height:1.65;
+  color:var(--muted);
+  margin:0 0 22px;
+}
+
+.ig-carousel-panel{
+  min-width:0;
+}
+
+.ig-carousel-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  color:var(--gold);
+}
+
+.ig-controls{
+  display:flex;
+  gap:8px;
+}
+
+.ig-arrow{
+  width:36px;
+  height:36px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--navy);
+  font-weight:800;
+  cursor:pointer;
+}
+
+.ig-track{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+}
+
+.ig-track::-webkit-scrollbar{
+  display:none;
+}
+
+.ig-track .ig-post{
+  flex:0 0 calc((100% - 18px) / 2);
+  scroll-snap-align:start;
+}
+
 </style>
 
 <script is:inline>
