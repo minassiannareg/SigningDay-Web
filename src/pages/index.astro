@@ -183,15 +183,46 @@ import Base from '../layouts/Base.astro';
             <p>A clearer read on academic fit, athletic fit, and realistic college targets.</p>
           </div>
 
-          <div class="why-compass-preview">
-            <div class="mini-bar"><span></span></div>
-            <div class="mini-bar mini-bar-short"><span></span></div>
-            <div class="mini-curve"></div>
-            <div class="mini-tags">
-              <span>Strong fit</span>
-              <span>With a push</span>
-            </div>
-          </div>
+          <div class="compass-readout compass-readout--compact">
+  <div class="cr-head">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"></circle>
+      <path d="M12 7v10M9 10l3-3 3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span class="cr-title">SDA Compass</span>
+  </div>
+
+  <div class="cr-row">
+    <span>Academic position</span>
+    <strong>Competitive</strong>
+  </div>
+  <div class="cr-bar"><span style="width:72%"></span></div>
+
+  <div class="cr-row">
+    <span>Athletic position</span>
+    <strong>Developing</strong>
+  </div>
+  <div class="cr-bar cr-bar-muted"><span style="width:55%"></span></div>
+
+  <div class="cr-label">School fit preview</div>
+
+  <div class="cr-graph">
+    <svg viewBox="0 0 220 92" fill="none" aria-hidden="true">
+      <path d="M12 70 C48 68, 56 25, 109 25 C162 25, 169 68, 208 70" stroke="white" stroke-width="3" stroke-linecap="round"></path>
+      <path d="M85 70 L85 37 C100 30, 121 30, 136 37 L136 70 Z" fill="rgba(255,255,255,.12)"></path>
+      <path d="M126 30 L126 72" stroke="var(--gold)" stroke-width="2" stroke-dasharray="4 5"></path>
+      <circle cx="126" cy="30" r="7" fill="var(--gold)" stroke="white" stroke-width="2"></circle>
+    </svg>
+  </div>
+
+  <div class="cr-tags">
+    <span>Strong fit</span>
+    <span>With a push</span>
+    <span>Long shot</span>
+  </div>
+
+  <div class="cr-foot">Illustrative preview</div>
+</div>
         </a>
       </div>
     </div>
@@ -959,14 +990,14 @@ why-layout{
 
 .why-compass-card{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 210px;
-  gap:28px;
+  grid-template-columns:minmax(0,1fr) 240px;
+  gap:30px;
   align-items:center;
   background:#fff;
   border:1px solid var(--line);
   border-left:4px solid var(--gold);
   border-radius:14px;
-  padding:28px 30px;
+  padding:30px 32px;
 }
 
 .why-compass-text h3{
@@ -982,6 +1013,55 @@ why-layout{
   color:var(--muted);
   margin:0;
 }
+
+.compass-readout--compact{
+  width:240px;
+  padding:22px 24px;
+  border-radius:10px;
+  box-shadow:0 18px 34px -24px rgba(10,30,56,.7);
+}
+
+.compass-readout--compact .cr-head{
+  padding-bottom:12px;
+  margin-bottom:14px;
+}
+
+.compass-readout--compact .cr-row{
+  font-size:11px;
+}
+
+.compass-readout--compact .cr-bar{
+  height:7px;
+  margin:7px 0 14px;
+}
+
+.compass-readout--compact .cr-label{
+  margin-top:14px;
+  margin-bottom:8px;
+  font-size:10px;
+}
+
+.compass-readout--compact .cr-graph svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.compass-readout--compact .cr-tags{
+  gap:7px;
+  margin-top:10px;
+}
+
+.compass-readout--compact .cr-tags span{
+  font-size:8px;
+  padding:5px 8px;
+}
+
+.compass-readout--compact .cr-foot{
+  margin-top:12px;
+  font-size:9px;
+}
+
 
 .why-compass-preview{
   background:var(--navy);
