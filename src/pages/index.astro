@@ -755,3 +755,19 @@ document.querySelectorAll('.step').forEach(step=>{
   });
 
 </script>
+
+<script>
+  document.querySelectorAll('[data-ig-carousel]').forEach((carousel) => {
+    const track = carousel.querySelector('.ig-track');
+    const prev = carousel.querySelector('[data-ig-prev]');
+    const next = carousel.querySelector('[data-ig-next]');
+
+    prev.addEventListener('click', () => {
+      track.scrollBy({ left: -track.clientWidth, behavior: 'smooth' });
+    });
+
+    next.addEventListener('click', () => {
+      track.scrollBy({ left: track.clientWidth, behavior: 'smooth' });
+    });
+  });
+</script>
