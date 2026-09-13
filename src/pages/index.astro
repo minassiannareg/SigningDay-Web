@@ -769,6 +769,51 @@ why-layout{
   object-position:center center;
 }
 
+.why-layout{
+  display:grid;
+  grid-template-columns:420px minmax(0,1fr);
+  gap:64px;
+  align-items:start;
+}
+
+.why-copy-stack{
+  display:grid;
+  gap:70px;
+}
+
+.why-box{
+  border:0;
+  padding:0;
+}
+
+.why-box h2{
+  font-size:clamp(42px,4.5vw,64px);
+  line-height:1.03;
+  color:var(--navy);
+  margin:0 0 22px;
+}
+
+.why-box p{
+  font-size:18px;
+  line-height:1.65;
+  color:var(--muted);
+  margin:0 0 28px;
+}
+
+.ig-post img,
+.ig-image{
+  width:100%;
+  aspect-ratio:1 / 1;
+  object-fit:cover;
+  object-position:center center;
+  display:block;
+}
+
+.ig-image--swimmer{
+  object-position:center center;
+}
+
+
 </style>
 
 <script is:inline>
