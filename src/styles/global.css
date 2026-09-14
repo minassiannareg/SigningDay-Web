@@ -72,8 +72,23 @@ nav{
 }
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
 .brand{display:flex;align-items:center;gap:12px;color:var(--white-warm)}
-.brand-mark{width:28px;height:34px;flex:none;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
-.brand:hover .brand-mark{transform:rotate(-8deg) scale(1.06)}
+.brand-mark{width:32px;height:32px;flex:none;overflow:visible}
+/* Hovering the lockup makes the quill sign: the ink wipes away and redraws
+   itself left to right while the pen pivots on its nib. The pivot is the
+   nib rather than the centre so the point stays planted on the line it is
+   drawing. Rest state is the finished signature, which is also what shows
+   under prefers-reduced-motion (global rule below kills the animation, and
+   the un-animated values are already the finished state). */
+.qm-ink{stroke-dasharray:100;stroke-dashoffset:0}
+.qm-pen{transform-box:fill-box;transform-origin:5% 96%}
+.brand:hover .qm-ink,.foot-brand:hover .qm-ink{
+  animation:qm-ink .95s cubic-bezier(.4,.05,.2,1) both;
+}
+.brand:hover .qm-pen,.foot-brand:hover .qm-pen{
+  animation:qm-dip .95s cubic-bezier(.4,.05,.2,1) both;
+}
+@keyframes qm-ink{from{stroke-dashoffset:100}to{stroke-dashoffset:0}}
+@keyframes qm-dip{0%{transform:rotate(-9deg)}55%{transform:rotate(3deg)}100%{transform:none}}
 .brand-name{font-family:'Fraunces',serif;font-size:19px;font-weight:500;letter-spacing:0.3px}
 .nav-links{display:flex;gap:24px;align-items:center}
 .nav-links a{color:#C7D2DE;font-size:14px;position:relative;transition:color .2s}
