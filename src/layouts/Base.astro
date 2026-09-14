@@ -66,8 +66,17 @@ const orgSchema = {
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogUrl} />
 
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  {/*
+    Bump ?v= whenever the icon artwork changes. Browsers keep favicons in a
+    cache of their own that a hard reload does not clear, so without a new
+    URL every returning visitor keeps the old mark - which is exactly what
+    happened when the shield was replaced by the quill.
+    PNG is listed as a fallback for the few browsers that ignore SVG icons;
+    those that support it prefer the SVG, which stays sharp at any size.
+  */}
+  <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png?v=2" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
   <meta name="theme-color" content="#0F2A4A" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
