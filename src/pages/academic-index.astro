@@ -18,37 +18,67 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="hero-inner">
       <div class="compass-wrap fx">
-        <!-- Study A, "the Bearing". Hairline bezel, one needle, three bearing
-             marks on the rim. Nothing is filled but the needle itself, and
-             there is no drop shadow or glow: the rest of this page draws in
-             hairlines, and the mark now draws in the same pen. The three
-             icons it used to carry (mortarboard / star / wave) were three
-             different idioms around one small mark and are gone; the bearing
-             marks and the degree readouts carry the axes instead.
-             The motion is the needle settling onto its bearing rather than a
-             decorative float - keyed off .hero.lit with the rest of the
-             entrance, then breathing once it lands. -->
-        <svg class="compass-hero" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A compass with three bearings, Academics, Athletics and Activities, its needle settled on Academics">
-          <circle class="cm-ring" cx="150" cy="158" r="104" stroke-width="1.2" opacity=".85"/>
-          <circle class="cm-ring" cx="150" cy="158" r="95" stroke-width="8" stroke-dasharray="1.1 7.19" opacity=".3"/>
-          <circle class="cm-ring" cx="150" cy="158" r="86" stroke-width=".8" opacity=".3"/>
-          <g stroke="#C9A13B" stroke-width="2.2" stroke-linecap="round">
-            <line x1="150" y1="74" x2="150" y2="54"/>
-            <line x1="222.7" y1="200" x2="240.1" y2="210"/>
-            <line x1="77.3" y1="200" x2="59.9" y2="210"/>
+        <!-- The hero mark. Study B's structure - three bearings of different
+             lengths with a fit triangle through the tips - carrying Study A's
+             motion: the rose swings past its bearing and damps onto it, then
+             breathes. Three bearings and not one because this hero advertises
+             the full Compass; the free calculator reads a single axis, and the
+             comparison block below draws that difference honestly.
+
+             What is deliberately NOT here, because it is what made the old
+             mark read as a stock widget: filled two-tone facets, the chart
+             blue #2C5688, the mortarboard / star / wave icons, white labels,
+             a CSS drop shadow and a decorative vertical float. Richness comes
+             from the engraved double bezel, the tick scale and a gold that
+             brightens toward the tips - not from a fake light source. -->
+        <svg class="compass-hero" viewBox="0 0 300 318" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A compass reading three bearings - Academics, Athletics and Activities - of different lengths, their tips joined by a fit triangle">
+          <defs>
+            <radialGradient id="cm-halo" gradientUnits="userSpaceOnUse" cx="150" cy="158" r="128">
+              <stop offset="0" stop-color="#C9A13B" stop-opacity=".17"/>
+              <stop offset=".55" stop-color="#C9A13B" stop-opacity=".07"/>
+              <stop offset="1" stop-color="#C9A13B" stop-opacity="0"/>
+            </radialGradient>
+            <!-- Luminance, not a bevel: one radial ramp from the hub outward,
+                 so every needle brightens toward its tip in the same direction.
+                 The old mark lit each blade from the side, which is what read
+                 as moulded plastic. -->
+            <radialGradient id="cm-lance" gradientUnits="userSpaceOnUse" cx="150" cy="158" r="95">
+              <stop offset="0" stop-color="#B8912F"/>
+              <stop offset="1" stop-color="#E8CE87"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="150" cy="158" r="128" fill="url(#cm-halo)"/>
+
+          <g class="cm-bezel">
+            <circle class="cm-ring" cx="150" cy="158" r="112" stroke-width="1.1" opacity=".85"/>
+            <circle class="cm-ring" cx="150" cy="158" r="108" stroke-width="5" stroke-dasharray="1.3 12.84" opacity=".42"/>
+            <circle class="cm-ring" cx="150" cy="158" r="104" stroke-width="1.1" opacity=".85"/>
           </g>
-          <g class="cm-needle">
-            <path d="M150 158 L152.6 184 L150 206 L147.4 184 Z" fill="#F7F5EF" opacity=".34"/>
-            <path d="M150 80 L154.2 150 L150 158 L145.8 150 Z" fill="#C9A13B"/>
+
+          <circle class="cm-ring" cx="150" cy="158" r="94" stroke-width=".8" opacity=".3"/>
+
+          <g stroke="#C9A13B" stroke-width="2.6" stroke-linecap="round">
+            <line x1="150" y1="64" x2="150" y2="46"/>
+            <line x1="231.4" y1="205" x2="247" y2="214"/>
+            <line x1="68.6" y1="205" x2="53" y2="214"/>
           </g>
-          <circle cx="150" cy="158" r="8" fill="#0A1E38" stroke="#C9A13B" stroke-width="1.2"/>
-          <circle cx="150" cy="158" r="1.9" fill="#C9A13B"/>
+
+          <g class="cm-rose">
+            <g class="cm-web">
+              <path d="M150 70 L214.1 195 L96.3 189 Z" fill="none" stroke="#C9A13B" stroke-width="1" stroke-opacity=".5"/>
+            </g>
+            <path d="M150 70 L154.9 144.8 L150 158 L145.1 144.8 Z" fill="url(#cm-lance)"/>
+            <path d="M214.1 195 L157.2 167.8 L150 158 L162.1 159.4 Z" fill="url(#cm-lance)"/>
+            <path d="M96.3 189 L139.5 158.5 L150 158 L144.4 166.9 Z" fill="url(#cm-lance)"/>
+          </g>
+
+          <circle cx="150" cy="158" r="9" fill="#0A1E38" stroke="#C9A13B" stroke-width="1.3"/>
+          <circle cx="150" cy="158" r="2.1" fill="#C9A13B"/>
+
           <text class="cm-label" x="150" y="26" text-anchor="middle">ACADEMICS</text>
-          <text class="cm-deg" x="150" y="40" text-anchor="middle">000&#176;</text>
-          <text class="cm-label" x="256" y="288" text-anchor="end">ATHLETICS</text>
-          <text class="cm-deg" x="256" y="302" text-anchor="end">120&#176;</text>
-          <text class="cm-label" x="44" y="288" text-anchor="start">ACTIVITIES</text>
-          <text class="cm-deg" x="44" y="302" text-anchor="start">240&#176;</text>
+          <text class="cm-label" x="256" y="298" text-anchor="end">ATHLETICS</text>
+          <text class="cm-label" x="44" y="298" text-anchor="start">ACTIVITIES</text>
         </svg>
       </div>
 
@@ -534,18 +564,25 @@ import model from '../data/academic-model.json';
   .hero-bg .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,161,59,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,161,59,0.05) 1px,transparent 1px);background-size:62px 62px;mask-image:radial-gradient(circle at 50% 42%,black,transparent 74%);-webkit-mask-image:radial-gradient(circle at 50% 42%,black,transparent 74%)}
   .hero .wrap{position:relative;z-index:2}
   .hero-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
-  .compass-wrap{position:relative;margin:26px 0 30px}
-  .compass-hero{position:relative;z-index:1;width:min(320px,76vw);height:auto;display:block}
+  .compass-wrap{position:relative;margin:22px 0 28px}
+  .compass-hero{position:relative;z-index:1;width:min(348px,80vw);height:auto;display:block}
   .cm-ring{stroke:#C9A13B;fill:none}
-  .cm-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2.4px;fill:#C9A13B}
-  .cm-deg{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.4px;fill:#8FA0B3}
-  /* The needle swings in past its bearing and damps onto it, the way a real
-     one does, then breathes so the mark is never quite static. Held off the
-     bearing until .hero.lit so the swing is not missed on a slow load. */
-  .cm-needle{transform-box:view-box;transform-origin:150px 158px;transform:rotate(-62deg)}
-  .hero.lit .cm-needle{animation:cm-settle 1.9s cubic-bezier(.16,.84,.34,1) .3s both,cm-breathe 8s ease-in-out 2.2s infinite}
+  .cm-label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:2.6px;fill:#C9A13B}
+  /* Three layers of motion, each doing a different job. The rose swings past
+     its bearing and damps onto it, then breathes so the mark is never static.
+     The bezel drifts on its own, far slower, which is what gives the mark
+     depth without a second thing competing for attention. The fit triangle is
+     drawn last, once the needles have landed. */
+  .cm-bezel{transform-box:view-box;transform-origin:150px 158px}
+  .cm-rose{transform-box:view-box;transform-origin:150px 158px;transform:rotate(-62deg)}
+  .cm-web{opacity:0}
+  .hero.lit .cm-rose{animation:cm-settle 1.9s cubic-bezier(.16,.84,.34,1) .3s both,cm-breathe 8s ease-in-out 2.2s infinite}
+  .hero.lit .cm-bezel{animation:cm-drift 18s ease-in-out .3s infinite}
+  .hero.lit .cm-web{animation:cm-webin .9s ease 1.55s both}
   @keyframes cm-settle{0%{transform:rotate(-62deg)}44%{transform:rotate(9deg)}66%{transform:rotate(-3.6deg)}84%{transform:rotate(1.4deg)}100%{transform:rotate(0)}}
   @keyframes cm-breathe{0%,100%{transform:rotate(-1.1deg)}50%{transform:rotate(1.1deg)}}
+  @keyframes cm-drift{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg)}}
+  @keyframes cm-webin{from{opacity:0}to{opacity:1}}
   .hero .eyebrow{display:inline-flex;align-items:center;gap:9px;margin-bottom:16px}
   .hero .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2.6s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,161,59,.55)}70%{box-shadow:0 0 0 9px rgba(201,161,59,0)}100%{box-shadow:0 0 0 0 rgba(201,161,59,0)}}
@@ -1121,7 +1158,7 @@ import model from '../data/academic-model.json';
     .reveal,.fx{opacity:1!important;transform:none!important;transition:none!important}
     .g-fill,.bar-t i{transition:none!important}
     .hero.lit h1 em::after{transform:none!important}
-    .cm-needle,.fc-lance,.fc-web{animation:none!important;transform:none!important;opacity:1!important}
+    .cm-rose,.cm-bezel,.cm-web,.fc-lance,.fc-web{animation:none!important;transform:none!important;opacity:1!important}
   }
   @media(max-width:760px){
     .s{padding:78px 0}
