@@ -62,30 +62,24 @@ const button = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
 if (form && status && button) {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
     button.disabled = true;
     button.textContent = 'Signing in...';
     status.textContent = '';
-
     const formData = new FormData(form);
     const result = await actions.signIn(formData);
-
     if (result.error) {
-      console.error('SIGN IN ERROR:', result.error);
       status.textContent = result.error.message || 'Sign in failed';
       button.disabled = false;
       button.textContent = 'Sign In';
       return;
     }
-
     if (!result.data?.success) {
       status.textContent = result.data?.message || 'Sign in failed';
       button.disabled = false;
       button.textContent = 'Sign In';
       return;
     }
-
-    window.location.href = '/portal';
+    window.location.href = result.data.redirectTo || '/portal';
   });
 }
 </script>
