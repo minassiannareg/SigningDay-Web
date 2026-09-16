@@ -10,7 +10,9 @@ const { data: { user } } = await supabase.auth.getUser();
 
 if (!user) return Astro.redirect('/login');
 
-const { data: adminProfile } = await supabase.from('profiles').select('is_admin').eq('id', user.id).maybeSingle();
+const { data: adminProfile, error: adminProfileError } = await supabase.from('profiles').select('is_admin').eq('id', user.id).maybeSingle();
+
+if (adminProfileError) console.error('ADMIN PROFILE ERROR:', adminProfileError);
 
 if (!adminProfile?.is_admin) return Astro.redirect('/portal');
 
@@ -37,6 +39,22 @@ for (const item of timelines ?? []) {
   existing.push(item);
   timelineByUser.set(item.user_id, existing);
 }
+
+const categoryLabel = (category?: string | null) => {
+  const labels: Record<string, string> = {
+    'compass': 'SDA Compass',
+    'recruiting-timeline': 'Recruiting Timeline',
+    'training-plan': 'Training Plan',
+    'nutrition-pamphlet': 'Nutrition Pamphlet',
+    'essay-help': 'Essay Help',
+    'general-info': 'General Info',
+    'network': 'Network',
+    'other': 'Other',
+    'client-upload': 'Uploaded by Client',
+  };
+
+  return category ? labels[category.toLowerCase()] ?? category : 'General';
+};
 
 const documentsByUser = new Map<string, any[]>();
 
@@ -70,14 +88,13 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
 
     <div class="create-client-card">
       <div class="create-client-heading">
-        <div>
-          <span class="section-kicker">New Client</span>
-          <h2>Create Client Account</h2>
-          <p>Create the athlete's portal and send them an invitation to set their password.</p>
-        </div>
+        <span class="section-kicker">New Client</span>
+        <h2>Create Client Account</h2>
+        <p>Create an athlete's portal and send them an invitation to set their password.</p>
       </div>
 
       <div class="create-client-grid">
+
         <div class="admin-field">
           <label>Athlete Name *</label>
           <input id="new-athlete-name" type="text" placeholder="Athlete name" />
@@ -122,6 +139,7 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
           <label>Monthly Advisory</label>
           <label class="toggle-row"><input id="new-monthly-subscription" type="checkbox" /><span>Client has Monthly Advisory</span></label>
         </div>
+
       </div>
 
       <div class="create-client-actions">
@@ -146,199 +164,221 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
         const clientNote = notesByUser.get(client.id);
 
         return (
-          <div class="client-card" data-client-id={client.id}>
+          <details class="client-card" data-client-id={client.id}>
 
-            <div class="client-card-header">
-              <div>
+            <summary class="client-summary">
+              <div class="client-summary-info">
                 <span class="client-label">Athlete</span>
                 <h3>{client.athlete_name ?? 'Unnamed Client'}</h3>
               </div>
-              <span class="package-badge">{client.package ?? 'No Package'}</span>
-            </div>
 
-            <div class="admin-section-title">Profile Information</div>
-
-            <div class="admin-form-grid">
-
-              <div class="admin-field">
-                <label>Athlete Name</label>
-                <input data-field="athlete_name" type="text" value={client.athlete_name ?? ''} />
+              <div class="client-summary-right">
+                <span class="package-badge">{client.package ?? 'No Package'}</span>
+                <span class="client-arrow">⌄</span>
               </div>
+            </summary>
 
-              <div class="admin-field">
-                <label>Graduation Year</label>
-                <input data-field="graduation_year" type="number" value={client.graduation_year ?? ''} />
-              </div>
+            <div class="client-details">
 
-              <div class="admin-field">
-                <label>Package</label>
-                <select data-field="package">
-                  <option value="">Select package</option>
-                  <option value="SDA Compass" selected={client.package === 'SDA Compass'}>SDA Compass</option>
-                  <option value="Base" selected={client.package === 'Base'}>Base</option>
-                  <option value="Premium" selected={client.package === 'Premium'}>Premium</option>
-                </select>
-              </div>
+              <div class="admin-section-title">Profile Information</div>
 
-              <div class="admin-field">
-                <label>Best Events</label>
-                <input data-field="best_events" type="text" value={client.best_events ?? ''} />
-              </div>
+              <div class="admin-form-grid">
 
-              <div class="admin-field">
-                <label>Current School</label>
-                <input data-field="current_school" type="text" value={client.current_school ?? ''} />
-              </div>
-
-              <div class="admin-field">
-                <label>Current Team</label>
-                <input data-field="current_team" type="text" value={client.current_team ?? ''} />
-              </div>
-
-              <div class="admin-field">
-                <label>Monthly Advisory</label>
-                <label class="toggle-row"><input data-field="monthly_subscription" type="checkbox" checked={client.monthly_subscription ?? false} /><span>Client has Monthly Advisory</span></label>
-              </div>
-
-              <div class="admin-field">
-                <label>Subscription Status</label>
-                <select data-field="subscription_status">
-                  <option value="">Not applicable</option>
-                  <option value="active" selected={client.subscription_status === 'active'}>Active</option>
-                  <option value="past_due" selected={client.subscription_status === 'past_due'}>Past Due</option>
-                  <option value="canceled" selected={client.subscription_status === 'canceled'}>Canceled</option>
-                </select>
-              </div>
-
-              <div class="admin-field">
-                <label>Next Session</label>
-                <input data-field="next_session_at" type="datetime-local" value={client.next_session_at ? new Date(client.next_session_at).toISOString().slice(0,16) : ''} />
-              </div>
-
-              <div class="admin-field">
-                <label>Meeting Link</label>
-                <input data-field="next_session_link" type="url" value={client.next_session_link ?? ''} placeholder="https://..." />
-              </div>
-
-            </div>
-
-            <div class="client-actions">
-              <button class="save-client-button" type="button">Save Profile Changes</button>
-              <span class="save-status"></span>
-            </div>
-
-            <div class="admin-subsection">
-              <div class="admin-section-heading">
-                <div>
-                  <span class="admin-section-kicker">Recruiting Journey</span>
-                  <h4>Recruiting Timeline</h4>
-                </div>
-                <span class="timeline-count">{clientTimeline.filter((item) => item.completed).length} of {clientTimeline.length} complete</span>
-              </div>
-
-              <div class="admin-timeline-list">
-                {clientTimeline.length > 0 ? clientTimeline.map((item) => (
-                  <div class="admin-timeline-row" data-timeline-id={item.id}>
-                    <input class="admin-timeline-checkbox" type="checkbox" checked={item.completed} />
-                    <input class="admin-timeline-title" type="text" value={item.title} />
-                    <span class="timeline-row-status"></span>
-                    <button class="delete-timeline-button" type="button">Delete</button>
-                  </div>
-                )) : <p class="empty-admin-message">No timeline milestones have been added yet.</p>}
-              </div>
-
-              <div class="add-timeline-row">
-                <input class="new-timeline-input" type="text" placeholder="Add a new milestone..." />
-                <button class="add-timeline-button" type="button">Add Milestone</button>
-              </div>
-
-              <p class="timeline-admin-status"></p>
-            </div>
-
-            <div class="admin-subsection">
-              <div class="admin-section-heading">
-                <div>
-                  <span class="admin-section-kicker">Files</span>
-                  <h4>Compass & Client Resources</h4>
-                </div>
-                <span class="document-count">{clientDocuments.length} {clientDocuments.length === 1 ? 'file' : 'files'}</span>
-              </div>
-
-              <div class="admin-document-list">
-                {clientDocuments.length > 0 ? clientDocuments.map((doc) => (
-                  <div class="admin-document-row" data-document-id={doc.id} data-storage-path={doc.storage_path}>
-                    <div class="document-info">
-                      <span class="document-type">{doc.category?.toLowerCase() === 'compass' ? 'Compass' : 'Resource'}</span>
-                      <div>
-                        <h5>{doc.title}</h5>
-                        <p>{doc.category ?? 'General'}</p>
-                      </div>
-                    </div>
-                    <div class="document-actions">
-                      {doc.signedUrl && <a class="view-document-button" href={doc.signedUrl} target="_blank" rel="noopener noreferrer">View</a>}
-                      <button class="delete-document-button" type="button">Delete</button>
-                    </div>
-                  </div>
-                )) : <p class="empty-admin-message">No files have been uploaded for this client yet.</p>}
-              </div>
-
-              <div class="upload-panel">
                 <div class="admin-field">
-                  <label>Document Title</label>
-                  <input class="upload-title" type="text" placeholder="e.g. SDA Compass" />
+                  <label>Athlete Name</label>
+                  <input data-field="athlete_name" type="text" value={client.athlete_name ?? ''} />
                 </div>
 
                 <div class="admin-field">
-                  <label>Category</label>
-                  <select class="upload-category">
-                    <option value="compass">SDA Compass</option>
-                    <option value="recruiting">Recruiting</option>
-                    <option value="academic">Academic</option>
-                    <option value="training">Training</option>
-                    <option value="nutrition">Nutrition</option>
-                    <option value="essay">Essay</option>
-                    <option value="general">General</option>
+                  <label>Graduation Year</label>
+                  <input data-field="graduation_year" type="number" value={client.graduation_year ?? ''} />
+                </div>
+
+                <div class="admin-field">
+                  <label>Package</label>
+                  <select data-field="package">
+                    <option value="">Select package</option>
+                    <option value="SDA Compass" selected={client.package === 'SDA Compass'}>SDA Compass</option>
+                    <option value="Base" selected={client.package === 'Base'}>Base</option>
+                    <option value="Premium" selected={client.package === 'Premium'}>Premium</option>
                   </select>
                 </div>
 
                 <div class="admin-field">
-                  <label>PDF File</label>
-                  <input class="upload-file" type="file" accept=".pdf,application/pdf" />
+                  <label>Best Events</label>
+                  <input data-field="best_events" type="text" value={client.best_events ?? ''} />
                 </div>
 
-                <div class="upload-actions">
-                  <button class="upload-document-button" type="button">Upload Document</button>
-                  <span class="upload-status"></span>
+                <div class="admin-field">
+                  <label>Current School</label>
+                  <input data-field="current_school" type="text" value={client.current_school ?? ''} />
                 </div>
+
+                <div class="admin-field">
+                  <label>Current Team</label>
+                  <input data-field="current_team" type="text" value={client.current_team ?? ''} />
+                </div>
+
+                <div class="admin-field">
+                  <label>Monthly Advisory</label>
+                  <label class="toggle-row"><input data-field="monthly_subscription" type="checkbox" checked={client.monthly_subscription ?? false} /><span>Client has Monthly Advisory</span></label>
+                </div>
+
+                <div class="admin-field">
+                  <label>Subscription Status</label>
+                  <select data-field="subscription_status">
+                    <option value="">Not applicable</option>
+                    <option value="active" selected={client.subscription_status === 'active'}>Active</option>
+                    <option value="past_due" selected={client.subscription_status === 'past_due'}>Past Due</option>
+                    <option value="canceled" selected={client.subscription_status === 'canceled'}>Canceled</option>
+                  </select>
+                </div>
+
+                <div class="admin-field">
+                  <label>Next Session</label>
+                  <input data-field="next_session_at" type="datetime-local" value={client.next_session_at ? new Date(client.next_session_at).toISOString().slice(0,16) : ''} />
+                </div>
+
+                <div class="admin-field">
+                  <label>Meeting Link</label>
+                  <input data-field="next_session_link" type="url" value={client.next_session_link ?? ''} placeholder="https://..." />
+                </div>
+
               </div>
+
+              <div class="client-actions">
+                <button class="save-client-button" type="button">Save Profile Changes</button>
+                <span class="save-status"></span>
+              </div>
+
+              <div class="admin-subsection">
+
+                <div class="admin-section-heading">
+                  <div>
+                    <span class="admin-section-kicker">Recruiting Journey</span>
+                    <h4>Recruiting Timeline</h4>
+                  </div>
+                  <span class="timeline-count">{clientTimeline.filter((item) => item.completed).length} of {clientTimeline.length} complete</span>
+                </div>
+
+                <div class="admin-timeline-list">
+                  {clientTimeline.length > 0 ? clientTimeline.map((item) => (
+                    <div class="admin-timeline-row" data-timeline-id={item.id}>
+                      <input class="admin-timeline-checkbox" type="checkbox" checked={item.completed} />
+                      <input class="admin-timeline-title" type="text" value={item.title} />
+                      <span class="timeline-row-status"></span>
+                      <button class="delete-timeline-button" type="button">Delete</button>
+                    </div>
+                  )) : <p class="empty-admin-message">No timeline milestones have been added yet.</p>}
+                </div>
+
+                <div class="add-timeline-row">
+                  <input class="new-timeline-input" type="text" placeholder="Add a new milestone..." />
+                  <button class="add-timeline-button" type="button">Add Milestone</button>
+                </div>
+
+                <p class="timeline-admin-status"></p>
+
+              </div>
+
+              <div class="admin-subsection">
+
+                <div class="admin-section-heading">
+                  <div>
+                    <span class="admin-section-kicker">Files</span>
+                    <h4>Compass & Client Resources</h4>
+                  </div>
+                  <span class="document-count">{clientDocuments.length} {clientDocuments.length === 1 ? 'file' : 'files'}</span>
+                </div>
+
+                <div class="admin-document-list">
+
+                  {clientDocuments.length > 0 ? clientDocuments.map((doc) => (
+                    <div class="admin-document-row" data-document-id={doc.id} data-storage-path={doc.storage_path}>
+                      <div class="document-info">
+                        <span class="document-type">{doc.category?.toLowerCase() === 'compass' ? 'Compass' : doc.category?.toLowerCase() === 'client-upload' ? 'Client' : 'Resource'}</span>
+
+                        <div>
+                          <h5>{doc.title}</h5>
+                          <p>{categoryLabel(doc.category)}</p>
+                        </div>
+                      </div>
+
+                      <div class="document-actions">
+                        {doc.signedUrl && <a class="view-document-button" href={doc.signedUrl} target="_blank" rel="noopener noreferrer">View</a>}
+                        <button class="delete-document-button" type="button">Delete</button>
+                      </div>
+                    </div>
+                  )) : <p class="empty-admin-message">No files have been uploaded for this client yet.</p>}
+
+                </div>
+
+                <div class="upload-panel">
+
+                  <div class="admin-field">
+                    <label>Document Title</label>
+                    <input class="upload-title" type="text" placeholder="e.g. SDA Compass" />
+                  </div>
+
+                  <div class="admin-field">
+                    <label>Category</label>
+                    <select class="upload-category">
+                      <option value="compass">SDA Compass</option>
+                      <option value="recruiting-timeline">Recruiting Timeline</option>
+                      <option value="training-plan">Training Plan</option>
+                      <option value="nutrition-pamphlet">Nutrition Pamphlet</option>
+                      <option value="essay-help">Essay Help</option>
+                      <option value="general-info">General Info</option>
+                      <option value="network">Network</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div class="admin-field">
+                    <label>PDF File</label>
+                    <input class="upload-file" type="file" accept=".pdf,application/pdf" />
+                  </div>
+
+                  <div class="upload-actions">
+                    <button class="upload-document-button" type="button">Upload Document</button>
+                    <span class="upload-status"></span>
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="admin-subsection">
+
+                <div class="admin-section-heading">
+                  <div>
+                    <span class="admin-section-kicker">Client Workspace</span>
+                    <h4>Client Notes</h4>
+                  </div>
+                  <span class="read-only-badge">Read Only</span>
+                </div>
+
+                {clientNote?.note_text ? (
+                  <div class="client-note-box">
+                    <p>{clientNote.note_text}</p>
+                    {clientNote.updated_at && <span class="note-updated">Last updated {new Date(clientNote.updated_at).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>}
+                  </div>
+                ) : (
+                  <div class="client-note-box empty-note">
+                    <p>This client has not added any notes yet.</p>
+                  </div>
+                )}
+
+              </div>
+
             </div>
 
-            <div class="admin-subsection">
-              <div class="admin-section-heading">
-                <div>
-                  <span class="admin-section-kicker">Client Workspace</span>
-                  <h4>Client Notes</h4>
-                </div>
-                <span class="read-only-badge">Read Only</span>
-              </div>
-
-              {clientNote?.note_text ? (
-                <div class="client-note-box">
-                  <p>{clientNote.note_text}</p>
-                  {clientNote.updated_at && <span class="note-updated">Last updated {new Date(clientNote.updated_at).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>}
-                </div>
-              ) : (
-                <div class="client-note-box empty-note">
-                  <p>This client has not added any notes yet.</p>
-                </div>
-              )}
-            </div>
-
-          </div>
+          </details>
         );
       })}
 
     </div>
+
   </div>
 </section>
 
@@ -363,14 +403,31 @@ createClientButton?.addEventListener('click', async () => {
   const currentTeam = document.querySelector<HTMLInputElement>('#new-current-team');
   const monthlySubscription = document.querySelector<HTMLInputElement>('#new-monthly-subscription');
 
-  if (!athleteName?.value.trim()) { if (createClientStatus) createClientStatus.textContent = 'Enter the athlete name.'; return; }
-  if (!email?.value.trim()) { if (createClientStatus) createClientStatus.textContent = 'Enter an email address.'; return; }
+  if (!athleteName?.value.trim()) {
+    if (createClientStatus) createClientStatus.textContent = 'Enter the athlete name.';
+    return;
+  }
+
+  if (!email?.value.trim()) {
+    if (createClientStatus) createClientStatus.textContent = 'Enter an email address.';
+    return;
+  }
 
   createClientButton.disabled = true;
   createClientButton.textContent = 'Creating...';
+
   if (createClientStatus) createClientStatus.textContent = '';
 
-  const result = await actions.createClient({ email: email.value.trim(), athleteName: athleteName.value.trim(), graduationYear: graduationYear?.value ? Number(graduationYear.value) : undefined, package: packageInput?.value ? packageInput.value as 'SDA Compass' | 'Base' | 'Premium' : undefined, bestEvents: bestEvents?.value.trim() || undefined, currentSchool: currentSchool?.value.trim() || undefined, currentTeam: currentTeam?.value.trim() || undefined, monthlySubscription: monthlySubscription?.checked ?? false });
+  const result = await actions.createClient({
+    email: email.value.trim(),
+    athleteName: athleteName.value.trim(),
+    graduationYear: graduationYear?.value ? Number(graduationYear.value) : undefined,
+    package: packageInput?.value ? packageInput.value as 'SDA Compass' | 'Base' | 'Premium' : undefined,
+    bestEvents: bestEvents?.value.trim() || undefined,
+    currentSchool: currentSchool?.value.trim() || undefined,
+    currentTeam: currentTeam?.value.trim() || undefined,
+    monthlySubscription: monthlySubscription?.checked ?? false,
+  });
 
   if (result.error) {
     createClientButton.disabled = false;
@@ -388,11 +445,15 @@ createClientButton?.addEventListener('click', async () => {
   }
 
   if (createClientStatus) createClientStatus.textContent = result.data.message;
-  window.setTimeout(() => { window.location.reload(); }, 1200);
+
+  window.setTimeout(() => {
+    window.location.reload();
+  }, 1200);
 });
 
 document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
   const clientId = card.dataset.clientId;
+
   if (!clientId) return;
 
   const saveButton = card.querySelector<HTMLButtonElement>('.save-client-button');
@@ -405,6 +466,7 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
       saveStatus.textContent = '';
 
       const getInput = (field: string) => card.querySelector<HTMLInputElement | HTMLSelectElement>(`[data-field="${field}"]`);
+
       const athleteName = getInput('athlete_name');
       const graduationYear = getInput('graduation_year');
       const packageInput = getInput('package');
@@ -416,17 +478,35 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
       const nextSessionAt = getInput('next_session_at');
       const nextSessionLink = getInput('next_session_link');
 
-      const updates = { athlete_name: athleteName?.value || null, graduation_year: graduationYear?.value ? Number(graduationYear.value) : null, package: packageInput?.value || null, best_events: bestEvents?.value || null, current_school: currentSchool?.value || null, current_team: currentTeam?.value || null, monthly_subscription: monthlySubscription?.checked ?? false, subscription_status: subscriptionStatus?.value || null, next_session_at: nextSessionAt?.value ? new Date(nextSessionAt.value).toISOString() : null, next_session_link: nextSessionLink?.value || null };
+      const updates = {
+        athlete_name: athleteName?.value || null,
+        graduation_year: graduationYear?.value ? Number(graduationYear.value) : null,
+        package: packageInput?.value || null,
+        best_events: bestEvents?.value || null,
+        current_school: currentSchool?.value || null,
+        current_team: currentTeam?.value || null,
+        monthly_subscription: monthlySubscription?.checked ?? false,
+        subscription_status: subscriptionStatus?.value || null,
+        next_session_at: nextSessionAt?.value ? new Date(nextSessionAt.value).toISOString() : null,
+        next_session_link: nextSessionLink?.value || null,
+      };
 
       const { error } = await supabase.from('profiles').update(updates).eq('id', clientId);
 
       saveButton.disabled = false;
       saveButton.textContent = 'Save Profile Changes';
 
-      if (error) { saveStatus.textContent = 'Could not save'; console.error('ADMIN SAVE ERROR:', error); return; }
+      if (error) {
+        saveStatus.textContent = 'Could not save';
+        console.error('ADMIN SAVE ERROR:', error);
+        return;
+      }
 
       saveStatus.textContent = 'Saved';
-      window.setTimeout(() => { if (saveStatus.textContent === 'Saved') saveStatus.textContent = ''; }, 1800);
+
+      window.setTimeout(() => {
+        if (saveStatus.textContent === 'Saved') saveStatus.textContent = '';
+      }, 1800);
     });
   }
 
@@ -436,6 +516,7 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
   const updateTimelineCount = () => {
     const checkboxes = card.querySelectorAll<HTMLInputElement>('.admin-timeline-checkbox');
     const completed = card.querySelectorAll<HTMLInputElement>('.admin-timeline-checkbox:checked').length;
+
     if (timelineCount) timelineCount.textContent = `${completed} of ${checkboxes.length} complete`;
   };
 
@@ -450,34 +531,75 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
 
     checkbox?.addEventListener('change', async () => {
       checkbox.disabled = true;
+
       if (rowStatus) rowStatus.textContent = 'Saving...';
+
       const { error } = await supabase.from('client_timeline').update({ completed: checkbox.checked }).eq('id', timelineId);
+
       checkbox.disabled = false;
-      if (error) { checkbox.checked = !checkbox.checked; if (rowStatus) rowStatus.textContent = 'Error'; return; }
+
+      if (error) {
+        checkbox.checked = !checkbox.checked;
+        if (rowStatus) rowStatus.textContent = 'Error';
+        console.error('TIMELINE UPDATE ERROR:', error);
+        return;
+      }
+
       if (rowStatus) rowStatus.textContent = 'Saved';
+
       updateTimelineCount();
-      window.setTimeout(() => { if (rowStatus?.textContent === 'Saved') rowStatus.textContent = ''; }, 1200);
+
+      window.setTimeout(() => {
+        if (rowStatus?.textContent === 'Saved') rowStatus.textContent = '';
+      }, 1200);
     });
 
     titleInput?.addEventListener('change', async () => {
       if (!titleInput.value.trim()) return;
+
       titleInput.disabled = true;
+
       if (rowStatus) rowStatus.textContent = 'Saving...';
+
       const { error } = await supabase.from('client_timeline').update({ title: titleInput.value.trim() }).eq('id', timelineId);
+
       titleInput.disabled = false;
-      if (error) { if (rowStatus) rowStatus.textContent = 'Error'; return; }
+
+      if (error) {
+        if (rowStatus) rowStatus.textContent = 'Error';
+        console.error('TIMELINE TITLE ERROR:', error);
+        return;
+      }
+
       if (rowStatus) rowStatus.textContent = 'Saved';
-      window.setTimeout(() => { if (rowStatus?.textContent === 'Saved') rowStatus.textContent = ''; }, 1200);
+
+      window.setTimeout(() => {
+        if (rowStatus?.textContent === 'Saved') rowStatus.textContent = '';
+      }, 1200);
     });
 
     deleteButton?.addEventListener('click', async () => {
       if (!window.confirm('Delete this timeline milestone?')) return;
+
       deleteButton.disabled = true;
       deleteButton.textContent = 'Deleting...';
+
       const { error } = await supabase.from('client_timeline').delete().eq('id', timelineId);
-      if (error) { deleteButton.disabled = false; deleteButton.textContent = 'Delete'; if (timelineStatus) timelineStatus.textContent = 'Could not delete milestone.'; return; }
+
+      if (error) {
+        deleteButton.disabled = false;
+        deleteButton.textContent = 'Delete';
+
+        if (timelineStatus) timelineStatus.textContent = 'Could not delete milestone.';
+
+        console.error('TIMELINE DELETE ERROR:', error);
+
+        return;
+      }
+
       row.remove();
       updateTimelineCount();
+
       if (timelineStatus) timelineStatus.textContent = 'Milestone deleted.';
     });
   });
@@ -487,24 +609,38 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
 
   addTimelineButton?.addEventListener('click', async () => {
     const title = newTimelineInput?.value.trim();
+
     if (!title) return;
 
     addTimelineButton.disabled = true;
     addTimelineButton.textContent = 'Adding...';
 
     const existingRows = card.querySelectorAll('.admin-timeline-row').length;
-    const { error } = await supabase.from('client_timeline').insert({ user_id: clientId, title, completed: false, sort_order: existingRows + 1 });
+
+    const { error } = await supabase.from('client_timeline').insert({
+      user_id: clientId,
+      title,
+      completed: false,
+      sort_order: existingRows + 1,
+    });
 
     addTimelineButton.disabled = false;
     addTimelineButton.textContent = 'Add Milestone';
 
-    if (error) { if (timelineStatus) timelineStatus.textContent = 'Could not add milestone.'; return; }
+    if (error) {
+      if (timelineStatus) timelineStatus.textContent = 'Could not add milestone.';
+      console.error('TIMELINE INSERT ERROR:', error);
+      return;
+    }
 
     if (newTimelineInput) newTimelineInput.value = '';
+
     window.location.reload();
   });
 
-  newTimelineInput?.addEventListener('keydown', (event) => { if (event.key === 'Enter') addTimelineButton?.click(); });
+  newTimelineInput?.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') addTimelineButton?.click();
+  });
 
   card.querySelectorAll<HTMLElement>('.admin-document-row').forEach((row) => {
     const documentId = row.dataset.documentId;
@@ -521,11 +657,23 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
 
       const { error: storageError } = await supabase.storage.from('client-files').remove([storagePath]);
 
-      if (storageError) { deleteButton.disabled = false; deleteButton.textContent = 'Delete'; alert('Could not delete file from storage.'); return; }
+      if (storageError) {
+        deleteButton.disabled = false;
+        deleteButton.textContent = 'Delete';
+        alert('Could not delete file from storage.');
+        console.error('ADMIN STORAGE DELETE ERROR:', storageError);
+        return;
+      }
 
       const { error: databaseError } = await supabase.from('client_documents').delete().eq('id', documentId);
 
-      if (databaseError) { deleteButton.disabled = false; deleteButton.textContent = 'Delete'; alert('File deleted, but document record could not be removed.'); return; }
+      if (databaseError) {
+        deleteButton.disabled = false;
+        deleteButton.textContent = 'Delete';
+        alert('File deleted, but document record could not be removed.');
+        console.error('ADMIN DOCUMENT DELETE ERROR:', databaseError);
+        return;
+      }
 
       row.remove();
     });
@@ -542,9 +690,20 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
     const category = uploadCategory?.value;
     const file = uploadFile?.files?.[0];
 
-    if (!title) { if (uploadStatus) uploadStatus.textContent = 'Enter a title.'; return; }
-    if (!file) { if (uploadStatus) uploadStatus.textContent = 'Choose a PDF.'; return; }
-    if (file.type !== 'application/pdf') { if (uploadStatus) uploadStatus.textContent = 'PDF files only.'; return; }
+    if (!title) {
+      if (uploadStatus) uploadStatus.textContent = 'Enter a title.';
+      return;
+    }
+
+    if (!file) {
+      if (uploadStatus) uploadStatus.textContent = 'Choose a PDF.';
+      return;
+    }
+
+    if (file.type !== 'application/pdf') {
+      if (uploadStatus) uploadStatus.textContent = 'PDF files only.';
+      return;
+    }
 
     uploadButton.disabled = true;
     uploadButton.textContent = 'Uploading...';
@@ -553,16 +712,45 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
 
     const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, '-');
     const storagePath = `${clientId}/${Date.now()}-${safeFileName}`;
+
     const { error: uploadError } = await supabase.storage.from('client-files').upload(storagePath, file, { contentType: 'application/pdf', upsert: false });
 
-    if (uploadError) { uploadButton.disabled = false; uploadButton.textContent = 'Upload Document'; if (uploadStatus) uploadStatus.textContent = 'Upload failed.'; return; }
+    if (uploadError) {
+      uploadButton.disabled = false;
+      uploadButton.textContent = 'Upload Document';
 
-    const { error: insertError } = await supabase.from('client_documents').insert({ user_id: clientId, title, category, storage_path: storagePath });
+      if (uploadStatus) uploadStatus.textContent = 'Upload failed.';
 
-    if (insertError) { await supabase.storage.from('client-files').remove([storagePath]); uploadButton.disabled = false; uploadButton.textContent = 'Upload Document'; if (uploadStatus) uploadStatus.textContent = 'Could not save document.'; return; }
+      console.error('ADMIN FILE UPLOAD ERROR:', uploadError);
+
+      return;
+    }
+
+    const { error: insertError } = await supabase.from('client_documents').insert({
+      user_id: clientId,
+      title,
+      category,
+      storage_path: storagePath,
+    });
+
+    if (insertError) {
+      await supabase.storage.from('client-files').remove([storagePath]);
+
+      uploadButton.disabled = false;
+      uploadButton.textContent = 'Upload Document';
+
+      if (uploadStatus) uploadStatus.textContent = 'Could not save document.';
+
+      console.error('ADMIN DOCUMENT INSERT ERROR:', insertError);
+
+      return;
+    }
 
     if (uploadStatus) uploadStatus.textContent = 'Uploaded.';
-    window.setTimeout(() => { window.location.reload(); }, 600);
+
+    window.setTimeout(() => {
+      window.location.reload();
+    }, 600);
   });
 });
 
@@ -590,67 +778,141 @@ adminLogoutButton?.addEventListener('click', async () => {
 .admin-hero .eyebrow{display:block;margin-bottom:16px}
 .admin-hero h1{font-size:clamp(44px,6vw,64px);margin:0 0 16px}
 .admin-hero p{font-size:18px;color:#C7D2DE;margin:0}
-.admin-logout-button{appearance:none;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:4px;padding:11px 18px;font-family:inherit;font-size:14px;cursor:pointer}
+.admin-logout-button{appearance:none;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:4px;padding:11px 18px;font-family:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
 .admin-logout-button:hover{background:#fff;color:var(--navy)}
+.admin-logout-button:disabled{opacity:.6;cursor:default}
+
 .admin-content{background:var(--cream);padding:56px 0 100px}
+
 .create-client-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:30px;margin-bottom:50px}
 .create-client-heading{padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--line)}
 .create-client-heading h2{font-size:30px;color:var(--navy);margin:6px 0 8px}
 .create-client-heading p{color:var(--muted);margin:0}
 .create-client-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .create-client-actions{display:flex;align-items:center;gap:14px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
+
 #create-client-button{appearance:none;border:0;background:var(--gold);color:var(--navy);border-radius:4px;padding:12px 20px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
 #create-client-button:hover{background:var(--navy);color:#fff}
 #create-client-button:disabled{opacity:.6;cursor:default}
 #create-client-status{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold)}
+
 .admin-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:24px}
 .admin-heading h2{font-size:34px;color:var(--navy);margin:6px 0 0}
+
 .section-kicker,.admin-section-kicker,.client-label,.admin-section-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold)}
 .client-count,.timeline-count,.document-count{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)}
-.client-list{display:flex;flex-direction:column;gap:24px}
-.client-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:30px}
-.client-card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--line)}
-.client-card h3{font-size:28px;color:var(--navy);margin:6px 0 0}
-.package-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;background:rgba(196,155,73,.12);color:var(--gold);padding:7px 10px;border-radius:20px}
+
+.client-list{display:flex;flex-direction:column;gap:12px}
+
+.client-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:0;overflow:hidden}
+
+.client-summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;cursor:pointer;list-style:none}
+.client-summary::-webkit-details-marker{display:none}
+.client-summary::marker{display:none}
+.client-summary:hover{background:rgba(196,155,73,.05)}
+
+.client-summary-info{display:flex;flex-direction:column;gap:3px}
+.client-summary h3{font-size:22px;color:var(--navy);margin:0}
+
+.client-summary-right{display:flex;align-items:center;gap:16px}
+
+.client-arrow{display:inline-block;font-size:24px;color:var(--navy);line-height:1;transition:transform .2s ease}
+.client-card[open] .client-arrow{transform:rotate(180deg)}
+
+.client-details{padding:30px;border-top:1px solid var(--line)}
+
+.package-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:rgba(196,155,73,.12);color:var(--gold);padding:7px 10px;border-radius:20px}
+
 .admin-section-title{margin-bottom:18px}
+
 .admin-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+
 .admin-field{display:flex;flex-direction:column;gap:8px}
+
 .admin-field label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
-.admin-field input,.admin-field select{width:100%;box-sizing:border-box;background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:12px 13px;font-family:inherit;font-size:15px;color:var(--navy)}
-.admin-field input:focus,.admin-field select:focus{outline:none;border-color:var(--gold);background:#fff}
-.toggle-row{display:flex!important;align-items:center;gap:10px;background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:12px 13px;text-transform:none!important;letter-spacing:0!important;font-family:inherit!important;font-size:14px!important;color:var(--navy)!important}
-.toggle-row input{width:auto;margin:0}
+
+.admin-field input,.admin-field select{width:100%;box-sizing:border-box;background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:12px 13px;font-family:inherit;font-size:15px;color:var(--navy);min-height:45px}
+
+.admin-field select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:var(--cream);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2318314E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:42px}
+
+.admin-field input:focus,.admin-field select:focus{outline:none;border-color:var(--gold);background-color:#fff}
+
+.toggle-row{display:flex!important;align-items:center;gap:10px;background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:12px 13px;text-transform:none!important;letter-spacing:0!important;font-family:inherit!important;font-size:14px!important;color:var(--navy)!important;min-height:45px;box-sizing:border-box}
+.toggle-row input{width:auto;min-height:0;margin:0}
+
 .client-actions{display:flex;align-items:center;gap:14px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+
 .save-client-button,.add-timeline-button,.upload-document-button{appearance:none;border:0;background:var(--navy);color:#fff;border-radius:4px;padding:11px 18px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
 .save-client-button:hover,.add-timeline-button:hover,.upload-document-button:hover{background:var(--gold);color:var(--navy)}
+.save-client-button:disabled,.add-timeline-button:disabled,.upload-document-button:disabled{opacity:.6;cursor:default}
+
 .save-status,.timeline-admin-status,.upload-status,.timeline-row-status{font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.8px;color:var(--gold)}
+
 .admin-subsection{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
+
 .admin-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
 .admin-section-heading h4{font-size:24px;color:var(--navy);margin:5px 0 0}
+
 .admin-timeline-list,.admin-document-list{display:flex;flex-direction:column;gap:8px}
+
 .admin-timeline-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:11px 12px}
-.admin-timeline-checkbox{width:18px;height:18px;accent-color:var(--gold)}
+
+.admin-timeline-checkbox{width:18px;height:18px;accent-color:var(--gold);cursor:pointer}
+
 .admin-timeline-title{width:100%;box-sizing:border-box;border:0;background:transparent;font-family:inherit;font-size:15px;color:var(--navy);padding:7px}
 .admin-timeline-title:focus{outline:1px solid var(--gold);background:#fff;border-radius:3px}
+
 .delete-timeline-button,.delete-document-button{appearance:none;background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:3px;padding:7px 10px;font-family:inherit;font-size:12px;cursor:pointer}
 .delete-timeline-button:hover,.delete-document-button:hover{border-color:#a44;color:#a44;background:#fff}
+.delete-timeline-button:disabled,.delete-document-button:disabled{opacity:.5;cursor:default}
+
 .add-timeline-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:14px}
+
 .new-timeline-input{width:100%;box-sizing:border-box;background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 13px;font-family:inherit;font-size:15px;color:var(--navy)}
+.new-timeline-input:focus{outline:none;border-color:var(--gold)}
+
 .admin-document-row{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:14px 16px}
+
 .document-info{display:flex;align-items:center;gap:14px}
+
 .document-type{display:flex;align-items:center;justify-content:center;min-width:70px;height:38px;background:var(--navy);color:#fff;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase}
+
 .document-info h5{font-size:16px;color:var(--navy);margin:0 0 3px}
+
 .document-info p{font-size:12px;color:var(--muted);margin:0;text-transform:capitalize}
+
 .document-actions{display:flex;align-items:center;gap:8px}
+
 .view-document-button{background:var(--navy);color:#fff;text-decoration:none;padding:7px 11px;border-radius:3px;font-size:12px}
 .view-document-button:hover{background:var(--gold);color:var(--navy)}
+
 .upload-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px;padding-top:20px;border-top:1px solid var(--line)}
+
 .upload-actions{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+
 .read-only-badge{font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:1px;background:var(--cream);color:var(--muted);padding:6px 9px;border-radius:20px}
+
 .client-note-box{background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:20px}
+
 .client-note-box p{white-space:pre-wrap;color:var(--navy);font-size:15px;line-height:1.7;margin:0}
+
 .note-updated{display:block;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
+
 .empty-note p{color:var(--muted)}
+
 .empty-admin-message{font-size:14px;color:var(--muted);margin:0}
-@media(max-width:800px){.create-client-grid,.admin-form-grid,.upload-panel{grid-template-columns:1fr}.admin-hero-inner{flex-direction:column}.admin-heading{align-items:flex-start;flex-direction:column}.client-card-header{flex-direction:column}.admin-section-heading{align-items:flex-start;flex-direction:column}.admin-document-row{align-items:flex-start;flex-direction:column}.admin-timeline-row{grid-template-columns:auto minmax(0,1fr)}.timeline-row-status{display:none}.delete-timeline-button{grid-column:2}}
+
+@media(max-width:800px){
+  .create-client-grid,.admin-form-grid,.upload-panel{grid-template-columns:1fr}
+  .admin-hero-inner{flex-direction:column}
+  .admin-heading{align-items:flex-start;flex-direction:column}
+  .admin-section-heading{align-items:flex-start;flex-direction:column}
+  .admin-document-row{align-items:flex-start;flex-direction:column}
+  .admin-timeline-row{grid-template-columns:auto minmax(0,1fr)}
+  .timeline-row-status{display:none}
+  .delete-timeline-button{grid-column:2}
+  .client-summary{padding:18px 20px}
+  .client-details{padding:22px 20px}
+  .client-summary-right{gap:10px}
+}
 </style>
