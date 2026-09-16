@@ -13,18 +13,23 @@ import Base from '../layouts/Base.astro';
     <div class="login-card">
       <span class="eyebrow">Client Portal</span>
       <h1>Sign in</h1>
-      <p>Access your SDA Compass, package information, and client materials.</p>
-
+      <p>Access your SDA Compass, package details, and client resources. New clients receive an email with instructions to activate their account and sign in.</p>
       <form id="login-form">
         <div class="form-group">
-          <label for="email">Email</label>
+          <label class="login-label" for="email">Email</label>
           <input id="email" name="email" type="email" autocomplete="email" required />
         </div>
 
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" required />
-        </div>
+  <div class="login-field">
+    <label class="login-label" for="password">Password</label>
+    <div class="password-wrap">
+      <input id="password" name="password" type="password" autocomplete="current-password" required />
+      <button id="toggle-password" class="password-toggle" type="button" aria-label="Show password">
+        <svg id="eye-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Zm10 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg id="eye-closed" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="m3 3 18 18M10.7 6.1A10.7 10.7 0 0 1 12 6c6.5 0 10 6 10 6a16.5 16.5 0 0 1-3.1 3.8M6.2 6.2C3.5 8.1 2 12 2 12s3.5 6 10 6c1.7 0 3.2-.4 4.5-1M9.5 9.5a3.5 3.5 0 0 0 5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
 
         <button class="btn-gold" type="submit">Sign In</button>
 
@@ -45,11 +50,17 @@ import Base from '../layouts/Base.astro';
 #login-form{display:flex;flex-direction:column;gap:20px}
 .form-group{display:flex;flex-direction:column;gap:8px}
 .form-group label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--navy)}
-.form-group input{font-family:'Newsreader',serif;font-size:16px;padding:13px 14px;border:1px solid var(--line);background:var(--cream);border-radius:2px}
-.form-group input:focus{outline:none;border-color:var(--gold);background:#fff}
-.btn-gold{background:var(--gold);color:var(--navy);border:0;border-radius:2px;padding:15px 28px;font-family:'Newsreader',serif;font-size:15px;font-weight:600;cursor:pointer}
-.btn-gold:hover{background:var(--gold-soft)}
+.form-group input,.password-wrap input{width:100%;box-sizing:border-box;background:var(--cream);border:1px solid var(--line);border-radius:2px;padding:13px 14px;font-family:'Newsreader',serif;font-size:16px;color:var(--navy);height:52px}
+.btn-gold{width:100%;appearance:none;border:0!important;border-radius:2px!important;box-shadow:none!important;background:var(--gold)!important;color:var(--navy)!important;padding:15px 28px!important;font-family:'Newsreader',serif!important;font-size:15px!important;font-weight:600!important;line-height:1.2!important;cursor:pointer}
+.btn-gold:hover{background:var(--gold-soft)!important;box-shadow:none!important;transform:none!important}
 .form-status{min-height:22px;font-size:14px;color:var(--muted)}
+.password-wrap{position:relative;width:100%}
+.password-wrap input{padding-right:52px}
+.password-toggle{position:absolute;right:14px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;background:transparent;color:var(--muted);cursor:pointer}
+.password-toggle:hover{color:var(--navy)}
+.password-toggle svg{width:21px;height:21px}
+.password-toggle svg[hidden]{display:none}
+.login-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--navy)}
 </style>
 
 <script>
@@ -79,7 +90,19 @@ if (form && status && button) {
       button.textContent = 'Sign In';
       return;
     }
-    window.location.href = result.data.redirectTo || '/portal';
-  });
+    window.location.href = '/portal';  });
 }
+const passwordInput = document.querySelector<HTMLInputElement>('#password');
+const togglePassword = document.querySelector<HTMLButtonElement>('#toggle-password');
+const eyeOpen = document.querySelector<SVGElement>('#eye-open');
+const eyeClosed = document.querySelector<SVGElement>('#eye-closed');
+
+togglePassword?.addEventListener('click', () => {
+  if (!passwordInput || !eyeOpen || !eyeClosed) return;
+  const isHidden = passwordInput.type === 'password';
+  passwordInput.type = isHidden ? 'text' : 'password';
+  eyeOpen.hidden = isHidden;
+  eyeClosed.hidden = !isHidden;
+  togglePassword.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+});
 </script>
