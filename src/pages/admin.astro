@@ -3,6 +3,7 @@ export const prerender = false;
 
 import Base from '../layouts/Base.astro';
 import { createServerSupabaseClient } from '../lib/supabase';
+import { createClient } from '@supabase/supabase-js';
 
 const supabase = createServerSupabaseClient({ request: Astro.request, cookies: Astro.cookies });
 
@@ -16,9 +17,29 @@ if (adminProfileError) console.error('ADMIN PROFILE ERROR:', adminProfileError);
 
 if (!adminProfile?.is_admin) return Astro.redirect('/portal');
 
-const { data: clients, error: clientsError } = await supabase.from('profiles').select('id, athlete_name, graduation_year, package, best_events, current_school, current_team, monthly_subscription, subscription_status, next_session_at, next_session_link, is_admin').eq('is_admin', false).order('athlete_name', { ascending: true });
+const { data: clients, error: clientsError } = await supabase.from('profiles').select('id, athlete_name, graduation_year, package, best_events, current_school, current_team, monthly_subscription, subscription_status, next_session_at, next_session_link, is_admin, archived').eq('is_admin', false).order('archived', { ascending: true }).order('athlete_name', { ascending: true });
 
 if (clientsError) console.error('CLIENT LOAD ERROR:', clientsError);
+
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const serviceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+
+const adminSupabase = createClient(supabaseUrl, serviceRoleKey, {
+  auth: {
+    autoRefreshToken: false,
+    persistSession: false,
+  },
+});
+
+const { data: authUsers, error: authUsersError } = await adminSupabase.auth.admin.listUsers();
+
+if (authUsersError) console.error('AUTH USERS ERROR:', authUsersError);
+
+const emailByUser = new Map<string, string>();
+
+for (const authUser of authUsers?.users ?? []) {
+  if (authUser.email) emailByUser.set(authUser.id, authUser.email);
+}
 
 const { data: timelines, error: timelinesError } = await supabase.from('client_timeline').select('id, user_id, title, completed, sort_order').order('sort_order', { ascending: true });
 
@@ -172,15 +193,20 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
           <details class="client-card" data-client-id={client.id}>
 
             <summary class="client-summary">
-              <div class="client-summary-info">
-                <span class="client-label">Athlete</span>
-                <h3>{client.athlete_name ?? 'Unnamed Client'}</h3>
-              </div>
+            <div class="client-summary-info">
+              <span class="client-label">Athlete</span>
 
-              <div class="client-summary-right">
-                <span class="package-badge">{client.package ?? 'No Package'}</span>
-                <span class="client-arrow">⌄</span>
+              <div class="client-name-row">
+                <h3>{client.athlete_name ?? 'Unnamed Client'}</h3>
+                <span class="client-email">{emailByUser.get(client.id) ?? ''}</span>
               </div>
+            </div>
+
+            <div class="client-summary-right">
+              <span class={client.archived ? 'archive-badge' : 'active-client-badge'}>{client.archived ? 'Archived' : 'Active'}</span>
+              <span class="package-badge">{client.package ?? 'No Package'}</span>
+              <span class="client-arrow">⌄</span>
+            </div>
             </summary>
 
             <div class="client-details">
@@ -222,6 +248,14 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
                 <div class="admin-field">
                   <label>Current Team</label>
                   <input data-field="current_team" type="text" value={client.current_team ?? ''} />
+                </div>
+
+                <div class="admin-field">
+                  <label>Account Status</label>
+                  <label class="toggle-row">
+                    <input class="archive-toggle" type="checkbox" checked={!client.archived} />
+                    <span class="archive-status">{client.archived ? 'Archived' : 'Active'}</span>
+                  </label>
                 </div>
 
                 <div class="admin-field">
@@ -469,6 +503,29 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
   const clientId = card.dataset.clientId;
 
   if (!clientId) return;
+  const archiveToggle = card.querySelector<HTMLInputElement>('.archive-toggle');
+  const archiveStatus = card.querySelector<HTMLElement>('.archive-status');
+
+  archiveToggle?.addEventListener('change', async () => {
+    archiveToggle.disabled = true;
+
+    const archived = !archiveToggle.checked;
+
+    const { error } = await supabase.from('profiles').update({ archived }).eq('id', clientId);
+
+    archiveToggle.disabled = false;
+
+    if (error) {
+      archiveToggle.checked = !archiveToggle.checked;
+      alert('Could not update account status.');
+      console.error('ARCHIVE UPDATE ERROR:', error);
+      return;
+    }
+
+    if (archiveStatus) archiveStatus.textContent = archived ? 'Archived' : 'Active';
+
+    window.location.reload();
+  });
 
   const saveButton = card.querySelector<HTMLButtonElement>('.save-client-button');
   const saveStatus = card.querySelector<HTMLElement>('.save-status');
@@ -823,6 +880,8 @@ adminLogoutButton?.addEventListener('click', async () => {
 .client-card[open] .client-arrow{transform:rotate(180deg)}
 .client-details{padding:30px;border-top:1px solid var(--line)}
 .package-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:rgba(196,155,73,.12);color:var(--gold);padding:7px 10px;border-radius:20px}
+.active-client-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:rgba(196,155,73,.12);color:var(--gold);padding:7px 10px;border-radius:20px;border:1px solid rgba(196,155,73,.25)}
+.archive-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:rgba(120,120,120,.08);color:var(--muted);padding:7px 10px;border-radius:20px;border:1px solid var(--line)}
 .admin-section-title{margin-bottom:18px}
 .admin-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .admin-field{display:flex;flex-direction:column;gap:8px}
@@ -864,6 +923,8 @@ adminLogoutButton?.addEventListener('click', async () => {
 .read-only-badge{font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:1px;background:var(--cream);color:var(--muted);padding:6px 9px;border-radius:20px}
 .client-note-box{background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:20px}
 .client-note-box p{white-space:pre-wrap;color:var(--navy);font-size:15px;line-height:1.7;margin:0}
+.client-name-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.client-email{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.3px;text-transform:none;color:var(--muted);font-weight:400}
 .note-updated{display:block;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
 .empty-note p{color:var(--muted)}
 .empty-admin-message{font-size:14px;color:var(--muted);margin:0}
