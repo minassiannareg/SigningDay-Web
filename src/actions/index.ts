@@ -6,11 +6,20 @@ import { createServerSupabaseClient } from '../lib/supabase';
 export const server = {
   signIn: defineAction({
     accept: 'form',
-    input: z.object({ email: z.string().email(), password: z.string().min(6) }),
+    input: z.object({
+      email: z.string().email(),
+      password: z.string().min(6),
+    }),
     handler: async (input, context) => {
       const supabase = createServerSupabaseClient({ request: context.request, cookies: context.cookies });
-      const { error } = await supabase.auth.signInWithPassword({ email: input.email, password: input.password });
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email: input.email,
+        password: input.password,
+      });
+
       if (error) return { success: false, message: error.message };
+
       return { success: true, message: '' };
     },
   }),
@@ -18,15 +27,49 @@ export const server = {
   signOut: defineAction({
     handler: async (_, context) => {
       const supabase = createServerSupabaseClient({ request: context.request, cookies: context.cookies });
+
       const { error } = await supabase.auth.signOut();
+
       if (error) return { success: false, message: error.message };
+
       return { success: true };
+    },
+  }),
+
+  sendPasswordReset: defineAction({
+    handler: async (_, context) => {
+      const supabase = createServerSupabaseClient({ request: context.request, cookies: context.cookies });
+
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error('RESET USER ERROR:', userError);
+        return { success: false, message: userError.message };
+      }
+
+      if (!user?.email) {
+        return { success: false, message: 'No authenticated email was found.' };
+      }
+
+      const origin = new URL(context.request.url).origin;
+
+      const { error } = await supabase.auth.resetPasswordForEmail(user.email, {
+        redirectTo: `${origin}/reset-password`,
+      });
+
+      if (error) {
+        console.error('RESET EMAIL ERROR:', error);
+        return { success: false, message: error.message };
+      }
+
+      return { success: true, message: 'Password reset email sent.' };
     },
   }),
 
   createClient: defineAction({
     input: z.object({
       email: z.string().email(),
+      password: z.string().min(8),
       athleteName: z.string().min(1),
       graduationYear: z.number().int().min(2020).max(2100).optional(),
       package: z.enum(['SDA Compass', 'Base', 'Premium']).optional(),
@@ -50,17 +93,26 @@ export const server = {
       const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
       const serviceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
 
+      if (!supabaseUrl) return { success: false, message: 'Server configuration is missing the Supabase URL.' };
+
       if (!serviceRoleKey) return { success: false, message: 'Server configuration is missing the service role key.' };
 
-      const adminSupabase = createClient(supabaseUrl, serviceRoleKey, { auth: { autoRefreshToken: false, persistSession: false } });
+      const adminSupabase = createClient(supabaseUrl, serviceRoleKey, {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      });
 
-      const origin = new URL(context.request.url).origin;
+      const { data: createData, error: createError } = await adminSupabase.auth.admin.createUser({
+        email: input.email,
+        password: input.password,
+        email_confirm: true,
+      });
 
-      const { data: inviteData, error: inviteError } = await adminSupabase.auth.admin.inviteUserByEmail(input.email, { redirectTo: `${origin}/reset-password` });
+      if (createError) return { success: false, message: createError.message };
 
-      if (inviteError) return { success: false, message: inviteError.message };
-
-      const newUser = inviteData.user;
+      const newUser = createData.user;
 
       if (!newUser) return { success: false, message: 'The client account could not be created.' };
 
@@ -93,7 +145,12 @@ export const server = {
         'Commitment',
       ];
 
-      const timelineRows = defaultTimeline.map((title, index) => ({ user_id: newUser.id, title, completed: false, sort_order: index + 1 }));
+      const timelineRows = defaultTimeline.map((title, index) => ({
+        user_id: newUser.id,
+        title,
+        completed: false,
+        sort_order: index + 1,
+      }));
 
       const { error: timelineError } = await adminSupabase.from('client_timeline').insert(timelineRows);
 
@@ -103,7 +160,10 @@ export const server = {
         return { success: false, message: `Timeline setup failed: ${timelineError.message}` };
       }
 
-      return { success: true, message: `Invitation sent to ${input.email}.` };
+      return {
+        success: true,
+        message: `Client account created for ${input.email}.`,
+      };
     },
   }),
 };
