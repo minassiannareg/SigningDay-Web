@@ -68,6 +68,53 @@ import Base from '../layouts/Base.astro';
   </div>
 </section>
 
+<!-- OUR NETWORK -->
+<section class="network-section" id="network">
+  <div class="wrap">
+
+    <div class="team-heading reveal">
+      <span class="eyebrow">Extended Expertise</span>
+      <h2>Our Network</h2>
+      <p class="network-intro">SDA's network brings together former collegiate athletes, coaches, professionals, and specialists who can provide perspective across different parts of the recruiting and college experience.</p>
+    </div>
+
+    <div class="team-grid reveal">
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/network-2.jpg" alt="Network Member Name"></div>
+        <h3 class="member-name">Dean Hutchinson</h3>
+        <span class="member-title">Swimming Performance & Athlete Development Advisor • Physical Therapist</span>      
+        <span class="member-school">STRIVE Swim Science Center</span>
+        <p class="member-bio">Dean is a former elite swimmer, collegiate coach, and physical therapist based in the Greater Philadelphia area, with extensive experience in athlete development and swimming performance. A seven-time NCAA Division I All-American at Auburn University and former member of the U.S. National Team, Dean competed at three Olympic Trials and reached a world ranking of eighth in the 50-meter freestyle. He later coached at the collegiate level, including roles with Rider University and the U.S. Naval Academy, while building a career in physical therapy focused on swimming mechanics, injury prevention, and performance. Dean currently works with athletes through the STRIVE Swim Science Center, combining technical coaching with a clinical understanding of movement and biomechanics.</p>      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/network-1.jpg" alt="Network Member Name"></div>
+        <h3 class="member-name">Peter Sczupak</h3>
+        <span class="member-title">Swimming Performance & Athlete Development Advisor</span>
+        <span class="member-school">Oceanus Swim School</span>
+        <p class="member-bio">Peter is a longtime swimming coach and instructor based in Massachusetts, with experience working directly with competitive swimmers on technical development, performance, and recruiting. He is the founder of Oceanus Swim School, which provides private and small-group instruction and uses video-based analysis to help swimmers improve technique and efficiency. Peter has also served as a coach reference for athletes pursuing collegiate swimming opportunities, giving him firsthand perspective on the development and recruiting process. He holds an MBA from the University of Oregon and brings a combination of coaching, athlete development, and broader professional experience to the SDA network.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/network-3.jpg" alt="Network Member Name"></div>
+        <h3 class="member-name">Nutritionist</h3>
+        <span class="member-title">Area of Expertise</span>
+        <span class="member-school">University / Organization</span>
+        <p class="member-bio">Add a short biography here describing this person's background, experience, and the perspective they bring to the SDA network.</p>
+      </div>
+
+      <div class="member">
+        <div class="member-photo"><img src="/team-img/network-3.jpg" alt="Network Member Name"></div>
+        <h3 class="member-name">Tutoring Center</h3>
+        <span class="member-title">Area of Expertise</span>
+        <span class="member-school">University / Organization</span>
+        <p class="member-bio">Add a short biography here describing this person's background, experience, and the perspective they bring to the SDA network.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- CLOSING -->
 <section class="closing" id="contact">
   <div class="wrap reveal">
@@ -106,6 +153,8 @@ import Base from '../layouts/Base.astro';
   .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:44px 36px;margin-top:72px}
   @media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)}}
   @media(max-width:600px){.team-grid{grid-template-columns:1fr;max-width:360px;margin:0 auto}}
+  .network-section{padding-top:96px;background:var(--cream-2)}
+  .network-intro{max-width:720px;margin:18px auto 0;color:var(--muted);font-size:17px;line-height:1.7}
 
   .member{display:flex;flex-direction:column}
   .member-photo{
