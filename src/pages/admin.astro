@@ -90,7 +90,7 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
       <div class="create-client-heading">
         <span class="section-kicker">New Client</span>
         <h2>Create Client Account</h2>
-        <p>Create an athlete's portal and send them an invitation to set their password.</p>
+        <p>Create an athlete's portal and assign their initial login password.</p>
       </div>
 
       <div class="create-client-grid">
@@ -102,7 +102,12 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
 
         <div class="admin-field">
           <label>Email *</label>
-          <input id="new-client-email" type="email" placeholder="athlete@email.com" />
+          <input id="new-client-email" type="email" placeholder="athlete@email.com" autocomplete="email" />
+        </div>
+
+        <div class="admin-field">
+          <label>Initial Password *</label>
+          <input id="new-client-password" type="password" placeholder="Create initial password" minlength="8" autocomplete="new-password" />
         </div>
 
         <div class="admin-field">
@@ -396,6 +401,7 @@ const createClientStatus = document.querySelector<HTMLElement>('#create-client-s
 createClientButton?.addEventListener('click', async () => {
   const athleteName = document.querySelector<HTMLInputElement>('#new-athlete-name');
   const email = document.querySelector<HTMLInputElement>('#new-client-email');
+  const password = document.querySelector<HTMLInputElement>('#new-client-password');
   const graduationYear = document.querySelector<HTMLInputElement>('#new-graduation-year');
   const packageInput = document.querySelector<HTMLSelectElement>('#new-package');
   const bestEvents = document.querySelector<HTMLInputElement>('#new-best-events');
@@ -413,6 +419,11 @@ createClientButton?.addEventListener('click', async () => {
     return;
   }
 
+  if (!password?.value || password.value.length < 8) {
+    if (createClientStatus) createClientStatus.textContent = 'Password must be at least 8 characters.';
+    return;
+  }
+
   createClientButton.disabled = true;
   createClientButton.textContent = 'Creating...';
 
@@ -420,6 +431,7 @@ createClientButton?.addEventListener('click', async () => {
 
   const result = await actions.createClient({
     email: email.value.trim(),
+    password: password.value,
     athleteName: athleteName.value.trim(),
     graduationYear: graduationYear?.value ? Number(graduationYear.value) : undefined,
     package: packageInput?.value ? packageInput.value as 'SDA Compass' | 'Base' | 'Premium' : undefined,
@@ -445,6 +457,8 @@ createClientButton?.addEventListener('click', async () => {
   }
 
   if (createClientStatus) createClientStatus.textContent = result.data.message;
+
+  if (password) password.value = '';
 
   window.setTimeout(() => {
     window.location.reload();
@@ -781,125 +795,77 @@ adminLogoutButton?.addEventListener('click', async () => {
 .admin-logout-button{appearance:none;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.45);border-radius:4px;padding:11px 18px;font-family:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
 .admin-logout-button:hover{background:#fff;color:var(--navy)}
 .admin-logout-button:disabled{opacity:.6;cursor:default}
-
 .admin-content{background:var(--cream);padding:56px 0 100px}
-
 .create-client-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:30px;margin-bottom:50px}
 .create-client-heading{padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--line)}
 .create-client-heading h2{font-size:30px;color:var(--navy);margin:6px 0 8px}
 .create-client-heading p{color:var(--muted);margin:0}
 .create-client-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .create-client-actions{display:flex;align-items:center;gap:14px;margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
-
 #create-client-button{appearance:none;border:0;background:var(--gold);color:var(--navy);border-radius:4px;padding:12px 20px;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer}
 #create-client-button:hover{background:var(--navy);color:#fff}
 #create-client-button:disabled{opacity:.6;cursor:default}
 #create-client-status{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:var(--gold)}
-
 .admin-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:24px}
 .admin-heading h2{font-size:34px;color:var(--navy);margin:6px 0 0}
-
 .section-kicker,.admin-section-kicker,.client-label,.admin-section-title{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.3px;text-transform:uppercase;color:var(--gold)}
 .client-count,.timeline-count,.document-count{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;color:var(--muted)}
-
 .client-list{display:flex;flex-direction:column;gap:12px}
-
 .client-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:0;overflow:hidden}
-
 .client-summary{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;cursor:pointer;list-style:none}
 .client-summary::-webkit-details-marker{display:none}
 .client-summary::marker{display:none}
 .client-summary:hover{background:rgba(196,155,73,.05)}
-
 .client-summary-info{display:flex;flex-direction:column;gap:3px}
 .client-summary h3{font-size:22px;color:var(--navy);margin:0}
-
 .client-summary-right{display:flex;align-items:center;gap:16px}
-
 .client-arrow{display:inline-block;font-size:24px;color:var(--navy);line-height:1;transition:transform .2s ease}
 .client-card[open] .client-arrow{transform:rotate(180deg)}
-
 .client-details{padding:30px;border-top:1px solid var(--line)}
-
 .package-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:rgba(196,155,73,.12);color:var(--gold);padding:7px 10px;border-radius:20px}
-
 .admin-section-title{margin-bottom:18px}
-
 .admin-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-
 .admin-field{display:flex;flex-direction:column;gap:8px}
-
 .admin-field label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
-
 .admin-field input,.admin-field select{width:100%;box-sizing:border-box;background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:12px 13px;font-family:inherit;font-size:15px;color:var(--navy);min-height:45px}
-
 .admin-field select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-color:var(--cream);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2318314E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:42px}
-
 .admin-field input:focus,.admin-field select:focus{outline:none;border-color:var(--gold);background-color:#fff}
-
 .toggle-row{display:flex!important;align-items:center;gap:10px;background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:12px 13px;text-transform:none!important;letter-spacing:0!important;font-family:inherit!important;font-size:14px!important;color:var(--navy)!important;min-height:45px;box-sizing:border-box}
 .toggle-row input{width:auto;min-height:0;margin:0}
-
 .client-actions{display:flex;align-items:center;gap:14px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
-
 .save-client-button,.add-timeline-button,.upload-document-button{appearance:none;border:0;background:var(--navy);color:#fff;border-radius:4px;padding:11px 18px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer}
 .save-client-button:hover,.add-timeline-button:hover,.upload-document-button:hover{background:var(--gold);color:var(--navy)}
 .save-client-button:disabled,.add-timeline-button:disabled,.upload-document-button:disabled{opacity:.6;cursor:default}
-
 .save-status,.timeline-admin-status,.upload-status,.timeline-row-status{font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.8px;color:var(--gold)}
-
 .admin-subsection{margin-top:34px;padding-top:30px;border-top:1px solid var(--line)}
-
 .admin-section-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
 .admin-section-heading h4{font-size:24px;color:var(--navy);margin:5px 0 0}
-
 .admin-timeline-list,.admin-document-list{display:flex;flex-direction:column;gap:8px}
-
 .admin-timeline-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:11px 12px}
-
 .admin-timeline-checkbox{width:18px;height:18px;accent-color:var(--gold);cursor:pointer}
-
 .admin-timeline-title{width:100%;box-sizing:border-box;border:0;background:transparent;font-family:inherit;font-size:15px;color:var(--navy);padding:7px}
 .admin-timeline-title:focus{outline:1px solid var(--gold);background:#fff;border-radius:3px}
-
 .delete-timeline-button,.delete-document-button{appearance:none;background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:3px;padding:7px 10px;font-family:inherit;font-size:12px;cursor:pointer}
 .delete-timeline-button:hover,.delete-document-button:hover{border-color:#a44;color:#a44;background:#fff}
 .delete-timeline-button:disabled,.delete-document-button:disabled{opacity:.5;cursor:default}
-
 .add-timeline-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;margin-top:14px}
-
 .new-timeline-input{width:100%;box-sizing:border-box;background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 13px;font-family:inherit;font-size:15px;color:var(--navy)}
 .new-timeline-input:focus{outline:none;border-color:var(--gold)}
-
 .admin-document-row{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:14px 16px}
-
 .document-info{display:flex;align-items:center;gap:14px}
-
 .document-type{display:flex;align-items:center;justify-content:center;min-width:70px;height:38px;background:var(--navy);color:#fff;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase}
-
 .document-info h5{font-size:16px;color:var(--navy);margin:0 0 3px}
-
 .document-info p{font-size:12px;color:var(--muted);margin:0;text-transform:capitalize}
-
 .document-actions{display:flex;align-items:center;gap:8px}
-
 .view-document-button{background:var(--navy);color:#fff;text-decoration:none;padding:7px 11px;border-radius:3px;font-size:12px}
 .view-document-button:hover{background:var(--gold);color:var(--navy)}
-
 .upload-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px;padding-top:20px;border-top:1px solid var(--line)}
-
 .upload-actions{grid-column:1/-1;display:flex;align-items:center;gap:12px}
-
 .read-only-badge{font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:1px;background:var(--cream);color:var(--muted);padding:6px 9px;border-radius:20px}
-
 .client-note-box{background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:20px}
-
 .client-note-box p{white-space:pre-wrap;color:var(--navy);font-size:15px;line-height:1.7;margin:0}
-
 .note-updated{display:block;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
-
 .empty-note p{color:var(--muted)}
-
 .empty-admin-message{font-size:14px;color:var(--muted);margin:0}
 
 @media(max-width:800px){
