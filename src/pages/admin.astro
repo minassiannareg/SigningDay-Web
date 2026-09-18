@@ -483,35 +483,17 @@ for (const note of notes ?? []) notesByUser.set(note.user_id, note);
                 <div class="admin-section-heading">
 
                   <div>
-                    <span class="admin-section-kicker">Client Workspace</span>
-                    <h4>Client Notes</h4>
+                    <span class="admin-section-kicker">Shared Workspace</span>
+                    <h4>Shared Notes</h4>
                   </div>
 
-                  <span class="read-only-badge">Read Only</span>
+                  <span class="shared-note-status"></span>
 
                 </div>
 
-                {clientNote?.note_text ? (
-                  <div class="client-note-box">
-                    <p>{clientNote.note_text}</p>
+                <p class="shared-note-description">Shared notes between SDA and the client. Changes made here will also appear in the client's portal.</p>
 
-                    {clientNote.updated_at && (
-                      <span class="note-updated">
-                        Last updated {new Date(clientNote.updated_at).toLocaleString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric',
-                          hour: 'numeric',
-                          minute: '2-digit',
-                        })}
-                      </span>
-                    )}
-                  </div>
-                ) : (
-                  <div class="client-note-box empty-note">
-                    <p>This client has not added any notes yet.</p>
-                  </div>
-                )}
+                <textarea class="admin-shared-notes" placeholder="Add a note for the client...">{clientNote?.note_text ?? ''}</textarea>
 
               </div>
 
@@ -701,6 +683,43 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
   const clientId = card.dataset.clientId;
 
   if (!clientId) return;
+
+  const sharedNotes = card.querySelector<HTMLTextAreaElement>('.admin-shared-notes');
+  const sharedNoteStatus = card.querySelector<HTMLElement>('.shared-note-status');
+
+  let sharedNoteTimer: ReturnType<typeof setTimeout> | undefined;
+
+  sharedNotes?.addEventListener('input', () => {
+    if (sharedNoteStatus) sharedNoteStatus.textContent = 'Unsaved changes';
+
+    window.clearTimeout(sharedNoteTimer);
+
+    sharedNoteTimer = window.setTimeout(async () => {
+      if (sharedNoteStatus) sharedNoteStatus.textContent = 'Saving...';
+
+      const { error } = await supabase.from('client_notes').upsert({
+        user_id: clientId,
+        note_text: sharedNotes.value,
+        updated_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id',
+      });
+
+      if (error) {
+        if (sharedNoteStatus) sharedNoteStatus.textContent = 'Could not save';
+
+        console.error('ADMIN NOTE SAVE ERROR:', error);
+
+        return;
+      }
+
+      if (sharedNoteStatus) sharedNoteStatus.textContent = 'Saved';
+
+      window.setTimeout(() => {
+        if (sharedNoteStatus?.textContent === 'Saved') sharedNoteStatus.textContent = '';
+      }, 1500);
+    }, 800);
+  });
 
   const archiveToggle = card.querySelector<HTMLInputElement>('.archive-toggle');
   const archiveStatus = card.querySelector<HTMLElement>('.archive-status');
@@ -1171,11 +1190,10 @@ adminLogoutButton?.addEventListener('click', async () => {
 .view-document-button:hover{background:var(--gold);color:var(--navy)}
 .upload-panel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:18px;padding-top:20px;border-top:1px solid var(--line)}
 .upload-actions{grid-column:1/-1;display:flex;align-items:center;gap:12px}
-.read-only-badge{font-family:'IBM Plex Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:1px;background:var(--cream);color:var(--muted);padding:6px 9px;border-radius:20px}
-.client-note-box{background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:20px}
-.client-note-box p{white-space:pre-wrap;color:var(--navy);font-size:15px;line-height:1.7;margin:0}
-.note-updated{display:block;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:.7px;text-transform:uppercase;color:var(--muted)}
-.empty-note p{color:var(--muted)}
+.shared-note-description{font-size:13px;color:var(--muted);margin:0 0 14px}
+.admin-shared-notes{width:100%;min-height:180px;resize:vertical;box-sizing:border-box;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:14px;font-family:inherit;font-size:15px;line-height:1.55;color:var(--navy)}
+.admin-shared-notes:focus{outline:none;border-color:var(--gold);background:#fff}
+.shared-note-status{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
 .empty-admin-message{font-size:14px;color:var(--muted);margin:0}
 
 @media(max-width:800px){
