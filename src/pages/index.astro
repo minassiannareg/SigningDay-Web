@@ -32,13 +32,10 @@ import Base from '../layouts/Base.astro';
       </div>
     </div>
 
-    <div class="hero-collage" aria-label="College athlete photo collage">
-      <img class="hero-photo hero-photo-main" src="/images/home-football.png" alt="College football players running onto the field" />
-      <div class="hero-photo-stack">
-        <img class="hero-photo" src="/images/home-yale-swimmer.png" alt="College swimmer wearing a Yale swim cap in the pool" />
-        <img class="hero-photo" src="/images/home-swim-action.png" alt="Competitive swimmer racing in the pool" />
-      </div>
+    <div class="hero-photo-single">
+  <img src="/images/home-swim-start.jpg" alt="College swimmers diving from starting blocks" />
     </div>
+
   </div>
 </header>
 
@@ -1144,6 +1141,25 @@ why-layout{
   text-align:right;
   font-family:'IBM Plex Mono',monospace;
 }
+
+
+.hero-photo-single{
+  width:100%;
+  min-height:520px;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 30px 60px -45px rgba(15,42,74,.45);
+}
+
+.hero-photo-single img{
+  width:100%;
+  height:100%;
+  min-height:520px;
+  object-fit:cover;
+  object-position:center center;
+  display:block;
+}
+
 
 </style>
 
