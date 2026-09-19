@@ -256,64 +256,114 @@ import Base from '../layouts/Base.astro';
 
 
 
-<!-- PROGRAMS -->
 
-
-<!-- CLOSING -->
-
-
-
-
-
-
-<section class="closing" id="contact">
-  <div class="wrap reveal">
-
-<section id="programs" style="background:var(--navy)">
+<section class="closing combined-closing" id="contact">
   <div class="wrap">
-    <a class="programs-card reveal" href="packages/">
-  <div class="programs-text">
-  <span class="eyebrow">Packages</span>
-    <h2>Choose the level of support that aligns with your goals.</h2>
-  <span class="programs-link">Explore Packages <span>→</span></span>
-  </div>
 
-  <div class="programs-graphic">
-  <div class="pg-top">
-  <span>Base</span>
-  <span>Premium</span>
-  <span>Monthly</span>
-  </div>
-  <div class="pg-mini-chart">
-  <span class="pg-check"></span>
-  <span class="pg-check"></span>
-  <span class="pg-check"></span>
+    <!-- PACKAGES -->
+    <div class="combined-closing__programs reveal" id="programs">
+      <a class="programs-card" href="/packages/">
+        <div class="programs-text">
+          <span class="eyebrow">Packages</span>
 
-  <span class="pg-check"></span>
-  <span class="pg-check"></span>
-  <span class="pg-dash"></span>
+          <h2>
+            Choose the level of support that aligns with your goals.
+          </h2>
 
-  <span class="pg-dash"></span>
-  <span class="pg-check"></span>
-  <span class="pg-check"></span>
+          <span class="programs-link">
+            Explore Packages <span aria-hidden="true">→</span>
+          </span>
+        </div>
 
-  <span class="pg-dash"></span>
-  <span class="pg-check"></span>
-  <span class="pg-check"></span>
-  </div>
-  <span class="pg-caption">SERVICE SNAPSHOT</span>
-  </div>
-  </a>
+        <div class="programs-graphic">
+          <div class="pg-top">
+            <span>Base</span>
+            <span>Premium</span>
+            <span>Monthly</span>
+          </div>
+
+          <div class="pg-mini-chart">
+            <span class="pg-check"></span>
+            <span class="pg-check"></span>
+            <span class="pg-check"></span>
+
+            <span class="pg-check"></span>
+            <span class="pg-check"></span>
+            <span class="pg-dash"></span>
+
+            <span class="pg-dash"></span>
+            <span class="pg-check"></span>
+            <span class="pg-check"></span>
+
+            <span class="pg-dash"></span>
+            <span class="pg-check"></span>
+            <span class="pg-check"></span>
+          </div>
+
+          <span class="pg-caption">Service snapshot</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- FINAL CALL TO ACTION -->
+    <div class="combined-closing__cta reveal">
+      <h2>Start with an honest conversation.</h2>
+
+      <p>
+        A free, fifteen-minute consultation to talk through where your athlete
+        stands and whether we're the right fit.
+      </p>
+
+      <a class="btn-gold" href="/contact/">
+        Book a free consultation
+      </a>
+    </div>
+
   </div>
 </section>
 
+<style>
+  .combined-closing {
+    background: var(--cream, #f5f0e6);
+    padding-block: clamp(72px, 8vw, 120px);
+  }
 
-    <h2>Start with an honest conversation.</h2>
-    <p>A free, fifteen-minute consultation to talk through where your athlete stands and whether we're the right fit.</p>
-    <a class="btn-gold" href="contact/">Book a free consultation</a>
-  </div>
-</section>
+  .combined-closing__programs {
+    width: 100%;
+    background: transparent;
+    scroll-margin-top: 100px;
+  }
 
+  .combined-closing .programs-card {
+    width: 100%;
+    margin: 0;
+  }
+
+  .combined-closing__cta {
+    max-width: 720px;
+    margin: clamp(64px, 7vw, 100px) auto 0;
+    text-align: center;
+  }
+
+  .combined-closing__cta h2 {
+    margin: 0;
+  }
+
+  .combined-closing__cta p {
+    max-width: 620px;
+    margin: 22px auto 32px;
+  }
+
+  @media (max-width: 700px) {
+    .combined-closing {
+      padding-block: 64px;
+    }
+
+    .combined-closing__cta {
+      margin-top: 64px;
+    }
+  }
+</style>
 </Base>
 
 <style is:global>
