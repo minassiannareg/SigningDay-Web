@@ -10,34 +10,70 @@ import Base from '../layouts/Base.astro';
 >
 
 <!-- HERO -->
-<header class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div class="hero-inner">
-      <span class="eyebrow">Student-Athlete Recruiting Advisory</span>
-      <h1>College recruiting,<br><em>made clearer.</em></h1>
-      <p class="lead">Advice from people who have lived the process. SDA helps student-athletes and families cut through the noise with personal guidance on academics, athletics, and recruiting timelines.</p>
-      <div class="hero-ctas">
-        <a class="btn-gold" href="contact/">Book a free consultation</a>
-        <a class="btn-ghost" href="team/">Meet the team <span>→</span></a>
-      </div>
-      <div class="hero-proof" aria-label="Signing Day Advisors credibility">
-        <div>
-          <strong>Former college athletes</strong>
-          <span>Guidance from real former collegiate athletes.</span>
-        </div>
-        <div>
-          <strong>Personalized plans</strong>
-          <span>No generic recruiting playbooks.</span>
+<header class="cinematic-hero" id="top">
+  <div class="cinematic-hero__visual">
+    <img
+      class="cinematic-hero__image"
+      src="/images/IMG_0526.png"
+      alt="College swimmers diving from starting blocks"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+
+    <div class="cinematic-hero__content">
+      <div class="cinematic-hero__copy">
+        <span class="cinematic-hero__eyebrow">
+          Student-Athlete Recruiting Advisory
+        </span>
+
+        <h1>
+          <span>College recruiting,</span>
+          <span>made clearer.</span>
+        </h1>
+
+        <p class="cinematic-hero__lead">
+          Advice from people who have lived the process. SDA helps
+          student-athletes and families cut through the noise with personal
+          guidance on academics, athletics, and recruiting timelines.
+        </p>
+
+        <div class="cinematic-hero__actions">
+          <a class="cinematic-hero__primary" href="/contact/">
+            Book a free consultation
+          </a>
+
+          <a class="cinematic-hero__secondary" href="/team/">
+            <span>Meet the team</span>
+            <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="hero-photo-single">
-  <img src="/images/IMG_0526.png" alt="College swimmers diving from starting blocks" />
+  <div
+    class="cinematic-hero__proof"
+    aria-label="Signing Day Advisors credibility"
+  >
+    <div class="cinematic-hero__proof-inner">
+      <div class="cinematic-hero__proof-item">
+        <strong>Former college athletes</strong>
+        <span>Guidance from real former collegiate athletes.</span>
+      </div>
+
+      <div class="cinematic-hero__proof-item">
+        <strong>Personalized plans</strong>
+        <span>No generic recruiting playbooks.</span>
+      </div>
     </div>
-
   </div>
 </header>
+
+
+
+
+
 
 <!-- TRUST PANEL -->
 <section class="trust-panel" id="what-families-get">
@@ -1167,6 +1203,353 @@ why-layout{
   font-weight:700;
   text-decoration:none;
 }
+
+
+
+
+
+
+
+/* ---------- CINEMATIC HERO ---------- */
+
+  .cinematic-hero {
+    --hero-navy: #0b2946;
+    --hero-ivory: #f7f3ea;
+    --hero-gold: #d3a72f;
+    --hero-muted: rgba(247, 243, 234, 0.9);
+
+    background: var(--hero-navy);
+  }
+
+  .cinematic-hero__visual {
+    position: relative;
+    min-height: clamp(620px, 70vh, 760px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .cinematic-hero__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 52%;
+  }
+
+  /* Navy treatment that makes the text readable without a card */
+  .cinematic-hero__visual::before {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: "";
+    pointer-events: none;
+
+    background:
+      linear-gradient(
+        90deg,
+        rgba(6, 28, 51, 0.99) 0%,
+        rgba(6, 28, 51, 0.96) 22%,
+        rgba(6, 28, 51, 0.8) 38%,
+        rgba(6, 28, 51, 0.4) 51%,
+        rgba(6, 28, 51, 0.08) 65%,
+        rgba(6, 28, 51, 0) 75%
+      ),
+      linear-gradient(
+        0deg,
+        rgba(6, 28, 51, 0.16) 0%,
+        rgba(6, 28, 51, 0) 40%
+      );
+  }
+
+  .cinematic-hero__content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+
+    width: min(calc(100% - 64px), 1568px);
+    min-height: inherit;
+    margin-inline: auto;
+    padding-block: 56px;
+  }
+
+  .cinematic-hero__copy {
+    width: min(100%, 720px);
+  }
+
+  .cinematic-hero__eyebrow {
+    display: block;
+    margin-bottom: 24px;
+
+    color: var(--hero-gold);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: clamp(0.78rem, 0.9vw, 0.94rem);
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .cinematic-hero h1 {
+    max-width: 760px;
+    margin: 0;
+
+    color: var(--hero-ivory);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(4.25rem, 5.4vw, 6rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 0.94;
+  }
+
+  .cinematic-hero h1 span {
+    display: block;
+  }
+
+  .cinematic-hero__lead {
+    max-width: 680px;
+    margin: 30px 0 0;
+
+    color: var(--hero-muted);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(1.08rem, 1.3vw, 1.4rem);
+    font-weight: 350;
+    line-height: 1.6;
+  }
+
+  .cinematic-hero__actions {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    margin-top: 32px;
+  }
+
+  .cinematic-hero__primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 66px;
+    padding: 16px 32px;
+
+    border: 1px solid var(--hero-gold);
+    border-radius: 6px;
+    background: var(--hero-gold);
+    color: var(--hero-navy);
+
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.14rem;
+    font-weight: 650;
+    line-height: 1.2;
+    text-decoration: none;
+
+    transition:
+      background 180ms ease,
+      color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .cinematic-hero__primary:hover {
+    background: #e0b83f;
+    transform: translateY(-2px);
+  }
+
+  .cinematic-hero__secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+
+    color: var(--hero-ivory);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.12rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .cinematic-hero__secondary span:first-child {
+    border-bottom: 1px solid rgba(247, 243, 234, 0.65);
+    padding-bottom: 4px;
+    transition: border-color 180ms ease;
+  }
+
+  .cinematic-hero__secondary span:last-child {
+    color: var(--hero-gold);
+    transition: transform 180ms ease;
+  }
+
+  .cinematic-hero__secondary:hover span:first-child {
+    border-color: var(--hero-gold);
+  }
+
+  .cinematic-hero__secondary:hover span:last-child {
+    transform: translateX(4px);
+  }
+
+  .cinematic-hero__primary:focus-visible,
+  .cinematic-hero__secondary:focus-visible {
+    outline: 3px solid var(--hero-ivory);
+    outline-offset: 5px;
+  }
+
+  /* ---------- PROOF STRIP ---------- */
+
+  .cinematic-hero__proof {
+    border-top: 1px solid rgba(11, 41, 70, 0.12);
+    background: var(--hero-ivory);
+  }
+
+  .cinematic-hero__proof-inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+
+    width: min(calc(100% - 64px), 960px);
+    min-height: 116px;
+    margin-inline: auto;
+  }
+
+  .cinematic-hero__proof-item {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 24px 52px;
+  }
+
+  .cinematic-hero__proof-item + .cinematic-hero__proof-item {
+    border-left: 1px solid rgba(11, 41, 70, 0.16);
+  }
+
+  .cinematic-hero__proof-item strong {
+    color: var(--hero-navy);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.16rem;
+    font-weight: 650;
+  }
+
+  .cinematic-hero__proof-item > span {
+    color: rgba(11, 41, 70, 0.67);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 0.96rem;
+    line-height: 1.4;
+  }
+
+  /* ---------- TABLET ---------- */
+
+  @media (max-width: 900px) {
+    .cinematic-hero__visual {
+      min-height: 700px;
+    }
+
+    .cinematic-hero__image {
+      object-position: 58% center;
+    }
+
+    .cinematic-hero__visual::before {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(6, 28, 51, 0.98) 0%,
+          rgba(6, 28, 51, 0.9) 42%,
+          rgba(6, 28, 51, 0.55) 72%,
+          rgba(6, 28, 51, 0.25) 100%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(6, 28, 51, 0.45) 0%,
+          rgba(6, 28, 51, 0) 55%
+        );
+    }
+
+    .cinematic-hero__content {
+      width: min(calc(100% - 40px), 720px);
+    }
+
+    .cinematic-hero h1 {
+      font-size: clamp(3.75rem, 9vw, 5.25rem);
+    }
+  }
+
+  /* ---------- MOBILE ---------- */
+
+  @media (max-width: 640px) {
+    .cinematic-hero__visual {
+      min-height: 720px;
+    }
+
+    .cinematic-hero__image {
+      object-position: 62% center;
+    }
+
+    .cinematic-hero__visual::before {
+      background:
+        linear-gradient(
+          90deg,
+          rgba(6, 28, 51, 0.94) 0%,
+          rgba(6, 28, 51, 0.8) 100%
+        ),
+        linear-gradient(
+          0deg,
+          rgba(6, 28, 51, 0.75) 0%,
+          rgba(6, 28, 51, 0.1) 70%
+        );
+    }
+
+    .cinematic-hero__content {
+      align-items: flex-end;
+      width: calc(100% - 32px);
+      padding-block: 56px;
+    }
+
+    .cinematic-hero__eyebrow {
+      margin-bottom: 18px;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+    }
+
+    .cinematic-hero h1 {
+      font-size: clamp(3rem, 13vw, 4rem);
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+    }
+
+    .cinematic-hero__lead {
+      margin-top: 24px;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .cinematic-hero__actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+      margin-top: 28px;
+    }
+
+    .cinematic-hero__primary {
+      width: 100%;
+      min-height: 60px;
+    }
+
+    .cinematic-hero__proof-inner {
+      grid-template-columns: 1fr;
+      width: calc(100% - 32px);
+      padding-block: 8px;
+    }
+
+    .cinematic-hero__proof-item {
+      padding: 22px 8px;
+    }
+
+    .cinematic-hero__proof-item + .cinematic-hero__proof-item {
+      border-top: 1px solid rgba(11, 41, 70, 0.16);
+      border-left: 0;
+    }
+  }
+
+
 
 
 </style>
