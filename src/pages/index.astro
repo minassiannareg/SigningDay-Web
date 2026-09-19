@@ -14,8 +14,10 @@ import Base from '../layouts/Base.astro';
   <div class="cinematic-hero__visual">
     <img
       class="cinematic-hero__image"
-      src="/images/homepage_swimmers.png"
+      src="/images/hero-swimmers-wide.webp"
       alt="College swimmers diving from starting blocks"
+      width="1916"
+      height="821"
       loading="eager"
       fetchpriority="high"
       decoding="async"
@@ -1238,8 +1240,8 @@ why-layout{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Favor the left side of the source photo so more swimmers remain visible. */
-    object-position: 40% 52%;
+    /* The panoramic source is already composed for this hero. */
+    object-position: center 52%;
   }
 
   /* Navy treatment that makes the text readable without a card */
@@ -1274,14 +1276,15 @@ why-layout{
     display: flex;
     align-items: center;
 
-    width: min(calc(100% - 64px), 1568px);
-    min-height: inherit;
+    /* Match the inset and true vertical centering in the approved mockup. */
+    width: min(calc(100% - clamp(80px, 12vw, 220px)), 1568px);
+    height: 100%;
     margin-inline: auto;
     padding-block: clamp(24px, 3vw, 56px);
   }
 
   .cinematic-hero__copy {
-    width: min(100%, 720px);
+    width: min(100%, 690px);
   }
 
   .cinematic-hero__eyebrow {
@@ -1298,12 +1301,12 @@ why-layout{
   }
 
   .cinematic-hero h1 {
-    max-width: 760px;
+    max-width: 720px;
     margin: 0;
 
     color: var(--hero-ivory);
     font-family: "Fraunces", Georgia, serif;
-    font-size: clamp(3rem, 5.4vw, 6rem);
+    font-size: clamp(3rem, 5vw, 5.5rem);
     font-weight: 500;
     letter-spacing: -0.045em;
     line-height: 0.94;
@@ -1314,12 +1317,12 @@ why-layout{
   }
 
   .cinematic-hero__lead {
-    max-width: 680px;
+    max-width: 620px;
     margin: clamp(18px, 1.7vw, 30px) 0 0;
 
     color: var(--hero-muted);
     font-family: "Fraunces", Georgia, serif;
-    font-size: clamp(0.9rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.95rem, 1.15vw, 1.25rem);
     font-weight: 350;
     line-height: 1.6;
   }
@@ -1410,7 +1413,7 @@ why-layout{
     align-items: center;
 
     width: min(calc(100% - 64px), 960px);
-    min-height: clamp(80px, 6.5vw, 116px);
+    min-height: clamp(80px, 5.6vw, 104px);
     margin-inline: auto;
   }
 
@@ -1443,7 +1446,7 @@ why-layout{
 
   @media (max-width: 900px) {
     .cinematic-hero__image {
-      object-position: 38% 52%;
+      object-position: 58% 52%;
     }
 
     .cinematic-hero__visual::before {
