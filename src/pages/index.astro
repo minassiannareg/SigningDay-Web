@@ -188,9 +188,7 @@ import Base from '../layouts/Base.astro';
             <article class="ig-post">
               <div class="ig-head">
                 <strong>yaleswimdive</strong>
-                <a href="https://www.instagram.com/p/DTdfr5TgZx_/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer">
-                    View profile
-                </a>
+                <span>View profile</span>
               </div>
               <img class="ig-image--swimmer" src="/images/Nareg_recruitment.png" alt="College swimmer recruiting post example">
               <div class="ig-caption">
@@ -209,7 +207,7 @@ import Base from '../layouts/Base.astro';
               <img src="/images/recruit-post-3.jpg" alt="College athlete recruiting post example">
               <div class="ig-caption">
                 <strong>yaleswimdive</strong>
-                <p>Welcome to Yale, Izz Paoletti!! We cannot wait for her to be a Bulldog!!</p>
+                <p>Welcome to Yale, Izz Paoletti!!</p>
               </div>
             </article>
           </div>
@@ -1225,7 +1223,9 @@ why-layout{
 
   .cinematic-hero__visual {
     position: relative;
-    min-height: clamp(620px, 70vh, 760px);
+    /* Match the wide, cinematic proportion of the approved mockup. */
+    height: clamp(390px, 38.7vw, 700px);
+    min-height: 0;
     overflow: hidden;
     isolation: isolate;
   }
@@ -1238,7 +1238,8 @@ why-layout{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 52%;
+    /* Favor the left side of the source photo so more swimmers remain visible. */
+    object-position: 40% 52%;
   }
 
   /* Navy treatment that makes the text readable without a card */
@@ -1276,7 +1277,7 @@ why-layout{
     width: min(calc(100% - 64px), 1568px);
     min-height: inherit;
     margin-inline: auto;
-    padding-block: 56px;
+    padding-block: clamp(24px, 3vw, 56px);
   }
 
   .cinematic-hero__copy {
@@ -1285,7 +1286,7 @@ why-layout{
 
   .cinematic-hero__eyebrow {
     display: block;
-    margin-bottom: 24px;
+    margin-bottom: clamp(14px, 1.35vw, 24px);
 
     color: var(--hero-gold);
     font-family: "IBM Plex Mono", monospace;
@@ -1302,7 +1303,7 @@ why-layout{
 
     color: var(--hero-ivory);
     font-family: "Fraunces", Georgia, serif;
-    font-size: clamp(4.25rem, 5.4vw, 6rem);
+    font-size: clamp(3rem, 5.4vw, 6rem);
     font-weight: 500;
     letter-spacing: -0.045em;
     line-height: 0.94;
@@ -1314,11 +1315,11 @@ why-layout{
 
   .cinematic-hero__lead {
     max-width: 680px;
-    margin: 30px 0 0;
+    margin: clamp(18px, 1.7vw, 30px) 0 0;
 
     color: var(--hero-muted);
     font-family: "Fraunces", Georgia, serif;
-    font-size: clamp(1.08rem, 1.3vw, 1.4rem);
+    font-size: clamp(0.9rem, 1.3vw, 1.4rem);
     font-weight: 350;
     line-height: 1.6;
   }
@@ -1326,16 +1327,16 @@ why-layout{
   .cinematic-hero__actions {
     display: flex;
     align-items: center;
-    gap: 34px;
-    margin-top: 32px;
+    gap: clamp(20px, 1.9vw, 34px);
+    margin-top: clamp(20px, 1.8vw, 32px);
   }
 
   .cinematic-hero__primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 66px;
-    padding: 16px 32px;
+    min-height: clamp(48px, 3.7vw, 66px);
+    padding: clamp(12px, 0.9vw, 16px) clamp(22px, 1.8vw, 32px);
 
     border: 1px solid var(--hero-gold);
     border-radius: 6px;
@@ -1343,7 +1344,7 @@ why-layout{
     color: var(--hero-navy);
 
     font-family: "Fraunces", Georgia, serif;
-    font-size: 1.14rem;
+    font-size: clamp(0.96rem, 1.03vw, 1.14rem);
     font-weight: 650;
     line-height: 1.2;
     text-decoration: none;
@@ -1366,7 +1367,7 @@ why-layout{
 
     color: var(--hero-ivory);
     font-family: "Fraunces", Georgia, serif;
-    font-size: 1.12rem;
+    font-size: clamp(0.96rem, 1.02vw, 1.12rem);
     font-weight: 600;
     text-decoration: none;
   }
@@ -1409,7 +1410,7 @@ why-layout{
     align-items: center;
 
     width: min(calc(100% - 64px), 960px);
-    min-height: 116px;
+    min-height: clamp(80px, 6.5vw, 116px);
     margin-inline: auto;
   }
 
@@ -1417,7 +1418,7 @@ why-layout{
     display: flex;
     flex-direction: column;
     gap: 7px;
-    padding: 24px 52px;
+    padding: clamp(16px, 1.35vw, 24px) clamp(20px, 3vw, 52px);
   }
 
   .cinematic-hero__proof-item + .cinematic-hero__proof-item {
@@ -1441,12 +1442,8 @@ why-layout{
   /* ---------- TABLET ---------- */
 
   @media (max-width: 900px) {
-    .cinematic-hero__visual {
-      min-height: 700px;
-    }
-
     .cinematic-hero__image {
-      object-position: 58% center;
+      object-position: 38% 52%;
     }
 
     .cinematic-hero__visual::before {
@@ -1454,13 +1451,14 @@ why-layout{
         linear-gradient(
           90deg,
           rgba(6, 28, 51, 0.98) 0%,
-          rgba(6, 28, 51, 0.9) 42%,
-          rgba(6, 28, 51, 0.55) 72%,
-          rgba(6, 28, 51, 0.25) 100%
+          rgba(6, 28, 51, 0.92) 30%,
+          rgba(6, 28, 51, 0.62) 52%,
+          rgba(6, 28, 51, 0.18) 74%,
+          rgba(6, 28, 51, 0) 100%
         ),
         linear-gradient(
           0deg,
-          rgba(6, 28, 51, 0.45) 0%,
+          rgba(6, 28, 51, 0.22) 0%,
           rgba(6, 28, 51, 0) 55%
         );
     }
@@ -1468,21 +1466,18 @@ why-layout{
     .cinematic-hero__content {
       width: min(calc(100% - 40px), 720px);
     }
-
-    .cinematic-hero h1 {
-      font-size: clamp(3.75rem, 9vw, 5.25rem);
-    }
   }
 
   /* ---------- MOBILE ---------- */
 
   @media (max-width: 640px) {
     .cinematic-hero__visual {
+      height: auto;
       min-height: 720px;
     }
 
     .cinematic-hero__image {
-      object-position: 62% center;
+      object-position: 52% center;
     }
 
     .cinematic-hero__visual::before {
@@ -1552,18 +1547,6 @@ why-layout{
   }
 
 
-
-.ig-post > img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  height: auto;
-  object-fit: cover;
-  display: block;
-}
-
-.ig-post > .ig-image--swimmer {
-  object-position: 50% 20%;
-}
 
 
 </style>
