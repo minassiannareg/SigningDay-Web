@@ -1538,6 +1538,48 @@ why-layout{
 
 
 
+.cinematic-hero__signals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  margin-top: 28px;
+
+  color: rgba(247, 243, 234, 0.78);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cinematic-hero__signals span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cinematic-hero__signals span::before {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hero-gold);
+  content: "";
+}
+
+.trust-panel {
+  border-top: 1px solid rgba(211, 167, 47, 0.25);
+}
+
+@media (max-width: 640px) {
+  .cinematic-hero__signals {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 24px;
+  }
+}
+
+
+
 </style>
 
 <script is:inline>
