@@ -302,7 +302,43 @@ const totalTimelineItems = timeline?.length ?? 0;
 
         <p class="panel-intro">Shared notes with your advisor. Use this space for questions, reminders, recruiting updates, and anything you want to discuss together.</p>
 
-        <textarea id="client-notes" class="notes-textarea" placeholder="Add a note for your advisor...">{clientNote?.note_text ?? ''}</textarea>
+        <div class="notes-editor-wrap">
+
+          <div class="notes-toolbar" aria-label="Note formatting">
+
+            <button class="notes-format-button" type="button" data-command="bold" title="Bold">
+              <strong>B</strong>
+            </button>
+
+            <button class="notes-format-button" type="button" data-command="underline" title="Underline">
+              <u>U</u>
+            </button>
+
+            <span class="notes-toolbar-divider"></span>
+
+            <button class="notes-format-button notes-list-button" type="button" data-command="insertUnorderedList" title="Bullet list">
+              <span class="toolbar-list-icon">•</span>
+              <span>List</span>
+            </button>
+
+            <button class="notes-format-button notes-list-button" type="button" data-command="insertOrderedList" title="Numbered list">
+              <span class="toolbar-list-icon">1.</span>
+              <span>List</span>
+            </button>
+
+          </div>
+
+          <div
+            id="client-notes"
+            class="notes-editor"
+            contenteditable="true"
+            role="textbox"
+            aria-multiline="true"
+            data-placeholder="Add a note for your advisor..."
+            data-initial-note={clientNote?.note_text ?? ''}
+          ></div>
+
+        </div>
 
       </article>
 
@@ -757,51 +793,130 @@ document.querySelectorAll<HTMLElement>('.material-item[data-client-upload="true"
   });
 });
 
-const notesTextarea = document.querySelector<HTMLTextAreaElement>('#client-notes');
+const notesEditor = document.querySelector<HTMLElement>('#client-notes');
 const notesStatus = document.getElementById('notes-status');
+const notesToolbarButtons = document.querySelectorAll<HTMLButtonElement>('.notes-format-button');
 
 let notesSaveTimer: ReturnType<typeof setTimeout> | undefined;
 
-if (notesTextarea) {
-  notesTextarea.addEventListener('input', () => {
-    if (notesStatus) notesStatus.textContent = 'Unsaved changes';
+const sanitizeNotesHtml = (html: string) => {
+  const template = document.createElement('template');
+  template.innerHTML = html;
 
-    window.clearTimeout(notesSaveTimer);
+  const allowedTags = new Set(['B', 'STRONG', 'U', 'UL', 'OL', 'LI', 'BR', 'DIV', 'P']);
 
-    notesSaveTimer = window.setTimeout(async () => {
-      if (notesStatus) notesStatus.textContent = 'Saving...';
+  const cleanNode = (node: Node) => {
+    Array.from(node.childNodes).forEach((child) => {
+      if (child.nodeType === Node.ELEMENT_NODE) {
+        const element = child as HTMLElement;
 
-      const { data: { user } } = await supabase.auth.getUser();
+        if (!allowedTags.has(element.tagName)) {
+          const fragment = document.createDocumentFragment();
 
-      if (!user) {
-        if (notesStatus) notesStatus.textContent = 'Session expired';
-        return;
+          while (element.firstChild) fragment.appendChild(element.firstChild);
+
+          element.replaceWith(fragment);
+        } else {
+          Array.from(element.attributes).forEach((attribute) => element.removeAttribute(attribute.name));
+          cleanNode(element);
+        }
       }
+    });
+  };
 
-      const { error } = await supabase.from('client_notes').upsert({
-        user_id: user.id,
-        note_text: notesTextarea.value,
-        updated_at: new Date().toISOString(),
-      }, {
-        onConflict: 'user_id',
-      });
+  cleanNode(template.content);
 
-      if (error) {
-        if (notesStatus) notesStatus.textContent = 'Could not save';
+  return template.innerHTML;
+};
 
-        console.error('NOTE SAVE ERROR:', error);
+const saveNotes = () => {
+  if (!notesEditor) return;
 
-        return;
-      }
+  if (notesStatus) notesStatus.textContent = 'Unsaved changes';
 
-      if (notesStatus) notesStatus.textContent = 'Saved';
+  window.clearTimeout(notesSaveTimer);
 
-      window.setTimeout(() => {
-        if (notesStatus?.textContent === 'Saved') notesStatus.textContent = '';
-      }, 1500);
-    }, 800);
+  notesSaveTimer = window.setTimeout(async () => {
+    if (notesStatus) notesStatus.textContent = 'Saving...';
+
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      if (notesStatus) notesStatus.textContent = 'Session expired';
+      return;
+    }
+
+    const cleanHtml = sanitizeNotesHtml(notesEditor.innerHTML);
+
+    if (notesEditor.innerHTML !== cleanHtml) notesEditor.innerHTML = cleanHtml;
+
+    const { error } = await supabase.from('client_notes').upsert({
+      user_id: user.id,
+      note_text: cleanHtml,
+      updated_at: new Date().toISOString(),
+    }, {
+      onConflict: 'user_id',
+    });
+
+    if (error) {
+      if (notesStatus) notesStatus.textContent = 'Could not save';
+
+      console.error('NOTE SAVE ERROR:', error);
+
+      return;
+    }
+
+    if (notesStatus) notesStatus.textContent = 'Saved';
+
+    window.setTimeout(() => {
+      if (notesStatus?.textContent === 'Saved') notesStatus.textContent = '';
+    }, 1500);
+  }, 800);
+};
+
+if (notesEditor) {
+  const initialNote = notesEditor.dataset.initialNote ?? '';
+
+  if (initialNote) {
+    const looksLikeHtml = /<\/?[a-z][\s\S]*>/i.test(initialNote);
+
+    if (looksLikeHtml) {
+      notesEditor.innerHTML = sanitizeNotesHtml(initialNote);
+    } else {
+      notesEditor.textContent = initialNote;
+    }
+  }
+
+  notesEditor.addEventListener('input', saveNotes);
+
+  notesEditor.addEventListener('paste', (event) => {
+    event.preventDefault();
+
+    const text = event.clipboardData?.getData('text/plain') ?? '';
+
+    document.execCommand('insertText', false, text);
   });
 }
+
+notesToolbarButtons.forEach((button) => {
+  button.addEventListener('mousedown', (event) => {
+    event.preventDefault();
+  });
+
+  button.addEventListener('click', () => {
+    if (!notesEditor) return;
+
+    const command = button.dataset.command;
+
+    if (!command) return;
+
+    notesEditor.focus();
+
+    document.execCommand(command, false);
+
+    saveNotes();
+  });
+});
 
 const changePasswordButton = document.querySelector<HTMLButtonElement>('#change-password-button');
 const accountLogoutButton = document.querySelector<HTMLButtonElement>('#account-logout-button');
@@ -926,8 +1041,25 @@ if (accountLogoutButton) {
 .timeline-item.completed .timeline-title{text-decoration:line-through;color:var(--muted)}
 .timeline-save-status{min-height:14px;margin:10px 0 0!important;font-family:'IBM Plex Mono',monospace;font-size:8px!important;text-transform:uppercase;letter-spacing:1px;color:var(--gold)!important}
 
-.notes-panel{display:flex;flex-direction:column;overflow:hidden}.notes-textarea{width:100%;max-width:100%;min-height:310px;resize:vertical;background:var(--cream);border:1px solid var(--line);border-radius:5px;padding:15px;font-family:inherit;font-size:15px;line-height:1.55;color:var(--navy);box-sizing:border-box;margin-top:16px}.notes-textarea:focus{outline:none;border-color:var(--gold);background:#fff}
+.notes-panel{display:flex;flex-direction:column;overflow:hidden}
 .notes-status{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;color:var(--gold)}
+.notes-editor-wrap{width:100%;margin-top:16px;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:var(--cream);transition:border-color .2s,background .2s}
+.notes-editor-wrap:focus-within{border-color:var(--gold);background:#fff}
+.notes-toolbar{display:flex;align-items:center;gap:5px;padding:8px 10px;border-bottom:1px solid var(--line);background:#fff}
+.notes-format-button{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:32px;height:30px;padding:0 8px;background:transparent;border:1px solid transparent;border-radius:4px;color:var(--navy);font-family:inherit;font-size:13px;cursor:pointer}
+.notes-format-button:hover{background:var(--cream);border-color:var(--line)}
+.notes-format-button strong{font-size:15px}
+.notes-format-button u{font-size:15px;text-underline-offset:2px}
+.notes-list-button{min-width:55px}
+.toolbar-list-icon{font-family:'IBM Plex Mono',monospace;color:var(--gold);font-weight:600}
+.notes-toolbar-divider{width:1px;height:20px;background:var(--line);margin:0 3px}
+.notes-editor{width:100%;max-width:100%;min-height:260px;box-sizing:border-box;padding:15px;background:transparent;font-family:inherit;font-size:15px;line-height:1.4;color:var(--navy);outline:none;overflow-wrap:anywhere;caret-color:var(--navy)}
+.notes-editor:empty::before{content:attr(data-placeholder);color:var(--muted);pointer-events:none;font:inherit;line-height:inherit}
+.notes-editor p{margin:0 0 10px}
+.notes-editor p:last-child{margin-bottom:0}
+.notes-editor ul,.notes-editor ol{margin:8px 0;padding-left:25px}
+.notes-editor li{margin:4px 0}
+.notes-editor ul li::marker,.notes-editor ol li::marker{color:var(--gold)}
 
 .upload-panel{display:flex;flex-direction:column}
 .upload-field{display:flex;flex-direction:column;gap:7px;margin-top:16px}
@@ -986,7 +1118,7 @@ if (accountLogoutButton) {
   .athlete-info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .athlete-stat{border-bottom:1px solid var(--line)}
   .package-services{columns:2}
-  .notes-textarea{min-height:280px}
+  .notes-editor{min-height:240px}
 }
 
 @media(max-width:700px){
@@ -999,7 +1131,8 @@ if (accountLogoutButton) {
   .athlete-info-grid{grid-template-columns:1fr}
   .athlete-stat{border-right:0}
   .package-services{columns:1}
-  .notes-textarea{resize:vertical;min-height:220px}
+  .notes-editor{min-height:220px}
+  .notes-toolbar{flex-wrap:wrap}
   .material-item{align-items:flex-start;flex-direction:column}
   .material-actions{width:100%}
   .portal-account-footer-inner{align-items:flex-start;flex-direction:column}
