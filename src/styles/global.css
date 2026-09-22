@@ -107,6 +107,14 @@ nav{
 }
 .nav-toggle svg{width:22px;height:22px}
 
+/* The horizontal bar carries seven links between 760px (where it becomes
+   a dropdown) and roughly 1000px. Tightening the gap and type a step keeps
+   the set on one line instead of colliding with the logo. */
+@media(max-width:1000px){
+  .nav-links{gap:15px}
+  .nav-links a{font-size:13px}
+}
+
 /* ---------- BUTTONS ---------- */
 .btn-gold{
   background:var(--gold);color:var(--navy);

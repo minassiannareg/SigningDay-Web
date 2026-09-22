@@ -1,0 +1,118 @@
+---
+import type { NetworkPerson } from '../data/network';
+
+interface Props { person: NetworkPerson }
+const { person } = Astro.props;
+
+/*
+  A headshot is optional on purpose - entries get added as professionals
+  agree to be listed, and a photo often arrives later than the rest. When
+  one is missing we draw the initials instead, so a photo-less card reads
+  as a deliberate style rather than a broken image. That is also why the
+  photo frame keeps its 4:5 box either way: a row of cards stays aligned
+  whether or not every person has sent a picture.
+*/
+const initials = person.name
+  .trim()
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((w) => w[0])
+  .filter((c) => /[A-Za-z]/.test(c));
+const monogram = (initials.length > 1
+  ? initials[0] + initials[initials.length - 1]
+  : initials.join('')
+).toUpperCase();
+
+const href = person.link?.href ?? '';
+const external = /^https?:\/\//i.test(href);
+const linkLabel = person.link?.label ?? (href.startsWith('mailto:') ? 'Get in touch' : 'Visit website');
+---
+
+<article class="np-card">
+
+  <div class="np-photo">
+    {person.photo
+      ? <img src={person.photo} alt={person.name} loading="lazy" width="400" height="500" />
+      : <span class="np-monogram" aria-hidden="true">{monogram}</span>}
+  </div>
+
+  <h3 class="np-name">{person.name}</h3>
+
+  <p class="np-title">{person.title}</p>
+
+  {(person.org || person.location) && (
+    <div class="np-meta">
+      {person.org && <span class="np-org">{person.org}</span>}
+      {person.location && <span class="np-location">{person.location}</span>}
+    </div>
+  )}
+
+  <p class="np-bio">{person.bio}</p>
+
+  {person.tags && person.tags.length > 0 && (
+    <ul class="np-tags">
+      {person.tags.map((t) => <li>{t}</li>)}
+    </ul>
+  )}
+
+  {person.link && (
+    <a
+      class="np-link"
+      href={person.link.href}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      {linkLabel}
+      <span aria-hidden="true">&rarr;</span>
+      {external && <span class="np-sr">(opens in a new tab)</span>}
+    </a>
+  )}
+
+</article>
+
+<style>
+.np-card{display:flex;flex-direction:column;min-width:0}
+
+.np-photo{
+  width:100%;aspect-ratio:4/5;border-radius:6px;overflow:hidden;
+  background:var(--navy);margin-bottom:18px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 24px 40px -28px rgba(15,42,74,0.35);
+}
+.np-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+.np-card:hover .np-photo img{transform:scale(1.035)}
+
+.np-monogram{
+  font-family:'Fraunces',serif;font-size:clamp(40px,6vw,58px);font-weight:500;
+  letter-spacing:1px;color:var(--gold);line-height:1;user-select:none;
+}
+
+.np-name{font-size:19px;line-height:1.2;color:var(--navy);margin:0 0 5px}
+.np-title{font-size:13px;line-height:1.4;color:var(--muted);margin:0 0 5px}
+/* org and location share one block so the 12px gap before the bio is set
+   once, rather than depending on which of the two happens to be present. */
+.np-meta{display:flex;flex-direction:column;gap:3px;margin:0 0 12px}
+.np-org,.np-location{
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.45;
+  letter-spacing:1px;text-transform:uppercase;
+}
+.np-org{color:var(--gold)}
+.np-location{color:var(--muted)}
+.np-bio{font-size:13px;color:var(--muted);line-height:1.62;margin:0}
+
+.np-tags{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0}
+.np-tags li{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--navy);background:var(--cream-2);
+  border:1px solid var(--line);border-radius:2px;padding:4px 8px;line-height:1.3;
+}
+
+.np-link{
+  margin-top:14px;align-self:flex-start;font-size:13px;color:var(--navy);
+  border-bottom:1px solid var(--gold);padding-bottom:2px;transition:color .2s;
+}
+.np-link span{margin-left:5px;color:var(--gold)}
+.np-link:hover{color:var(--gold)}
+
+.np-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+</style>
