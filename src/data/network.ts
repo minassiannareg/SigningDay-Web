@@ -144,6 +144,7 @@ export const networkSections: NetworkSection[] = [
       {
         name: 'Lionel Young',
         title: 'Personal Trainer, MMA',
+        org: 'Stay Young Fitness',
         bio:
           'Lionel is a relentless, hands-on personal trainer built around one ' +
           'discipline: MMA. His workouts are anything but ordinary, built with a ' +
