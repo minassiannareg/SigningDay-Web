@@ -52,7 +52,8 @@ const linkLabel = person.link?.label ?? (href.startsWith('mailto:') ? 'Get in to
 
   <div class="np-photo">
     {photo
-      ? <img src={photo} alt={person.name} loading="lazy" width="400" height="500" />
+      ? <img src={photo} alt={person.name} loading="lazy" width="400" height="500"
+             style={person.focus ? `object-position:${person.focus}` : undefined} />
       : <span class="np-monogram" aria-hidden="true">{monogram}</span>}
   </div>
 

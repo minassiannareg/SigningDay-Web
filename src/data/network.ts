@@ -51,6 +51,13 @@ export interface NetworkPerson {
   /** Path under public/, e.g. '/network-img/jane-doe.jpg'. */
   photo?: string;
   /**
+   * Which part of the photo to keep when it is cropped to the card's 4:5
+   * frame. Any CSS object-position value: 'center' (the default), or
+   * 'center top' to protect the top of the picture, '50% 30%' to nudge.
+   * Only needed when a centred crop cuts something that matters.
+   */
+  focus?: string;
+  /**
    * Further photos, shown as a small strip under the bio. Use these for
    * context shots - someone at work, or with an athlete they have trained.
    * The `alt` is read aloud by screen readers, so describe the picture.
@@ -148,6 +155,9 @@ export const networkSections: NetworkSection[] = [
           'matter your sport or your starting point, his approach meets you there ' +
           'and pushes you further.',
         photo: '/network-img/lionel-young.jpg',
+        // The raised glove sits at the very top of the frame; a centred crop
+        // clips it, and the glove is the whole point of the picture.
+        focus: 'center top',
         extraPhotos: [
           {
             src: '/network-img/lionel-young-jaylen-brown.jpg',
