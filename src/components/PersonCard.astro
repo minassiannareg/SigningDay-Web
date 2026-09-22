@@ -1,8 +1,28 @@
 ---
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import type { NetworkPerson } from '../data/network';
 
 interface Props { person: NetworkPerson }
 const { person } = Astro.props;
+
+/*
+  Photo paths are checked against public/ at build time. A path that does not
+  resolve is dropped rather than rendered, so a typo or a headshot that never
+  arrived degrades to the monogram instead of a broken image. The old network
+  block on /team shipped six broken <img> tags for exactly this reason - the
+  files were referenced before they existed and nothing caught it.
+  This runs during the build only; the published page is plain static HTML.
+
+  Resolved from the build's working directory, which Astro runs at the
+  project root. `import.meta.url` is not usable here - the component is
+  bundled before it runs, so the URL no longer points at src/components.
+*/
+const publicDir = join(process.cwd(), 'public');
+const onDisk = (src: string) => existsSync(join(publicDir, src.replace(/^\//, '')));
+
+const photo = person.photo && onDisk(person.photo) ? person.photo : undefined;
+const extraPhotos = (person.extraPhotos ?? []).filter((p) => onDisk(p.src));
 
 /*
   A headshot is optional on purpose - entries get added as professionals
@@ -31,8 +51,8 @@ const linkLabel = person.link?.label ?? (href.startsWith('mailto:') ? 'Get in to
 <article class="np-card">
 
   <div class="np-photo">
-    {person.photo
-      ? <img src={person.photo} alt={person.name} loading="lazy" width="400" height="500" />
+    {photo
+      ? <img src={photo} alt={person.name} loading="lazy" width="400" height="500" />
       : <span class="np-monogram" aria-hidden="true">{monogram}</span>}
   </div>
 
@@ -52,6 +72,14 @@ const linkLabel = person.link?.label ?? (href.startsWith('mailto:') ? 'Get in to
   {person.tags && person.tags.length > 0 && (
     <ul class="np-tags">
       {person.tags.map((t) => <li>{t}</li>)}
+    </ul>
+  )}
+
+  {extraPhotos.length > 0 && (
+    <ul class="np-extra">
+      {extraPhotos.map((p) => (
+        <li><img src={p.src} alt={p.alt} loading="lazy" /></li>
+      ))}
     </ul>
   )}
 
@@ -105,6 +133,15 @@ const linkLabel = person.link?.label ?? (href.startsWith('mailto:') ? 'Get in to
   font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.8px;
   text-transform:uppercase;color:var(--navy);background:var(--cream-2);
   border:1px solid var(--line);border-radius:2px;padding:4px 8px;line-height:1.3;
+}
+
+/* Context shots sit under the bio at a deliberately small size: they are
+   supporting evidence for what the bio claims, not a second portrait. */
+.np-extra{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;padding:0}
+.np-extra li{flex:0 1 128px}
+.np-extra img{
+  width:100%;aspect-ratio:4/3;object-fit:cover;display:block;
+  border-radius:4px;border:1px solid var(--line);
 }
 
 .np-link{

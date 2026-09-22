@@ -18,6 +18,9 @@
        photo: '/network-img/jane-doe.jpg',
        tags: ['Strength & Conditioning', 'Return to Training'],
        link: { href: 'https://harborathletic.com', label: 'Visit website' },
+       extraPhotos: [
+         { src: '/network-img/jane-doe-gym.jpg', alt: 'Jane coaching a lift' },
+       ],
      },
 
    Only `name`, `title` and `bio` are required. Everything else can be
@@ -47,6 +50,12 @@ export interface NetworkPerson {
   location?: string;
   /** Path under public/, e.g. '/network-img/jane-doe.jpg'. */
   photo?: string;
+  /**
+   * Further photos, shown as a small strip under the bio. Use these for
+   * context shots - someone at work, or with an athlete they have trained.
+   * The `alt` is read aloud by screen readers, so describe the picture.
+   */
+  extraPhotos?: { src: string; alt: string }[];
   /** Short specialty labels. Two or three read best; four is the cap. */
   tags?: string[];
   /** Website, booking page, or mailto. Opens in a new tab if external. */
@@ -124,7 +133,52 @@ export const networkSections: NetworkSection[] = [
       'Coaches who build strength and conditioning around a competitive season ' +
       'rather than against it, and who know how to bring an athlete back from injury.',
     singular: 'trainer',
-    people: [],
+    people: [
+      {
+        name: 'Lionel Young',
+        title: 'Personal Trainer, MMA',
+        bio:
+          'Lionel is a relentless, hands-on personal trainer built around one ' +
+          'discipline: MMA. His workouts are anything but ordinary, built with a ' +
+          'creativity that keeps clients engaged and challenged in ways they don\'t ' +
+          'see coming, and it shows: the discipline he instills carries over well ' +
+          'beyond the gym, and the results speak for themselves. He works with ' +
+          'athletes of every kind, from first-time gym-goers to elite competitors, ' +
+          'including helping shape the training of NBA standout Jaylen Brown. No ' +
+          'matter your sport or your starting point, his approach meets you there ' +
+          'and pushes you further.',
+        photo: '/network-img/lionel-young.jpg',
+        extraPhotos: [
+          {
+            src: '/network-img/lionel-young-jaylen-brown.jpg',
+            alt: 'Lionel Young with NBA guard Jaylen Brown',
+          },
+        ],
+        tags: ['MMA', 'Strength & Conditioning', 'All Levels'],
+      },
+      {
+        name: 'Shane Haney',
+        title: 'Owner and Personal Trainer',
+        org: 'Underdog Fitness',
+        bio:
+          'Shane owns his own training studio, and brings the same approach to every ' +
+          'client: real progress happens once you\'re pushed past where you\'d normally ' +
+          'stop, and he goes out of his way to get every client there. Train at his ' +
+          'studio or have him come to you, Shane builds the program around what ' +
+          'actually fits your life. He has spent years working with young student ' +
+          'athletes chasing a specific goal, earning a spot on a college roster, ' +
+          'helping them build not just the physical tools but the competitive edge that ' +
+          'gets noticed by coaches and recruiters.',
+        photo: '/network-img/shane-haney.jpg',
+        extraPhotos: [
+          {
+            src: '/network-img/shane-haney-field.jpg',
+            alt: 'Shane Haney setting up a field session',
+          },
+        ],
+        tags: ['Student-Athletes', 'Studio or In-Home', 'College Recruiting Prep'],
+      },
+    ],
   },
   {
     id: 'tutors',
