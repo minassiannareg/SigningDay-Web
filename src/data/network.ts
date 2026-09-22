@@ -98,6 +98,7 @@ export const networkSections: NetworkSection[] = [
         title: 'Swimming Performance & Athlete Development Advisor, Physical Therapist',
         org: 'STRIVE Swim Science Center',
         location: 'Greater Philadelphia, PA',
+        photo: '/network-img/Dean.png',
         bio:
           'Dean is a former elite swimmer, collegiate coach, and physical therapist based ' +
           'in the Greater Philadelphia area, with extensive experience in athlete ' +
@@ -110,7 +111,7 @@ export const networkSections: NetworkSection[] = [
           'and performance. Dean currently works with athletes through the STRIVE Swim ' +
           'Science Center, combining technical coaching with a clinical understanding of ' +
           'movement and biomechanics.',
-        tags: ['Swimming Mechanics', 'Injury Prevention', 'Collegiate Coaching'],
+        tags: ['Swimming Mechanics', 'Injury Prevention'],
       },
       {
         name: 'Peter Sczupak',
