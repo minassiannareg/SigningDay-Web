@@ -48,7 +48,13 @@ import model from '../data/academic-model.json';
             </radialGradient>
           </defs>
 
-          <circle cx="150" cy="158" r="128" fill="url(#cm-halo)"/>
+          <circle
+            class="cm-halo"
+            cx="150"
+            cy="158"
+            r="128"
+            fill="url(#cm-halo)"
+          />
 
           <g class="cm-bezel">
             <circle class="cm-ring" cx="150" cy="158" r="112" stroke-width="1.1" opacity=".85"/>
@@ -64,21 +70,41 @@ import model from '../data/academic-model.json';
             <line x1="68.6" y1="205" x2="53" y2="214"/>
           </g>
 
-          <g class="cm-rose">
-            <g class="cm-web">
-              <path d="M150 70 L214.1 195 L96.3 189 Z" fill="none" stroke="#C9A13B" stroke-width="1" stroke-opacity=".5"/>
+          <g class="cm-pointer">
+            <g class="cm-rose">
+              <g class="cm-web">
+                <path
+                  d="M150 70 L214.1 195 L96.3 189 Z"
+                  fill="none"
+                  stroke="#C9A13B"
+                  stroke-width="1"
+                  stroke-opacity=".5"
+                />
+              </g>
+
+              <path
+                d="M150 70 L154.9 144.8 L150 158 L145.1 144.8 Z"
+                fill="url(#cm-lance)"
+              />
+
+              <path
+                d="M214.1 195 L157.2 167.8 L150 158 L162.1 159.4 Z"
+                fill="url(#cm-lance)"
+              />
+
+              <path
+                d="M96.3 189 L139.5 158.5 L150 158 L144.4 166.9 Z"
+                fill="url(#cm-lance)"
+              />
             </g>
-            <path d="M150 70 L154.9 144.8 L150 158 L145.1 144.8 Z" fill="url(#cm-lance)"/>
-            <path d="M214.1 195 L157.2 167.8 L150 158 L162.1 159.4 Z" fill="url(#cm-lance)"/>
-            <path d="M96.3 189 L139.5 158.5 L150 158 L144.4 166.9 Z" fill="url(#cm-lance)"/>
           </g>
 
           <circle cx="150" cy="158" r="9" fill="#0A1E38" stroke="#C9A13B" stroke-width="1.3"/>
           <circle cx="150" cy="158" r="2.1" fill="#C9A13B"/>
 
-          <text class="cm-label" x="150" y="26" text-anchor="middle">ACADEMICS</text>
-          <text class="cm-label" x="256" y="298" text-anchor="end">ATHLETICS</text>
-          <text class="cm-label" x="44" y="298" text-anchor="start">ACTIVITIES</text>
+          <text class="cm-label" x="151" y="26" text-anchor="middle">ACADEMICS</text>
+          <text class="cm-label" x="43" y="227" text-anchor="end">ACTIVITIES</text>
+          <text class="cm-label" x="258" y="227" text-anchor="start">ATHLETICS</text>
         </svg>
       </div>
 
@@ -527,7 +553,19 @@ import model from '../data/academic-model.json';
   .hero .wrap{position:relative;z-index:2}
   .hero-inner{max-width:680px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
   .compass-wrap{position:relative;margin:22px 0 28px}
-  .compass-hero{position:relative;z-index:1;width:min(348px,80vw);height:auto;display:block}
+  .compass-hero{
+    position:relative;
+    z-index:1;
+    width:min(348px,80vw);
+    height:auto;
+    display:block;
+    overflow:visible;
+  }
+  .compass-wrap{
+    position:relative;
+    margin:22px 0 28px;
+    overflow:visible;
+  } 
   .cm-ring{stroke:#C9A13B;fill:none}
   .cm-label{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:2.6px;fill:#C9A13B}
   /* Three layers of motion, each doing a different job. The rose swings past
@@ -538,6 +576,46 @@ import model from '../data/academic-model.json';
   .cm-bezel{transform-box:view-box;transform-origin:150px 158px}
   .cm-rose{transform-box:view-box;transform-origin:150px 158px;transform:rotate(-62deg)}
   .cm-web{opacity:0}
+
+    /* ==========================================================
+    INTERACTIVE COMPASS
+    The outer wrapper follows the cursor while .cm-rose keeps
+    the existing settle + breathing animation.
+    ========================================================== */
+
+  .cm-pointer {
+    pointer-events: none;
+  }
+
+  /* Make the compass feel interactive without making it flashy */
+  .compass-wrap {
+    cursor: crosshair;
+  }
+
+  /* Slight halo reaction while the user is interacting */
+  .cm-halo {
+    opacity: .72;
+    filter: drop-shadow(0 0 0 rgba(201,161,59,0));
+    transition: opacity .18s ease, filter .18s ease;
+    pointer-events: none;
+  }
+
+  .compass-wrap.is-tracking .cm-ring {
+    filter: brightness(1.06);
+  }
+
+  /* Slightly brighten the gold ring while tracking */
+  .compass-wrap.is-tracking .cm-ring {
+    filter: brightness(1.08);
+  }
+
+  /* Don't show an interaction cursor on touch devices */
+  @media (hover:none), (pointer:coarse) {
+    .compass-wrap {
+      cursor: default;
+    }
+  }
+
   .hero.lit .cm-rose{animation:cm-settle 1.9s cubic-bezier(.16,.84,.34,1) .3s both,cm-breathe 8s ease-in-out 2.2s infinite}
   .hero.lit .cm-bezel{animation:cm-drift 18s ease-in-out .3s infinite}
   .hero.lit .cm-web{animation:cm-webin .9s ease 1.55s both}
@@ -1120,8 +1198,16 @@ import model from '../data/academic-model.json';
     .reveal,.fx{opacity:1!important;transform:none!important;transition:none!important}
     .g-fill,.bar-t i{transition:none!important}
     .hero.lit h1 em::after{transform:none!important}
-    .cm-rose,.cm-bezel,.cm-web,.fc-lance,.fc-web{animation:none!important;transform:none!important;opacity:1!important}
+  .cm-rose,.cm-bezel,.cm-web,.fc-lance,.fc-web{
+    animation:none!important;
+    transform:none!important;
+    opacity:1!important
   }
+
+  .cm-halo{
+    transition:none!important;
+    filter:none!important;
+  }  }
   @media(max-width:760px){
     .s{padding:78px 0}
     .calc-form,.calc-out{padding:30px 22px}
@@ -1285,9 +1371,450 @@ import model from '../data/academic-model.json';
 </style>
 
 <script is:inline>
-requestAnimationFrame(function(){requestAnimationFrame(function(){
-  var h=document.querySelector('.hero'); if(h) h.classList.add('lit');
-})});
+  /* HERO ENTRANCE */
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      var hero = document.querySelector('.hero');
+      if (hero) hero.classList.add('lit');
+    });
+  });
+
+
+  /* ==========================================================
+     INTERACTIVE COMPASS
+     ========================================================== */
+
+  (function () {
+    var wrap = document.querySelector('.compass-wrap');
+    var pointer = document.querySelector('.cm-pointer');
+
+    if (!wrap || !pointer) return;
+
+    var svg = wrap.querySelector('.compass-hero');
+    if (!svg) return;
+
+    var halo = svg.querySelector('.cm-halo');
+
+    /* Mouse can control compass this far from center */
+    var ACTIVE_RADIUS = 340;
+
+
+    /* ========================================================
+       SVG ROTATION
+       Exact hub = 150,158
+       ======================================================== */
+
+    var rotation = svg.createSVGTransform();
+
+    rotation.setRotate(0, 150, 158);
+
+    pointer.transform.baseVal.clear();
+    pointer.transform.baseVal.appendItem(rotation);
+
+    rotation = pointer.transform.baseVal.getItem(0);
+
+
+    /* ========================================================
+       STATE
+       ======================================================== */
+
+    var currentAngle = 0;
+
+    /*
+     * Unlike before, targetAngle is allowed to go beyond
+     * 360 or below 0.
+     *
+     * Example:
+     *
+     * 350 -> 360 -> 370 -> 380
+     *
+     * instead of:
+     *
+     * 350 -> 0 -> 10 -> 20
+     *
+     * This prevents the direction-reversal bug.
+     */
+    var targetAngle = 0;
+
+    var lastMouseAngle = null;
+
+    var animationFrame = null;
+
+    var tracking = false;
+
+
+    /* ========================================================
+       NORMALIZE A SINGLE MOUSE MOVEMENT
+
+       Always converts the change between two consecutive
+       mouse positions to between -180 and +180 degrees.
+       ======================================================== */
+
+    function normalizeDelta(angle) {
+      return (
+        ((angle + 180) % 360 + 360) % 360
+      ) - 180;
+    }
+
+
+    /* ========================================================
+       ANIMATE
+       ======================================================== */
+
+    function animateCompass() {
+
+      /*
+       * IMPORTANT:
+       *
+       * We no longer calculate the "shortest path" here.
+       *
+       * targetAngle has already been made continuous based
+       * on the actual direction the cursor travelled.
+       */
+
+      var difference =
+        targetAngle - currentAngle;
+
+
+      var smoothing =
+        tracking ? 0.18 : 0.10;
+
+
+      currentAngle +=
+        difference * smoothing;
+
+
+      rotation.setRotate(
+        currentAngle,
+        150,
+        158
+      );
+
+
+      if (Math.abs(difference) > 0.05) {
+
+        animationFrame =
+          requestAnimationFrame(
+            animateCompass
+          );
+
+      } else {
+
+        currentAngle =
+          targetAngle;
+
+
+        rotation.setRotate(
+          currentAngle,
+          150,
+          158
+        );
+
+
+        animationFrame = null;
+      }
+    }
+
+
+    function startAnimation() {
+
+      if (animationFrame === null) {
+
+        animationFrame =
+          requestAnimationFrame(
+            animateCompass
+          );
+
+      }
+    }
+
+
+    /* ========================================================
+       COMPASS HUB POSITION
+       ======================================================== */
+
+    function getHub() {
+
+      var rect =
+        svg.getBoundingClientRect();
+
+
+      return {
+
+        x:
+          rect.left +
+          rect.width *
+          (150 / 300),
+
+        y:
+          rect.top +
+          rect.height *
+          (158 / 318)
+
+      };
+    }
+
+
+    /* ========================================================
+       GET RAW MOUSE ANGLE
+
+       0° = north
+       90° = east
+       180° = south
+       270° = west
+       ======================================================== */
+
+    function getMouseAngle(event) {
+
+      var hub =
+        getHub();
+
+
+      var dx =
+        event.clientX -
+        hub.x;
+
+
+      var dy =
+        event.clientY -
+        hub.y;
+
+
+      return (
+        Math.atan2(dy, dx) *
+        180 /
+        Math.PI +
+        90
+      );
+    }
+
+
+    /* ========================================================
+       FOLLOW MOUSE WITHOUT REVERSING DIRECTION
+       ======================================================== */
+
+    function pointAtMouse(event) {
+
+      var rawAngle =
+        getMouseAngle(event);
+
+
+      /*
+       * First mouse position after entering
+       * the active zone.
+       */
+      if (lastMouseAngle === null) {
+
+        /*
+         * Work out where the needle currently sits
+         * within one revolution.
+         */
+
+        var currentWrapped =
+          ((currentAngle % 360) + 360) % 360;
+
+
+        /*
+         * Take the sensible initial route to the mouse.
+         */
+        var firstMove =
+          normalizeDelta(
+            rawAngle -
+            currentWrapped
+          );
+
+
+        targetAngle =
+          currentAngle +
+          firstMove;
+
+      } else {
+
+        /*
+         * THIS IS THE FIX.
+         *
+         * Look at how the MOUSE moved since the previous
+         * mouse event—not at which direction is shortest
+         * from the lagging needle.
+         *
+         * Clockwise mouse movement therefore stays clockwise.
+         */
+
+        var mouseMovement =
+          normalizeDelta(
+            rawAngle -
+            lastMouseAngle
+          );
+
+
+        targetAngle +=
+          mouseMovement;
+      }
+
+
+      lastMouseAngle =
+        rawAngle;
+
+
+      startAnimation();
+    }
+
+
+    /* ========================================================
+       DISTANCE FROM COMPASS
+       ======================================================== */
+
+    function distanceFromCompass(event) {
+
+      var hub =
+        getHub();
+
+
+      var dx =
+        event.clientX -
+        hub.x;
+
+
+      var dy =
+        event.clientY -
+        hub.y;
+
+
+      return Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
+    }
+
+
+    /* ========================================================
+       PROXIMITY GLOW
+       ======================================================== */
+
+    function updateGlow(distance) {
+
+      if (!halo) return;
+
+
+      var strength =
+        1 -
+        Math.min(
+          distance /
+          ACTIVE_RADIUS,
+          1
+        );
+
+
+      var opacity =
+        0.72 +
+        strength * 0.28;
+
+
+      var blur =
+        strength * 28;
+
+
+      var glowOpacity =
+        strength * 0.55;
+
+
+      halo.style.opacity =
+        opacity.toFixed(2);
+
+
+      halo.style.filter =
+        'drop-shadow(0 0 ' +
+        blur.toFixed(1) +
+        'px rgba(201,161,59,' +
+        glowOpacity.toFixed(2) +
+        '))';
+    }
+
+
+    /* ========================================================
+       PAGE-WIDE MOUSE TRACKING
+       ======================================================== */
+
+    document.addEventListener(
+      'mousemove',
+      function (event) {
+
+        var distance =
+          distanceFromCompass(event);
+
+
+        if (distance <= ACTIVE_RADIUS) {
+
+          /*
+           * ENTER / REMAIN IN ACTIVE AREA
+           */
+
+          if (!tracking) {
+
+            tracking = true;
+
+            /*
+             * Start a fresh mouse-direction measurement.
+             */
+            lastMouseAngle = null;
+
+          }
+
+
+          wrap.classList.add(
+            'is-tracking'
+          );
+
+
+          pointAtMouse(event);
+
+          updateGlow(distance);
+
+        } else {
+
+          /*
+           * OUTSIDE ACTIVE AREA
+           */
+
+          updateGlow(
+            ACTIVE_RADIUS
+          );
+
+
+          if (tracking) {
+
+            tracking = false;
+
+            lastMouseAngle = null;
+
+
+            wrap.classList.remove(
+              'is-tracking'
+            );
+
+
+            /*
+             * Return to the nearest equivalent north.
+             *
+             * If currentAngle is 370°, north is 360°.
+             * If currentAngle is 710°, north is 720°.
+             *
+             * This avoids unwinding multiple rotations.
+             */
+
+            targetAngle =
+              Math.round(
+                currentAngle / 360
+              ) * 360;
+
+
+            startAnimation();
+          }
+        }
+      }
+    );
+
+  })();
 </script>
 
 <script define:vars={{ model }}>
