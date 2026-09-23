@@ -6,7 +6,7 @@ import model from '../data/academic-model.json';
 <Base
   title="SDA Compass"
   scrollBar
-  description="Free Academic Index calculator: the 60-240 recruiting score, worked out with and without your test score. Plus the SDA Compass, which bands it against the class a specific school actually enrolls."
+  description="The SDA Compass is a personalized recruiting assessment that evaluates academics, athletics, overall profile, and school-specific fit. A free Academic Index calculator is also available as a quick academic snapshot."
   extraDisclaimer="Named schools use each school's own published Common Data Set figures for the year shown; percentiles within a school are reconstructed from its published 25th/75th and are approximate. Descriptions of other services reflect the methodology those services publish themselves. The Ivy League has never published the Academic Index formula; our calculator uses the standard public reconstruction, and the converted-GPA curve, the test-optional estimate and the band labels are our own judgment calls. It is a planning tool, not an admissions prediction, and a coach pre-read is the only authoritative read on a recruit's academic standing. The calculator excludes the athletic and activities axes and the school-specific banding the paid report is built on."
 >
 
@@ -113,20 +113,251 @@ import model from '../data/academic-model.json';
 <p class="lede fx d4">The SDA Compass is a personalized recruiting report that evaluates your academics, swimming, and overall profile against the schools on your list. It shows where you are a strong fit, where you need a push, and what could improve your position.</p>
 
 <div class="hero-actions fx d5">
-  <a class="btn-gold" href="#try-it">Try the calculator</a>
-  <a class="btn-ghost" href="#full-compass">See the full Compass <span class="dn">&darr;</span></a>
+  <a class="btn-gold" href="#get-the-compass">Build My Compass</a>
+  <a class="btn-ghost" href="#try-it">Try the free calculator <span class="dn">&darr;</span></a>
 </div>
+  </div>
   </div>
 </header>
 
 <!-- ==========================================================
-     THE FREE CALCULATOR — the real 60-240 Academic Index, and nothing
-     else. Constants come from src/data/academic-model.json, generated out
-     of Recruiting_Academic_Index.py by export_web_model.py. Never
-     hand-edit the numbers here.
+     WHAT YOU WILL LEARN FROM SDA
      ========================================================== -->
-<section class="s calc" id="try-it">
+<section class=" compass-subsection">
   <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-num">Know where you stand</span>
+      <h2>What you will learn</h2>
+      <p>A complete recruiting picture, showing how each part of your profile contributes to your overall fit.</p>
+    </div>
+
+<div class="learn-grid">
+  <!-- Academic position -->
+  <div class="learn-card reveal">
+    <div class="learn-visual compare-visual" aria-hidden="true">
+      <div class="compare-row">
+        <label>You</label>
+        <div class="compare-track"><i class="gold" style="width:78%"></i></div>
+      </div>
+      <div class="compare-row">
+        <label>School</label>
+        <div class="compare-track"><i class="blue" style="width:86%"></i></div>
+      </div>
+    </div>
+    <h3>Academic position</h3>
+    <p>How your academics compare with the level of schools you&rsquo;re targeting.</p>
+  </div>
+
+  <!-- Athletic position -->
+  <div class="learn-card reveal">
+    <div class="learn-visual compare-visual" aria-hidden="true">
+      <div class="compare-row">
+        <label>You</label>
+        <div class="compare-track"><i class="gold" style="width:72%"></i></div>
+      </div>
+      <div class="compare-row">
+        <label>School</label>
+        <div class="compare-track"><i class="blue" style="width:88%"></i></div>
+      </div>
+    </div>
+    <h3>Athletic position</h3>
+    <p>Your current level compared with the programs and conferences you&rsquo;re targeting.</p>
+  </div>
+
+  <!-- Event benchmarks -->
+  <div class="learn-card reveal">
+    <div class="learn-visual trend-visual" aria-hidden="true">
+      <svg viewBox="0 0 260 92" class="mini-svg">
+        <path d="M18 70 C44 67, 63 53, 93 49 S145 42, 173 30 S220 18, 242 11"
+              fill="none"
+              stroke="#C9A13B"
+              stroke-width="4"
+              stroke-linecap="round"/>
+        <circle cx="18" cy="70" r="5.5" fill="#2C5688"/>
+        <circle cx="78" cy="50" r="5.5" fill="#2C5688"/>
+        <circle cx="152" cy="36" r="5.5" fill="#2C5688"/>
+        <circle cx="242" cy="11" r="6.5" fill="#C9A13B"/>
+      </svg>
+    </div>
+    <h3>Event benchmarks</h3>
+    <p>Where your key events sit now in select conferences &mdash; and where realistic progression could take them.</p>
+  </div>
+
+  <!-- Target schools -->
+  <div class="learn-card reveal">
+    <div class="learn-visual dist-visual" aria-hidden="true">
+      <svg viewBox="0 0 300 110" class="mini-svg">
+        <rect x="96" y="16" width="118" height="72" fill="rgba(201,161,59,.14)"/>
+        <path d="M14 88
+                 C 56 88, 84 18, 150 18
+                 C 216 18, 244 88, 286 88"
+              fill="none"
+              stroke="#0F2A4A"
+              stroke-width="2.5"
+              stroke-linecap="round"/>
+        <line x1="190" y1="34" x2="190" y2="88"
+              stroke="#C9A13B"
+              stroke-width="2"
+              stroke-dasharray="5 4"/>
+        <circle cx="190" cy="34" r="6.5" fill="#C9A13B" stroke="#0F2A4A" stroke-width="2"/>
+        <line x1="14" y1="88" x2="286" y2="88" stroke="#D9D3C6" stroke-width="1.2"/>
+      </svg>
+    </div>
+    <h3>Target schools</h3>
+    <p>Which programs appear to offer the strongest overall recruiting opportunity.</p>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SCHOOL BY SCHOOL
+     ========================================================== -->
+<section class="s tint compass-subsection">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-num">School-by-school read</span>
+      <h2>Every school tells a different story</h2>
+      <p>The same athlete can look very different across one school list.</p>
+    </div>
+
+    <div class="school-reads">
+      <div class="school-read strong reveal">
+        <span class="read-tag">Strong fit</span>
+        <h3>Your profile aligns well.</h3>
+        <p>Competitive across the factors that matter most for this program.</p>
+        <div class="read-meta">Academic position · Athletic fit · Event strengths</div>
+      </div>
+
+      <div class="school-read potential reveal">
+        <span class="read-tag">Strong potential</span>
+        <h3>There is a realistic path.</h3>
+        <p>Several pieces fit, but one or more areas still need to move.</p>
+        <div class="read-meta">Current strengths · Main gap · Development potential</div>
+      </div>
+
+      <div class="school-read stretch reveal">
+        <span class="read-tag">Stretch</span>
+        <h3>A tougher target today.</h3>
+        <p>We show why — and what would need to change for the picture to improve.</p>
+        <div class="read-meta">Primary constraint · Required improvement · Opportunity</div>
+      </div>
+    </div>
+
+<div class="requested-read reveal">
+  <div>
+    <span class="requested-label">Requested Schools</span>
+    <h3>Your school list is part of the analysis.</h3>
+    <p>Tell us which programs matter to you, and we&rsquo;ll include personalized reads for those schools in your Compass.</p>
+  </div>
+  <div class="requested-chip">Included in your report</div>
+</div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     WHAT CAN CHANGE
+     ========================================================== -->
+<section class="s tint change-section compass-subsection">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <span class="s-num">What can you change?</span>
+      <h2>Know where your effort matters</h2>
+      <p>We identify the improvements most likely to strengthen your recruiting position.</p>
+    </div>
+
+<div class="change-grid">
+  <div class="change-card reveal">
+    <h3>Academics</h3>
+    <p>Testing, course rigor, grades and academic positioning.</p>
+  </div>
+
+  <div class="change-card reveal">
+    <h3>Athletics</h3>
+    <p>Target times, specific events, progression and versatility.</p>
+  </div>
+
+  <div class="change-card reveal">
+    <h3>School strategy</h3>
+    <p>Where to push, where to broaden and where your profile already works.</p>
+  </div>
+</div>
+
+<div class="change-cta reveal">
+  <div>
+    <span class="change-cta-label">Take the next step</span>
+    <h3>Want to make your profile stronger?</h3>
+    <p>Our advising packages give you personalized guidance to help close the gaps identified in your Compass.</p>
+  </div>
+
+  <a class="btn-gold" href="../packages/">Explore SDA Packages</a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     WHAT WE DO
+     ========================================================== -->
+<section class="s what-we-do">
+  <div class="wrap">
+
+    <div class="s-head reveal">
+      <span class="s-num">What we do</span>
+      <h2>How we build your Compass</h2>
+      <p>Our team turns your academic, athletic, and broader student profile into a clear recruiting picture, then identify where the strongest opportunities may be.</p>
+    </div>
+
+    <div class="how-it-works-label reveal">
+      <span>How it works</span>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <span class="step-num">1</span>
+        <h3>Build your profile</h3>
+        <p>Fill out our questionnaire and talk with a partner so we can understand your broader student-athlete profile.</p>
+      </div>
+
+      <div class="step-arrow">&rarr;</div>
+
+      <div class="step reveal">
+        <span class="step-num">2</span>
+        <h3>Benchmark it</h3>
+        <p>Using our proprietary algorithm, we compare your profile with target programs and identify where you may be a strong fit.</p>
+      </div>
+
+      <div class="step-arrow">&rarr;</div>
+
+      <div class="step reveal">
+        <span class="step-num">3</span>
+        <h3>Find the opportunity</h3>
+        <p>See where you fit, what is holding you back, and where improvement matters most.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================
+     FREE ACADEMIC INDEX — secondary tool, collapsed by default
+     ========================================================== -->
+<section class="s calc-collapsed" id="try-it">
+  <div class="wrap">
+    <details class="calc-disclosure reveal">
+      <summary class="calc-summary">
+        <span class="calc-summary-copy">
+          <span class="calc-summary-kicker">Free academic tool</span>
+          <span class="calc-summary-title">Curious where you stand academically?</span>
+          <span class="calc-summary-text">Get a quick estimate of your academic positioning with our free Academic Index calculator.</span>
+        </span>
+        <span class="calc-summary-action">
+          <span>Try the Free Academic Index Calculator</span>
+          <span class="calc-chevron" aria-hidden="true">&darr;</span>
+        </span>
+      </summary>
+
+      <div class="calc-expanded">
     <div class="s-head reveal">
       <span class="s-num">Try it</span>
     <h2>Try your Academic Index.</h2>
@@ -245,7 +476,16 @@ import model from '../data/academic-model.json';
 <p class="calc-safety">
   The Ivy League and NESCAC have never published their formula. This is our own model, built from the variables they do use: unweighted GPA and SAT or ACT. Test-score inputs use published College Board and ACT scales, concordance tables, and national percentiles, while school ranges use each institution&rsquo;s published 25th and 75th percentiles. The GPA conversion is our own reconstruction.
 </p>
+      </div>
+    </details>
+  </div>
+</section>
 
+<!-- ==========================================================
+     FREE VS FULL COMPASS — kept visible in the main Compass story
+     ========================================================== -->
+<section class="s compass-compare-section compass-subsection">
+  <div class="wrap">
 <div class="full-compare reveal" id="full-compass">
   <div class="fc-head">
     <span class="s-num">Your Academic Index is only part of the picture</span>
@@ -288,226 +528,6 @@ import model from '../data/academic-model.json';
     </div>
   </div>
 </div>
-</div>
-
-    </div>
-  </section>
-
-<!-- ==========================================================
-     WHAT YOU WILL LEARN FROM SDA
-     ========================================================== -->
-<section class=" compass-subsection">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">Know where you stand</span>
-      <h2>What you will learn</h2>
-      <p>A complete recruiting picture, showing how each part of your profile contributes to your overall fit.</p>
-    </div>
-
-<div class="learn-grid">
-  <!-- Academic position -->
-  <div class="learn-card reveal">
-    <div class="learn-visual compare-visual" aria-hidden="true">
-      <div class="compare-row">
-        <label>You</label>
-        <div class="compare-track"><i class="gold" style="width:78%"></i></div>
-      </div>
-      <div class="compare-row">
-        <label>School</label>
-        <div class="compare-track"><i class="blue" style="width:86%"></i></div>
-      </div>
-    </div>
-    <h3>Academic position</h3>
-    <p>How your academics compare with the level of schools you&rsquo;re targeting.</p>
-  </div>
-
-  <!-- Athletic position -->
-  <div class="learn-card reveal">
-    <div class="learn-visual compare-visual" aria-hidden="true">
-      <div class="compare-row">
-        <label>You</label>
-        <div class="compare-track"><i class="gold" style="width:72%"></i></div>
-      </div>
-      <div class="compare-row">
-        <label>School</label>
-        <div class="compare-track"><i class="blue" style="width:88%"></i></div>
-      </div>
-    </div>
-    <h3>Athletic position</h3>
-    <p>Your current level compared with the programs and conferences you&rsquo;re targeting.</p>
-  </div>
-
-  <!-- Event benchmarks -->
-  <div class="learn-card reveal">
-    <div class="learn-visual trend-visual" aria-hidden="true">
-      <svg viewBox="0 0 260 92" class="mini-svg">
-        <path d="M18 70 C44 67, 63 53, 93 49 S145 42, 173 30 S220 18, 242 11"
-              fill="none"
-              stroke="#C9A13B"
-              stroke-width="4"
-              stroke-linecap="round"/>
-        <circle cx="18" cy="70" r="5.5" fill="#2C5688"/>
-        <circle cx="78" cy="50" r="5.5" fill="#2C5688"/>
-        <circle cx="152" cy="36" r="5.5" fill="#2C5688"/>
-        <circle cx="242" cy="11" r="6.5" fill="#C9A13B"/>
-      </svg>
-    </div>
-    <h3>Event benchmarks</h3>
-    <p>Where your key events sit now &mdash; and where realistic progression could take them.</p>
-  </div>
-
-  <!-- Target schools -->
-  <div class="learn-card reveal">
-    <div class="learn-visual dist-visual" aria-hidden="true">
-      <svg viewBox="0 0 300 110" class="mini-svg">
-        <rect x="96" y="16" width="118" height="72" fill="rgba(201,161,59,.14)"/>
-        <path d="M14 88
-                 C 56 88, 84 18, 150 18
-                 C 216 18, 244 88, 286 88"
-              fill="none"
-              stroke="#0F2A4A"
-              stroke-width="2.5"
-              stroke-linecap="round"/>
-        <line x1="190" y1="34" x2="190" y2="88"
-              stroke="#C9A13B"
-              stroke-width="2"
-              stroke-dasharray="5 4"/>
-        <circle cx="190" cy="34" r="6.5" fill="#C9A13B" stroke="#0F2A4A" stroke-width="2"/>
-        <line x1="14" y1="88" x2="286" y2="88" stroke="#D9D3C6" stroke-width="1.2"/>
-      </svg>
-    </div>
-    <h3>Target schools</h3>
-    <p>Which programs appear to offer the strongest overall recruiting opportunity.</p>
-  </div>
-</div>
-  </div>
-</section>
-
-<!-- ==========================================================
-     SCHOOL BY SCHOOL
-     ========================================================== -->
-<section class="s tint compass-subsection">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">School-by-school read</span>
-      <h2>Every school tells a different story</h2>
-      <p>The same athlete can look very different across one school list.</p>
-    </div>
-
-    <div class="school-reads">
-      <div class="school-read strong reveal">
-        <span class="read-tag">Strong fit</span>
-        <h3>Your profile aligns well.</h3>
-        <p>Competitive across the factors that matter most for this program.</p>
-        <div class="read-meta">Academic position · Athletic fit · Event strengths</div>
-      </div>
-
-      <div class="school-read potential reveal">
-        <span class="read-tag">Strong potential</span>
-        <h3>There is a realistic path.</h3>
-        <p>Several pieces fit, but one or more areas still need to move.</p>
-        <div class="read-meta">Current strengths · Main gap · Development potential</div>
-      </div>
-
-      <div class="school-read stretch reveal">
-        <span class="read-tag">Stretch</span>
-        <h3>A tougher target today.</h3>
-        <p>We show why — and what would need to change for the picture to improve.</p>
-        <div class="read-meta">Primary constraint · Required improvement · Opportunity</div>
-      </div>
-    </div>
-
-<div class="requested-read reveal">
-  <div>
-    <span class="requested-label">Requested Schools</span>
-    <h3>Your school list is part of the analysis.</h3>
-    <p>Tell us which programs matter to you, and we&rsquo;ll include personalized reads for those schools in your Compass.</p>
-  </div>
-  <div class="requested-chip">Included in your report</div>
-</div>
-</section>
-
-<!-- ==========================================================
-     WHAT CAN CHANGE
-     ========================================================== -->
-<section class="s tint change-section compass-subsection">
-  <div class="wrap">
-    <div class="s-head reveal">
-      <span class="s-num">What can you change?</span>
-      <h2>Know where your effort matters</h2>
-      <p>We identify the improvements most likely to strengthen your recruiting position.</p>
-    </div>
-
-<div class="change-grid">
-  <div class="change-card reveal">
-    <h3>Academics</h3>
-    <p>Testing, course rigor, grades and academic positioning.</p>
-  </div>
-
-  <div class="change-card reveal">
-    <h3>Athletics</h3>
-    <p>Target times, specific events, progression and versatility.</p>
-  </div>
-
-  <div class="change-card reveal">
-    <h3>School strategy</h3>
-    <p>Where to push, where to broaden and where your profile already works.</p>
-  </div>
-</div>
-
-<div class="change-cta reveal">
-  <div>
-    <span class="change-cta-label">Take the next step</span>
-    <h3>Want to make your profile stronger?</h3>
-    <p>Our advising packages give you personalized guidance to help close the gaps identified in your Compass.</p>
-  </div>
-
-  <a class="btn-gold" href="../packages/">Explore SDA Packages</a>
-
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================
-     WHAT WE DO
-     ========================================================== -->
-<section class="s what-we-do">
-  <div class="wrap">
-
-    <div class="s-head reveal">
-      <span class="s-num">What we do</span>
-      <h2>How we build your Compass</h2>
-      <p>Our team turns your academic, athletic, and broader student profile into a clear recruiting picture, then identify where the strongest opportunities may be.</p>
-    </div>
-
-    <div class="how-it-works-label reveal">
-      <span>How it works</span>
-    </div>
-
-    <div class="steps">
-      <div class="step reveal">
-        <span class="step-num">1</span>
-        <h3>Build your profile</h3>
-        <p>Fill out our questionnaire and talk with a partner so we can understand your broader student-athlete profile.</p>
-      </div>
-
-      <div class="step-arrow">&rarr;</div>
-
-      <div class="step reveal">
-        <span class="step-num">2</span>
-        <h3>Benchmark it</h3>
-        <p>Using our proprietary algorithm, we compare your profile with target programs and identify where you may be a strong fit.</p>
-      </div>
-
-      <div class="step-arrow">&rarr;</div>
-
-      <div class="step reveal">
-        <span class="step-num">3</span>
-        <h3>Find the opportunity</h3>
-        <p>See where you fit, what is holding you back, and where improvement matters most.</p>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1368,6 +1388,151 @@ import model from '../data/academic-model.json';
 .what-we-do{background:#fff;border-top:1px solid var(--line)}
 .how-it-works-label{text-align:center;margin:-20px auto 34px}
 .how-it-works-label span{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+
+/* ---------------- COLLAPSED FREE ACADEMIC INDEX ----------------
+   The free tool stays on this page, but no longer interrupts the paid
+   Compass story. It expands only when a visitor explicitly asks for it.
+   --------------------------------------------------------------- */
+.calc-collapsed{
+  background:var(--cream);
+  padding:72px 0;
+  scroll-margin-top:72px;
+}
+.calc-disclosure{
+  max-width:940px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 12px 34px rgba(15,42,74,.05);
+}
+.calc-summary{
+  list-style:none;
+  cursor:pointer;
+  padding:28px 32px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  transition:background .2s ease,border-color .2s ease;
+}
+.calc-summary::-webkit-details-marker{display:none}
+.calc-summary::marker{display:none;content:""}
+.calc-summary:hover{background:rgba(201,161,59,.045)}
+.calc-summary:focus-visible{
+  outline:2px solid var(--gold);
+  outline-offset:-3px;
+}
+.calc-summary-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.calc-summary-kicker{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  letter-spacing:1.7px;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:8px;
+}
+.calc-summary-title{
+  font-family:'Fraunces',serif;
+  font-size:clamp(22px,3vw,29px);
+  line-height:1.2;
+  color:var(--navy);
+  margin-bottom:7px;
+}
+.calc-summary-text{
+  font-size:14.5px;
+  line-height:1.55;
+  color:var(--muted);
+}
+.calc-summary-action{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  line-height:1.4;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--navy);
+
+  border:1.5px solid var(--navy);
+  background:transparent;
+
+  padding:12px 15px;
+  border-radius:3px;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    border-color .2s ease;
+}
+
+.calc-summary:hover .calc-summary-action{
+  background:var(--navy);
+  color:#fff;
+}
+
+.calc-chevron{
+  color:var(--navy);
+  font-size:17px;
+  line-height:1;
+  transition:
+    transform .25s ease,
+    color .2s ease;
+}
+
+.calc-summary:hover .calc-chevron{
+  color:var(--gold-soft);
+}
+
+.calc-disclosure[open] .calc-chevron{transform:rotate(180deg)}
+.calc-disclosure[open] .calc-summary{
+  border-bottom:1px solid var(--line);
+  background:rgba(201,161,59,.035);
+}
+.calc-expanded{
+  padding:54px 0 4px;
+}
+.calc-expanded>.s-head{
+  padding:0 28px;
+  margin-bottom:30px;
+}
+.calc-expanded>.calc-grid{
+  margin-left:auto;
+  margin-right:auto;
+}
+.calc-expanded>.calc-safety{
+  margin-bottom:42px;
+}
+.compass-compare-section .full-compare{
+  margin-top:0;
+  padding-top:0;
+  border-top:0;
+}
+@media(max-width:760px){
+  .calc-collapsed{padding:52px 0}
+  .calc-summary{
+    padding:24px 22px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:20px;
+  }
+  .calc-summary-action{
+    width:100%;
+    justify-content:space-between;
+    box-sizing:border-box;
+  }
+  .calc-expanded{padding-top:42px}
+  .calc-expanded>.s-head{padding:0 20px}
+}
+
 </style>
 
 <script is:inline>
