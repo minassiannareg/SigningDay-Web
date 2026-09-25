@@ -12,17 +12,6 @@ import Base from '../layouts/Base.astro';
 <!-- HERO -->
 <header class="cinematic-hero" id="top">
   <div class="cinematic-hero__visual">
-    <img
-      class="cinematic-hero__image"
-      src="/images/hero-swimmers-wide.webp"
-      alt="College swimmers diving from starting blocks"
-      width="1916"
-      height="821"
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-    />
-
     <div class="cinematic-hero__content">
       <div class="cinematic-hero__copy">
         <span class="cinematic-hero__eyebrow">
@@ -1275,48 +1264,9 @@ why-layout{
 
   .cinematic-hero__visual {
     position: relative;
-    /* Match the wide, cinematic proportion of the approved mockup. */
-    height: clamp(390px, 38.7vw, 700px);
     min-height: 0;
     overflow: hidden;
     isolation: isolate;
-  }
-
-  .cinematic-hero__image {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* The panoramic source is already composed for this hero. */
-    object-position: center 52%;
-  }
-
-  /* Navy treatment that makes the text readable without a card */
-  .cinematic-hero__visual::before {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    content: "";
-    pointer-events: none;
-
-    background:
-      linear-gradient(
-        90deg,
-        rgba(6, 28, 51, 0.99) 0%,
-        rgba(6, 28, 51, 0.96) 22%,
-        rgba(6, 28, 51, 0.8) 38%,
-        rgba(6, 28, 51, 0.4) 51%,
-        rgba(6, 28, 51, 0.08) 65%,
-        rgba(6, 28, 51, 0) 75%
-      ),
-      linear-gradient(
-        0deg,
-        rgba(6, 28, 51, 0.16) 0%,
-        rgba(6, 28, 51, 0) 40%
-      );
   }
 
   .cinematic-hero__content {
@@ -1328,9 +1278,8 @@ why-layout{
 
     /* Match the inset and true vertical centering in the approved mockup. */
     width: min(calc(100% - clamp(80px, 12vw, 220px)), 1568px);
-    height: 100%;
     margin-inline: auto;
-    padding-block: clamp(24px, 3vw, 56px);
+    padding-block: clamp(64px, 8vw, 120px);
   }
 
   .cinematic-hero__copy {
@@ -1495,27 +1444,6 @@ why-layout{
   /* ---------- TABLET ---------- */
 
   @media (max-width: 900px) {
-    .cinematic-hero__image {
-      object-position: 58% 52%;
-    }
-
-    .cinematic-hero__visual::before {
-      background:
-        linear-gradient(
-          90deg,
-          rgba(6, 28, 51, 0.98) 0%,
-          rgba(6, 28, 51, 0.92) 30%,
-          rgba(6, 28, 51, 0.62) 52%,
-          rgba(6, 28, 51, 0.18) 74%,
-          rgba(6, 28, 51, 0) 100%
-        ),
-        linear-gradient(
-          0deg,
-          rgba(6, 28, 51, 0.22) 0%,
-          rgba(6, 28, 51, 0) 55%
-        );
-    }
-
     .cinematic-hero__content {
       width: min(calc(100% - 40px), 720px);
     }
@@ -1524,29 +1452,6 @@ why-layout{
   /* ---------- MOBILE ---------- */
 
   @media (max-width: 640px) {
-    .cinematic-hero__visual {
-      height: auto;
-      min-height: 720px;
-    }
-
-    .cinematic-hero__image {
-      object-position: 52% center;
-    }
-
-    .cinematic-hero__visual::before {
-      background:
-        linear-gradient(
-          90deg,
-          rgba(6, 28, 51, 0.94) 0%,
-          rgba(6, 28, 51, 0.8) 100%
-        ),
-        linear-gradient(
-          0deg,
-          rgba(6, 28, 51, 0.75) 0%,
-          rgba(6, 28, 51, 0.1) 70%
-        );
-    }
-
     .cinematic-hero__content {
       align-items: flex-end;
       width: calc(100% - 32px);
