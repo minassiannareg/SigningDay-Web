@@ -1,10 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
+import { networkSections } from '../data/network';
+
+const contact = 'info@signingdayadvisors.com';
 ---
 
 <Base
   title="About Us"
   description="Signing Day Advisors was founded by collegiate swimmers and student-athletes from Yale, Bowdoin, and Emory who went through high-academic recruiting themselves."
+  extraDisclaimer="Professionals listed under Our Network are independent third parties. They are not employed by or affiliated with Signing Day Advisors, and families engage them directly."
 >
 
 <!-- SPLIT ABOUT PAGE -->
@@ -30,7 +34,7 @@ import Base from '../layouts/Base.astro';
   </aside>
 
 
-  <!-- SCROLLING PEOPLE SIDE -->
+  <!-- SCROLLING RIGHT SIDE -->
   <div class="people-panel">
 
     <!-- FOUNDERS -->
@@ -128,6 +132,122 @@ import Base from '../layouts/Base.astro';
     </section>
 
 
+    <!-- OUR NETWORK -->
+    <section class="network-intro" id="network">
+
+      <span class="eyebrow">Our Network</span>
+
+      <h2>Meet the Specialists We Trust</h2>
+
+      <p class="network-lead">
+      We believe athletes should receive guidance from people who are experts in their field. 
+      That’s why we’ve built a network of professionals across performance, nutrition, academics, 
+      and athlete development. We want to give families a trusted place to turn when needs extend beyond college recruiting.
+      </p>
+
+      <p class="network-sub">
+        Everyone here works independently of SDA. We make the introduction and step
+        back; you decide who is right for your athlete.
+      </p>
+
+      <ul class="net-jump">
+        {networkSections.map((s) => (
+          <li>
+            <a href={`#${s.id}`}>
+              {s.label}
+              {s.people.length > 0 && (
+                <span class="net-jump-count">{s.people.length}</span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+    </section>
+
+
+    <!-- NETWORK CATEGORIES -->
+    {networkSections.map((s, i) => (
+
+      <section
+        class={i % 2 === 1 ? 'net-section net-section-alt' : 'net-section'}
+        id={s.id}
+      >
+
+        <header class="net-head">
+
+          <span class="eyebrow">{s.eyebrow}</span>
+
+          <h2>{s.label}</h2>
+
+          <p class="net-blurb">{s.blurb}</p>
+
+        </header>
+
+
+        {s.people.length > 0 ? (
+
+          <div class="team-grid network-grid">
+
+            {s.people.map((p) => (
+
+              <div class="member">
+
+                <div class="member-photo">
+                  <img src={p.photo} alt={p.name} />
+                </div>
+
+                <h3 class="member-name">{p.name}</h3>
+
+                {p.title && (
+                  <span class="member-title">{p.title}</span>
+                )}
+
+                {p.org && (
+                  <span class="member-school">{p.org}</span>
+                )}
+
+                {p.bio && (
+                  <p class="member-bio">{p.bio}</p>
+                )}
+
+              </div>
+
+            ))}
+
+          </div>
+
+        ) : (
+
+          <div class="net-empty">
+
+            <p class="net-empty-label">Coming soon</p>
+
+            <p class="net-empty-copy">
+              We are still vetting {s.label.toLowerCase()} for this list.
+              We would rather name nobody than name someone we would not send
+              our own athletes to.
+            </p>
+
+            <a
+              class="net-empty-link"
+              href={`mailto:${contact}?subject=${encodeURIComponent(
+                'Our Network — ' + s.label
+              )}`}
+            >
+              Recommend a {s.singular}
+              <span aria-hidden="true">&rarr;</span>
+            </a>
+
+          </div>
+
+        )}
+
+      </section>
+
+    ))}
+
+
     <!-- CLOSING -->
     <section class="closing" id="contact">
 
@@ -137,13 +257,19 @@ import Base from '../layouts/Base.astro';
 
         <h2>Talk to an advisor who's been through it.</h2>
 
-        <p>A free, fifteen-minute consultation to talk through where your athlete stands and whether we're the right fit.</p>
+        <p>
+          A free, fifteen-minute consultation to talk through where your athlete
+          stands and whether we're the right fit.
+        </p>
 
-        <a class="btn-gold" href="../contact/">Book a free consultation</a>
+        <a class="btn-gold" href="../contact/">
+          Book a free consultation
+        </a>
 
       </div>
 
     </section>
+
 
   </div>
 
@@ -154,139 +280,527 @@ import Base from '../layouts/Base.astro';
 
 <style is:global>
 
-/* ---------- NAV ---------- */
-
-nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,59,0.25)}
-
-
-/* ---------- SPLIT PAGE ---------- */
-
-.about-split{display:grid;grid-template-columns:minmax(300px,32%) minmax(0,68%);align-items:start;background:#fff}
-
-/* ---------- MISSION PANEL ---------- */
-
-.mission-panel{position:sticky;top:0;height:100vh;background:var(--navy);color:#fff;display:flex;align-items:center;overflow:hidden}
-
-.mission-inner{width:100%;max-width:600px;margin:0 auto;padding:70px 54px}
-
-.mission-panel .eyebrow{display:block;margin-bottom:18px}
-
-.mission-panel h1{font-size:clamp(42px,4.6vw,64px);line-height:1.05;color:#fff;margin:0 0 30px}
-
-.mission-panel p{font-size:15.5px;line-height:1.72;color:#C7D2DE;margin:0 0 17px}
-
-.mission-panel p:last-child{margin-bottom:0}
-
-
-/* ---------- PEOPLE SIDE ---------- */
-
-.people-panel{min-width:0;background:#fff}
-
-.people-section{padding:74px 44px 86px}
-
-.people-heading{margin-bottom:44px}
-
-.people-heading .eyebrow{display:block;margin-bottom:10px}
-
-.people-heading h2{font-size:clamp(34px,4vw,48px);line-height:1.08;color:var(--navy);margin:0}
-
-
-/* ---------- TEAM GRID ---------- */
-
-.team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px 24px}
-
-.member{display:flex;flex-direction:column;min-width:0}
-
-.member-photo{width:100%;aspect-ratio:4/5;border-radius:6px;overflow:hidden;background:var(--cream-2);margin-bottom:18px;position:relative;box-shadow:0 24px 40px -28px rgba(15,42,74,0.35)}
-
-.member-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
-
-.member:hover .member-photo img{transform:scale(1.035)}
-
-.member-name{font-size:19px;line-height:1.2;color:var(--navy);margin:0 0 5px}
-
-.member-title{font-size:13px;line-height:1.4;color:var(--muted);margin-bottom:5px}
-
-.member-school{font-family:'IBM Plex Mono',monospace;font-size:9.5px;line-height:1.45;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-
-.member-bio{font-size:13px;color:var(--muted);line-height:1.62;margin:0}
-
-
-/* ---------- CLOSING ---------- */
-
-.closing{background:var(--navy);color:#fff;padding:76px 44px;text-align:center}
-
-.closing-inner{max-width:680px;margin:0 auto}
-
-.closing .eyebrow{display:block;margin-bottom:18px}
-
-.closing h2{font-size:clamp(30px,4vw,46px);line-height:1.1;color:#fff;max-width:640px;margin:0 auto 22px}
-
-.closing p{font-size:16px;color:#C7D2DE;max-width:500px;margin:0 auto 32px}
-
-.btn-gold{background:var(--gold);color:var(--navy);display:inline-block;padding:15px 30px;border-radius:2px;font-size:15px;font-weight:600;transition:all .2s}
-
-.btn-gold:hover{background:var(--gold-soft);transform:translateY(-1px)}
-
-
-/* ---------- FOOTER ---------- */
-
-footer{background:var(--navy-deep);color:#8FA0B3;padding:64px 0 40px}
-
-
-/* ---------- LARGE / MEDIUM SCREENS ---------- */
-
-@media(max-width:1250px){
-
-  .about-split{grid-template-columns:minmax(300px,34%) minmax(0,66%)}
-  .people-section{padding:68px 36px 80px}
-
-  .team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:42px 26px}
-
-  .mission-inner{padding:60px 44px}
-
-}
-
-
-/* ---------- TABLET ---------- */
-
-@media(max-width:900px){
-
-  .about-split{display:block}
-
-  .mission-panel{position:relative;top:auto;height:auto;min-height:0}
-
-  .mission-inner{max-width:760px;padding:70px 34px}
-
-  .people-section{padding:64px 34px 76px}
-
-  .team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 24px}
-
-  .closing{padding:68px 34px}
-
-}
-
-
-/* ---------- MOBILE ---------- */
-
-@media(max-width:600px){
-
-  .mission-inner{padding:58px 24px}
-
-  .mission-panel h1{font-size:42px}
-
-  .mission-panel p{font-size:15px}
-
-  .people-section{padding:56px 24px 68px}
-
-  .people-heading{margin-bottom:34px}
-
-  .team-grid{grid-template-columns:1fr;gap:46px}
-
-  .member-photo{max-width:420px}
-
-  .closing{padding:60px 24px}
-
-}
+  /* ---------- NAV ---------- */
+
+  nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(15,42,74,0.96);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid rgba(201,161,59,0.25);
+  }
+
+
+  /* ---------- SPLIT PAGE ---------- */
+
+  .about-split{
+    display:grid;
+    grid-template-columns:minmax(300px,32%) minmax(0,68%);
+    align-items:start;
+    background:#fff;
+  }
+
+
+  /* ---------- MISSION PANEL ---------- */
+
+  .mission-panel{
+    position:sticky;
+    top:0;
+    height:100vh;
+    background:var(--navy);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+  }
+
+  .mission-inner{
+    width:100%;
+    max-width:600px;
+    margin:0 auto;
+    padding:70px 54px;
+  }
+
+  .mission-panel .eyebrow{
+    display:block;
+    margin-bottom:18px;
+  }
+
+  .mission-panel h1{
+    font-size:clamp(42px,4.6vw,64px);
+    line-height:1.05;
+    color:#fff;
+    margin:0 0 30px;
+  }
+
+  .mission-panel p{
+    font-size:15.5px;
+    line-height:1.72;
+    color:#C7D2DE;
+    margin:0 0 17px;
+  }
+
+  .mission-panel p:last-child{
+    margin-bottom:0;
+  }
+
+
+  /* ---------- SCROLLING RIGHT SIDE ---------- */
+
+  .people-panel{
+    min-width:0;
+    background:#fff;
+  }
+
+
+  /* ---------- TEAM ---------- */
+
+  .people-section{
+    padding:74px 44px 86px;
+  }
+
+  .people-heading{
+    margin-bottom:44px;
+  }
+
+  .people-heading .eyebrow{
+    display:block;
+    margin-bottom:10px;
+  }
+
+  .people-heading h2{
+    font-size:clamp(34px,4vw,48px);
+    line-height:1.08;
+    color:var(--navy);
+    margin:0;
+  }
+
+
+  /* ---------- TEAM GRID ---------- */
+
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:44px 24px;
+  }
+
+  .member{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+  }
+
+  .member-photo{
+    width:100%;
+    aspect-ratio:4/5;
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--cream-2);
+    margin-bottom:18px;
+    position:relative;
+    box-shadow:0 24px 40px -28px rgba(15,42,74,0.35);
+  }
+
+  .member-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .4s ease;
+  }
+
+  .member:hover .member-photo img{
+    transform:scale(1.035);
+  }
+
+  .member-name{
+    font-size:19px;
+    line-height:1.2;
+    color:var(--navy);
+    margin:0 0 5px;
+  }
+
+  .member-title{
+    font-size:13px;
+    line-height:1.4;
+    color:var(--muted);
+    margin-bottom:5px;
+  }
+
+  .member-school{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9.5px;
+    line-height:1.45;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:12px;
+  }
+
+  .member-bio{
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.62;
+    margin:0;
+  }
+
+
+  /* ---------- NETWORK INTRO ---------- */
+
+  .network-intro{
+    padding:82px 44px 72px;
+    background:var(--cream-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    scroll-margin-top:88px;
+  }
+
+  .network-intro .eyebrow{
+    display:block;
+    margin-bottom:12px;
+  }
+
+  .network-intro h2{
+    font-size:clamp(34px,4vw,48px);
+    line-height:1.08;
+    color:var(--navy);
+    margin:0 0 24px;
+    max-width:700px;
+  }
+
+  .network-lead{
+    font-size:16px;
+    line-height:1.7;
+    color:var(--muted);
+    max-width:680px;
+    margin:0 0 14px;
+  }
+
+  .network-sub{
+    font-size:14.5px;
+    line-height:1.7;
+    color:var(--muted);
+    max-width:680px;
+    margin:0;
+  }
+
+
+  /* ---------- NETWORK JUMP LINKS ---------- */
+
+  .net-jump{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin:32px 0 0;
+    padding:0;
+  }
+
+  .net-jump a{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--navy);
+    border:1px solid rgba(201,161,59,0.55);
+    border-radius:2px;
+    padding:9px 14px;
+    transition:color .2s,border-color .2s,background .2s;
+  }
+
+  .net-jump a:hover{
+    color:var(--navy);
+    background:var(--gold-soft);
+    border-color:var(--gold-soft);
+  }
+
+  .net-jump-count{
+    color:var(--gold);
+  }
+
+
+  /* ---------- NETWORK SECTIONS ---------- */
+
+  .net-section{
+    padding:72px 44px 80px;
+    background:#fff;
+    scroll-margin-top:88px;
+  }
+
+  .net-section-alt{
+    background:var(--cream-2);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+
+  .net-head{
+    max-width:720px;
+    margin:0 0 44px;
+  }
+
+  .net-head .eyebrow{
+    display:block;
+    margin-bottom:10px;
+  }
+
+  .net-head h2{
+    font-size:clamp(30px,3.6vw,44px);
+    line-height:1.08;
+    color:var(--navy);
+    margin:0;
+  }
+
+  .net-blurb{
+    font-size:15px;
+    line-height:1.7;
+    color:var(--muted);
+    margin:14px 0 0;
+  }
+
+
+  /* ---------- NETWORK EMPTY STATE ---------- */
+
+  .net-empty{
+    border:1px dashed var(--line);
+    border-radius:6px;
+    padding:44px 38px;
+    max-width:620px;
+    background:rgba(255,255,255,0.55);
+  }
+
+  .net-empty-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin:0 0 12px;
+    font-weight:500;
+  }
+
+  .net-empty-copy{
+    font-size:15px;
+    line-height:1.7;
+    color:var(--muted);
+    margin:0 0 20px;
+  }
+
+  .net-empty-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:14px;
+    color:var(--navy);
+    border-bottom:1px solid var(--gold);
+    padding-bottom:2px;
+    transition:color .2s;
+  }
+
+  .net-empty-link span{
+    color:var(--gold);
+  }
+
+  .net-empty-link:hover{
+    color:var(--gold);
+  }
+
+
+  /* ---------- CLOSING ---------- */
+
+  .closing{
+    background:var(--navy);
+    color:#fff;
+    padding:76px 44px;
+    text-align:center;
+  }
+
+  .closing-inner{
+    max-width:680px;
+    margin:0 auto;
+  }
+
+  .closing .eyebrow{
+    display:block;
+    margin-bottom:18px;
+  }
+
+  .closing h2{
+    font-size:clamp(30px,4vw,46px);
+    line-height:1.1;
+    color:#fff;
+    max-width:640px;
+    margin:0 auto 22px;
+  }
+
+  .closing p{
+    font-size:16px;
+    color:#C7D2DE;
+    max-width:500px;
+    margin:0 auto 32px;
+  }
+
+  .btn-gold{
+    background:var(--gold);
+    color:var(--navy);
+    display:inline-block;
+    padding:15px 30px;
+    border-radius:2px;
+    font-size:15px;
+    font-weight:600;
+    transition:all .2s;
+  }
+
+  .btn-gold:hover{
+    background:var(--gold-soft);
+    transform:translateY(-1px);
+  }
+
+
+  /* ---------- FOOTER ---------- */
+
+  footer{
+    background:var(--navy-deep);
+    color:#8FA0B3;
+    padding:64px 0 40px;
+  }
+
+
+  /* ---------- LARGE / MEDIUM SCREENS ---------- */
+
+  @media(max-width:1250px){
+
+    .about-split{
+      grid-template-columns:minmax(300px,34%) minmax(0,66%);
+    }
+
+    .people-section{
+      padding:68px 36px 80px;
+    }
+
+    .team-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:42px 26px;
+    }
+
+    .mission-inner{
+      padding:60px 44px;
+    }
+
+    .network-intro,
+    .net-section{
+      padding-left:36px;
+      padding-right:36px;
+    }
+
+  }
+
+
+  /* ---------- TABLET ---------- */
+
+  @media(max-width:900px){
+
+    .about-split{
+      display:block;
+    }
+
+    .mission-panel{
+      position:relative;
+      top:auto;
+      height:auto;
+      min-height:0;
+    }
+
+    .mission-inner{
+      max-width:760px;
+      padding:70px 34px;
+    }
+
+    .people-section{
+      padding:64px 34px 76px;
+    }
+
+    .team-grid{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:40px 24px;
+    }
+
+    .network-intro{
+      padding:68px 34px 62px;
+    }
+
+    .net-section{
+      padding:64px 34px 72px;
+    }
+
+    .closing{
+      padding:68px 34px;
+    }
+
+  }
+
+
+  /* ---------- MOBILE ---------- */
+
+  @media(max-width:600px){
+
+    .mission-inner{
+      padding:58px 24px;
+    }
+
+    .mission-panel h1{
+      font-size:42px;
+    }
+
+    .mission-panel p{
+      font-size:15px;
+    }
+
+    .people-section{
+      padding:56px 24px 68px;
+    }
+
+    .people-heading{
+      margin-bottom:34px;
+    }
+
+    .team-grid{
+      grid-template-columns:1fr;
+      gap:46px;
+    }
+
+    .member-photo{
+      max-width:420px;
+    }
+
+    .network-intro{
+      padding:60px 24px 54px;
+    }
+
+    .net-section{
+      padding:56px 24px 64px;
+    }
+
+    .net-jump{
+      gap:8px;
+    }
+
+    .net-jump a{
+      font-size:10px;
+      padding:8px 11px;
+    }
+
+    .net-empty{
+      padding:34px 26px;
+    }
+
+    .closing{
+      padding:60px 24px;
+    }
+
+  }
 
 </style>
