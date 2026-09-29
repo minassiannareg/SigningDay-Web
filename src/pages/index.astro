@@ -12,6 +12,7 @@ import Base from '../layouts/Base.astro';
 <!-- HERO -->
 <header class="cinematic-hero" id="top">
   <div class="cinematic-hero__visual">
+    <div class="cinematic-hero__image" aria-hidden="true"></div>
     <div class="cinematic-hero__content">
       <div class="cinematic-hero__copy">
         <span class="cinematic-hero__eyebrow">
@@ -1428,6 +1429,41 @@ why-layout{
     isolation: isolate;
   }
 
+  .cinematic-hero__image {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 68%;
+
+  /* ADD HERO IMAGE HERE WHEN APPROVED */
+  background-image: url('');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Fade the photo into the navy on the left */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.08) 8%,
+    rgba(0,0,0,0.45) 22%,
+    black 42%,
+    black 100%
+  );
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,0.08) 8%,
+    rgba(0,0,0,0.45) 22%,
+    black 42%,
+    black 100%
+  );
+}
+
   .cinematic-hero__content {
     position: relative;
     z-index: 2;
@@ -1662,9 +1698,6 @@ why-layout{
       border-left: 0;
     }
   }
-
-
-
 
 .cinematic-hero__signals {
   display: flex;

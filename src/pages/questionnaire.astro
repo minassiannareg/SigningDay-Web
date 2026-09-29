@@ -285,7 +285,7 @@ import Base from '../layouts/Base.astro';
 
 <div class="form-group">
 <label for="topSchools">Current Top-Choice Schools</label>
-<span class="helper">Please identify if athlete would be a legacy at a listed school</span>
+<span class="helper">Please indicate if the athlete has legacy status at any listed school.</span>
 <textarea id="topSchools" name="top_choice_schools" required></textarea>
 </div>
 
@@ -351,8 +351,8 @@ import Base from '../layouts/Base.astro';
 <div class="form-group">
 <span class="question-label">Preference for Men's and Women's Teams Combined</span>
 <div class="options">
-<label class="option"><input type="radio" name="combined_team_preference" value="Yes combined" required>Combined</label>
-<label class="option"><input type="radio" name="combined_team_preference" value="Yes not combined">Not combined</label>
+<label class="option"><input type="radio" name="combined_team_preference" value="Combined" required>Combined</label>
+<label class="option"><input type="radio" name="combined_team_preference" value="Not combined">Not combined</label>
 <label class="option"><input type="radio" name="combined_team_preference" value="No preference">No preference / N/A</label>
 </div>
 </div>
@@ -362,7 +362,7 @@ import Base from '../layouts/Base.astro';
 <div class="submit-card">
 <h2>Ready to submit?</h2>
 <p>Every question above must be answered before you can continue. Once submitted, your questionnaire will be sent securely to Signing Day Advisors and you will be taken to the Terms and Conditions.</p>
-<button class="btn-gold" type="submit">Proceed to Terms and Conditions</button>
+<button class="btn-gold" type="submit">Submit & Proceed to Terms and Conditions</button>
 <div class="form-status" id="form-status">Thank you. Your questionnaire has been submitted.</div>
 </div>
 
@@ -385,7 +385,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 
 /* progress */
 .progress{background:#fff;border-bottom:1px solid var(--line)}
-.progress-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.progress-grid{display:grid;grid-template-columns:repeat(3,1fr)}
 .progress-step{padding:20px 16px;border-right:1px solid var(--line)}
 .progress-step:last-child{border-right:none}
 .progress-step.current{background:#FFFCF5}
@@ -480,13 +480,13 @@ form.addEventListener('submit',async function(e){
 
     }else{
       button.disabled=false;
-      button.textContent='Proceed to Terms and Conditions';
+      button.textContent='Submit & Proceed to Terms and Conditions';
       alert('There was a problem submitting the questionnaire. Please try again.');
     }
 
   }catch(error){
     button.disabled=false;
-    button.textContent='Submit Questionnaire';
+    button.textContent='Submit & Proceed to Terms and Conditions';
     alert('There was a problem submitting the questionnaire. Please try again.');
   }
 });
