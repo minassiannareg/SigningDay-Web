@@ -127,10 +127,11 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">Know where you stand</span>
-      <h2>What you will learn</h2>
+      <h2>What You Will Learn</h2>
       <p>A complete recruiting picture, showing how each part of your profile contributes to your overall fit.</p>
     </div>
 
+<div class="learn-layout">
 <div class="learn-grid">
   <!-- Academic position -->
   <div class="learn-card reveal">
@@ -207,6 +208,54 @@ import model from '../data/academic-model.json';
     <p>Which programs appear to offer the strongest overall recruiting opportunity.</p>
   </div>
 </div>
+
+  <button
+    class="compass-sample-card reveal"
+    type="button"
+    id="compass-sample-trigger"
+    aria-expanded="false"
+    aria-controls="compass-sample-preview"
+  >
+    <div class="sample-document-icon" aria-hidden="true">
+      <svg viewBox="0 0 90 112" fill="none">
+        <path d="M18 4H57L76 23V108H18V4Z" stroke="currentColor" stroke-width="2"/>
+        <path d="M57 4V23H76" stroke="currentColor" stroke-width="2"/>
+        <rect x="29" y="42" width="35" height="5" rx="2.5" fill="currentColor"/>
+        <rect x="29" y="55" width="27" height="5" rx="2.5" fill="currentColor"/>
+        <rect x="29" y="68" width="35" height="5" rx="2.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="sample-card-copy">
+      <span class="sample-kicker">See a Sample</span>
+      <h3>See what an SDA Compass looks like</h3>
+      <p>Preview a sample deliverable to see the level of analysis included in your Compass.</p>
+    </div>
+
+    <span class="sample-link">View Sample <span>&rarr;</span></span>
+  </button>
+</div>
+
+<div class="compass-sample-preview" id="compass-sample-preview" hidden role="dialog" aria-modal="true" aria-labelledby="compass-sample-title">
+  <div class="sample-modal-backdrop" data-sample-close></div>
+  <div class="sample-modal-panel" role="document">
+  <div class="sample-preview-head">
+    <div>
+      <span id="compass-sample-title">Sample SDA Compass</span>
+      <p>Client information will be redacted in the final sample.</p>
+    </div>
+    <button type="button" class="sample-close" id="compass-sample-close" aria-label="Close sample Compass">&times;</button>
+  </div>
+
+  <div class="sample-pdf-frame">
+    <iframe src="/documents/SDA-Compass-Sample.pdf#view=FitH" title="Sample SDA Compass"></iframe>
+  </div>
+
+  <a class="sample-open-full" href="/documents/SDA-Compass-Sample.pdf" target="_blank" rel="noopener">
+    Open Full Sample <span>&nearr;</span>
+  </a>
+  </div>
+</div>
   </div>
 </section>
 
@@ -217,7 +266,7 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">School-by-school read</span>
-      <h2>Every school tells a different story</h2>
+      <h2>Every School Tells a Different Story</h2>
       <p>The same athlete can look very different across one school list.</p>
     </div>
 
@@ -262,7 +311,7 @@ import model from '../data/academic-model.json';
   <div class="wrap">
     <div class="s-head reveal">
       <span class="s-num">What can you change?</span>
-      <h2>Know where your effort matters</h2>
+      <h2>Know Where Your Effort Matters</h2>
       <p>We identify the improvements most likely to strengthen your recruiting position.</p>
     </div>
 
@@ -304,7 +353,7 @@ import model from '../data/academic-model.json';
 
     <div class="s-head reveal">
       <span class="s-num">What we do</span>
-      <h2>How we build your Compass</h2>
+      <h2>How We Build Your Compass</h2>
       <p>Our team turns your academic, athletic, and broader student profile into a clear recruiting picture, then identify where the strongest opportunities may be.</p>
     </div>
 
@@ -360,7 +409,7 @@ import model from '../data/academic-model.json';
       <div class="calc-expanded">
     <div class="s-head reveal">
       <span class="s-num">Try it</span>
-    <h2>Try your Academic Index.</h2>
+    <h2>Calculate Your Academic Index</h2>
     <p class="calc-intro">Enter your GPA and test score for a quick and comprehensible academic read.</p>
     <p class="s-note">The free online calculator reads academic scores only — not your full academic profile.</p>
      </div>
@@ -539,7 +588,7 @@ import model from '../data/academic-model.json';
     <div class="buy-card reveal">
       <div class="buy-left">
         <span class="eyebrow">SDA Compass</span>
-        <h2>Get your athlete&rsquo;s Compass.</h2>
+        <h2>Get Your Athlete&rsquo;s Compass</h2>
     <p>A personalized recruiting assessment built from your athlete&rsquo;s complete profile.</p>
     <ul class="buy-list">
         <li>Academic and athletic recruiting assessment</li>
@@ -1533,6 +1582,37 @@ import model from '../data/academic-model.json';
   .calc-expanded>.s-head{padding:0 20px}
 }
 
+
+
+/* ==========================================================
+   COMPASS SAMPLE
+   ========================================================== */
+.learn-layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:26px;max-width:1180px;margin:0 auto;align-items:stretch}
+.learn-layout .learn-grid{max-width:none;margin:0}
+.compass-sample-card{appearance:none;border:1px solid rgba(201,161,59,.55);border-radius:18px;background:var(--navy);color:#fff;padding:38px 32px 32px;text-align:left;font:inherit;cursor:pointer;display:flex;flex-direction:column;min-height:100%;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.compass-sample-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 22px 45px -30px rgba(15,42,74,.7)}
+.sample-document-icon{width:76px;color:var(--gold);margin:10px 0 38px}
+.sample-document-icon svg{display:block;width:100%;height:auto}
+.sample-card-copy{margin-top:auto}
+.sample-kicker{display:block;margin-bottom:13px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold)}
+.compass-sample-card h3{margin:0 0 13px;color:#fff;font-size:24px;line-height:1.2}
+.compass-sample-card p{margin:0;color:#C7D2DE;font-size:14px;line-height:1.6}
+.sample-link{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.14);font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold)}
+.compass-sample-preview{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:32px;box-sizing:border-box}
+.compass-sample-preview[hidden]{display:none}
+.sample-modal-backdrop{position:absolute;inset:0;background:rgba(7,22,39,.72);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.sample-modal-panel{position:relative;z-index:1;width:min(1000px,92vw);max-height:90vh;overflow:auto;padding:28px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 28px 80px rgba(7,22,39,.32)}
+body.sample-modal-open{overflow:hidden}
+.sample-preview-head{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;margin-bottom:20px}
+.sample-preview-head span{display:block;margin-bottom:5px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold)}
+.sample-preview-head p{margin:0;color:var(--muted);font-size:13px}
+.sample-close{appearance:none;border:0;background:transparent;color:var(--navy);font-size:28px;line-height:1;cursor:pointer;padding:0 4px}
+.sample-pdf-frame{width:100%;height:min(72vh,760px);overflow:hidden;border:1px solid var(--line);border-radius:10px;background:#E9E7E1}
+.sample-pdf-frame iframe{display:block;width:100%;height:100%;border:0}
+.sample-open-full{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--navy);text-decoration:none}
+.sample-open-full span{color:var(--gold)}
+@media(max-width:900px){.learn-layout{grid-template-columns:1fr}.compass-sample-card{min-height:340px}}
+@media(max-width:560px){.compass-sample-card{min-height:380px;padding:30px 26px}.compass-sample-preview{padding:12px}.sample-modal-panel{width:100%;max-height:94vh;padding:18px;border-radius:14px}.sample-pdf-frame{height:68vh}}
 </style>
 
 <script is:inline>
@@ -2493,5 +2573,42 @@ import model from '../data/academic-model.json';
 
     form.addEventListener('input', update);
     update();
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    var trigger = document.getElementById('compass-sample-trigger');
+    var preview = document.getElementById('compass-sample-preview');
+    var close = document.getElementById('compass-sample-close');
+    if (!trigger || !preview || !close) return;
+
+    function openSample() {
+      preview.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('sample-modal-open');
+      close.focus();
+    }
+
+    function closeSample() {
+      preview.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('sample-modal-open');
+      trigger.focus();
+    }
+
+    trigger.addEventListener('click', function () {
+      if (preview.hidden) openSample();
+      else closeSample();
+    });
+    close.addEventListener('click', closeSample);
+
+    preview.addEventListener('click', function (event) {
+      if (event.target && event.target.hasAttribute('data-sample-close')) closeSample();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !preview.hidden) closeSample();
+    });
   })();
 </script>
