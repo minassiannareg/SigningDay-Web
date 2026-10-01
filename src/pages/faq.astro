@@ -9,6 +9,8 @@ import Base from '../layouts/Base.astro';
 
 <!-- HERO -->
 <header class="faq-hero">
+  <div class="faq-hero-photo" aria-hidden="true"></div>
+
   <div class="wrap">
     <div class="faq-hero-content">
       <span class="eyebrow">Frequently Asked Questions</span>
@@ -119,13 +121,90 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-fil
 .nav-links .active{color:var(--gold-soft)}
 
 /* HERO */
-.faq-hero{background:var(--navy);color:#fff;padding:100px 0 92px;position:relative;overflow:hidden}
-.faq-hero::after{content:"?";position:absolute;right:7%;top:50%;transform:translateY(-52%);font-family:'Fraunces',serif;font-size:330px;line-height:1;color:rgba(201,161,59,0.06);pointer-events:none}
-.faq-hero-content{max-width:900px;position:relative;z-index:2}
-.faq-hero .eyebrow{display:block;margin-bottom:20px}
-.faq-hero h1{font-size:clamp(42px,6vw,64px);margin-bottom:22px}
-.faq-hero h1 em{color:var(--gold-soft);font-style:italic}
-.faq-hero p{max-width:600px;color:#C7D2DE;font-size:18px}
+/* HERO */
+.faq-hero{
+  background:var(--navy);
+  color:#fff;
+  padding:90px 0 82px;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.faq-hero .wrap{
+  position:relative;
+  z-index:2;
+}
+
+.faq-hero-content{
+  max-width:680px;
+  position:relative;
+  z-index:2;
+}
+
+.faq-hero .eyebrow{
+  display:block;
+  margin-bottom:20px;
+}
+
+.faq-hero h1{
+  font-size:clamp(42px,5.5vw,58px);
+  margin-bottom:22px;
+}
+
+.faq-hero h1 em{
+  color:var(--gold-soft);
+  font-style:italic;
+}
+
+.faq-hero p{
+  max-width:560px;
+  color:#C7D2DE;
+  font-size:18px;
+}
+
+/* FAQ hero photograph */
+.faq-hero-photo{
+  position:absolute;
+  z-index:0;
+  top:0;
+  right:0;
+  bottom:0;
+  width:44%;
+
+  background-image:
+    linear-gradient(
+      rgba(15,42,74,.32),
+      rgba(15,42,74,.32)
+    ),
+    url('/images/girls.png');
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  -webkit-mask-image:linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,.08) 10%,
+    rgba(0,0,0,.25) 24%,
+    rgba(0,0,0,.52) 40%,
+    rgba(0,0,0,.78) 57%,
+    black 72%,
+    black 100%
+  );
+
+  mask-image:linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0,0,0,.08) 10%,
+    rgba(0,0,0,.25) 24%,
+    rgba(0,0,0,.52) 40%,
+    rgba(0,0,0,.78) 57%,
+    black 72%,
+    black 100%
+  );
+}
 
 /* FAQ */
 .faq-section{padding:88px 0 104px}
@@ -167,10 +246,25 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
 
 @media(max-width:900px){.faq-layout{grid-template-columns:1fr;gap:42px}.faq-intro{position:static}}
 @media(max-width:760px){
-  .faq-hero{padding:76px 0 70px}
-  .faq-hero::after{display:none}
-  .faq-section{padding:68px 0 78px}
-  .faq-question{font-size:18px}
+  .faq-hero{
+    padding:76px 0 70px;
+  }
+
+  .faq-hero-photo{
+    width:100%;
+    opacity:.28;
+    background-position:center;
+    -webkit-mask-image:none;
+    mask-image:none;
+  }
+
+  .faq-section{
+    padding:68px 0 78px;
+  }
+
+  .faq-question{
+    font-size:18px;
+  }
 }
 </style>
 

@@ -9,6 +9,8 @@ import Base from '../layouts/Base.astro';
 
 <!-- HERO -->
 <header class="contact-hero">
+  <div class="contact-hero-photo" aria-hidden="true"></div>
+
   <div class="wrap">
     <div class="contact-hero-content">
       <span class="eyebrow">Contact Us</span>
@@ -128,9 +130,69 @@ import Base from '../layouts/Base.astro';
 nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,0.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,59,0.25)}
 .nav-links .active{color:var(--gold-soft)}
 
-.contact-hero{background:var(--navy);color:#fff;padding:100px 0 88px;position:relative;overflow:hidden}
-.contact-hero::after{content:"@";position:absolute;right:6%;top:50%;transform:translateY(-52%);font-family:'Fraunces',serif;font-size:300px;line-height:1;color:rgba(201,161,59,0.06);pointer-events:none}
-.contact-hero-content{max-width:680px;position:relative;z-index:2}
+.contact-hero{
+  background:var(--navy);
+  color:#fff;
+  padding:90px 0 82px;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+.contact-hero .wrap{
+  position:relative;
+  z-index:2;
+}
+
+.contact-hero-content{
+  max-width:680px;
+  position:relative;
+  z-index:2;
+  margin-left:0%;
+}
+
+/* Contact hero photograph */
+.contact-hero-photo{
+  position:absolute;
+  z-index:0;
+  top:0;
+  right:0;
+  bottom:0;
+  width:44%;
+
+  background-image:
+    linear-gradient(
+      rgba(15,42,74,.32),
+      rgba(15,42,74,.32)
+    ),
+    url('/images/Contact.jpg');
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+-webkit-mask-image:linear-gradient(
+  to right,
+  transparent 0%,
+  rgba(0,0,0,.08) 10%,
+  rgba(0,0,0,.25) 24%,
+  rgba(0,0,0,.52) 40%,
+  rgba(0,0,0,.78) 57%,
+  black 72%,
+  black 100%
+);
+
+mask-image:linear-gradient(
+  to right,
+  transparent 0%,
+  rgba(0,0,0,.08) 10%,
+  rgba(0,0,0,.25) 24%,
+  rgba(0,0,0,.52) 40%,
+  rgba(0,0,0,.78) 57%,
+  black 72%,
+  black 100%
+);
+}
 .contact-hero .eyebrow{display:block;margin-bottom:20px}
 .contact-hero h1{font-size:clamp(40px,5.5vw,58px);margin-bottom:20px}
 .contact-hero h1 em{color:var(--gold-soft);font-style:italic}
@@ -195,7 +257,17 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:56px 0 38px}
 
 @media(max-width:760px){
   .contact-hero{padding:76px 0 68px}
-  .contact-hero::after{display:none}
+ .contact-hero-content{
+  margin-left:0;
+}
+
+.contact-hero-photo{
+  width:100%;
+  opacity:.28;
+  background-position:center;
+  -webkit-mask-image:none;
+  mask-image:none;
+}
   .contact-section{padding:68px 0 78px}
   .contact-form{padding:28px}
   .form-row{grid-template-columns:1fr}
