@@ -3,6 +3,27 @@ import Base from '../layouts/Base.astro';
 import { networkSections } from '../data/network';
 
 const contact = 'info@signingdayadvisors.com';
+
+const jacobPebley = {
+  name: 'Jacob Pebley',
+  title: 'Swimming Performance & Athlete Development Advisor',
+  org: 'Crimson Aquatics',
+  photo: '/team-img/jacob-pebley.webp',
+  bio: 'Jacob Pebley brings experience from nearly every level of competitive swimming, from age-group development to NCAA competition and the international stage. A 2016 U.S. Olympian and Olympic finalist, Jacob was a 12-time NCAA All-American at the University of California, Berkeley, a nine-time U.S. National Team member, and a four-time World Championship medalist. Following his competitive career, he moved into coaching, working with developing club swimmers and collegiate athletes, including as an assistant coach at Yale University. He now serves as Head Coach of Crimson Aquatics. At SDA, Jacob serves primarily as an advisor to our team, bringing an experienced perspective on long-term athlete development, the transition from high school to collegiate athletics, and what it takes to perform at increasingly competitive levels.'
+};
+
+const displayedNetworkSections = networkSections.map((section) => {
+  const isPerformance =
+    section.id?.toLowerCase() === 'performance' ||
+    section.label?.toLowerCase().includes('performance');
+
+  if (!isPerformance) return section;
+
+  return {
+    ...section,
+    people: [...section.people, jacobPebley]
+  };
+});
 ---
 
 <Base
@@ -151,7 +172,7 @@ const contact = 'info@signingdayadvisors.com';
       </p>
 
       <ul class="net-jump">
-        {networkSections.map((s) => (
+        {displayedNetworkSections.map((s) => (
           <li>
             <a href={`#${s.id}`}>
               {s.label}
@@ -167,7 +188,7 @@ const contact = 'info@signingdayadvisors.com';
 
 
     <!-- NETWORK CATEGORIES -->
-    {networkSections.map((s, i) => (
+    {displayedNetworkSections.map((s, i) => (
 
       <section
         class={i % 2 === 1 ? 'net-section net-section-alt' : 'net-section'}

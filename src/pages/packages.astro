@@ -23,7 +23,7 @@ import Base from '../layouts/Base.astro';
 <div class="wrap">
 <div class="section-head">
 <span class="eyebrow">One-Time Packages</span>
-<h2>Choose your level of support</h2>
+<h2>Choose Your Level of Support</h2>
 <p>Each package starts with an honest assessment of where your athlete stands, while premium adds deeper academic, performance, application, and developmental support.</p>
 </div>
 
@@ -239,11 +239,13 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
   color:#C7D2DE;
   max-width:500px;
 }
-.hero-content{
+.hero .hero-content{
   position:relative;
   z-index:2;
-  width:42%;
-  margin-left:58%;
+  width:46%;
+  max-width:none;
+  margin-left:48%;
+  margin-right:0;
   padding:0 40px 0 0;
   box-sizing:border-box;
 }
@@ -366,9 +368,11 @@ section{padding:88px 0}
 footer{background:var(--navy-deep);color:#8FA0B3;padding:52px 0 38px}
 
 @media(max-width:900px){
-  .hero-content{
-    width:55%;
-    margin-left:45%;
+  .hero .hero-content{
+    width:50%;
+    max-width:none;
+    margin-left:48%;
+    margin-right:0;
     padding-left:28px;
     padding-right:24px;
   }
@@ -384,9 +388,11 @@ footer{background:var(--navy-deep);color:#8FA0B3;padding:52px 0 38px}
 @media(max-width:500px){
   .extras-grid{grid-template-columns:1fr}
 
-  .hero-content{
+  .hero .hero-content{
   width:100%;
+  max-width:none;
   margin-left:0;
+  margin-right:0;
   padding-left:24px;
   padding-right:24px;
 }

@@ -135,159 +135,234 @@ const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
     object-fit:contain;
   }
 
+  /* ---------- ABOUT DROPDOWN: SHARED ---------- */
 
-/* ---------- ABOUT DROPDOWN ---------- */
+  .nav-dropdown{
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
 
-.nav-dropdown{
-  position:relative;
-  display:flex;
-  align-items:center;
-}
+  .nav-dropdown-main{
+    display:flex !important;
+    align-items:center;
+    gap:7px;
+  }
 
-/*
-  Invisible hover bridge.
-  This fills the space between About Us and the dropdown,
-  so the menu doesn't disappear while moving the mouse down.
-*/
-.nav-dropdown::after{
-  content:"";
-  position:absolute;
-  top:100%;
-  left:-15px;
-  right:-15px;
-  height:18px;
-}
+  .dropdown-arrow{
+    width:8px;
+    height:5px;
+    flex:none;
+    transition:transform .2s ease;
+  }
 
-.nav-dropdown-main{
-  display:flex !important;
-  align-items:center;
-  gap:7px;
-}
+  .dropdown-menu{
+    background:var(--navy);
+  }
 
-.dropdown-arrow{
-  width:8px;
-  height:5px;
-  transition:transform .2s ease;
-}
+  .dropdown-menu a{
+    white-space:nowrap;
+    color:#C7D2DE !important;
+    transition:color .15s ease, background .15s ease;
+  }
 
+  .dropdown-menu a:hover{
+    color:var(--gold) !important;
+    background:rgba(255,255,255,.04);
+  }
 
-/* ---------- DROPDOWN ---------- */
+  /* ---------- DESKTOP ONLY ---------- */
 
-.dropdown-menu{
-  position:absolute;
+  @media (min-width:901px){
 
-  /* close enough to feel attached, with hover bridge above */
-  top:calc(100% + 10px);
+    /* Invisible bridge between About Us and its dropdown. */
+    .nav-dropdown::after{
+      content:"";
+      position:absolute;
+      top:100%;
+      left:-15px;
+      right:-15px;
+      height:18px;
+    }
 
-  /* CENTER directly under About Us */
-  left:50%;
-  transform:translateX(-50%) translateY(-4px);
+    .dropdown-menu{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:50%;
+      transform:translateX(-50%) translateY(-4px);
+      width:max-content;
+      min-width:145px;
+      border:none;
+      border-radius:0 0 4px 4px;
+      padding:5px 0;
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
+      transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
+      z-index:100;
+    }
 
-  width:max-content;
-  min-width:145px;
+    .dropdown-menu a{
+      display:block !important;
+      padding:9px 16px !important;
+      font-size:14px !important;
+      line-height:1.3;
+      text-align:center;
+    }
 
-  background:var(--navy);
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:translateX(-50%) translateY(0);
+    }
 
-  border:none;
-  border-radius:0 0 4px 4px;
+    .nav-dropdown:hover .dropdown-arrow,
+    .nav-dropdown:focus-within .dropdown-arrow{
+      transform:rotate(180deg);
+    }
+  }
 
-  padding:5px 0;
+  /* ---------- TABLET / MOBILE ---------- */
 
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
+  @media (max-width:900px){
 
-  box-shadow:0 8px 18px rgba(0,0,0,.12);
+    .nav-dropdown{
+      display:block;
+      width:100%;
+      position:relative;
+    }
 
-  transition:
-    opacity .15s ease,
-    transform .15s ease,
-    visibility .15s ease;
+    /* Make About Us occupy exactly the same row width/alignment as the other links. */
+    .nav-dropdown-main{
+      width:100%;
+      box-sizing:border-box;
+      justify-content:flex-start;
+    }
 
-  z-index:100;
-}
+    /* Critical: the submenu is CLOSED by default on narrow screens. */
+    .dropdown-menu{
+      position:static !important;
+      top:auto !important;
+      left:auto !important;
+      right:auto !important;
+      transform:none !important;
+      width:100% !important;
+      min-width:0 !important;
+      margin:0 !important;
+      padding:0 !important;
+      border:0 !important;
+      border-radius:0 !important;
+      box-shadow:none !important;
+      opacity:0 !important;
+      visibility:hidden !important;
+      pointer-events:none !important;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .2s ease, opacity .16s ease, visibility .16s ease;
+    }
 
+    /* Override desktop hover/focus behavior completely on touch/narrow layouts. */
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu{
+      opacity:0 !important;
+      visibility:hidden !important;
+      pointer-events:none !important;
+      transform:none !important;
+    }
 
-/* ---------- DROPDOWN LINK ---------- */
+    .nav-dropdown:hover .dropdown-arrow,
+    .nav-dropdown:focus-within .dropdown-arrow{
+      transform:none;
+    }
 
-.dropdown-menu a{
-  display:block !important;
+    /* ONLY the JS-added class opens it. */
+    .nav-dropdown.is-open .dropdown-menu,
+    .nav-dropdown.is-open:hover .dropdown-menu,
+    .nav-dropdown.is-open:focus-within .dropdown-menu{
+      opacity:1 !important;
+      visibility:visible !important;
+      pointer-events:auto !important;
+      max-height:90px;
+    }
 
-  padding:9px 16px !important;
+    .nav-dropdown.is-open .dropdown-arrow,
+    .nav-dropdown.is-open:hover .dropdown-arrow,
+    .nav-dropdown.is-open:focus-within .dropdown-arrow{
+      transform:rotate(180deg);
+    }
 
-  white-space:nowrap;
-
-  font-size:14px !important;
-  line-height:1.3;
-
-  color:#C7D2DE !important;
-
-  text-align:center;
-
-  transition:
-    color .15s ease,
-    background .15s ease;
-}
-
-.dropdown-menu a:hover{
-  color:var(--gold) !important;
-  background:rgba(255,255,255,.04);
-}
-
-
-/* ---------- OPEN STATE ---------- */
-
-.nav-dropdown:hover .dropdown-menu,
-.nav-dropdown:focus-within .dropdown-menu{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
-
-  transform:translateX(-50%) translateY(0);
-}
-
-.nav-dropdown:hover .dropdown-arrow,
-.nav-dropdown:focus-within .dropdown-arrow{
-  transform:rotate(180deg);
-}
+    /* Our Network uses the same left edge and row treatment as the other nav links. */
+    .dropdown-menu a{
+      display:block !important;
+      width:100% !important;
+      box-sizing:border-box;
+      padding-left:0 !important;
+      padding-right:0 !important;
+      text-align:left !important;
+      font-size:inherit !important;
+      line-height:inherit !important;
+    }
+  }
 
 </style>
 
-
 <script>
-
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
+  const aboutDropdown = document.querySelector('.nav-dropdown');
+  const aboutMain = document.querySelector('.nav-dropdown-main');
 
-  if (navToggle && navLinks) {
+  const isNarrow = () => window.matchMedia('(max-width: 900px)').matches;
 
-    navToggle.addEventListener('click', () => {
+  const closeAboutDropdown = () => {
+    if (!aboutDropdown) return;
+    aboutDropdown.classList.remove('is-open');
+    aboutMain?.setAttribute('aria-expanded', 'false');
+  };
 
-      const open = navLinks.classList.toggle('open');
+  if (aboutMain) {
+    aboutMain.setAttribute('aria-haspopup', 'true');
+    aboutMain.setAttribute('aria-expanded', 'false');
 
-      navToggle.setAttribute(
-        'aria-expanded',
-        open ? 'true' : 'false'
-      );
+    aboutMain.addEventListener('click', (event) => {
+      /* Desktop keeps the current link + hover behavior. */
+      if (!isNarrow()) return;
 
+      /* On narrow screens, About Us acts only as the dropdown control. */
+      event.preventDefault();
+      event.stopPropagation();
+
+      const open = aboutDropdown?.classList.toggle('is-open') ?? false;
+      aboutMain.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-
-
-    navLinks.querySelectorAll('a').forEach((a) =>
-
-      a.addEventListener('click', () => {
-
-        navLinks.classList.remove('open');
-
-        navToggle.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-
-      })
-
-    );
-
   }
 
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+      /* Every fresh opening starts with About Us collapsed. */
+      if (!open) closeAboutDropdown();
+    });
+
+    navLinks.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        /* Don't close the whole mobile nav when About Us is being used as its toggle. */
+        if (a === aboutMain && isNarrow()) return;
+
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        closeAboutDropdown();
+      });
+    });
+  }
+
+  window.addEventListener('resize', () => {
+    /* Prevent stale mobile open state from carrying into desktop and back. */
+    if (!isNarrow()) closeAboutDropdown();
+  });
 </script>
