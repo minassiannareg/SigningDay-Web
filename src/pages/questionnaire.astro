@@ -81,9 +81,17 @@ import Base from '../layouts/Base.astro';
 </select>
 </div>
 <div class="form-group">
+<span class="question-label">Competing for a Men’s Team or a Women’s Team?</span>
+<div class="options">
+<label class="option"><input type="radio" name="team_gender" value="Men's team" required>Men’s Team</label>
+<label class="option"><input type="radio" name="team_gender" value="Women's team">Women’s Team</label>
+</div>
+</div>
+</div>
+
+<div class="form-group">
 <label for="highSchool">High School</label>
 <input type="text" id="highSchool" name="high_school" placeholder="Name and ZIP code" required>
-</div>
 </div>
 
 <div class="form-row">
@@ -285,9 +293,254 @@ import Base from '../layouts/Base.astro';
 </div>
 
 <div class="form-group">
-<label for="extracurriculars">Extracurricular Activities</label>
-<span class="helper">Consider leadership, clubs, research, volunteering, and employment.</span>
-<textarea id="extracurriculars" name="extracurriculars" required></textarea>
+<span class="question-label">Extracurricular Activities</span>
+<span class="helper">Include leadership, clubs, research, volunteering, employment, and other significant activities. For each activity, provide the activity name, role or position, years involved, and average hours per week.</span>
+</div>
+
+<div class="activity-row">
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity1">Activity 1</label>
+<input type="text" id="activity1" name="activity_1" placeholder="e.g., Student Council, Research Lab, Volunteer Program" required>
+</div>
+<div class="form-group">
+<label for="activityRole1">Role / Position</label>
+<input type="text" id="activityRole1" name="activity_role_1" placeholder="e.g., President, Research Assistant" required>
+</div>
+<div class="form-group">
+<label for="activityYears1">Years Involved</label>
+<input type="text" id="activityYears1" name="activity_years_1" placeholder="e.g., 2 years or Grades 10–12" required>
+</div>
+<div class="form-group">
+<label for="activityHours1">Hours / Week</label>
+<input type="number" id="activityHours1" name="activity_hours_1" min="0" step="0.5" placeholder="e.g., 4" required>
+</div>
+</div>
+</div>
+
+<div class="activity-row">
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity2">Activity 2</label>
+<input type="text" id="activity2" name="activity_2" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole2">Role / Position</label>
+<input type="text" id="activityRole2" name="activity_role_2" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears2">Years Involved</label>
+<input type="text" id="activityYears2" name="activity_years_2" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours2">Hours / Week</label>
+<input type="number" id="activityHours2" name="activity_hours_2" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row">
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity3">Activity 3</label>
+<input type="text" id="activity3" name="activity_3" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole3">Role / Position</label>
+<input type="text" id="activityRole3" name="activity_role_3" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears3">Years Involved</label>
+<input type="text" id="activityYears3" name="activity_years_3" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours3">Hours / Week</label>
+<input type="number" id="activityHours3" name="activity_hours_3" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="4" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 4</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 4">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity4">Activity 4</label>
+<input type="text" id="activity4" name="activity_4" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole4">Role / Position</label>
+<input type="text" id="activityRole4" name="activity_role_4" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears4">Years Involved</label>
+<input type="text" id="activityYears4" name="activity_years_4" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours4">Hours / Week</label>
+<input type="number" id="activityHours4" name="activity_hours_4" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="5" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 5</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 5">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity5">Activity 5</label>
+<input type="text" id="activity5" name="activity_5" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole5">Role / Position</label>
+<input type="text" id="activityRole5" name="activity_role_5" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears5">Years Involved</label>
+<input type="text" id="activityYears5" name="activity_years_5" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours5">Hours / Week</label>
+<input type="number" id="activityHours5" name="activity_hours_5" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="6" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 6</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 6">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity6">Activity 6</label>
+<input type="text" id="activity6" name="activity_6" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole6">Role / Position</label>
+<input type="text" id="activityRole6" name="activity_role_6" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears6">Years Involved</label>
+<input type="text" id="activityYears6" name="activity_years_6" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours6">Hours / Week</label>
+<input type="number" id="activityHours6" name="activity_hours_6" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="7" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 7</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 7">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity7">Activity 7</label>
+<input type="text" id="activity7" name="activity_7" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole7">Role / Position</label>
+<input type="text" id="activityRole7" name="activity_role_7" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears7">Years Involved</label>
+<input type="text" id="activityYears7" name="activity_years_7" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours7">Hours / Week</label>
+<input type="number" id="activityHours7" name="activity_hours_7" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="8" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 8</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 8">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity8">Activity 8</label>
+<input type="text" id="activity8" name="activity_8" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole8">Role / Position</label>
+<input type="text" id="activityRole8" name="activity_role_8" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears8">Years Involved</label>
+<input type="text" id="activityYears8" name="activity_years_8" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours8">Hours / Week</label>
+<input type="number" id="activityHours8" name="activity_hours_8" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="9" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 9</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 9">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity9">Activity 9</label>
+<input type="text" id="activity9" name="activity_9" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole9">Role / Position</label>
+<input type="text" id="activityRole9" name="activity_role_9" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears9">Years Involved</label>
+<input type="text" id="activityYears9" name="activity_years_9" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours9">Hours / Week</label>
+<input type="number" id="activityHours9" name="activity_hours_9" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activity-row activity-extra" data-activity-row="10" hidden>
+<div class="activity-row-top">
+<span class="activity-row-number">Activity 10</span>
+<button type="button" class="btn-remove-activity" aria-label="Remove activity 10">Remove row</button>
+</div>
+<div class="activity-fields">
+<div class="form-group">
+<label for="activity10">Activity 10</label>
+<input type="text" id="activity10" name="activity_10" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityRole10">Role / Position</label>
+<input type="text" id="activityRole10" name="activity_role_10" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityYears10">Years Involved</label>
+<input type="text" id="activityYears10" name="activity_years_10" placeholder="Optional">
+</div>
+<div class="form-group">
+<label for="activityHours10">Hours / Week</label>
+<input type="number" id="activityHours10" name="activity_hours_10" min="0" step="0.5" placeholder="Optional">
+</div>
+</div>
+</div>
+
+<div class="activities-actions">
+<button type="button" class="btn-add-activity" id="add-activity" aria-label="Add another activity">
+<span class="plus-icon">+</span>
+<span>Add activity</span>
+</button>
+<span class="helper" id="activity-limit-note">Add up to 10 activities.</span>
 </div>
 </div>
 
@@ -455,6 +708,7 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
 .form-card-head .eyebrow{display:block;margin-bottom:8px}
 .form-card-head h2{font-size:28px;color:var(--navy)}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
 .form-group{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
 .form-group:last-child{margin-bottom:0}
 .form-group label,.question-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--navy);font-weight:500}
@@ -508,6 +762,108 @@ nav{position:sticky;top:0;z-index:50;background:rgba(15,42,74,.96);backdrop-filt
   cursor:pointer;
   accent-color:var(--navy);
 }
+
+
+
+
+
+
+
+
+
+.btn-add-activity:hover 
+
+
+
+/* extracurricular activity rows */
+.activity-row{
+  border-top:1px solid var(--line);
+  padding:22px 0 2px;
+}
+.activity-row:first-of-type{border-top:0;padding-top:4px}
+.activity-extra[hidden]{display:none!important}
+.activity-row-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:12px;
+}
+.activity-row-number{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.activity-fields{
+  display:grid;
+  grid-template-columns:minmax(0,2fr) minmax(0,1.35fr) minmax(0,1fr) minmax(120px,.75fr);
+  gap:16px;
+  align-items:start;
+}
+.activity-fields .form-group{min-width:0}
+.activity-fields .form-group input{min-width:0}
+.activity-fields > .form-group{
+  width:100%;
+  margin-bottom:20px;
+}
+.activity-fields > .form-group:nth-child(1){grid-column:1}
+.activity-fields > .form-group:nth-child(2){grid-column:2}
+.activity-fields > .form-group:nth-child(3){grid-column:3}
+.activity-fields > .form-group:nth-child(4){grid-column:4}
+.btn-remove-activity{
+  appearance:none;
+  -webkit-appearance:none;
+  background:transparent;
+  border:0;
+  padding:4px 0;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  color:var(--muted);
+  cursor:pointer;
+}
+.btn-remove-activity:hover{color:var(--navy)}
+.activities-actions{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:16px;
+}
+.btn-add-activity{
+  appearance:none;
+  -webkit-appearance:none;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  background:transparent;
+  color:var(--navy);
+  border:0;
+  padding:4px 0;
+  font-family:'Newsreader',serif;
+  font-size:14px;
+  font-weight:600;
+  cursor:pointer;
+}
+.plus-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border:1px solid var(--gold);
+  border-radius:50%;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:20px;
+  line-height:1;
+  color:var(--navy);
+  background:#fff;
+}
+.btn-add-activity:hover .plus-icon{background:#FFFCF5}
+.btn-add-activity:disabled{display:none}
+
 .submit-card{background:var(--navy);border-radius:8px;padding:38px;color:#fff}
 .submit-card h2{font-size:30px;margin-bottom:12px}
 .submit-card p{font-size:14px;color:#A9B7C6;max-width:620px}
@@ -521,8 +877,13 @@ footer{background:var(--navy-deep);padding:40px 0;color:#718296}
 footer p{font-size:12px}
 
 @media(max-width:760px){
+  .activity-fields{grid-template-columns:1fr}
+  .activities-actions{align-items:flex-start;flex-direction:column}
   .progress-grid{grid-template-columns:repeat(2,1fr)}
   .form-row{grid-template-columns:1fr}
+  
+  
+  
   .form-card{padding:28px 24px}
   .intro-card{padding:28px 24px}
 }
@@ -541,6 +902,44 @@ document.querySelectorAll('.checkbox-group').forEach(function(group){
   boxes.forEach(function(b){b.addEventListener('change',sync)});
   sync();
 });
+
+
+const addActivityButton=document.getElementById('add-activity');
+const activityLimitNote=document.getElementById('activity-limit-note');
+const extraActivityRows=Array.from(document.querySelectorAll('.activity-extra'));
+
+function updateActivityControls(){
+  const visibleCount=extraActivityRows.filter(function(row){return !row.hidden}).length;
+  const totalActivities=3+visibleCount;
+
+  if(totalActivities>=10){
+    addActivityButton.disabled=true;
+    if(activityLimitNote) activityLimitNote.textContent='Maximum of 10 activities reached.';
+  }else{
+    addActivityButton.disabled=false;
+    if(activityLimitNote) activityLimitNote.textContent='Add up to 10 activities.';
+  }
+}
+
+if(addActivityButton){
+  addActivityButton.addEventListener('click',function(){
+    const nextHiddenRow=extraActivityRows.find(function(row){return row.hidden});
+    if(nextHiddenRow) nextHiddenRow.hidden=false;
+    updateActivityControls();
+  });
+}
+
+document.querySelectorAll('.btn-remove-activity').forEach(function(button){
+  button.addEventListener('click',function(){
+    const row=button.closest('.activity-extra');
+    if(!row) return;
+    row.querySelectorAll('input').forEach(function(input){input.value='';});
+    row.hidden=true;
+    updateActivityControls();
+  });
+});
+
+updateActivityControls();
 
 form.addEventListener('submit',async function(e){
   e.preventDefault();
