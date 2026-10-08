@@ -21,7 +21,8 @@ import Base from '../layouts/Base.astro';
 
         <h1>
           <span>Clear Guidance for</span>
-          <span>Smarter College Recruiting</span>
+          <span>Smarter College</span>
+          <span>Recruiting</span>
         </h1>
 
         <p class="cinematic-hero__lead">
@@ -193,7 +194,7 @@ import Base from '../layouts/Base.astro';
   <div class="wrap">
     <div>
       <span class="eyebrow">What families get</span>
-      <h2>A recruiting strategy tailored to your athlete</h2>
+      <h2>A Recruiting Strategy Tailored to Your Athlete</h2>
     </div>
     <div class="trust-grid">
       <article>
@@ -265,7 +266,7 @@ import Base from '../layouts/Base.astro';
           <span class="eyebrow">Packages</span>
 
           <h2>
-            Choose the level of support that aligns with your goals.
+            Choose the Level of Support That Aligns with Your Goals
           </h2>
 
           <span class="programs-link">
@@ -1429,37 +1430,40 @@ why-layout{
     isolation: isolate;
   }
 
-  .cinematic-hero__image {
+.cinematic-hero__image {
   position: absolute;
   z-index: 0;
   top: 0;
   right: 0;
   bottom: 0;
+  width: 74%;
 
-  width: 68%;
+  background-image:
+    linear-gradient(
+      rgba(15, 42, 74, 0.52),
+      rgba(15, 42, 74, 0.52)
+    ),
+    url('/images/IMG-cover.jpg');
 
-  /* ADD HERO IMAGE HERE WHEN APPROVED */
-  background-image: url('');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 
-  /* Fade the photo into the navy on the left */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
-    rgba(0,0,0,0.08) 8%,
-    rgba(0,0,0,0.45) 22%,
-    black 42%,
+    rgba(0,0,0,.18) 10%,
+    rgba(0,0,0,.5) 20%,
+    black 34%,
     black 100%
   );
 
   mask-image: linear-gradient(
     to right,
     transparent 0%,
-    rgba(0,0,0,0.08) 8%,
-    rgba(0,0,0,0.45) 22%,
-    black 42%,
+    rgba(0,0,0,.18) 10%,
+    rgba(0,0,0,.5) 20%,
+    black 34%,
     black 100%
   );
 }
@@ -1858,7 +1862,7 @@ why-layout{
   text-transform:uppercase;
 }
 
-.founder-photo--finn{left:1%;top:2%;transform:rotate(-2.2deg);z-index:2;}
+.founder-photo--finn{left:4%;top:6%;transform:rotate(-2.2deg);z-index:2;}
 .founder-photo--izz{right:3%;bottom:3%;transform:rotate(-1.7deg);z-index:5;}
 .founder-photo--ethan{left:4%;bottom:1%;transform:rotate(1.4deg);z-index:4;}
 .founder-photo--nareg{right:1%;top:7%;transform:rotate(1.8deg);z-index:3;}

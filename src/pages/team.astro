@@ -3,6 +3,146 @@ import Base from '../layouts/Base.astro';
 import { networkSections } from '../data/network';
 
 const contact = 'info@signingdayadvisors.com';
+
+const jacobPebley = {
+  name: 'Jacob Pebley',
+  title: 'Swimming Performance & Athlete Development Advisor',
+  org: 'Crimson Aquatics',
+  photo: '/team-img/jacob-pebley.webp',
+  bio: 'Jacob Pebley brings experience from nearly every level of competitive swimming, from age-group development to NCAA competition and the international stage. A 2016 U.S. Olympian and Olympic finalist, Jacob was a 12-time NCAA All-American at the University of California, Berkeley, a nine-time U.S. National Team member, and a four-time World Championship medalist. Following his competitive career, he moved into coaching, working with developing club swimmers and collegiate athletes, including as an assistant coach at Yale University. He now serves as Head Coach of Crimson Aquatics. At SDA, Jacob serves primarily as an advisor to our team, bringing an experienced perspective on long-term athlete development, the transition from high school to collegiate athletics, and what it takes to perform at increasingly competitive levels.'
+};
+
+const megWaldron = {
+  name: 'Meg Waldron, MS',
+  title: 'Sport Psychology & Mental Performance Coach',
+  org: 'Mindset Coach Meg',
+  photo: '/team-img/meg-waldron.jpg',
+  bio:
+    'Meg is a mental performance coach with more than a decade of experience helping athletes overcome anxiety, negative self-talk, limiting beliefs, and other mental barriers to performance. She earned her MS in Sport Psychology from Temple University and brings an athlete’s perspective to her work, having competed as an All-American high school runner and Penn Relays champion before being recruited on a full athletic scholarship to run track and cross country at the University of Virginia. ' +
+    'Drawing on her experience both competing and coaching, Meg helps athletes develop the confidence, focus, and mental skills needed to navigate high-pressure environments and perform at their best. Her work spans athletes at the high school, collegiate, elite, and recreational levels.'
+};
+
+const michelleMix = {
+  name: 'Michelle Mix, MS, RD, LDN',
+  title: 'Sports Dietitian & Performance Nutrition Advisor',
+  photo: '/team-img/michelle-mix.JPG',
+  bio: 'Michelle is a sports dietitian with more than 25 years of experience in nutrition and performance. A former Division I swimmer at the University of Massachusetts and UMass Scholar Athlete of the Year, she later earned her master’s degree from Boston University and has remained active in endurance sports, having competed in events including half marathons and triathlons. Michelle has worked with athletes ranging from age-group and collegiate competitors to Olympic Trials qualifiers, Ironman champions, Masters Swimming world record holders, and elite athletes across multiple sports. Her experience includes work with U.S. Ski Team athletes, Killington Mountain School teams, and the Boston College Ski Team, as well as service on the nutrition program advisory board at Johnson & Wales University. She focuses on practical performance nutrition, including fueling, hydration, recovery, and body composition, helping athletes build strategies that support both training demands and long-term performance.'
+};
+
+const baseNetworkSections = networkSections
+  .filter((section) => {
+    const sectionId = section.id?.toLowerCase() ?? '';
+    const sectionLabel = section.label?.toLowerCase() ?? '';
+
+    return (
+      sectionId !== 'tutors' &&
+      !sectionLabel.includes('tutor')
+    );
+  })
+  .map((section) => {
+    const sectionId = section.id?.toLowerCase() ?? '';
+    const sectionLabel = section.label?.toLowerCase() ?? '';
+
+    const isPerformance =
+      sectionId === 'performance' ||
+      sectionId === 'coaches' ||
+      sectionLabel.includes('performance');
+
+    if (isPerformance) {
+      return {
+        ...section,
+        people: [...section.people, jacobPebley]
+      };
+    }
+
+    return section;
+  });
+
+const hasSportsPsychology = baseNetworkSections.some((section) => {
+  const sectionId = section.id?.toLowerCase() ?? '';
+  const sectionLabel = section.label?.toLowerCase() ?? '';
+
+  return (
+    sectionId.includes('sports-psychology') ||
+    sectionId.includes('psych') ||
+    sectionLabel.includes('sports psychology') ||
+    sectionLabel.includes('psychology')
+  );
+});
+
+const sportsPsychNetworkSections = hasSportsPsychology
+  ? baseNetworkSections.map((section) => {
+      const sectionId = section.id?.toLowerCase() ?? '';
+      const sectionLabel = section.label?.toLowerCase() ?? '';
+
+      const isSportsPsychology =
+        sectionId.includes('sports-psychology') ||
+        sectionId.includes('psych') ||
+        sectionLabel.includes('sports psychology') ||
+        sectionLabel.includes('psychology');
+
+      if (!isSportsPsychology) return section;
+
+      return {
+        ...section,
+        people: [...section.people, megWaldron]
+      };
+    })
+  : [
+      ...baseNetworkSections,
+      {
+        id: 'sports-psychology',
+        label: 'Sports Psychology',
+        eyebrow: 'Mental Performance',
+        blurb:
+          'Mental performance professionals who help athletes manage pressure, build confidence, and develop the psychological skills needed to perform consistently in training and competition.',
+        singular: 'sports psychologist',
+        people: [megWaldron]
+      }
+    ];
+
+const hasNutrition = sportsPsychNetworkSections.some((section) => {
+  const sectionId = section.id?.toLowerCase() ?? '';
+  const sectionLabel = section.label?.toLowerCase() ?? '';
+
+  return (
+    sectionId.includes('nutrition') ||
+    sectionId.includes('diet') ||
+    sectionLabel.includes('nutrition') ||
+    sectionLabel.includes('diet')
+  );
+});
+
+const displayedNetworkSections = hasNutrition
+  ? sportsPsychNetworkSections.map((section) => {
+      const sectionId = section.id?.toLowerCase() ?? '';
+      const sectionLabel = section.label?.toLowerCase() ?? '';
+
+      const isNutrition =
+        sectionId.includes('nutrition') ||
+        sectionId.includes('diet') ||
+        sectionLabel.includes('nutrition') ||
+        sectionLabel.includes('diet');
+
+      if (!isNutrition) return section;
+
+      return {
+        ...section,
+        people: [...section.people, michelleMix]
+      };
+    })
+  : [
+      ...sportsPsychNetworkSections,
+      {
+        id: 'nutrition',
+        label: 'Nutrition',
+        eyebrow: 'Sports Nutrition',
+        blurb:
+          'Nutrition professionals who help athletes build practical fueling strategies that support training, recovery, performance, and long-term wellbeing.',
+        singular: 'nutritionist',
+        people: [michelleMix]
+      }
+    ];
 ---
 
 <Base
@@ -140,9 +280,7 @@ const contact = 'info@signingdayadvisors.com';
       <h2>Meet the Specialists We Trust</h2>
 
       <p class="network-lead">
-      We believe athletes should receive guidance from people who are experts in their field. 
-      That’s why we’ve built a network of professionals across performance, nutrition, academics, 
-      and athlete development. We want to give families a trusted place to turn when needs extend beyond college recruiting.
+      We believe athletes should receive guidance from people who are experts in their field. We want to give families a trusted place to turn when needs extend beyond recruiting guidance.
       </p>
 
       <p class="network-sub">
@@ -151,7 +289,7 @@ const contact = 'info@signingdayadvisors.com';
       </p>
 
       <ul class="net-jump">
-        {networkSections.map((s) => (
+        {displayedNetworkSections.map((s) => (
           <li>
             <a href={`#${s.id}`}>
               {s.label}
@@ -167,7 +305,7 @@ const contact = 'info@signingdayadvisors.com';
 
 
     <!-- NETWORK CATEGORIES -->
-    {networkSections.map((s, i) => (
+    {displayedNetworkSections.map((s, i) => (
 
       <section
         class={i % 2 === 1 ? 'net-section net-section-alt' : 'net-section'}
@@ -194,7 +332,14 @@ const contact = 'info@signingdayadvisors.com';
               <div class="member">
 
                 <div class="member-photo">
-                  <img src={p.photo} alt={p.name} />
+                  {p.photo ? (
+                    <img src={p.photo} alt={p.name} />
+                  ) : (
+                    <div class="member-photo-placeholder" aria-label={`${p.name} photo coming soon`}>
+                      <span>{p.name.split(' ').map((part) => part[0]).join('').slice(0, 2)}</span>
+                      <small>Photo coming soon</small>
+                    </div>
+                  )}
                 </div>
 
                 <h3 class="member-name">{p.name}</h3>
@@ -408,6 +553,33 @@ const contact = 'info@signingdayadvisors.com';
     object-fit:cover;
     display:block;
     transition:transform .4s ease;
+  }
+
+  .member-photo-placeholder{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:var(--navy);
+    color:#fff;
+  }
+
+  .member-photo-placeholder span{
+    font-family:'Fraunces',serif;
+    font-size:42px;
+    line-height:1;
+    color:var(--gold);
+  }
+
+  .member-photo-placeholder small{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:9px;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    color:#C7D2DE;
   }
 
   .member:hover .member-photo img{

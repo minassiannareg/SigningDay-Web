@@ -61,13 +61,22 @@ const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
       <!-- ABOUT US DROPDOWN -->
       <div class="nav-dropdown">
 
+      <div class="nav-dropdown-row">
+
         <a
           href="/team"
           class="nav-dropdown-main"
           aria-current={path === '/team' ? 'page' : undefined}
         >
           About Us
+        </a>
 
+        <button
+          class="dropdown-toggle"
+          type="button"
+          aria-label="Open About Us menu"
+          aria-expanded="false"
+        >
           <svg
             class="dropdown-arrow"
             viewBox="0 0 12 8"
@@ -82,11 +91,14 @@ const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
               stroke-linejoin="round"
             />
           </svg>
-        </a>
+        </button>
 
-        <div class="dropdown-menu">
-          <a href="/team#network">Our Network</a>
-        </div>
+      </div>
+
+      <div class="dropdown-menu">
+        <a href="/team#team">The Founders</a>
+        <a href="/team#network">Our Network</a>
+      </div>
 
       </div>
 
@@ -135,159 +147,316 @@ const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
     object-fit:contain;
   }
 
+  /* ---------- ABOUT DROPDOWN: SHARED ---------- */
 
-/* ---------- ABOUT DROPDOWN ---------- */
+  .nav-dropdown{
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
 
-.nav-dropdown{
-  position:relative;
-  display:flex;
-  align-items:center;
-}
+  .nav-dropdown-row{
+    display:flex;
+    align-items:center;
+    width:100%;
+  }
 
-/*
-  Invisible hover bridge.
-  This fills the space between About Us and the dropdown,
-  so the menu doesn't disappear while moving the mouse down.
-*/
-.nav-dropdown::after{
-  content:"";
-  position:absolute;
-  top:100%;
-  left:-15px;
-  right:-15px;
-  height:18px;
-}
+  .nav-dropdown-main{
+    display:flex !important;
+    align-items:center;
+    flex:1;
+  }
 
-.nav-dropdown-main{
-  display:flex !important;
-  align-items:center;
-  gap:7px;
-}
+  .dropdown-toggle{
+    appearance:none;
+    -webkit-appearance:none;
+    border:0 !important;
+    outline:0;
+    background:none !important;
+    box-shadow:none !important;
+    color:#C7D2DE;
+    margin:0;
+    padding:6px 2px 6px 7px;
+    width:auto;
+    min-width:0;
+    height:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    border-radius:0 !important;
+    font:inherit;
+    line-height:1;
+  }
 
-.dropdown-arrow{
-  width:8px;
-  height:5px;
-  transition:transform .2s ease;
-}
+  .dropdown-toggle:hover,
+  .dropdown-toggle:focus,
+  .dropdown-toggle:active{
+    background:transparent !important;
+    box-shadow:none !important;
+    transform:none !important;
+  }
 
+  .dropdown-arrow{
+    width:8px;
+    height:5px;
+    display:block;
+    flex:none;
+    color:#C7D2DE;
+    transition:transform .2s ease;
+  }
 
-/* ---------- DROPDOWN ---------- */
+  .dropdown-arrow path{
+    stroke:currentColor;
+  }
 
-.dropdown-menu{
-  position:absolute;
+  .dropdown-menu{
+    background:var(--navy);
+  }
 
-  /* close enough to feel attached, with hover bridge above */
-  top:calc(100% + 10px);
+  .dropdown-menu a{
+    white-space:nowrap;
+    color:#C7D2DE !important;
+    transition:color .15s ease, background .15s ease;
+  }
 
-  /* CENTER directly under About Us */
-  left:50%;
-  transform:translateX(-50%) translateY(-4px);
+  .dropdown-menu a:hover{
+    color:var(--gold) !important;
+    background:rgba(255,255,255,.04);
+  }
 
-  width:max-content;
-  min-width:145px;
+  /* ---------- DESKTOP ONLY ---------- */
 
-  background:var(--navy);
+  @media (min-width:1101px){
 
-  border:none;
-  border-radius:0 0 4px 4px;
+    .nav-dropdown::after{
+      content:"";
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      height:18px;
+    }
 
-  padding:5px 0;
+    .dropdown-menu{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:50%;
+      transform:translateX(-50%) translateY(-4px);
+      width:max-content;
+      min-width:190px;
+      box-sizing:border-box;
+      border:none;
+      border-radius:0 0 4px 4px;
+      padding:0;
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      box-shadow:0 8px 18px rgba(0,0,0,.12);
+      transition:opacity .15s ease, transform .15s ease, visibility .15s ease;
+      z-index:100;
+    }
 
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
+    .dropdown-menu a{
+      display:flex !important;
+      align-items:center;
+      justify-content:center;
+      width:100% !important;
+      box-sizing:border-box;
+      padding:12px 20px !important;
+      font-size:14px !important;
+      line-height:1.3;
+      text-align:center;
+    }
 
-  box-shadow:0 8px 18px rgba(0,0,0,.12);
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:translateX(-50%) translateY(0);
+    }
 
-  transition:
-    opacity .15s ease,
-    transform .15s ease,
-    visibility .15s ease;
+    .nav-dropdown:hover .dropdown-arrow,
+    .nav-dropdown:focus-within .dropdown-arrow,
+    .nav-dropdown.is-open .dropdown-arrow{
+      transform:rotate(180deg);
+    }
+  }
 
-  z-index:100;
-}
+/* ---------- TABLET / MOBILE ---------- */
 
+@media (max-width:1100px){
 
-/* ---------- DROPDOWN LINK ---------- */
+  .nav-dropdown{
+    display:block;
+    width:100%;
+    position:relative;
+  }
 
-.dropdown-menu a{
-  display:block !important;
+  .nav-dropdown-row{
+    display:flex;
+    align-items:center;
+    width:100%;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
 
-  padding:9px 16px !important;
+  .nav-dropdown-main{
+    display:block !important;
+    width:auto !important;
+    flex:1;
+    padding:14px 0 !important;
+    box-sizing:border-box;
+  }
 
-  white-space:nowrap;
+  .dropdown-toggle{
+    display:flex;
+    flex:none;
+    align-items:center;
+    justify-content:center;
+    padding:14px 4px 14px 14px;
+    margin:0;
+  }
 
-  font-size:14px !important;
-  line-height:1.3;
+  .dropdown-arrow{
+    width:8px;
+    height:5px;
+  }
 
-  color:#C7D2DE !important;
+  .dropdown-menu{
+    position:static !important;
+    top:auto !important;
+    left:auto !important;
+    right:auto !important;
+    transform:none !important;
 
-  text-align:center;
+    display:block;
+    width:100% !important;
+    min-width:0 !important;
 
-  transition:
-    color .15s ease,
-    background .15s ease;
-}
+    margin:0 !important;
+    padding:0 !important;
 
-.dropdown-menu a:hover{
-  color:var(--gold) !important;
-  background:rgba(255,255,255,.04);
-}
+    border:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
 
+    background:rgba(10,30,56,0.35);
 
-/* ---------- OPEN STATE ---------- */
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
 
-.nav-dropdown:hover .dropdown-menu,
-.nav-dropdown:focus-within .dropdown-menu{
-  opacity:1;
-  visibility:visible;
-  pointer-events:auto;
+    max-height:0;
+    overflow:hidden;
 
-  transform:translateX(-50%) translateY(0);
-}
+    transition:
+      max-height .2s ease,
+      opacity .16s ease,
+      visibility .16s ease;
+  }
 
-.nav-dropdown:hover .dropdown-arrow,
-.nav-dropdown:focus-within .dropdown-arrow{
-  transform:rotate(180deg);
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown:focus-within .dropdown-menu{
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+    transform:none !important;
+  }
+
+  .nav-dropdown:hover .dropdown-arrow,
+  .nav-dropdown:focus-within .dropdown-arrow{
+    transform:none;
+  }
+
+  .nav-dropdown.is-open .dropdown-menu,
+  .nav-dropdown.is-open:hover .dropdown-menu,
+  .nav-dropdown.is-open:focus-within .dropdown-menu{
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+    max-height:140px;
+  }
+
+  .nav-dropdown.is-open .dropdown-arrow,
+  .nav-dropdown.is-open:hover .dropdown-arrow,
+  .nav-dropdown.is-open:focus-within .dropdown-arrow{
+    transform:rotate(180deg);
+  }
+
+  .dropdown-menu a{
+    display:block !important;
+    width:100% !important;
+    box-sizing:border-box;
+
+    padding:11px 0 11px 20px !important;
+
+    text-align:left !important;
+    font-size:14px !important;
+    line-height:1.4 !important;
+
+    border-bottom:1px solid rgba(255,255,255,0.06) !important;
+  }
+
+  .dropdown-menu a:last-child{
+    border-bottom:none !important;
+  }
 }
 
 </style>
 
-
 <script>
-
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
+  const aboutDropdown = document.querySelector('.nav-dropdown');
+  const aboutMain = document.querySelector('.nav-dropdown-main');
+  const aboutToggle = document.querySelector('.dropdown-toggle');
+
+  const isNarrow = () => window.matchMedia('(max-width: 1100px)').matches;
+
+  const closeAboutDropdown = () => {
+    if (!aboutDropdown) return;
+
+    aboutDropdown.classList.remove('is-open');
+    aboutToggle?.setAttribute('aria-expanded', 'false');
+  };
+
+  if (aboutToggle) {
+  aboutToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const open = aboutDropdown?.classList.toggle('is-open') ?? false;
+
+    aboutToggle.setAttribute(
+      'aria-expanded',
+      open ? 'true' : 'false'
+    );
+  });
+}
 
   if (navToggle && navLinks) {
-
     navToggle.addEventListener('click', () => {
-
       const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
 
-      navToggle.setAttribute(
-        'aria-expanded',
-        open ? 'true' : 'false'
-      );
-
+      /* Every fresh opening starts with About Us collapsed. */
+      if (!open) closeAboutDropdown();
     });
 
-
-    navLinks.querySelectorAll('a').forEach((a) =>
-
+    navLinks.querySelectorAll('a').forEach((a) => {
       a.addEventListener('click', () => {
+        /* Don't close the whole mobile nav when About Us is being used as its toggle. */
 
         navLinks.classList.remove('open');
-
-        navToggle.setAttribute(
-          'aria-expanded',
-          'false'
-        );
-
-      })
-
-    );
-
+        navToggle.setAttribute('aria-expanded', 'false');
+        closeAboutDropdown();
+      });
+    });
   }
 
+  window.addEventListener('resize', () => {
+    /* Prevent stale mobile open state from carrying into desktop and back. */
+    if (!isNarrow()) closeAboutDropdown();
+  });
 </script>
