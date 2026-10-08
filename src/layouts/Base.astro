@@ -69,13 +69,20 @@ const orgSchema = {
   {/*
     Bump ?v= whenever the icon artwork changes. Browsers keep favicons in a
     cache of their own that a hard reload does not clear, so without a new
-    URL every returning visitor keeps the old mark - which is exactly what
-    happened when the shield was replaced by the quill.
-    PNG is listed as a fallback for the few browsers that ignore SVG icons;
-    those that support it prefer the SVG, which stays sharp at any size.
+    URL every returning visitor keeps the old mark.
+
+    These are generated from /logos/SDA_favicon_logo.png, cropped to the
+    artwork and centred on a cream plate in a SQUARE canvas. Three reasons
+    the source file cannot be linked directly: it is 1382x1138, so a browser
+    squashes it to fit the square tab slot and the lockup comes out
+    distorted; it is 488KB, downloaded on every page view for a 16px icon;
+    and its background is transparent, so the navy letterforms all but
+    disappear against a dark-mode tab strip. The cream plate fixes that
+    last one by giving the mark its own light ground whatever the theme.
   */}
-  <link rel="icon" href="/logos/SDA_favicon_logo.png?v=4" type="image/png" />
-  <link rel="apple-touch-icon" href="/logos/SDA_favicon_logo.png?v=4" />
+  <link rel="icon" href="/favicon-32.png?v=5" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon-48.png?v=5" type="image/png" sizes="48x48" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=5" />
   <meta name="theme-color" content="#0F2A4A" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
