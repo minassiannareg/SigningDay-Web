@@ -714,6 +714,8 @@ document.querySelectorAll<HTMLElement>('.client-card').forEach((card) => {
           const element = child as HTMLElement;
 
           if (!allowedTags.has(element.tagName)) {
+            cleanNode(element);
+
             const fragment = document.createDocumentFragment();
 
             while (element.firstChild) fragment.appendChild(element.firstChild);
