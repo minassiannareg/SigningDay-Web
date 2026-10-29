@@ -51,7 +51,8 @@ import Base from '../layouts/Base.astro';
       </div>
     </div>
 
-    <form class="contact-form" id="contact-form">
+    <form class="contact-form" id="contact-form"
+          action="https://formspree.io/f/xzeplgyb" method="POST">
 
       <input type="hidden" name="form_type" value="Website Contact Form">
 
@@ -290,6 +291,31 @@ formspree('initForm', {
   is:inline
   defer
   src="https://unpkg.com/@formspree/ajax@1.1.5/dist/global.js"
-  integrity="sha384-9fQrvHz7unHjhvNxPV4tYHHsSn3PxBIEyPTGY8Q/PAKM1sfhL+zTYmhc"
-  crossorigin="anonymous">
+  integrity="sha384-9fQrvHz7unHjhv7e+pJqhvNxPV4tYHHsSn3PxBIEyPTGY8Q/PAKM1sfhL+zTYmhc"
+  crossorigin="anonymous"
+  onerror="console.error('[contact-form] @formspree/ajax failed to load from unpkg. The form falls back to a native POST, so submissions still reach Formspree, but the inline success message will not appear.')">
+</script>
+
+<script is:inline>
+  /*
+    The stub above queues the initForm call on window.formspree.q; when the
+    library loads it replaces window.formspree with its own function, which
+    has no .q. So a surviving .q after load means the library never ran.
+
+    This exists because a truncated integrity hash silently blocked that
+    script for six weeks: the browser refused to execute it, the form was
+    never wired up, and with no action attribute every submit became a GET
+    to this page. It looked like nothing happened and no email arrived.
+    Both halves of that are now covered - the form posts natively on its
+    own, and the failure says so out loud.
+  */
+  window.addEventListener('load', function () {
+    if (window.formspree && window.formspree.q) {
+      console.error(
+        '[contact-form] @formspree/ajax did not initialise. Submissions still ' +
+        'POST natively to Formspree, but check the script tag: a wrong integrity ' +
+        'hash (must be 64 base64 chars for sha384), a CDN outage, or a blocker.'
+      );
+    }
+  });
 </script>
